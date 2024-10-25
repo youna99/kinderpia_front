@@ -1,0 +1,26 @@
+@import './reset';
+@import './variables';
+@import './utils';
+
+.navigation {
+  position: fixed;
+  right: 5%;
+  bottom: 20%;
+  border: 1px solid $main-color;
+  border-radius: 2rem;
+  padding: 1rem;
+}
+.nav-lists {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-size: 1.4rem;
+  .nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    .nav-icon {
+      font-size: 2.5rem;
+    }
+  }
+}

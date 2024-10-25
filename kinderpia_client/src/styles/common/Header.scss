@@ -1,0 +1,32 @@
+@import './reset';
+@import './variables';
+@import './utils';
+
+header {
+  height: 8rem;
+  border-bottom: 1px solid $main-color;
+  h1 {
+    font-family: 'EF_jejudoldam';
+    color: $main-color;
+    font-size: $title1;
+  }
+}
+.inner {
+  display: flex;
+  justify-content: space-between;
+  line-height: 8rem;
+
+  .header-nav {
+    display: flex;
+    gap: 3rem;
+    margin-right: 1rem;
+    .header-list {
+      font-size: $body;
+      .header-icon {
+        display: inline-block;
+        margin-right: 1rem;
+        font-size: 2rem;
+      }
+    }
+  }
+}

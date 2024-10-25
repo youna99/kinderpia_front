@@ -1,0 +1,44 @@
+//제주 돌담체 (로고)
+@font-face {
+  font-family: 'EF_jejudoldam';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-EF@1.0/EF_jejudoldam.woff2')
+    format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+//G마켓 산스
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+// 색상 정보
+$main-color: #59a4d6;
+$btn-color: #59a4d6;
+$bg-color: #d7e8e9;
+
+$active-color: #b7ddf6;
+$status-color: #ffdd77; //모집중
+$status-color2: #e3e3e3; //인원마감, 모임종료
+
+// 중단점 정보
+$ssm: 375px;
+$sm: 640px;
+$md: 768px;
+$lg: 1024px;
+$xl: 1280px;
+
+// 폰트
+$title1: 2.4rem; //로고
+$headline: 2.2rem; //섹션 제목
+$title2: 2rem;
+$title3: 1.8rem;
+$body: 1.6rem;
+
+$button: 1.8rem;
+$caption: 1.4rem;
+$footnote: 1.2rem;
