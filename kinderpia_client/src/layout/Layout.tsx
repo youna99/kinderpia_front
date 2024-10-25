@@ -3,6 +3,7 @@ import Header from './Header';
 import { Outlet } from 'react-router-dom';
 import Footer from './Footer';
 import NavBar from './NavBar';
+import UpBtn from '../components/common/UpBtn';
 
 export default function Layout() {
   return (
@@ -12,6 +13,7 @@ export default function Layout() {
         <div className="inner">
           <Outlet />
         </div>
+        <UpBtn />
       </main>
       <Footer />
       <NavBar />
