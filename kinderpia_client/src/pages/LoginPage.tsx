@@ -72,7 +72,7 @@ export default function LoginPage() {
       </form>
       <div className="link-wrap">
         <Link
-          to={'/user/login'}
+          to={'/user/register'}
           className="register-link"
           aria-label="회원가입 페이지로 이동"
         >
