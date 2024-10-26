@@ -10,11 +10,11 @@ header {
     color: $main-color;
     font-size: $title1;
   }
-}
-.inner {
-  display: flex;
-  justify-content: space-between;
-  line-height: 8rem;
+  .inner {
+    display: flex;
+    justify-content: space-between;
+    line-height: 8rem;
+  }
 
   .header-nav {
     display: flex;

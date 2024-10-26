@@ -9,4 +9,10 @@ main {
 .inner {
   max-width: $lg;
   margin: auto;
+  box-sizing: border-box;
+}
+
+.logo {
+  font-family: 'EF_jejudoldam';
+  font-size: $title1;
 }
