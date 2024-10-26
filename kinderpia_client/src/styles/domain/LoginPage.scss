@@ -104,9 +104,6 @@
 }
 
 @media (max-width: $sm) {
-  .login-container {
-    padding: 10px 0;
-  }
   #login-form {
     .input-wrap {
       width: 80%;
@@ -116,11 +113,3 @@
     }
   }
 }
-
-// @media (max-width: $ssm) {
-//   #login-form {
-//     .input-wrap {
-//       width: 100%;
-//     }
-//   }
-// }
