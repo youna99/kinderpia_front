@@ -70,7 +70,6 @@
     width: 70%;
     height: 5rem;
     font-size: 1.8rem;
-    font-family: 'GmarketSansMedium';
     border-radius: 1rem;
     margin-top: 3rem;
     background-color: $btn-color;
@@ -90,16 +89,48 @@
 }
 
 .link-wrap {
-  font-size: 1.6rem;
-  margin: 3rem auto;
   width: 70%;
+  margin: auto;
   display: flex;
-  flex-direction: row;
-  gap: 10%;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 4rem;
+  font-size: 1.6rem;
+
+  .register-link {
+    width: auto;
+    margin: 0 auto 3rem;
+    color: $main-color;
+    &::after {
+      content: '';
+      display: block;
+      width: auto;
+      height: 2px;
+      background: gray;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: 0.3s;
+    }
+    &:hover::after {
+      transform: scaleX(1);
+    }
+  }
   .admin-link {
-    color: gray;
+    @include active-button-style(15rem, $main-color);
+    .admin-icon {
+      font-size: 2rem;
+      margin-right: 0.5rem;
+      color: $status-color;
+      vertical-align: middle;
+    }
+  }
+  button {
+    @include active-button-style(15rem, $main-color);
+    .test-icon {
+      font-size: 2rem;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
   }
 }
 
