@@ -1,4 +1,4 @@
-import { CreateMeetingFormData } from '../types/meeting';
+import { CreateMeetingFormData, CategoryResponse } from '../types/meeting';
 import { requsetHeader } from './requestHeader';
 
 class MeetingApi {
@@ -15,8 +15,21 @@ class MeetingApi {
   }
 
   public async createMeeting(data: CreateMeetingFormData): Promise<CreateMeetingFormData> {
-    const response = await requsetHeader.post<CreateMeetingFormData>(this.BASE_URL, data);
+    const reqUrl = this.BASE_URL; 
+    const response = await requsetHeader.post<CreateMeetingFormData>(
+      reqUrl,
+      data,
+      { withCredentials : true }
+    );
     return response.data;
+  }
+
+  public async getCategory(): Promise<String[]> { //API 실제 작성에 따라서 변경 필요
+      const response = await requsetHeader.get<CategoryResponse>(
+        `${this.BASE_URL}/category`,
+        { withCredentials: true }
+      );
+      return response.data.categories;
   }
 }
 
