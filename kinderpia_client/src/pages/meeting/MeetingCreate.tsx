@@ -19,7 +19,7 @@ const MeetingCreate = () => {
     description: ''
   });
 
-  const createMeeting = async () => {    
+  const buttonActionProps = async () => {    
     try {
       const data = {
         title: CreateMeetingFormData.title,
@@ -31,7 +31,9 @@ const MeetingCreate = () => {
       };
       
       const result = await meetingApi.createMeeting(data);
-
+      
+      console.log(result);
+      
       console.log(' 어쩌구 저쩌구 요청 성공 ', CreateMeetingFormData, '----------------------', data);
       
     } catch (error) {
@@ -66,7 +68,7 @@ const MeetingCreate = () => {
       />
       <CommonButton1        
         text="모임 생성하기" 
-        onClick={createMeeting}
+        onClick={buttonActionProps}
       />
     </div>
   );

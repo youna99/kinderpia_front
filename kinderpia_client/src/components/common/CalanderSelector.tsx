@@ -12,19 +12,19 @@ export const CalanderSelector: React.FC<CalanderSelectorProps> = ({
   onTimeChange 
 }) => {
   return (
-    <div className="mb-4">
-      <label className="block text-sm mb-2">모임 일시</label>
-      <div className="p-4 border rounded">
-        <div className="grid grid-cols-2 gap-4">
+    <div className="calander-container">
+      <label className="calander-title">모임 일시</label>
+      <div className="calander-content">
+        <div className="calander-selector">
           <input 
             type="date"
-            className="p-2 border rounded"
+            className="calander-date"
             value={date}
             onChange={(e) => onDateChange(e.target.value)}
           />
           <input 
             type="time"
-            className="p-2 border rounded"
+            className="calander-time"
             value={time}
             onChange={(e) => onTimeChange(e.target.value)}
           />

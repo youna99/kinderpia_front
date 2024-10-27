@@ -15,7 +15,7 @@ const CommonButton1: React.FC<CommonButtonProps> = ({
       setInternalLoading(true);
       await onClick();
     } catch (error) {
-      console.error('Button onClick error:', error);
+      console.error('이상한 에러가 났어요!:', error);
     } finally {
       setInternalLoading(false);
     }
