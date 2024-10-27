@@ -1,9 +1,18 @@
+import MapView from './MapView';
+
 interface MapSelectorProps {
-  value: string;
+  location: string;
+  latitute: number;
+  longitute: number;
   onChange: (value: string) => void;
 }
 
-export const MapSelector: React.FC<MapSelectorProps> = ({ value, onChange }) => {
+const MapSelector: React.FC<MapSelectorProps> = ({ 
+  location,
+  latitute,
+  longitute,
+  onChange 
+}) => {
   return (
     <div className="map-container">
       <label className="map-title">모임 장소</label>
@@ -11,16 +20,19 @@ export const MapSelector: React.FC<MapSelectorProps> = ({ value, onChange }) => 
         <input 
           className="map-search-input"
           placeholder="장소 검색하기"
-          value={value}
+          value={location}
           onChange={(e) => onChange(e.target.value)}
         />
-        <span className="">
+        <span className="map-search-input-btn">
           🔍
         </span>
       </div>
-      <div className="map-content">
-        Map View
-      </div>
+      <MapView
+        latitute={latitute}
+        longitute={longitute}
+      />
     </div>
   );
 };
+
+export default MapSelector;
