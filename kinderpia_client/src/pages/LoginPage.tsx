@@ -42,59 +42,61 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="login-container">
-      <h2 className="logo">LOGIN</h2>
-      <form id="login-form" onSubmit={handleSubmit(onSubmit)}>
-        <LoginInput
-          label="아이디"
-          type="text"
-          id="userId"
-          register={register}
-          requiredMessage="아이디를 입력해주세요."
-          clearInput={() => clearInput('userId')}
-          error={errors.userId?.message}
-        />
-        <LoginInput
-          label="비밀번호"
-          type={showPassword ? 'text' : 'password'}
-          id="userPw"
-          register={register}
-          requiredMessage="비밀번호를 입력해주세요."
-          clearInput={() => clearInput('userPw')}
-          error={errors.userPw?.message}
-          showPasswordToggle={togglePasswordVisibility}
-          eyeIconClass={eyeIconClass}
-          isPassword={true}
-        />
-        <button type="submit" className="login-btn">
-          로그인
-        </button>
-      </form>
-      <div className="link-wrap">
-        <Link
-          to={'/user/register'}
-          className="register-link"
-          aria-label="회원가입 페이지로 이동"
-        >
-          회원가입
-        </Link>
-        <a
-          href="https://www.naver.com"
-          className="admin-link"
-          aria-label="관리자 로그인 페이지로 이동"
-        >
-          <span className="xi-crown admin-icon"></span>
-          <span>관리자 로그인</span>
-        </a>
-        <button>
-          <span className="xi-emoticon-smiley-o test-icon"></span>
-          <span>테스트 계정 1</span>
-        </button>
-        <button>
-          <span className="xi-emoticon-smiley-o test-icon"></span>
-          <span>테스트 계정 2</span>
-        </button>
+    <section>
+      <div className="login-container">
+        <h2 className="title">LOGIN</h2>
+        <form id="login-form" onSubmit={handleSubmit(onSubmit)}>
+          <LoginInput
+            label="아이디"
+            type="text"
+            id="userId"
+            register={register}
+            requiredMessage="아이디를 입력해주세요."
+            clearInput={() => clearInput('userId')}
+            error={errors.userId?.message}
+          />
+          <LoginInput
+            label="비밀번호"
+            type={showPassword ? 'text' : 'password'}
+            id="userPw"
+            register={register}
+            requiredMessage="비밀번호를 입력해주세요."
+            clearInput={() => clearInput('userPw')}
+            error={errors.userPw?.message}
+            showPasswordToggle={togglePasswordVisibility}
+            eyeIconClass={eyeIconClass}
+            isPassword={true}
+          />
+          <button type="submit" className="login-btn">
+            로그인
+          </button>
+        </form>
+        <div className="link-wrap">
+          <Link
+            to={'/user/register'}
+            className="register-link"
+            aria-label="회원가입 페이지로 이동"
+          >
+            회원가입
+          </Link>
+          <a
+            href="https://www.naver.com"
+            className="admin-link"
+            aria-label="관리자 로그인 페이지로 이동"
+          >
+            <span className="xi-crown admin-icon"></span>
+            <span>관리자 로그인</span>
+          </a>
+          <button>
+            <span className="xi-emoticon-smiley-o test-icon"></span>
+            <span>테스트 계정 1</span>
+          </button>
+          <button>
+            <span className="xi-emoticon-smiley-o test-icon"></span>
+            <span>테스트 계정 2</span>
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
