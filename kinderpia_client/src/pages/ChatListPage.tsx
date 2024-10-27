@@ -1,14 +1,11 @@
-import { useState } from "react"
-import NoChatRoom from "../components/domain/chatlist/NoChatRoom";
 import ChatRooms from "../components/domain/chatlist/ChatRooms";
+import '../styles/domain/chatlist/ChatListPage.scss';
 
 export default function ChatlistPage() {
-  // 채팅방 참여한 것이 있는 확인
-  const [isEmpty, setIsEmpty] = useState<boolean>(false);
   return (
-    <>
+    <section className="chatlist">
       <h2>Chats</h2>
-      {isEmpty ? <NoChatRoom /> : <ChatRooms />}
-    </>
-  )
+      <ChatRooms />
+    </section>
+  );
 }
