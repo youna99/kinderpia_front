@@ -9,6 +9,7 @@ export interface CreateMeetingFormData {
   selectedDate: string;
   selectedTime: string;
   description: string;
+  JoinMethod : boolean;
 }
 export interface CategoryResponse {
   categories: string[];

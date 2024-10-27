@@ -7,6 +7,7 @@ import TitleInput from '../../components/meeting/TitleInput';
 import ParticipateInput from '../../components/meeting/ParticipateInput';
 import DescInput from '../../components/meeting/DescInput';
 import CategoryInput from '../../components/meeting/CategoryInput';
+import JoinMethodInput from '../../components/meeting/JoinMethodInput;';
 
 // component 호출 - 공용
 import MapSelector from '../../components/common/MapSelector';
@@ -27,7 +28,8 @@ const MeetingCreate = () => {
     longitute: 0,
     selectedDate: '',
     selectedTime: '',
-    description: ''
+    description: '',
+    JoinMethod: false
   });
 
   const handleParticipantsChange = (value: number) => {
@@ -45,6 +47,13 @@ const MeetingCreate = () => {
     }));
   };
 
+  const handleJoinMethodChange = (JoinMethod: boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      JoinMethod
+    }));
+  };
+
   const buttonActionProps = async () => {    
     try {
       const data = {
@@ -57,7 +66,8 @@ const MeetingCreate = () => {
         longitute: CreateMeetingFormData.longitute,
         selectedDate: CreateMeetingFormData.selectedDate,
         selectedTime: CreateMeetingFormData.selectedTime,
-        description: CreateMeetingFormData.description
+        description: CreateMeetingFormData.description,
+        JoinMethod : CreateMeetingFormData.JoinMethod
       };
       
       const result = await meetingApi.createMeeting(data);
@@ -105,6 +115,10 @@ const MeetingCreate = () => {
       <DescInput 
         value={CreateMeetingFormData.description}
         onChange={(value) => setFormData(prev => ({...prev, description: value}))}
+      />
+      <JoinMethodInput
+        value={CreateMeetingFormData.JoinMethod}
+        onChange={handleJoinMethodChange}
       />
       <CommonButton1        
         text="모임 생성하기" 
