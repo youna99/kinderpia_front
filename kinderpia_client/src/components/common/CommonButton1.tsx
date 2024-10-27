@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CommonButtonProps } from '../../types/commonButton';
+import { CommonButtonProps } from '../../types/common';
 
 const CommonButton1: React.FC<CommonButtonProps> = ({
   text,

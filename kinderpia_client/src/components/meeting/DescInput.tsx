@@ -3,16 +3,20 @@ interface DescInputProps {
   onChange: (value: string) => void;
 }
 
-export const DescInput: React.FC<DescInputProps> = ({ value, onChange }) => {
+const DescInput: React.FC<DescInputProps> = ({ 
+  value, onChange 
+}) => {
   return (
     <div className="descinput-container">
       <label className="descinput-title">모임 글을 작성해주세요.</label>
       <textarea
         className="descinput-input"
-        placeholder="모임에 대해 설명해주세요..."
+        placeholder="모임의 활동 내용에 대해서 설명 해주세요..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
     </div>
   );
 };
+
+export default DescInput;

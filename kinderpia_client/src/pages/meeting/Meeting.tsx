@@ -6,4 +6,4 @@ function Meeting() {
   )
 }
 
-export default Meeting     
+export default Meeting;  

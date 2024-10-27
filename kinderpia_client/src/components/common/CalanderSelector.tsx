@@ -5,7 +5,7 @@ interface CalanderSelectorProps {
   onTimeChange: (value: string) => void;
 }
 
-export const CalanderSelector: React.FC<CalanderSelectorProps> = ({ 
+const CalanderSelector: React.FC<CalanderSelectorProps> = ({ 
   date, 
   time, 
   onDateChange, 
@@ -33,3 +33,5 @@ export const CalanderSelector: React.FC<CalanderSelectorProps> = ({
     </div>
   );
 };
+
+export default CalanderSelector;
