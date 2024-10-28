@@ -1,16 +1,19 @@
 import React from 'react';
 import { PlaceListInfo } from '../../types/placelist';
+import '../../styles/PlaceList.scss';
 
 const PlaceList: React.FC<PlaceListInfo> = ({
   title,
   category,
   rating,
   priceType,
+  image,
 }) => {
   return (
     <section>
       <div className="place-container">
         <div className="place-image">
+          <img src={image} alt={title} />
           <span className="place-category">{category}</span>
         </div>
         <div className="place-content">

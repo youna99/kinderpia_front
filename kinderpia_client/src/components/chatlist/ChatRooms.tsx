@@ -34,7 +34,9 @@ export default function ChatRooms() {
       const data = JSON.parse(event.data);
       if (data.type === "chatRooms") {
         dispatch(setChatRooms(data.rooms));
-        dispatch(setLoading(false));
+        dispatch(setEmpty(tempData.length === 0));
+        dispatch(setError(false));
+        dispatch(setLoading(true));
       }
     };
     
@@ -45,7 +47,9 @@ export default function ChatRooms() {
     };
 
     // 소켓 연결 종료
-    socket.onclose = () => {};
+    socket.onclose = () => {
+      dispatch(setLoading(true));
+    };
 
     return () => {
       socket.close();
