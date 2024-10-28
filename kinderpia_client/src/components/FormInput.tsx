@@ -7,6 +7,9 @@ interface InputFieldProps {
   id: string;
   register: UseFormRegister<any>;
   requiredMessage: string;
+  regexMessage?: string;
+  regex?: RegExp;
+  placeholder?: string;
   clearInput: () => void;
   error?: string;
   showPasswordToggle?: () => void;
@@ -14,12 +17,15 @@ interface InputFieldProps {
   isPassword?: boolean;
 }
 
-const LoginInput: React.FC<InputFieldProps> = ({
+const FormInput: React.FC<InputFieldProps> = ({
   label,
   type,
   id,
   register,
   requiredMessage,
+  regexMessage,
+  regex,
+  placeholder,
   clearInput,
   error,
   showPasswordToggle,
@@ -34,7 +40,18 @@ const LoginInput: React.FC<InputFieldProps> = ({
       <input
         type={type}
         id={id}
-        {...register(id, { required: requiredMessage })}
+        {...register(id, {
+          required: requiredMessage,
+          ...(regex && regexMessage
+            ? {
+                pattern: {
+                  value: regex,
+                  message: regexMessage,
+                },
+              }
+            : {}),
+        })}
+        placeholder={placeholder}
         aria-required="true" // 필수 입력 필드임을 명시
         aria-invalid={!!error} // 에러 여부를 명시
         aria-describedby={`${id}-error`} // 에러 메시지와 연결
@@ -92,4 +109,4 @@ const LoginInput: React.FC<InputFieldProps> = ({
   );
 };
 
-export default LoginInput;
+export default FormInput;

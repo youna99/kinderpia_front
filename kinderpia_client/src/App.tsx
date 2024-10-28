@@ -7,7 +7,8 @@ import ChatlistPage from './pages/ChatListPage';
 import ChatPage from './pages/ChatPage';
 import './App.css';
 import LoginPage from './pages/LoginPage';
-import PlaceLists from './pages/PlaceLists';
+import RegisterPage from './pages/RegisterPage';
+import MainPage from './pages/MainPage';
 import Meeting from './pages/meeting/MeetingPage';
 import MeetingCreate from './pages/meeting/MeetingCreatePage';
 import MeetingDetail from './pages/meeting/MeetingDetailPage';
@@ -23,8 +24,8 @@ function App() {
               {/* 로그인 */}
               <Route path="user/login" element={<LoginPage />} />
               {/* 회원가입 */}
+              <Route path="user/register" element={<RegisterPage />} />
               {/* 마이페이지 */}
-              <Route path="placelist" element={<PlaceLists />}></Route>
               {/* 채팅방 목록 */}
               <Route path="chatroom" element={<ChatlistPage />} />
               {/* 채팅방 */}

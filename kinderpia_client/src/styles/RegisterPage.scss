@@ -1,0 +1,110 @@
+@import './common/variables';
+@import './common/utils';
+
+#register {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 2rem;
+  margin: auto;
+  .title {
+    text-align: center;
+    font-family: 'EF_jejudoldam';
+    font-size: $title2;
+    margin: 3rem auto 2rem;
+    & + p {
+      font-size: $body;
+      text-align: center;
+    }
+  }
+}
+
+#register-form {
+  position: relative;
+  width: 100%;
+  margin: 5rem auto 0;
+  font-size: $body;
+  text-align: center;
+  .input-box {
+    position: relative;
+    text-align: left;
+    .double-check {
+      position: absolute;
+      right: 3%;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.6rem;
+      height: 5rem;
+      box-sizing: border-box;
+      border: 1px solid $main-color;
+      border-radius: 1rem;
+      background: $btn-color;
+      color: #fff;
+    }
+    .input-wrap {
+      position: relative;
+      margin: 0 auto 5.5rem;
+      width: 70%;
+      .label {
+        position: absolute;
+        top: -1.5rem;
+        left: 0;
+        transform: translateY(-50%);
+      }
+      input {
+        width: 100%;
+        height: 6rem;
+        padding: 2rem;
+        box-sizing: border-box;
+        background: $bg-color;
+        border: none;
+        &:focus {
+          border: 2px solid $main-color;
+        }
+      }
+    }
+  }
+  .eraser-icon {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: gray;
+    cursor: pointer;
+  }
+  .eye-icon {
+    position: absolute;
+    right: 3.5rem;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.2rem;
+    color: gray;
+    cursor: pointer;
+  }
+  .errmsg-box {
+    position: absolute;
+    text-align: left;
+    font-size: 1.2rem;
+    text-indent: 0.5rem;
+    .err-msg {
+      margin-top: 0.5rem;
+      display: block;
+      color: red;
+    }
+  }
+  .register-btn {
+    width: 70%;
+    height: 5rem;
+    font-size: 1.8rem;
+    border-radius: 1rem;
+    margin: 3rem auto;
+    background-color: $btn-color;
+    color: #fff;
+    cursor: pointer;
+  }
+  .agree-wrap {
+    width: 70%;
+    text-align: left;
+    margin: auto;
+  }
+}
