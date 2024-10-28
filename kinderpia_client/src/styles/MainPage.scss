@@ -1,0 +1,24 @@
+@import './common/reset';
+@import './common/variables';
+@import './common/utils';
+
+.introduce {
+  background-color: gray;
+  height: 15rem;
+  margin-bottom: 1.5rem;
+}
+
+.placelist-container {
+  .headline-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 1.5rem;
+    .title {
+      font-size: $headline;
+    }
+  }
+  .swiper {
+    margin: 0.2rem 0.8rem;
+  }
+}

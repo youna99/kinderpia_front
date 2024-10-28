@@ -3,8 +3,12 @@
 @import './utils';
 
 header {
+  position: fixed;
+  width: 100%;
   height: 8rem;
   border-bottom: 1px solid $main-color;
+  z-index: 999;
+  background-color: #fff;
   h1 {
     font-family: 'EF_jejudoldam';
     color: $main-color;

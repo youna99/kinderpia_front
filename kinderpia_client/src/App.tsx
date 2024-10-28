@@ -1,9 +1,10 @@
 import React from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import store from './store';
 import Layout from './layout/Layout';
 import ChatlistPage from './pages/ChatListPage';
-import store from './store';
+import ChatPage from './pages/ChatPage';
 import './App.css';
 import LoginPage from './pages/LoginPage';
 import PlaceLists from './pages/PlaceLists';
@@ -24,7 +25,10 @@ function App() {
               {/* 회원가입 */}
               {/* 마이페이지 */}
               <Route path="placelist" element={<PlaceLists />}></Route>
+              {/* 채팅방 목록 */}
               <Route path="chatroom" element={<ChatlistPage />} />
+              {/* 채팅방 */}
+              <Route path="chatroom/:chatroomid" element={<ChatPage />} />
               {/* 모임 관련 라우트 */}
               <Route path="meeting">
                 {/* 모임 목록 페이지 */}
@@ -36,6 +40,8 @@ function App() {
                 {/* 모임 수정 페이지 */}
                 <Route path=":meetingId/edit" element={<MeetingUpdate />} />
               </Route>
+              {/* 메인 페이지 */}
+              <Route index element={<MainPage />} />
             </Route>
           </Routes>
         </BrowserRouter>
