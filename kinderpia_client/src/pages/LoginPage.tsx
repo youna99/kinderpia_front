@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/LoginPage.scss';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import LoginInput from '../components/LoginInput';
+import LoginInput from '../components/FormInput';
 
 interface LoginFormInputs {
   userId: string;
@@ -42,7 +42,7 @@ export default function LoginPage() {
   };
 
   return (
-    <section>
+    <section id="login">
       <div className="login-container">
         <h2 className="title">LOGIN</h2>
         <form id="login-form" onSubmit={handleSubmit(onSubmit)}>

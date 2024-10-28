@@ -11,6 +11,7 @@ import Meeting from './pages/meeting/Meeting';
 import MeetingCreate from './pages/meeting/MeetingCreate';
 import MeetingDetail from './pages/meeting/MeetingDetail';
 import MeetingUpdate from './pages/meeting/MeetingUpdate';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               {/* 로그인 */}
               <Route path="user/login" element={<LoginPage />} />
               {/* 회원가입 */}
+              <Route path="user/register" element={<RegisterPage />} />
               {/* 마이페이지 */}
               <Route path="placelist" element={<PlaceLists />}></Route>
               <Route path="chatroom" element={<ChatlistPage />} />
