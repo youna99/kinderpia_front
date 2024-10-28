@@ -6,11 +6,11 @@ import ChatlistPage from './pages/ChatListPage';
 import store from './store';
 import './App.css';
 import LoginPage from './pages/LoginPage';
-import PlaceLists from './pages/PlaceLists';
 import Meeting from './pages/meeting/Meeting';
 import MeetingCreate from './pages/meeting/MeetingCreate';
 import MeetingDetail from './pages/meeting/MeetingDetail';
 import MeetingUpdate from './pages/meeting/MeetingUpdate';
+import MainPage from './pages/MainPage';
 
 function App() {
   return (
@@ -23,7 +23,6 @@ function App() {
               <Route path="user/login" element={<LoginPage />} />
               {/* 회원가입 */}
               {/* 마이페이지 */}
-              <Route path="placelist" element={<PlaceLists />}></Route>
               <Route path="chatroom" element={<ChatlistPage />} />
               {/* 모임 관련 라우트 */}
               <Route path="meeting">
@@ -36,6 +35,8 @@ function App() {
                 {/* 모임 수정 페이지 */}
                 <Route path=":meetingId/edit" element={<MeetingUpdate />} />
               </Route>
+              {/* 메인 페이지 */}
+              <Route index element={<MainPage />} />
             </Route>
           </Routes>
         </BrowserRouter>
