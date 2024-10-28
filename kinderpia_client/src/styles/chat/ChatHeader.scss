@@ -1,0 +1,39 @@
+@import '../common/variables';
+
+.chat-header {
+    position: fixed;
+    background-color: #fff;
+    max-width: 1024px;
+    width: 100%;
+    height: 6.05rem;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding : 1.5rem 0;
+    z-index: 21;
+    .chat-header__column {
+        width: 33%;
+        &:first-child {
+            width: 10%;
+        }
+        &:nth-child(2){
+            width: 80%;
+            text-align: center;
+        }
+        &:last-child {
+            text-align: right;
+            width: 10%;
+        }
+        h2 {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: $headline;
+        }
+        button {
+            font-size: $headline;
+        }
+    }
+}

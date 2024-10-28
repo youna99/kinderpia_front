@@ -1,4 +1,22 @@
 // ( 오락 및 여가 / 자연 및 환경 / 교육 및 문화 / 체험 및 활동 / 스포츠 및 운동 / 기타 )
+/*
+{
+        "userId":1,
+        "chatroomList": [
+         "chatroomId": 1,
+         "meetingId": 1,
+         "meetingTitle":"모임명",
+        "meetingCategory":"모임카테고리명"
+         "lastMessage": "마지막 메세지 내용",
+         "totalCapacity": 5
+         "isActive" : true
+         ],
+        [ ], ......
+         "page": 1,
+         "pageSize": 10,
+         "totalPages": 5
+}
+*/
 export const tempChatListdata = [
     {
         category : '오락 및 여가',
