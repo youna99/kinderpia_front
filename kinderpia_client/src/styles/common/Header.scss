@@ -10,22 +10,22 @@ header {
     color: $main-color;
     font-size: $title1;
   }
-}
-.inner {
-  display: flex;
-  justify-content: space-between;
-  line-height: 8rem;
-
-  .header-nav {
+  .inner {
     display: flex;
-    gap: 3rem;
-    margin-right: 1rem;
-    .header-list {
-      font-size: $body;
-      .header-icon {
-        display: inline-block;
-        margin-right: 1rem;
-        font-size: 2rem;
+    justify-content: space-between;
+    line-height: 8rem;
+  
+    .header-nav {
+      display: flex;
+      gap: 3rem;
+      margin-right: 1rem;
+      .header-list {
+        font-size: $body;
+        .header-icon {
+          display: inline-block;
+          margin-right: 1rem;
+          font-size: 2rem;
+        }
       }
     }
   }

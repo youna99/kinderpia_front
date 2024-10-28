@@ -9,10 +9,13 @@
   border: 1px solid $main-color;
   border-radius: 2rem;
   padding: 1rem;
+  z-index: 9;
+  background-color: #fff;
 }
 .nav-lists {
   display: flex;
   flex-direction: column;
+  text-align: center;
   gap: 2rem;
   font-size: 1.4rem;
   .nav-list {
