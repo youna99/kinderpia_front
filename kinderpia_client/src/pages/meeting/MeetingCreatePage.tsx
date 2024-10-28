@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 // type 호출
 import { CreateMeetingFormData } from '../../types/meeting';
 
@@ -7,7 +8,7 @@ import TitleInput from '../../components/meeting/TitleInput';
 import ParticipateInput from '../../components/meeting/ParticipateInput';
 import DescInput from '../../components/meeting/DescInput';
 import CategoryInput from '../../components/meeting/CategoryInput';
-import JoinMethodInput from '../../components/meeting/JoinMethodInput;';
+import JoinMethodInput from '../../components/meeting/JoinMethodInput';
 
 // component 호출 - 공용
 import MapSelector from '../../components/common/MapSelector';
@@ -17,7 +18,7 @@ import CommonButton1 from '../../components/common/CommonButton1';
 // api 요청 함수 호출
 import { meetingApi } from '../../api/meeting';
 
-const MeetingCreate = () => {
+const MeetingCreatePage = () => {
   const [CreateMeetingFormData, setFormData] = useState<CreateMeetingFormData>({
     title: '',
     category: '',
@@ -128,4 +129,4 @@ const MeetingCreate = () => {
   );
 };
 
-export default MeetingCreate;
+export default MeetingCreatePage;

@@ -1,9 +1,9 @@
 import React from 'react'
 
-function MeetingDetail() {
+function MeetingDetailPage() {
   return (
     <div>MeetingDetail</div>
   )
 }
 
-export default MeetingDetail;
+export default MeetingDetailPage;
