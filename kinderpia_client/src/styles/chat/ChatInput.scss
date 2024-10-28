@@ -1,9 +1,10 @@
 @import '../common/variables';
 
 .chat-form {
-    position: absolute;
+    position: fixed;
+    max-width: 1024px;
     width: 100%;
-    left: 0;
+    margin: auto;
     bottom: 0;
     background-color: $active-color;
     box-sizing: border-box;
