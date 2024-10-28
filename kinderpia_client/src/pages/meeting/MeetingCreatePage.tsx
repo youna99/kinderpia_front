@@ -8,7 +8,7 @@ import TitleInput from '../../components/meeting/TitleInput';
 import ParticipateInput from '../../components/meeting/ParticipateInput';
 import DescInput from '../../components/meeting/DescInput';
 import CategoryInput from '../../components/meeting/CategoryInput';
-import JoinMethodInput from '../../components/meeting/JoinMethodInput;';
+import JoinMethodInput from '../../components/meeting/JoinMethodInput';
 
 // component 호출 - 공용
 import MapSelector from '../../components/common/MapSelector';
