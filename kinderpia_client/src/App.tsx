@@ -20,11 +20,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout />}>
               {/* 로그인 */}
-              <Route path="/user/login" element={<LoginPage />} />
+              <Route path="user/login" element={<LoginPage />} />
               {/* 회원가입 */}
               {/* 마이페이지 */}
               <Route path="placelist" element={<PlaceLists />}></Route>
-              <Route path="/chats" element={<ChatlistPage />} />
+              <Route path="chatroom" element={<ChatlistPage />} />
               {/* 모임 관련 라우트 */}
               <Route path="meeting">
                 {/* 모임 목록 페이지 */}

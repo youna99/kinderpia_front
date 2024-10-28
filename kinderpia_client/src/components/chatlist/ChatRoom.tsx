@@ -1,6 +1,5 @@
-import { chaticons } from "../../../assets/chaticon";
-import { ChatRoomInfo } from "../../../types/chatlist";
-import "../../../styles/domain/chatlist/ChatRoom.scss";
+import { chaticons } from '../../assets/chaticon';
+import { ChatRoomInfo } from '../../types/chatlist';
 
 interface ChatRoomProp {
   room: ChatRoomInfo;

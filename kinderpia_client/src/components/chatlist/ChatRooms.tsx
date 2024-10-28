@@ -1,17 +1,24 @@
-import { useEffect } from "react";
-import ChatRoom from "./ChatRoom";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../store";
-import { setChatRooms, setEmpty, setError, setLoading } from "../../../store/chatRoomsSlice";
-import { tempChatListdata } from "../../../data/tempChatListdata";
-import { ChatRoomInfo } from "../../../types/chatlist";
-import NoChatRoom from "./NoChatRoom";
+import { useEffect } from 'react';
+import ChatRoom from './ChatRoom';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import {
+  setChatRooms,
+  setEmpty,
+  setError,
+  setLoading,
+} from '../../store/chatRoomsSlice';
+import { tempChatListdata } from '../../data/tempChatListdata';
+import { ChatRoomInfo } from '../../types/chatlist';
+import NoChatRoom from './NoChatRoom';
 
 export default function ChatRooms() {
   const dispatch = useDispatch();
-  const { rooms, error, loading, isEmpty } = useSelector((state:RootState) => state.chatRooms)
+  const { rooms, error, loading, isEmpty } = useSelector(
+    (state: RootState) => state.chatRooms
+  );
 
-  // 소켓 
+  // 소켓
   /*
   useEffect(() => {
     const socket = new WebSocket("");
@@ -48,15 +55,14 @@ export default function ChatRooms() {
 
   // 임시 데이터
   useEffect(() => {
-    const tempData : ChatRoomInfo[] = [...tempChatListdata]
+    const tempData: ChatRoomInfo[] = [...tempChatListdata];
     dispatch(setChatRooms(tempData));
     dispatch(setEmpty(tempData.length === 0));
     dispatch(setError(false));
     dispatch(setLoading(true));
-    
-  }, [dispatch, isEmpty])
+  }, [dispatch, isEmpty]);
 
-  if(isEmpty) return <NoChatRoom />
+  if (isEmpty) return <NoChatRoom />;
 
   return (
     <>
