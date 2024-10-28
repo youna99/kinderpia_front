@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/domain/LoginPage.scss';
+import '../styles/LoginPage.scss';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import LoginInput from '../components/LoginInput';
 
