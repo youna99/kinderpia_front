@@ -16,6 +16,7 @@ export interface PlaceData{
 export interface ReviewData{
   id : number;
   writer: string;
+  writerIcon : string;
   content : string;
   star : number;
   createdAt : string;
