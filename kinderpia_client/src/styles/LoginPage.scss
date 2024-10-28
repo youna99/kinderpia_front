@@ -1,8 +1,8 @@
-@import '../common/reset';
-@import '../common/variables';
-@import '../common/utils';
+@import './common/variables';
+@import './common/utils';
 
 .login-container {
+  text-align: center;
   box-sizing: border-box;
   width: 100%;
   padding: 2rem;
