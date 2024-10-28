@@ -47,10 +47,10 @@ function App() {
               </Route>
               {/* 장소 라우트 */}
               <Route path="place">
-                {/* 모임 목록 페이지 */}
+                {/* 장소 목록 페이지 */}
                 <Route index element={<PlacePage />} />
-                {/* 모임 상세 페이지 */}
-                <Route path=":meetingId" element={<PlaceDetailPage />} />
+                {/* 장소 상세 페이지 */}
+                <Route path=":placeId" element={<PlaceDetailPage />} />
               </Route>
               {/* 메인 페이지 */}
               <Route index element={<MainPage />} />
