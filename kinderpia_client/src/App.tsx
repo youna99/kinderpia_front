@@ -9,10 +9,14 @@ import './App.css';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import MainPage from './pages/MainPage';
+
 import Meeting from './pages/meeting/MeetingPage';
 import MeetingCreate from './pages/meeting/MeetingCreatePage';
 import MeetingDetail from './pages/meeting/MeetingDetailPage';
 import MeetingUpdate from './pages/meeting/MeetingUpdatePage';
+
+import PlacePage from './pages/place/PlacePage';
+import PlaceDetailPage from './pages/place/PlaceDetailPage';
 
 function App() {
   return (
@@ -40,6 +44,13 @@ function App() {
                 <Route path=":meetingId" element={<MeetingDetail />} />
                 {/* 모임 수정 페이지 */}
                 <Route path=":meetingId/edit" element={<MeetingUpdate />} />
+              </Route>
+              {/* 장소 라우트 */}
+              <Route path="place">
+                {/* 모임 목록 페이지 */}
+                <Route index element={<PlacePage />} />
+                {/* 모임 상세 페이지 */}
+                <Route path=":meetingId" element={<PlaceDetailPage />} />
               </Route>
               {/* 메인 페이지 */}
               <Route index element={<MainPage />} />
