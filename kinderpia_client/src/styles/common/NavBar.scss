@@ -13,9 +13,13 @@
   background-color: #fff;
 }
 .nav-lists {
+  a {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
   display: flex;
   flex-direction: column;
-  text-align: center;
   gap: 2rem;
   font-size: 1.4rem;
   .nav-list {

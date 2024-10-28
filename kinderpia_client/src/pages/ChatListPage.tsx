@@ -1,4 +1,4 @@
-import ChatRooms from "../components/domain/chatlist/ChatRooms";
+import ChatRooms from '../components/chatlist/ChatRooms';
 import '../styles/domain/chatlist/ChatListPage.scss';
 
 export default function ChatlistPage() {
