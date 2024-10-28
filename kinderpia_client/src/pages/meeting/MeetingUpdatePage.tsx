@@ -1,9 +1,9 @@
 import React from 'react'
 
-function MeetingUpdate() {
+function MeetingUpdatePage() {
   return (
     <div>MeetingUpdate</div>
   )
 }
 
-export default MeetingUpdate;
+export default MeetingUpdatePage;

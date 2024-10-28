@@ -22,7 +22,6 @@ const JoinMethodInput: React.FC<JoinMethodProps> = ({
               onChange={() => onChange(false)}
             />
             <div className="option-content">
-              <div className="option-check">✓</div>
               <div className="option-text">
                 <strong>자유 참가</strong>
                 <p>개설자의 승인 없이 참가할 수 있어요</p>
@@ -41,7 +40,6 @@ const JoinMethodInput: React.FC<JoinMethodProps> = ({
               onChange={() => onChange(true)}
             />
             <div className="option-content">
-              <div className="option-check">○</div>
               <div className="option-text">
                 <strong>승인 필요</strong>
                 <p>모임에 참가하려면 개설자의 승인이 필요해요</p>

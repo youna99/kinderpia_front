@@ -7,11 +7,11 @@ import ChatlistPage from './pages/ChatListPage';
 import ChatPage from './pages/ChatPage';
 import './App.css';
 import LoginPage from './pages/LoginPage';
-import Meeting from './pages/meeting/Meeting';
-import MeetingCreate from './pages/meeting/MeetingCreate';
-import MeetingDetail from './pages/meeting/MeetingDetail';
-import MeetingUpdate from './pages/meeting/MeetingUpdate';
-import MainPage from './pages/MainPage';
+import PlaceLists from './pages/PlaceLists';
+import Meeting from './pages/meeting/MeetingPage';
+import MeetingCreate from './pages/meeting/MeetingCreatePage';
+import MeetingDetail from './pages/meeting/MeetingDetailPage';
+import MeetingUpdate from './pages/meeting/MeetingUpdatePage';
 
 function App() {
   return (
