@@ -1,5 +1,9 @@
+// 채팅 입력창 컴포넌트
 export default function ChatInput() {
   return (
-    <div>ChatInput</div>
+    <form>
+      <input type="text" />
+      <button></button>
+    </form>
   )
 }
