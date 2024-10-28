@@ -1,0 +1,16 @@
+@import '../common/variables';
+
+.chatroom {
+    position: fixed;
+    min-height: calc(100vh - 8rem);
+    left: 0;
+    width: 100%;
+    z-index: 20;
+    background-color: #fff;
+    .inner {
+        background-color: $bg-color;
+        position: relative;
+        min-height: calc(100vh - 8rem);
+        
+    }
+}
