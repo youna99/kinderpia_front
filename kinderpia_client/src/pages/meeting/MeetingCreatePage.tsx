@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 // type 호출
 import { CreateMeetingFormData } from '../../types/meeting';
 
@@ -17,7 +18,7 @@ import CommonButton1 from '../../components/common/CommonButton1';
 // api 요청 함수 호출
 import { meetingApi } from '../../api/meeting';
 
-const MeetingCreate = () => {
+const MeetingCreatePage = () => {
   const [CreateMeetingFormData, setFormData] = useState<CreateMeetingFormData>({
     title: '',
     category: '',
@@ -128,4 +129,4 @@ const MeetingCreate = () => {
   );
 };
 
-export default MeetingCreate;
+export default MeetingCreatePage;
