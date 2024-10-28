@@ -84,7 +84,7 @@ const MeetingCreatePage = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-4">
+    <div className="meeting-create-page">
       <CategoryInput
         value={CreateMeetingFormData.title}
         onChange={(value) => setFormData(prev => ({...prev, category: value}))}

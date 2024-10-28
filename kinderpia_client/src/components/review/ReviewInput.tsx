@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import CommonButton1 from '../common/CommonButton1';
 
 interface ReviewInputProps {
   placeId: string;
@@ -84,7 +85,7 @@ const ReviewInput: React.FC<ReviewInputProps> = ({
             aria-label={`${rating}점`}
             disabled={isSubmitting}
           >
-            {rating <= star ? '★' : '☆'}
+            {rating <= star ? '⭐' : '☆'}
           </button>
         ))}
       </div>
@@ -100,12 +101,11 @@ const ReviewInput: React.FC<ReviewInputProps> = ({
         <div className='review-input-length'>
           {content.length} / 500
         </div>
-        <button 
+        <CommonButton1
+          text='리뷰 작성하기'
           onClick={handleSubmit}
-          disabled={isSubmitting || star === 0 || !content.trim()}
-        >
-          {isSubmitting ? '등록 중...' : '리뷰 쓰기'}
-        </button>
+          disabled={isSubmitting || star === 0 || !content.trim()}  
+        />
       </div>
     </div>
   )
