@@ -1,0 +1,9 @@
+@import '../../common/variables';
+
+.chatlist {
+    padding : 0 1.6rem;
+    h2 {
+        font-size: $headline;
+        padding : 2rem 0;
+    }
+}
