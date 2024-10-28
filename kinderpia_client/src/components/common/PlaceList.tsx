@@ -1,6 +1,5 @@
 import React from 'react';
 import { PlaceListInfo } from '../../types/placelist';
-import '../../styles/common/PlaceList.scss';
 
 const PlaceList: React.FC<PlaceListInfo> = ({
   title,
