@@ -5,7 +5,7 @@ export interface CreateMeetingFormData {
   hasParticipantsLimit: boolean;
   location: string;
   latitute :number;
-  longitute :number;
+  longitude :number;
   selectedDate: string;
   selectedTime: string;
   description: string;
