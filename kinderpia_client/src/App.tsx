@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Layout from './layout/Layout';
+import PlaceLists from './pages/PlaceLists';
 
 import Meeting from './pages/meeting/Meeting';
 import MeetingCreate from './pages/meeting/MeetingCreate';
@@ -14,6 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
+            <Route path="placelist" element={<PlaceLists />}></Route>
             {/* 모임 관련 라우트 */}
             <Route path="meeting">
               {/* 모임 목록 페이지 */}
