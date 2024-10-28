@@ -1,17 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+//공통 컴포넌트 호출
 import SearchInput from '../../components/common/SearchInput';
-import MeetingCard from '../../components/meeting/MeetingCard';
-import { MeetingData } from '../../types/meeting';
+import MeetingList from '../../components/common/MeetingList';
+
+//타입 호출
+import { MettingListInfo } from '../../types/meetinglist';
+
+// 데이터 호출 - 더미데이터 호출, API 호출
+import { dummyMeetingList } from '../../data/tempMeetingListData';
 
 // 서버 응답 타입 정의
 interface SearchResponse {
-  meetings: MeetingData[];
+  meetings: MettingListInfo[];
   total: number;
 }
 
 const MeetingPage: React.FC = () => {
-  const [meetings, setMeetings] = useState<MeetingData[]>([]);
+  const [meetings, setMeetings] = useState<MettingListInfo[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+
+  useEffect(() => {
+
+    //더미 미팅 리스트 적용
+    setMeetings(dummyMeetingList);
+
+    // API 호출 통한 미팅리스트 받아오기
+
+  }, []);
 
   const handleSearch = async (searchTerm: string) => {
     setIsSearching(true);
@@ -21,7 +37,6 @@ const MeetingPage: React.FC = () => {
       setMeetings(data.meetings);
     } catch (error) {
       console.error('모임 검색 중 오류 발생:', error);
-      // 에러 처리 로직 추가 (예: 토스트 메시지)
     } finally {
       setIsSearching(false);
     }
@@ -42,16 +57,16 @@ const MeetingPage: React.FC = () => {
       ) : meetings.length > 0 ? (
         <div className="meeting-list-">
           {meetings.map((meeting) => (
-            <MeetingCard
-              key={meeting.id}
-              meetingTitle={meeting.title}
-              meetingCategory={meeting.category}
-              meetingLocation={meeting.location}
-              meetingDate={(meeting.selectedDate+meeting.selectedTime)}
-              meetingWriter={meeting.writer}
-              meetingParticipate={meeting.participants}
-              meetingParticipateLimit={meeting.maxParticipants}
-              onChange={() => {}}
+            <MeetingList
+              // key={meeting.meetingId}
+              title={meeting.title}
+              category={meeting.category}
+              location={meeting.location}
+              selectedDate={meeting.selectedDate}
+              selectedTime={meeting.selectedTime}
+              writer={meeting.writer}
+              participants={meeting.participants}
+              meetingStatus={meeting.meetingStatus}
             />
           ))}
         </div>

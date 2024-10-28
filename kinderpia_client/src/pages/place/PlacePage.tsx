@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+// 공통 컴포넌트 호출
 import SearchInput from '../../components/common/SearchInput';
-import { PlaceData } from '../../types/place';
-import PlaceCard from '../../components/place/PlaceCard';
+import PlaceList from '../../components/common/PlaceList';
+
+// 타입 호출
+import { PlaceListInfo } from '../../types/placelist';
+
+// 데이터 호출 - 더미데이터 , API 호출
+import { dummyPlaceList } from '../../data/tempPlaceListdata';
 
 interface SearchResponse {
-  places: PlaceData[];
+  places: PlaceListInfo[];
   total: number;
 }
 
 const PlacePage: React.FC = () => {
-  const [places, setPlaces] = useState<PlaceData[]>([]);
+  const [places, setPlaces] = useState<PlaceListInfo[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+
+  useEffect(() => {
+    setPlaces(dummyPlaceList);
+  }, []);
   
   const handleSearch = async (searchTerm: string) => {
     setIsSearching(true);
@@ -41,20 +52,13 @@ const PlacePage: React.FC = () => {
       ) : places.length > 0 ? (
         <div className="meeting-list-">
           {places.map((place) => (
-            <PlaceCard
-              id = { place.id }
+            <PlaceList
+              placeid = { place.placeid }
               title={place.title}
               category={place.category}
-              location={place.location}
-              latitute={place.latitute}
-              longitute={place.longitute}
-              description={place.description}
-              img={place.img}
-              payment={place.payment}
-              openTime={place.openTime}
-              webPageUrl={place.webPageUrl}
-              phone={place.phone}
-              onClick={() => {}}
+              rating={place.rating}
+              priceType={place.priceType}
+              image={place.image}
             />
           ))}
         </div>
