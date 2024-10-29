@@ -10,7 +10,7 @@ const DescInput: React.FC<DescInputProps> = ({
 }) => {
   return (
     <div className="desc-input-container">
-      <label className="desc-input-title">모임 글을 작성해주세요.<span> *</span></label>
+      <label className="desc-input-title">모임 소개<span> *</span></label>
       <hr/>
       <textarea
         className="desc-input-textarea"
