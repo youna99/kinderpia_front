@@ -1,0 +1,81 @@
+// src/styles/components/_location-search.scss
+@import '../variables';
+
+.search {
+  &-container {
+    position: relative;
+    margin: 2rem 0;
+    width: 100%;
+  }
+
+  &-input {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid $border-color;
+    border-radius: 0.4rem;
+    font-size: $body;
+
+    &:focus {
+      border-color: $main-color;
+      outline: none;
+    }
+  }
+
+  &-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 30rem;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid $border-color;
+    border-radius: 0.4rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    margin-top: -0.8rem;
+    display: none;
+
+    &.show {
+      display: block;
+    }
+
+    &-item {
+      padding: 1.2rem;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover, &.active {
+        background-color: $bg-color;
+      }
+
+      h3 {
+        font-size: $title3;
+        margin-bottom: 0.4rem;
+        color: #333;
+      }
+
+      p {
+        font-size: $body;
+        color: #666;
+        margin: 0;
+
+        &.road-address {
+          color: #888;
+          font-size: $footnote;
+        }
+      }
+    }
+  }
+
+  &-no-results {
+    padding: 1.2rem;
+    text-align: center;
+    color: #666;
+  }
+}
