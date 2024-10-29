@@ -101,7 +101,6 @@ export default function RegisterPage() {
       }
     } catch (error) {
       console.error('중복 확인 오류:', error);
-      alert('중복 확인 중 오류가 발생했습니다.');
     }
   };
 
