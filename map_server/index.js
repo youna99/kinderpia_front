@@ -4,6 +4,7 @@ const cors = require('cors');
 const { transformCoordinates } = require('./transformCoordinates ');
 require('dotenv').config();
 
+console.log('.env 는 노션 Kinderpia 메인 페이지 제~일 밑에');
 const app = express();
 
 app.use(cors({
