@@ -9,7 +9,7 @@ import {
   setLoading,
 } from '../../store/chatRoomsSlice';
 import { tempChatListdata } from '../../data/tempChatListdata';
-import { ChatRoomInfo } from '../../types/chatlist';
+import { ChatRoomListInfo } from '../../types/chatlist';
 import NoChatRoom from './NoChatRoom';
 
 export default function ChatRooms() {
@@ -59,7 +59,7 @@ export default function ChatRooms() {
 
   // 임시 데이터
   useEffect(() => {
-    const tempData: ChatRoomInfo[] = [...tempChatListdata];
+    const tempData: ChatRoomListInfo[] = [...tempChatListdata];
     dispatch(setChatRooms(tempData));
     dispatch(setEmpty(tempData.length === 0));
     dispatch(setError(false));

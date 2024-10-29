@@ -1,5 +1,9 @@
-export interface ChatRoomInfo {
-    category : string;
-    meeting_title : string;
-    capacity : number;
+export interface ChatRoomListInfo {
+    chatroomId : number;
+    meetingId : number;
+    meetingTitle : string;
+    meetingCategory : string;
+    lastMessage : string;
+    totalCapacity : number;
+    isActive : boolean;
 }

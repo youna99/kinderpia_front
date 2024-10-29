@@ -1,4 +1,4 @@
-@import '../common/variables';
+@import "../common/variables";
 
 .chatroom-list {
   display: flex;
@@ -9,15 +9,39 @@
   .chatroom-icon {
     margin-right: 2rem;
   }
-  .chatroom-title {
-    font-size: $title2;
-    padding-bottom: 0.8rem;
-  }
-  .chatroom-capacity {
-    span {
-      &:first-child {
-        margin-right: 1rem;
+  .chatroom-info {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    .chatroom-bx {
+      display: flex;
+      align-items: center;
+      gap: 0 1rem;
+      .chatroom-title {
+        font-size: $title2;
+        padding-bottom: 0.8rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
+      .chatroom-capacity {
+        display: flex;
+        color : #888;
+        font-size: 1.2rem;
+        
+        span {
+          display: block;
+        }
+        span {
+          &:first-child {
+            margin-right: .3rem;
+          }
+        }
+      }
+    }
+    .chatroom-lastmsg {
+      font-size: 1.4rem;
+      color : #555;
     }
   }
   &:hover {
