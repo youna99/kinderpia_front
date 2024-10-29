@@ -17,7 +17,7 @@ const TitleInput: React.FC<TitleInputProps> = ({
 
   return (
     <div className="title-input-container">
-      <label className="title-input-title">모임 명을 적어주세요.<span> *</span></label>
+      <label className="title-input-title">모임 명<span> *</span></label>
       <hr/>
       <div className="title-input-wrapper">
         <input 

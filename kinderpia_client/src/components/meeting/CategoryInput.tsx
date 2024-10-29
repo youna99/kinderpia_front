@@ -15,7 +15,7 @@ const CategoryInput: React.FC<CategoryInputProps> = ({
   
   return (
     <div className="category-input-container">
-      <label className="category-input-title">모임 유형을 선택해주세요.<span> *</span></label>
+      <label className="category-input-title">모임 유형<span> *</span></label>
       <hr/>
       <select
         className={`category-input-select`}
