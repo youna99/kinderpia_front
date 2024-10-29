@@ -15,6 +15,7 @@ interface InputFieldProps {
   showPasswordToggle?: () => void;
   eyeIconClass?: string;
   isPassword?: boolean;
+  onBlur?: () => void;
 }
 
 const FormInput: React.FC<InputFieldProps> = ({
@@ -31,6 +32,7 @@ const FormInput: React.FC<InputFieldProps> = ({
   showPasswordToggle,
   eyeIconClass,
   isPassword,
+  onBlur,
 }) => {
   return (
     <div className="input-wrap">
@@ -65,6 +67,9 @@ const FormInput: React.FC<InputFieldProps> = ({
           const labelElem = e.target.previousElementSibling;
           if (labelElem && !e.target.value) {
             labelElem.classList.remove('shrink');
+          }
+          if (onBlur) {
+            onBlur(); // onBlur prop 호출
           }
         }}
       />
