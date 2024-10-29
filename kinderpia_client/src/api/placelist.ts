@@ -1,4 +1,4 @@
-import { requsetHeader } from './requestHeader';
+import { requestHeader } from './requestHeader';
 
 export const getPlace = async (params: {
   sort: string;
@@ -7,6 +7,6 @@ export const getPlace = async (params: {
   category?: string;
   keyword?: string;
 }) => {
-  const response = await requsetHeader.get('/api/place', { params });
+  const response = await requestHeader.get('/api/place', { params });
   return response.data;
 };

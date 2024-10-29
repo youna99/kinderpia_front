@@ -1,3 +1,8 @@
+@import '../common/reset';
+@import '../common/variables';
+@import '../common/utils';
+
+
 .meeting-page {
   padding: 20px;
   
@@ -73,7 +78,6 @@
   }
 }
 
-// 반응형 스타일
 @media screen and (max-width: 768px) {
   .meeting-page {
     padding: 10px;

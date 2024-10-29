@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import React from 'react'
+import '../../styles/meeting/StaticMapView.scss'
 interface MapViewProps {
   latitute: number;
   longitude: number;
 }
 
-const MapView:React.FC<MapViewProps> = ({
+const StaticMapView:React.FC<MapViewProps> = ({
   latitute = 127.0602549, 
   longitude = 37.2874971,
 }) => {
@@ -26,4 +27,4 @@ const MapView:React.FC<MapViewProps> = ({
   );
 }
 
-export default MapView;
+export default StaticMapView;
