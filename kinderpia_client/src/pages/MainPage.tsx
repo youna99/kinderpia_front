@@ -11,107 +11,8 @@ import { Link } from 'react-router-dom';
 import { getPlace } from '../api/placelist';
 import { getMeeting } from '../api/meetinglist';
 import '../styles/MainPage.scss';
-
-const dummyPlaceList: PlaceListInfo[] = [
-  {
-    placeid: 1,
-    title: '에버랜드',
-    category: '오락 및 여가',
-    rating: 4.5,
-    priceType: '유료',
-    image: 'url',
-  },
-  {
-    placeid: 2,
-    title: '롯데월드',
-    category: '오락 및 여가',
-    rating: 4.3,
-    priceType: '유료',
-    image: 'url',
-  },
-  {
-    placeid: 3,
-    title: '서울숲',
-    category: '자연 및 환경',
-    rating: 4.7,
-    priceType: '무료',
-    image: 'url',
-  },
-  {
-    placeid: 4,
-    title: '63빌딩',
-    category: '체험 및 활동',
-    rating: 4.2,
-    priceType: '유료',
-    image: 'url',
-  },
-  {
-    placeid: 5,
-    title: '국립중앙박물관',
-    category: '교육 및 문화',
-    rating: 4.6,
-    priceType: '무료',
-    image: 'url',
-  },
-];
-
-const dummyMeetingList: MettingListInfo[] = [
-  {
-    meetingid: 1,
-    title: '에버랜드 같이 가요~!',
-    category: '오락 & 여가',
-    location: '용산구',
-    selectedDate: '2024-10-30',
-    selectedTime: '10:00',
-    writer: '글쓴이',
-    participants: 5,
-    meetingStatus: '모집중',
-  },
-  {
-    meetingid: 2,
-    title: '롯데월드 방문해요!',
-    category: '오락 & 여가',
-    location: '송파구',
-    selectedDate: '2024-11-02',
-    selectedTime: '14:00',
-    writer: '여행 매니아',
-    participants: 8,
-    meetingStatus: '인원마감',
-  },
-  {
-    meetingid: 3,
-    title: '서울숲 피크닉',
-    category: '자연 & 환경',
-    location: '성동구',
-    selectedDate: '2024-11-05',
-    selectedTime: '12:00',
-    writer: '자연 사랑',
-    participants: 6,
-    meetingStatus: '모임종료',
-  },
-  {
-    meetingid: 4,
-    title: '63빌딩 전망대 가요!',
-    category: '체험 & 활동',
-    location: '영등포구',
-    selectedDate: '2024-11-07',
-    selectedTime: '15:00',
-    writer: '전망러',
-    participants: 4,
-    meetingStatus: '모집중',
-  },
-  {
-    meetingid: 5,
-    title: '국립중앙박물관 탐방',
-    category: '교육 & 문화',
-    location: '용산구',
-    selectedDate: '2024-11-10',
-    selectedTime: '11:00',
-    writer: '문화인',
-    participants: 10,
-    meetingStatus: '모집중',
-  },
-];
+import { dummyMeetingList } from '../data/tempMeetingListData';
+import { dummyPlaceList } from '../data/tempPlaceListdata';
 
 function MainPage() {
   const [placeList, setPlaceList] = useState<PlaceListInfo[]>([]); // 장소 목록 관리
@@ -207,8 +108,6 @@ function MainPage() {
         <div className="meetingcard">
           {meetingList.slice(0, 4).map((meeting) => (
             <MeetingList
-              key={meeting.meetingid}
-              meetingid={meeting.meetingid}
               title={meeting.title}
               category={meeting.category}
               location={meeting.location}

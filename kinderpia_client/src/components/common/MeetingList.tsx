@@ -3,7 +3,6 @@ import { MettingListInfo } from '../../types/meetinglist';
 import '../../styles/MeetingList.scss';
 
 const MeetingList: React.FC<MettingListInfo> = ({
-  meetingid,
   title,
   category,
   location,
