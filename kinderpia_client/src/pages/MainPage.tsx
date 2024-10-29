@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import PlaceList from '../components/common/PlaceList';
+import MeetingList from '../components/common/MeetingList';
 import { PlaceListInfo } from '../types/placelist';
 import { MettingListInfo } from '../types/meetinglist';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import '../styles/MainPage.scss';
+import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
-import MeetingList from '../components/common/MeetingList';
-import { set } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { getPlace } from '../api/placelist';
+import { getMeeting } from '../api/meetinglist';
+import '../styles/MainPage.scss';
 
 const dummyPlaceList: PlaceListInfo[] = [
   {
@@ -55,6 +57,7 @@ const dummyPlaceList: PlaceListInfo[] = [
 
 const dummyMeetingList: MettingListInfo[] = [
   {
+    meetingid: 1,
     title: '에버랜드 같이 가요~!',
     category: '오락 & 여가',
     location: '용산구',
@@ -65,6 +68,7 @@ const dummyMeetingList: MettingListInfo[] = [
     meetingStatus: '모집중',
   },
   {
+    meetingid: 2,
     title: '롯데월드 방문해요!',
     category: '오락 & 여가',
     location: '송파구',
@@ -75,6 +79,7 @@ const dummyMeetingList: MettingListInfo[] = [
     meetingStatus: '인원마감',
   },
   {
+    meetingid: 3,
     title: '서울숲 피크닉',
     category: '자연 & 환경',
     location: '성동구',
@@ -85,6 +90,7 @@ const dummyMeetingList: MettingListInfo[] = [
     meetingStatus: '모임종료',
   },
   {
+    meetingid: 4,
     title: '63빌딩 전망대 가요!',
     category: '체험 & 활동',
     location: '영등포구',
@@ -95,6 +101,7 @@ const dummyMeetingList: MettingListInfo[] = [
     meetingStatus: '모집중',
   },
   {
+    meetingid: 5,
     title: '국립중앙박물관 탐방',
     category: '교육 & 문화',
     location: '용산구',
@@ -110,23 +117,64 @@ function MainPage() {
   const [placeList, setPlaceList] = useState<PlaceListInfo[]>([]); // 장소 목록 관리
   const [meetingList, setMeetingList] = useState<MettingListInfo[]>([]); // 모임 목록 관리
 
+  // GET) 장소목록데이터 가져오기
+  const getPlaceList = async () => {
+    try {
+      const data = await getPlace({
+        sort: 'star',
+        page: 1,
+        limit: 5,
+      });
+      setPlaceList(data);
+    } catch (error) {
+      console.log('장소목록 가져오는 중 에러 발생!: ', error);
+    }
+  };
+
+  // GET) 모임목록데이터 가져오기
+  const getMeetingList = async () => {
+    try {
+      const data = await getMeeting({
+        sort: 'default',
+        page: 1,
+        limit: 3,
+        keyword: '',
+      });
+      setMeetingList(data);
+    } catch (error) {
+      console.log('모임목록 가져오는 중 에러 발생!', error);
+    }
+  };
+
   useEffect(() => {
     setPlaceList(dummyPlaceList);
     setMeetingList(dummyMeetingList);
+    // getPlaceList();
+    // getMeetingList();
   }, []);
 
   return (
-    <>
+    <section className="main">
       <section className="introduce">소개글</section>
       <section className="placelist-container">
         <div className="headline-container">
-          <h2 className="title">인기 장소</h2>
+          <div className="title-container">
+            <h2 className="title">인기 장소</h2>
+            <p className="add">아이들과 함께 특별한 하루를 만들어보세요!</p>
+          </div>
           <div className="more">더보기</div>
         </div>
         <Swiper
           slidesPerView={2.5}
           spaceBetween={30}
           modules={[Pagination]}
+          navigation={true}
+          breakpoints={{
+            640: {
+              slidesPerView: 5,
+              spaceBetween: 10,
+            },
+          }}
           className="swiper"
         >
           {placeList.map((place) => (
@@ -144,25 +192,36 @@ function MainPage() {
           ))}
         </Swiper>
       </section>
-      <section>
+      <section className="meetinglist-container">
         <div className="headline-container">
-          <h2 className="title">신규 모임</h2>
-          <div className="more">더보기</div>
+          <div className="title-container">
+            <h2 className="title">신규 모임</h2>
+            <p className="add">
+              다양한 가족들과 함께하는 특별한 시간, 지금 시작해 보세요!
+            </p>
+          </div>
+          <Link to={'/meeting'}>
+            <div className="more">더보기</div>
+          </Link>
         </div>
-        {meetingList.slice(0, 3).map((meeting) => (
-          <MeetingList
-            title={meeting.title}
-            category={meeting.category}
-            location={meeting.location}
-            selectedDate={meeting.selectedDate}
-            selectedTime={meeting.selectedTime}
-            writer={meeting.writer}
-            participants={meeting.participants}
-            meetingStatus={meeting.meetingStatus}
-          />
-        ))}
+        <div className="meetingcard">
+          {meetingList.slice(0, 4).map((meeting) => (
+            <MeetingList
+              key={meeting.meetingid}
+              meetingid={meeting.meetingid}
+              title={meeting.title}
+              category={meeting.category}
+              location={meeting.location}
+              selectedDate={meeting.selectedDate}
+              selectedTime={meeting.selectedTime}
+              writer={meeting.writer}
+              participants={meeting.participants}
+              meetingStatus={meeting.meetingStatus}
+            />
+          ))}
+        </div>
       </section>
-    </>
+    </section>
   );
 }
 
