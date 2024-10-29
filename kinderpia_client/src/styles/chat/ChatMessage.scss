@@ -1,0 +1,55 @@
+@import "../common/variables";
+
+.message {
+  display: flex;
+  width: 100%;
+  margin-bottom: 2.5rem;
+  .message-profile {
+    width: 5rem;
+    height: 5rem;
+    margin-right: 1.5rem;
+    img {
+      width: 100%;
+      object-fit: cover;
+      border-radius: 2rem;
+    }
+  }
+  .message-content {
+    width: 70%;
+    .message-sender {
+      margin-bottom: 0.8rem;
+      font-size: 1.2rem;
+    }
+    .message-info {
+      display: flex;
+      align-items: flex-end;
+      .message-bubble {
+        background-color: #fff;
+        padding: 0.8rem 1rem;
+        border-radius: 1.5rem;
+        border-top-left-radius: 0;
+        font-size: 1.6rem;
+        margin-right: 0.5rem;
+      }
+      .message-time {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+.message-own {
+  justify-content: flex-end;
+  .message-content {
+    .message-info {
+      flex-direction: row-reverse;
+      .message-bubble {
+        border-top-left-radius: 1.5rem;
+        border-top-right-radius: 0;
+        background-color: $active-color;
+        margin-right: 0;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+}

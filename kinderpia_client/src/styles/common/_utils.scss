@@ -1,6 +1,6 @@
 button,
 body {
-  font-family: 'GmarketSansMedium';
+  font-family: "GmarketSansMedium";
 }
 
 main {
@@ -16,7 +16,7 @@ main {
 }
 
 .logo {
-  font-family: 'EF_jejudoldam';
+  font-family: "EF_jejudoldam";
   font-size: $title1;
 }
 
@@ -37,7 +37,7 @@ main {
   overflow: hidden;
   background: transparent;
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
@@ -58,4 +58,10 @@ main {
     z-index: 1;
     color: $text-color;
   }
+}
+
+@mixin ellipsisText {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
