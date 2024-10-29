@@ -1,5 +1,15 @@
 // 이용약관 데이터
-const termsAndConditions = {
+interface Term {
+  title: string;
+  content: string | string[];
+}
+
+interface TermsAndConditions {
+  serviceTerms: Term[];
+  privacyPolicy: Term[];
+}
+
+const termsAndConditions: TermsAndConditions = {
   serviceTerms: [
     {
       title: '제 1 조 (목적)',
