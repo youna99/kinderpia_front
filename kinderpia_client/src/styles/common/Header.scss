@@ -10,9 +10,11 @@ header {
   z-index: 999;
   background-color: #fff;
   h1 {
-    font-family: 'EF_jejudoldam';
-    color: $main-color;
-    font-size: $title1;
+    a {
+      font-family: 'EF_jejudoldam';
+      color: $main-color;
+      font-size: $title1;
+    }
   }
   .inner {
     display: flex;
