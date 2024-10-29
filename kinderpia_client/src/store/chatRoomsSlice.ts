@@ -1,18 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ChatRoomListInfo } from "../types/chatlist";
+import { ChatRoomListInfo } from "../types/chat";
 
 interface ChatRoomsState {
   rooms: ChatRoomListInfo[];
   error: boolean;
   loading: boolean;
-  isEmpty : boolean;
+  isEmpty: boolean;
 }
 
 const initialState: ChatRoomsState = {
   rooms: [],
   error: false,
   loading: true,
-  isEmpty : true,
+  isEmpty: true,
 };
 
 const chatRoomSlice = createSlice({
@@ -29,10 +29,11 @@ const chatRoomSlice = createSlice({
       state.loading = action.payload;
     },
     setEmpty: (state, action: PayloadAction<boolean>) => {
-      state.isEmpty = action.payload;  
-    }
+      state.isEmpty = action.payload;
+    },
   },
 });
 
-export const { setChatRooms, setError, setLoading, setEmpty } = chatRoomSlice.actions;
+export const { setChatRooms, setError, setLoading, setEmpty } =
+  chatRoomSlice.actions;
 export default chatRoomSlice.reducer;

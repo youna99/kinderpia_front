@@ -7,3 +7,13 @@ export interface ChatRoomListInfo {
     totalCapacity : number;
     isActive : boolean;
 }
+
+export interface ChatRoomMemberInfo {
+    memberId : number;
+    username : string;
+    profileImg : string;
+}
+
+export interface ChatRoomInfo extends ChatRoomListInfo {
+    member : ChatRoomMemberInfo[];
+}

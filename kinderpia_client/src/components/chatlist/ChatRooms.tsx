@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
-import ChatRoom from './ChatRoom';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { useEffect } from "react";
+import ChatRoom from "./ChatRoom";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
 import {
   setChatRooms,
   setEmpty,
   setError,
   setLoading,
-} from '../../store/chatRoomsSlice';
-import { tempChatListdata } from '../../data/tempChatListdata';
-import { ChatRoomListInfo } from '../../types/chatlist';
-import NoChatRoom from './NoChatRoom';
+} from "../../store/chatRoomsSlice";
+import { tempChatListdata } from "../../data/tempChatListdata";
+import { ChatRoomListInfo } from "../../types/chat";
+import NoChatRoom from "./NoChatRoom";
 
 export default function ChatRooms() {
   const dispatch = useDispatch();
