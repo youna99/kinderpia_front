@@ -2,13 +2,11 @@
 import { CreateMeetingFormData, CategoryResponse } from '../types/meeting';
 import { requestHeader } from './requestHeader';
 
-const BASE_URL = '/meetings';
-
 export const createMeeting = async (
   data: CreateMeetingFormData
 ): Promise<CreateMeetingFormData> => {
   const response = await requestHeader.post<CreateMeetingFormData>(
-    BASE_URL,
+    '/meetings',
     data,
     { withCredentials: true }
   );
@@ -17,7 +15,7 @@ export const createMeeting = async (
 
 export const getCategory = async (): Promise<String[]> => {
   const response = await requestHeader.get<CategoryResponse>(
-    `${BASE_URL}/category`,
+    `/meetings/category`,
     { withCredentials: true }
   );
   return response.data.categories;
@@ -28,3 +26,4 @@ export const meetingApi = {
   createMeeting,
   getCategory,
 };
+

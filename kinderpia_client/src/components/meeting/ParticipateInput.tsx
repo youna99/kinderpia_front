@@ -1,3 +1,6 @@
+import '../../styles/meeting/ParticipateInput.scss';
+
+
 interface ParticipateInputProps {
   value: number;
   onChange: (value: number) => void;
@@ -48,10 +51,11 @@ const ParticipateInput: React.FC<ParticipateInputProps> = ({
   };
 
   return (
-    <div className="participate-container">
-      <span className="participate-title">참여 인원</span>
-      <div className="participate-input">
-        <div className="participate-radio-group">
+    <div className="participate-input-container">
+      <label className="participate-input-title">참여 인원<span> *</span></label>
+      <hr/>
+      <div className="participate-input-input">
+        <div className="participate-input-radio-group">
           <label>
             <input 
               type="radio" 
@@ -70,11 +74,11 @@ const ParticipateInput: React.FC<ParticipateInputProps> = ({
               checked={hasLimit}
               onChange={handleInputChange}
             />
-            {hasLimit && (
-              <div className="participate-number-input">
+              <div className="participate-input-number-input">
                 <button 
                   onClick={() => handleChange('decrement')}
                   disabled={value <= min}
+                  type="button"
                 >
                   -
                 </button>
@@ -84,16 +88,15 @@ const ParticipateInput: React.FC<ParticipateInputProps> = ({
                   onChange={handleInputChange}
                   min={min}
                   max={max}
-                  disabled={!hasLimit}
                 />
                 <button 
                   onClick={() => handleChange('increment')}
                   disabled={value >= max}
+                  type="button"
                 >
                   +
                 </button>
               </div>
-            )}
           </label>
         </div>
       </div>

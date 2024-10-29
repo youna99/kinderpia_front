@@ -1,9 +1,12 @@
 import { requestHeader } from './requestHeader';
 import { SearchResultItem, LocationData } from '../types/map';
+import axios from 'axios';
+
+const API_BASE_URL = 'http://localhost:4000';
 
 export const searchLocation = async (query: string): Promise<SearchResultItem[]> => {
   try {
-    const response = await requestHeader.get(`/api/search`, {
+    const response = await axios.get(`${API_BASE_URL}/api/search`, {
       params: { query }
     });
     console.log(response.data.places);
@@ -16,7 +19,7 @@ export const searchLocation = async (query: string): Promise<SearchResultItem[]>
 
 export const saveLocation = async (locationData: LocationData): Promise<void> => {
   try {
-    await requestHeader.post(`/api/location`, locationData);
+    await requestHeader.post(`${API_BASE_URL}/api/location`, locationData);
     console.log(locationData);
   } catch (error) {
     console.error('위치 저장 오류:', error);
@@ -26,7 +29,7 @@ export const saveLocation = async (locationData: LocationData): Promise<void> =>
 
 export const getSavedLocation = async (): Promise<LocationData> => {
   try {
-    const response = await requestHeader.get(`/api/location`);
+    const response = await requestHeader.get(`${API_BASE_URL}/api/location`);
     console.log(response.data);
     return response.data;
   } catch (error) {

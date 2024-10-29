@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // type 호출
 import { CreateMeetingFormData } from '../../types/meeting';
@@ -12,11 +12,14 @@ import JoinMethodInput from '../../components/meeting/JoinMethodInput';
 
 // component 호출 - 공용
 import MapSelector from '../../components/common/MapSelector';
-import CalanderSelector from '../../components/common/CalanderSelector';
+import CalenderSelector from '../../components/common/CalanderSelector';
 import CommonButton1 from '../../components/common/CommonButton1';
 
 // api 요청 함수 호출
 import { meetingApi } from '../../api/meeting';
+
+//style 호출
+import '../../styles/meeting/MeetingCreatePage.scss'
 
 const MeetingCreatePage = () => {
   const [CreateMeetingFormData, setFormData] = useState<CreateMeetingFormData>({
@@ -25,13 +28,15 @@ const MeetingCreatePage = () => {
     participants: 1,
     hasParticipantsLimit: false,  // 초기값 추가
     location: '',
-    latitute: 0,
-    longitude: 0,
     selectedDate: '',
     selectedTime: '',
     description: '',
     JoinMethod: false
   });
+
+  useEffect(()=>{
+    console.log(CreateMeetingFormData);
+  },[CreateMeetingFormData])
 
   const handleParticipantsChange = (value: number) => {
     setFormData(prev => ({
@@ -63,8 +68,6 @@ const MeetingCreatePage = () => {
         participants: CreateMeetingFormData.participants,
         hasParticipantsLimit: CreateMeetingFormData.hasParticipantsLimit,
         location: CreateMeetingFormData.location,
-        latitute: CreateMeetingFormData.latitute,
-        longitude: CreateMeetingFormData.longitude,
         selectedDate: CreateMeetingFormData.selectedDate,
         selectedTime: CreateMeetingFormData.selectedTime,
         description: CreateMeetingFormData.description,
@@ -85,46 +88,49 @@ const MeetingCreatePage = () => {
 
   return (
     <div className="meeting-create-page">
-      <CategoryInput
-        value={CreateMeetingFormData.title}
-        onChange={(value) => setFormData(prev => ({...prev, category: value}))}
-      />
-      <TitleInput 
-        value={CreateMeetingFormData.title}
-        onChange={(value) => setFormData(prev => ({...prev, title: value}))}
-      />
-      <ParticipateInput 
-        value={CreateMeetingFormData.participants}
-        onChange={handleParticipantsChange}
-        hasLimit={CreateMeetingFormData.hasParticipantsLimit}
-        onLimitChange={handleParticipantsLimitChange}
-        min={1}
-        max={10}
-      />
-      <MapSelector 
-        location={CreateMeetingFormData.location}
-        latitute={CreateMeetingFormData.latitute}
-        longitude={CreateMeetingFormData.longitude}
-        onChange={(value) => setFormData(prev => ({...prev, location: value}))}
-      />
-      <CalanderSelector 
-        date={CreateMeetingFormData.selectedDate}
-        time={CreateMeetingFormData.selectedTime}
-        onDateChange={(value) => setFormData(prev => ({...prev, selectedDate: value}))}
-        onTimeChange={(value) => setFormData(prev => ({...prev, selectedTime: value}))}
-      />
-      <DescInput 
-        value={CreateMeetingFormData.description}
-        onChange={(value) => setFormData(prev => ({...prev, description: value}))}
-      />
-      <JoinMethodInput
-        value={CreateMeetingFormData.JoinMethod}
-        onChange={handleJoinMethodChange}
-      />
-      <CommonButton1        
-        text="모임 생성하기" 
-        onClick={buttonActionProps}
-      />
+      <span className="meeting-create-page-notice">
+        * 표시는 필수 입력사항 입니다.
+      </span>
+      <form className="meeting-create-page-form">
+        <CategoryInput
+          value={CreateMeetingFormData.title}
+          onChange={(value) => setFormData(prev => ({...prev, category: value}))}
+        />
+        <TitleInput 
+          value={CreateMeetingFormData.title}
+          onChange={(value) => setFormData(prev => ({...prev, title: value}))}
+        />
+        <ParticipateInput 
+          value={CreateMeetingFormData.participants}
+          onChange={handleParticipantsChange}
+          hasLimit={CreateMeetingFormData.hasParticipantsLimit}
+          onLimitChange={handleParticipantsLimitChange}
+          min={1}
+          max={10}
+        />
+        <MapSelector 
+          location={CreateMeetingFormData.location}
+          onChange={(value) => setFormData(prev => ({...prev, location: value}))}
+        />
+        <CalenderSelector 
+          date={CreateMeetingFormData.selectedDate}
+          time={CreateMeetingFormData.selectedTime}
+          onDateChange={(value) => setFormData(prev => ({...prev, selectedDate: value}))}
+          onTimeChange={(value) => setFormData(prev => ({...prev, selectedTime: value}))}
+        />
+        <DescInput 
+          value={CreateMeetingFormData.description}
+          onChange={(value) => setFormData(prev => ({...prev, description: value}))}
+        />
+        <JoinMethodInput
+          value={CreateMeetingFormData.JoinMethod}
+          onChange={handleJoinMethodChange}
+        />
+        <CommonButton1        
+          text="모임 생성하기" 
+          onClick={buttonActionProps}
+        />
+      </form>
     </div>
   );
 };

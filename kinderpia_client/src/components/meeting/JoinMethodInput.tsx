@@ -1,3 +1,5 @@
+
+import '../../styles/meeting/JoinMethodInput.scss';
 interface JoinMethodProps {
   value: boolean;
   onChange: (requiresApproval: boolean) => void;
@@ -10,7 +12,8 @@ const JoinMethodInput: React.FC<JoinMethodProps> = ({
 }) => {
   return (
     <div className="join-method-container">
-      <h2 className="join-method-title">신청 방식</h2>
+      <label className="join-method-title">신청 방식<span> *</span></label>
+      <hr/>
       <div className="join-method-options">
         <div className="option-item">
           <label>
