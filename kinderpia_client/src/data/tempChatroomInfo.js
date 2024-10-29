@@ -27,7 +27,7 @@ export const tempChatInfo = {
     },
     {
       memberId: 4,
-      username: "아파트",
+      username: "아파트아파트아파트아파트아파트아파트아파트아파트아파트아파트아파트아파트아파트아파트아파트아파트아파트아파트아파트아파트아파트아파트아파트아파트",
       profileImg:
         "https://cdn.music-flo.com/image/v2/album/597/002/30/04/430002597_17ff635a5d7fe41b_o.jpg?1729210022613/dims/resize/500x500/quality/90",
     },

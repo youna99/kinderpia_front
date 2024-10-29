@@ -1,4 +1,5 @@
 @import "../common/variables";
+@import "../common/utils";
 
 .chatroom-list {
   display: flex;
@@ -20,9 +21,7 @@
       .chatroom-title {
         font-size: $title2;
         padding-bottom: 0.8rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        @include ellipsisText;
       }
       .chatroom-capacity {
         display: flex;

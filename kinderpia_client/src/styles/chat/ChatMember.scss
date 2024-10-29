@@ -1,0 +1,24 @@
+@import '../common/variables';
+@import '../common/utils';
+
+.chatmember-list {
+  display: flex;
+  align-items: center;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #ccc;
+  gap: 0 1.2rem;
+  .chatmember-img {
+    width: 5rem;
+    height: 5rem;
+    img {
+      width: 100%;
+      object-fit: cover;
+      border-radius: 2rem;
+    }
+  }
+  .chatmember-name {
+    font-size: 1.6rem;
+    width: 80%;
+    @include ellipsisText;
+  }
+}
