@@ -26,7 +26,7 @@ const MeetingCreatePage = () => {
     hasParticipantsLimit: false,  // 초기값 추가
     location: '',
     latitute: 0,
-    longitute: 0,
+    longitude: 0,
     selectedDate: '',
     selectedTime: '',
     description: '',
@@ -64,7 +64,7 @@ const MeetingCreatePage = () => {
         hasParticipantsLimit: CreateMeetingFormData.hasParticipantsLimit,
         location: CreateMeetingFormData.location,
         latitute: CreateMeetingFormData.latitute,
-        longitute: CreateMeetingFormData.longitute,
+        longitude: CreateMeetingFormData.longitude,
         selectedDate: CreateMeetingFormData.selectedDate,
         selectedTime: CreateMeetingFormData.selectedTime,
         description: CreateMeetingFormData.description,
@@ -84,7 +84,7 @@ const MeetingCreatePage = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-4">
+    <div className="meeting-create-page">
       <CategoryInput
         value={CreateMeetingFormData.title}
         onChange={(value) => setFormData(prev => ({...prev, category: value}))}
@@ -104,7 +104,7 @@ const MeetingCreatePage = () => {
       <MapSelector 
         location={CreateMeetingFormData.location}
         latitute={CreateMeetingFormData.latitute}
-        longitute={CreateMeetingFormData.longitute}
+        longitude={CreateMeetingFormData.longitude}
         onChange={(value) => setFormData(prev => ({...prev, location: value}))}
       />
       <CalanderSelector 

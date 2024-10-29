@@ -3,14 +3,14 @@ import MapView from './MapView';
 interface MapSelectorProps {
   location: string;
   latitute: number;
-  longitute: number;
+  longitude: number;
   onChange: (value: string) => void;
 }
 
 const MapSelector: React.FC<MapSelectorProps> = ({ 
   location,
   latitute,
-  longitute,
+  longitude,
   onChange 
 }) => {
   return (
@@ -29,7 +29,7 @@ const MapSelector: React.FC<MapSelectorProps> = ({
       </div>
       <MapView
         latitute={latitute}
-        longitute={longitute}
+        longitude={longitude}
       />
     </div>
   );
