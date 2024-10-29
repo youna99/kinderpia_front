@@ -9,16 +9,75 @@
 }
 
 .placelist-container {
+  margin-bottom: 3rem;
   .headline-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 1.5rem;
-    .title {
-      font-size: $headline;
+    margin: 0 1.5rem 0.5rem 1rem;
+
+    .title-container {
+      display: flex;
+      align-items: center;
+      .title {
+        font-size: $headline;
+        margin-right: 1rem;
+      }
+      .add {
+        font-size: 1.2rem;
+        display: none;
+      }
     }
   }
   .swiper {
     margin: 0.2rem 0.8rem;
+  }
+}
+
+.meetinglist-container {
+  .headline-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 1.5rem 0.5rem 1rem;
+    .title-container {
+      display: flex;
+      align-items: center;
+      .title {
+        font-size: $headline;
+        margin-right: 1rem;
+      }
+      .add {
+        font-size: 1.2rem;
+        display: none;
+      }
+    }
+  }
+}
+
+@media (min-width: $sm) {
+  .placelist-container {
+    .headline-container {
+      .title-container {
+        .add {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .meetinglist-container {
+    .headline-container {
+      .title-container {
+        .add {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .meetingcard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
