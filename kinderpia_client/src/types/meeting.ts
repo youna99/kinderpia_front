@@ -7,7 +7,7 @@ export interface CreateMeetingFormData {
   selectedDate: string;
   selectedTime: string;
   description: string;
-  JoinMethod : boolean;
+  JoinMethod: boolean;
 }
 
 // export interface MeetingData{
@@ -29,4 +29,11 @@ export interface CreateMeetingFormData {
 
 export interface CategoryResponse {
   categories: string[];
+}
+
+export interface UpdateMeetingFormData {
+  title: string;
+  participants: number;
+  hasParticipantsLimit: boolean;
+  description: string;
 }
