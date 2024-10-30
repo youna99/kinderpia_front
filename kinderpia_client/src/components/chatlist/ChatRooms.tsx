@@ -11,10 +11,11 @@ import {
 import { tempChatListdata } from "../../data/tempChatListdata";
 import { ChatRoomListInfo } from "../../types/chat";
 import NoChatRoom from "./NoChatRoom";
+import { getChatList } from "../../api/chat";
 
 export default function ChatRooms() {
   const dispatch = useDispatch();
-  const { rooms, error, loading, isEmpty } = useSelector(
+  const { rooms, isEmpty } = useSelector(
     (state: RootState) => state.chatRooms
   );
 
@@ -57,14 +58,32 @@ export default function ChatRooms() {
   }, [dispatch, isEmpty]);
   */
 
-  // 임시 데이터
+  // 비동기 요청
   useEffect(() => {
+    // 임시 데이터
     const tempData: ChatRoomListInfo[] = [...tempChatListdata];
     dispatch(setChatRooms(tempData));
     dispatch(setEmpty(tempData.length === 0));
     dispatch(setError(false));
-    dispatch(setLoading(true));
+    dispatch(setLoading(false));
   }, [dispatch, isEmpty]);
+
+  const fetchChatList = async () => {
+    try {
+      const res = await getChatList();
+      // if (res?.status === 200) {
+      //   dispatch(setChatRooms(res.data));
+      //   dispatch(setEmpty(res.data.length === 0));
+      //   dispatch(setError(false));
+      //   dispatch(setLoading(false));
+      // }
+    } catch (error) {
+      console.error(error);
+      dispatch(setError(true))
+      dispatch(setLoading(false))
+      throw error;
+    }
+  };
 
   if (isEmpty) return <NoChatRoom />;
 

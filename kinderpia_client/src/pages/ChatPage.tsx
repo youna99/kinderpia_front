@@ -8,10 +8,14 @@ import { tempChatInfo } from "../data/tempChatroomInfo";
 import { ChatRoomInfo } from "../types/chat";
 import { setChatInfo } from "../store/chatSlice";
 import { setLoading } from "../store/chatRoomsSlice";
+import { useParams } from "react-router-dom";
 
 // 채팅방 페이지 컴포넌트
 export default function ChatPage() {
   const dispatch = useDispatch();
+  // 임시 채팅방 아이디
+  const chatroomId = 2;
+  
 
   useEffect(() => {
     // 페이지 마운트 시 스크롤 방지
@@ -36,7 +40,7 @@ export default function ChatPage() {
     <section className="chatroom">
       <div className="inner">
         <ChatHeader />
-        <ChatContainer />
+        <ChatContainer chatroomId={chatroomId}/>
         <ChatInput />
       </div>
     </section>
