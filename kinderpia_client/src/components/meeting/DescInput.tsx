@@ -1,4 +1,5 @@
-import '../../styles/meeting/DescInput.scss';
+import '../../styles/meeting/createpage/DescInput.scss';
+import CheckMarker from '../common/CheckMarker';
 interface DescInputProps {
   value: string;
   onChange?: (value: string) => void;
@@ -7,9 +8,14 @@ interface DescInputProps {
 const DescInput: React.FC<DescInputProps> = ({ value, onChange }) => {
   return (
     <div className="desc-input-container">
-      <label className="desc-input-title">
-        모임 소개<span> *</span>
-      </label>
+      <div className='desc-input-header'>
+        <label className="desc-input-header-title">
+          모임 소개<span> *</span>
+        </label>
+        <CheckMarker
+          value={value}
+        />
+      </div>
       <hr />
       <textarea
         className="desc-input-textarea"

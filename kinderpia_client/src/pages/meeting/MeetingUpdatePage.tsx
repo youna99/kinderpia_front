@@ -11,7 +11,7 @@ import JoinMethodInput from '../../components/meeting/JoinMethodInput';
 import CommonButton1 from '../../components/common/CommonButton1';
 import { updateMeeting } from '../../api/meeting';
 
-import '../../styles/meeting/MeetingUpdatePage.scss';
+import '../../styles/meeting/createpage/MeetingUpdatePage.scss';
 
 const data: CreateMeetingFormData = {
   title: '에버랜드 같이 가요~!',

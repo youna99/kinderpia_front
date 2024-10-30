@@ -1,6 +1,6 @@
-@import '../common/reset';
-@import '../common/variables';
-@import '../common/utils';
+@import '../../common/reset';
+@import '../../common/variables';
+@import '../../common/utils';
 
 .desc-input {
   &-container {
@@ -18,31 +18,38 @@
     }
   }
 
-  &-title {
+  &-header {
     margin-top: $title1;
-    font-weight: 500;
-    font-size: $headline;
-    span {
-      color: #ff0044;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    &-title {
+      font-weight: 500;
+      font-size: $headline;
+      span {
+        color: #ff0044;
+      }
     }
   }
 
   &-textarea {
     resize: none;
     width: 100%;
-    min-height: 200px; // 높이 증가
-    padding: 16px;
+    min-height: 200px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     font-size: $body;
     line-height: 1.6;
     color: #333;
     background-color: white;
-    font-family: inherit; // 시스템 폰트 대신 상속받은 폰트 사용
+    font-family: inherit;
+    box-sizing: border-box;
+    padding: 5px;
     
     // placeholder 스타일
     &::placeholder {
-      color: #999;
+      color: $status-color3;
       font-size: $body;
     }
     

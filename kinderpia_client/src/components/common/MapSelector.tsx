@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import DynamicMapView from './DynamicMapView';
-import { searchLocation } from '../../api/map'; // searchMap import 추가
+import { searchLocation } from '../../api/map';
+import CheckMarker from '../common/CheckMarker';
 
-import '../../styles/meeting/MapSelector.scss';
+import '../../styles/meeting/createpage/MapSelector.scss';
 
 interface MapSelectorProps {
   location: string;
@@ -71,7 +72,10 @@ const MapSelector: React.FC<MapSelectorProps> = ({
 
   return (
     <div className="map-selector-container">
-      <label className="map-selector-title">모임 장소<span> *</span></label>
+      <div className='map-selector-header'>
+        <label className="map-selector-header-title">모임 장소<span> *</span></label>
+        <CheckMarker value={location} />
+      </div>
       <hr/>
       <div className="map-selector-content">
         <div className="map-selector-search-box">
@@ -82,6 +86,7 @@ const MapSelector: React.FC<MapSelectorProps> = ({
               value={searchInput}
               onChange={handleInputChange}
               onKeyPress={handleKeyPress}
+              // onBlur={handleSearchSubmit}
             />
 
           </div>

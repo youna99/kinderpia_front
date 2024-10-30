@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { MapProps } from '../../types/map';
 
-import '../../styles/meeting/DynamicMapView.scss'
+import '../../styles/meeting/createpage/DynamicMapView.scss'
 
 const DynamicMapView: React.FC<MapProps> = ({ center, marker }) => {
   const mapRef = useRef<HTMLDivElement>(null);

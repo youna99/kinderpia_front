@@ -1,6 +1,6 @@
-@import '../common/reset';
-@import '../common/variables';
-@import '../common/utils';
+@import '../../common/reset';
+@import '../../common/variables';
+@import '../../common/utils';
 
 .calander-selector {
   &-container {
@@ -18,14 +18,21 @@
     }
   }
 
-  &-title {
+  &-header {
     margin-top: $title1;
-    font-weight: 500;
-    font-size: $headline;
-    span {
-      color: #ff0044;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    &-title {
+      font-weight: 500;
+      font-size: $headline;
+      span {
+        color: #ff0044;
+      }
     }
   }
+
   &-day-picker{
     .custom-calendar {
       margin: 2rem auto;
@@ -56,7 +63,7 @@
         button {
           min-width: 44px;
           background: none;
-          font-size: 16px;
+          font-size: $title2;
           
           &:disabled {
             background-color: #f0f0f0;
@@ -74,7 +81,7 @@
         text-align: center;
         text-transform: uppercase;
         font-weight: bold;
-        font-size: 14px;
+        font-size: $title2;
         
         abbr {
           text-decoration: none;
@@ -87,7 +94,7 @@
         padding: 10px;
         background: none;
         text-align: center;
-        font-size: 14px;
+        font-size: $body;
 
         &:disabled {
           background-color: #f0f0f0;
@@ -95,10 +102,11 @@
         }
 
         &--now {
-          background: #d7e8e9;
+          background: #9ed4f8;
+          color: #ffffff;
           &:enabled:hover,
           &:enabled:focus {
-            background: #d7e8e9;
+            background: #b7ddf6;
           }
         }
 
@@ -121,7 +129,7 @@
       .react-calendar__tile:enabled:hover,
       .react-calendar__tile:enabled:focus {
         background-color: #59a4d6;
-        border-radius: 4px;
+        border-radius: 0.6rem;
       }
     }
 
@@ -133,8 +141,7 @@
         width: 100%;
         padding: 8px 12px;
         border: 1px solid #e0e0e0;
-        border-radius: 4px;
-        font-size: 14px;
+        font-size: $title2;
         
         &:focus {
           outline: none;
@@ -155,6 +162,7 @@
       padding: 8px 12px;
       border: 1px solid #e0e0e0;
       border-radius: 8px;
+      font-family: inherit;
       font-size: 14px;
       color: #333;
       background-color: white;
