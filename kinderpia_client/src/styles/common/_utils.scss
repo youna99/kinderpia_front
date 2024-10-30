@@ -1,12 +1,11 @@
 button,
 body {
-  font-family: "GmarketSansMedium";
+  font-family: 'GmarketSansMedium';
 }
 
 main {
-  position: relative;
-  top: 8rem;
-  min-height: 100vh;
+  margin-top: 8rem;
+  margin-bottom: 10rem;
 }
 
 .inner {
@@ -16,7 +15,7 @@ main {
 }
 
 .logo {
-  font-family: "EF_jejudoldam";
+  font-family: 'EF_jejudoldam';
   font-size: $title1;
 }
 
@@ -37,7 +36,7 @@ main {
   overflow: hidden;
   background: transparent;
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: -100%;

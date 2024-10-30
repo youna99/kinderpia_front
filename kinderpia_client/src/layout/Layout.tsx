@@ -14,9 +14,9 @@ export default function Layout() {
           <Outlet />
         </div>
         <UpBtn />
+        <NavBar />
       </main>
       <Footer />
-      <NavBar />
     </div>
   );
 }
