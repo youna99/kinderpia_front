@@ -5,7 +5,10 @@ interface SeoulMapProps {
   selectedDistrict?: string | null;
 }
 
-const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }) => {
+const SeoulMap: React.FC<SeoulMapProps> = ({
+  onDistrictClick,
+  selectedDistrict,
+}) => {
   const [hoveredDistrict, setHoveredDistrict] = useState<string | null>(null);
 
   const handleDistrictHover = (districtName: string | null) => {
@@ -49,7 +52,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('용산구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('용산구')}
           onMouseEnter={() => handleDistrictHover('용산구')}
@@ -61,7 +64,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('성동구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('성동구')}
           onMouseEnter={() => handleDistrictHover('성동구')}
@@ -73,7 +76,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('중구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('중구')}
           onMouseEnter={() => handleDistrictHover('중구')}
@@ -86,7 +89,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('서대문구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('서대문구')}
           onMouseEnter={() => handleDistrictHover('서대문구')}
@@ -99,7 +102,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('종로구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('종로구')}
           onMouseEnter={() => handleDistrictHover('종로구')}
@@ -112,7 +115,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('은평구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('은평구')}
           onMouseEnter={() => handleDistrictHover('은평구')}
@@ -125,7 +128,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('성북구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('성북구')}
           onMouseEnter={() => handleDistrictHover('성북구')}
@@ -137,7 +140,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('광진구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('광진구')}
           onMouseEnter={() => handleDistrictHover('광진구')}
@@ -150,7 +153,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('동대문구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('동대문구')}
           onMouseEnter={() => handleDistrictHover('동대문구')}
@@ -163,7 +166,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('중랑구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('중랑구')}
           onMouseEnter={() => handleDistrictHover('중랑구')}
@@ -176,7 +179,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('동작구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('동작구')}
           onMouseEnter={() => handleDistrictHover('동작구')}
@@ -189,7 +192,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('영등포구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('영등포구')}
           onMouseEnter={() => handleDistrictHover('영등포구')}
@@ -201,7 +204,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('구로구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('구로구')}
           onMouseEnter={() => handleDistrictHover('구로구')}
@@ -214,7 +217,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('양천구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('양천구')}
           onMouseEnter={() => handleDistrictHover('양천구')}
@@ -227,7 +230,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('강서구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('강서구')}
           onMouseEnter={() => handleDistrictHover('강서구')}
@@ -240,7 +243,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('관악구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('관악구')}
           onMouseEnter={() => handleDistrictHover('관악구')}
@@ -253,7 +256,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('금천구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('금천구')}
           onMouseEnter={() => handleDistrictHover('금천구')}
@@ -265,7 +268,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('서초구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('서초구')}
           onMouseEnter={() => handleDistrictHover('서초구')}
@@ -278,7 +281,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('강남구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('강남구')}
           onMouseEnter={() => handleDistrictHover('강남구')}
@@ -291,7 +294,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('송파구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('송파구')}
           onMouseEnter={() => handleDistrictHover('송파구')}
@@ -304,7 +307,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('강동구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('강동구')}
           onMouseEnter={() => handleDistrictHover('강동구')}
@@ -317,7 +320,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('강북구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('강북구')}
           onMouseEnter={() => handleDistrictHover('강북구')}
@@ -330,7 +333,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('도봉구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('도봉구')}
           onMouseEnter={() => handleDistrictHover('도봉구')}
@@ -343,7 +346,7 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: getDistrictColor('노원구'),
             cursor: 'pointer',
-            transition: 'fill 0.2s ease'
+            transition: 'fill 0.2s ease',
           }}
           onClick={() => onDistrictClick?.('노원구')}
           onMouseEnter={() => handleDistrictHover('노원구')}
@@ -356,9 +359,15 @@ const SeoulMap: React.FC<SeoulMapProps> = ({ onDistrictClick, selectedDistrict }
           style={{
             fill: '#4141a3',
             opacity: 0.5,
-            pointerEvents: 'none'
+            pointerEvents: 'none',
           }}
         />
+        {/* 지울거면 이거 밑에꺼 지우면댐~낄낄 */}
+        {(hoveredDistrict || selectedDistrict) && (
+          <text x="10" y="20" fill="black" fontSize="14">
+            {hoveredDistrict || selectedDistrict}
+          </text>
+        )}
       </g>
     </svg>
   );
