@@ -7,7 +7,9 @@ export default function Header() {
     <>
       <header>
         <div className="inner">
-          <h1>KINDERPIA</h1>
+          <h1>
+            <Link to={'/'}>KINDERPIA</Link>
+          </h1>
           <nav>
             <ul className="header-nav">
               <li className="header-list">

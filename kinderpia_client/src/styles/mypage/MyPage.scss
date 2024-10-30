@@ -1,0 +1,28 @@
+@import '../common/variables';
+@import '../common/utils';
+
+#mypage {
+  padding: 2rem 0;
+  .title-wrap {
+    display: flex;
+    justify-content: space-between;
+    .title {
+      font-size: $headline;
+    }
+    button {
+      font-size: $caption;
+      cursor: pointer;
+      .logout-icon {
+        vertical-align: middle;
+        font-size: 2.2rem;
+        margin-left: 1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: $md) {
+  #mypage {
+    padding: 2rem;
+  }
+}

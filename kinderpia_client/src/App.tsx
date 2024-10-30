@@ -17,6 +17,7 @@ import MeetingUpdate from './pages/meeting/MeetingUpdatePage';
 
 import PlacePage from './pages/place/PlacePage';
 import PlaceDetailPage from './pages/place/PlaceDetailPage';
+import MyPage from './pages/MyPage';
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
               {/* 회원가입 */}
               <Route path="user/register" element={<RegisterPage />} />
               {/* 마이페이지 */}
+              <Route path="/mypage" element={<MyPage />} />
+              {/* 개인정보 수정 페이지 */}
+              <Route path="/mypage/editUser" element={<MyPage />} />
               {/* 채팅방 목록 */}
               <Route path="chatroom" element={<ChatlistPage />} />
               {/* 채팅방 */}

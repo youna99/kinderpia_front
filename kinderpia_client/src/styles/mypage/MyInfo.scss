@@ -1,0 +1,47 @@
+@import '../common/variables';
+@import '../common/utils';
+
+.my-info {
+  margin-top: 2rem;
+  .profile {
+    background: $bg-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+    padding: 1.5rem 0;
+    figure {
+      width: 15rem;
+      height: 15rem;
+      min-width: 10rem;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      overflow: hidden;
+      .profile-image {
+        width: inherit;
+        object-fit: contain;
+      }
+    }
+    .nickname {
+      font-weight: normal;
+      display: block;
+      font-size: $title2;
+    }
+    .my-info-edit {
+      display: inline-block;
+      text-align: center;
+      font-size: $body;
+      border: 1px solid transparent;
+      border-radius: 2rem;
+      background: #fff;
+      color: rgb(72, 72, 72);
+      padding: 0 1rem;
+      margin-top: 1rem;
+    }
+  }
+}
+
+@media (max-width: $md) {
+}

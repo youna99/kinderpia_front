@@ -1,0 +1,120 @@
+@import '../common/variables';
+
+#calender {
+  margin-top: 2rem;
+  h3 {
+    font-size: $title3;
+  }
+  .my-calender {
+    display: flex;
+    .meeting-list {
+      font-size: $body;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 3rem;
+    }
+    .today-title {
+      font-size: $body;
+    }
+  }
+
+  .meeting-dot {
+    width: 1rem;
+    height: 1rem;
+    background: pink;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.react-calendar__tile,
+.react-calendar__tile--now,
+.react-calendar__month-view__days__day {
+  position: relative;
+  height: 4.5rem;
+}
+
+// react-calendar 스타일
+.react-calendar {
+  width: 40%;
+  min-width: 32rem;
+  font-family: 'GmarketSansMedium';
+  font-size: $title3;
+  border: none;
+  line-height: 1.5;
+}
+
+.react-calendar__navigation__label {
+  font-size: $title2;
+}
+
+.react-calendar__navigation {
+  flex-wrap: wrap;
+  height: 5.5rem;
+}
+
+.react-calendar__navigation__arrow,
+.react-calendar__navigation__next-button {
+  font-size: 5rem;
+}
+
+// 클릭한 날짜
+.react-calendar__tile--active {
+  border-radius: 1rem;
+  background: $bg-color;
+  color: #000;
+}
+
+// 오늘 날짜
+.react-calendar__tile--now {
+  color: $status-color;
+  background: $main-color;
+  border-radius: 1rem;
+}
+
+//hover 했을 때 색상 변경
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background: $bg-color;
+  color: #000;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  // 주말 글씨 빨간색 없애기
+  color: var(--festie-gray-800, #3a3a3a);
+}
+
+// 요일 css
+abbr[title] {
+  font-size: $body;
+  font-weight: 400;
+  text-decoration: none;
+  color: $main-color;
+}
+
+@media (max-width: $sm) {
+  #calender {
+    width: 100%;
+    h3 {
+      font-size: $title3;
+    }
+    .my-calender {
+      flex-direction: column;
+      align-items: center;
+      .meeting-list {
+        font-size: $body;
+        width: 100%;
+      }
+      .today-title {
+        font-size: $body;
+      }
+    }
+  }
+  .react-calendar {
+    width: 100%;
+  }
+}
