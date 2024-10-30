@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router-dom';  // import 추가
 import { CreateMeetingFormData } from '../../types/meeting';
 
 // component 호출 - 모임
-import TitleInput from '../../components/meeting/TitleInput';
-import ParticipateInput from '../../components/meeting/ParticipateInput';
-import DescInput from '../../components/meeting/DescInput';
-import CategoryInput from '../../components/meeting/CategoryInput';
-import JoinMethodInput from '../../components/meeting/JoinMethodInput';
+import TitleInput from '../../components/meeting/createpage/TitleInput';
+import ParticipateInput from '../../components/meeting/createpage/ParticipateInput';
+import DescInput from '../../components/meeting/createpage/DescInput';
+import CategoryInput from '../../components/meeting/createpage/CategoryInput';
+import JoinMethodInput from '../../components/meeting/createpage/JoinMethodInput';
 
 // component 호출 - 공용
 import MapSelector from '../../components/common/MapSelector';

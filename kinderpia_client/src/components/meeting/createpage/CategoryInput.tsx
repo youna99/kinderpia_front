@@ -1,7 +1,7 @@
 import React from 'react';
-import { categoryList } from '../../data/tempCategoryList';
-import '../../styles/meeting/createpage/CategoryInput.scss';
-import CheckMarker from '../common/CheckMarker';
+import { categoryList } from '../../../data/tempCategoryList';
+import '../../../styles/meeting/createpage/CategoryInput.scss';
+import CheckMarker from '../../common/CheckMarker';
 
 interface CategoryInputProps {
   value: string;

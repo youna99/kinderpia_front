@@ -1,4 +1,5 @@
 export interface MettingListInfo {
+  meetingId : number;
   title: string;
   category: string;
   location: string;

@@ -1,5 +1,5 @@
-import '../../styles/meeting/createpage/JoinMethodInput.scss';
-import CheckMarker from '../common/CheckMarker';
+import '../../../styles/meeting/createpage/JoinMethodInput.scss';
+import CheckMarker from '../../common/CheckMarker';
 
 interface JoinMethodProps {
   value: boolean;

@@ -1,17 +1,19 @@
 import { MettingListInfo } from '../types/meetinglist';
 
 export const dummyMeetingList: MettingListInfo[] = [
-  {
+  { 
+    meetingId: 1,
     title: '에버랜드 같이 가요~!',
     category: '오락 & 여가',
     location: '용산구',
     selectedDate: '2024-10-30',
     selectedTime: '10:00',
     writer: '글쓴이',
-    participants: 5,
+    participants: 5, // 현재 참가 인원
     meetingStatus: '모집중',
   },
   {
+    meetingId: 2,
     title: '롯데월드 방문해요!',
     category: '오락 & 여가',
     location: '송파구',
@@ -22,6 +24,7 @@ export const dummyMeetingList: MettingListInfo[] = [
     meetingStatus: '인원마감',
   },
   {
+    meetingId: 3,
     title: '서울숲 피크닉',
     category: '자연 & 환경',
     location: '성동구',
@@ -32,6 +35,7 @@ export const dummyMeetingList: MettingListInfo[] = [
     meetingStatus: '모임종료',
   },
   {
+    meetingId: 4,
     title: '63빌딩 전망대 가요!',
     category: '체험 & 활동',
     location: '영등포구',
@@ -42,6 +46,7 @@ export const dummyMeetingList: MettingListInfo[] = [
     meetingStatus: '모집중',
   },
   {
+    meetingId: 5,
     title: '국립중앙박물관 탐방',
     category: '교육 & 문화',
     location: '용산구',

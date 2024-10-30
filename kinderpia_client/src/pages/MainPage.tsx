@@ -108,6 +108,7 @@ function MainPage() {
         <div className="meetingcard">
           {meetingList.slice(0, 4).map((meeting) => (
             <MeetingList
+              meetingId={meeting.meetingId}
               title={meeting.title}
               category={meeting.category}
               location={meeting.location}
