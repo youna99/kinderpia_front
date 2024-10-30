@@ -3,7 +3,28 @@
 @import './utils';
 
 footer {
-  position: relative;
-  height: 8rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   background: #000;
+  text-align: center;
+  padding: 1rem 0;
+  P {
+    color: #fff;
+    font-size: 1.4rem;
+    font-family: 'EF_jejudoldam';
+  }
+  .footer-info {
+    font-size: 2rem;
+    a {
+      color: #fff;
+    }
+    .footer-infotxt {
+      display: inline-block;
+      font-weight: 400;
+      margin-left: 0.5rem;
+      font-size: 1.4rem;
+    }
+  }
 }

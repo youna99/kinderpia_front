@@ -4,6 +4,7 @@
 
 .up-btn {
   position: fixed;
+  z-index: 10002;
   right: 5%;
   bottom: 5%;
   display: flex;
@@ -17,5 +18,34 @@
   }
   .up-txt {
     font-size: 1.4rem;
+  }
+}
+
+@media (max-width: $lg) {
+  .up-btn {
+    right: 0;
+    bottom: 8rem;
+    padding: 1rem 1.6rem;
+    font-family: 'GmarketSansMedium';
+    cursor: pointer;
+    .up-icon {
+      font-size: 4rem;
+    }
+    .up-txt {
+      font-size: 1.4rem;
+    }
+  }
+}
+
+@media (max-width: $md) {
+  .up-btn {
+    padding: 1rem 1rem;
+    cursor: pointer;
+    .up-icon {
+      font-size: 3rem;
+    }
+    .up-txt {
+      font-size: 1.2rem;
+    }
   }
 }
