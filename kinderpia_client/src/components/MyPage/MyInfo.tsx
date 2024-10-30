@@ -12,11 +12,15 @@ const MyInfo: React.FC = () => {
   return (
     <section className="my-info">
       <div className="profile">
-        <img
-          src={profileData.profileImage}
-          alt="프로필 이미지"
-          className="profile-image"
-        />
+        <div className="img-wrap">
+          <figure>
+            <img
+              src={profileData.profileImage}
+              alt="프로필 이미지"
+              className="profile-image"
+            />
+          </figure>
+        </div>
         <div className="profile-details">
           <strong className="nickname">{profileData.nickname}</strong>
           <Link to={'/mypage/editUser'} className="my-info-edit">
