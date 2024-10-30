@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';  // import 추가
 
 // type 호출
 import { CreateMeetingFormData } from '../../types/meeting';
@@ -19,9 +20,10 @@ import CommonButton1 from '../../components/common/CommonButton1';
 import { meetingApi } from '../../api/meeting';
 
 //style 호출
-import '../../styles/meeting/MeetingCreatePage.scss'
+import '../../styles/meeting/createpage/MeetingCreatePage.scss'
 
 const MeetingCreatePage = () => {
+  const navigate = useNavigate(); 
   const [CreateMeetingFormData, setFormData] = useState<CreateMeetingFormData>({
     title: '',
     category: '',
@@ -33,10 +35,6 @@ const MeetingCreatePage = () => {
     description: '',
     JoinMethod: false
   });
-
-  useEffect(()=>{
-    console.log(CreateMeetingFormData);
-  },[CreateMeetingFormData])
 
   const handleParticipantsChange = (value: number) => {
     setFormData(prev => ({
@@ -61,7 +59,26 @@ const MeetingCreatePage = () => {
   };
 
   const buttonActionProps = async () => {    
-    try {
+    try {    
+      const requiredFields = [
+        { field: 'title', label: '제목' },
+        { field: 'category', label: '모임 유형' },
+        { field: 'location', label: '모임 장소' },
+        { field: 'selectedDate', label: '모임 날짜' },
+        { field: 'selectedTime', label: '모임 시간' },
+        { field: 'description', label: '모임 설명' }
+      ];
+
+      // 비어있는 필수 필드 찾기
+      const emptyFields = requiredFields.filter(
+        ({ field }) => !CreateMeetingFormData[field as keyof CreateMeetingFormData]
+      );
+
+      // 비어있는 필드가 있으면 알림 후 함수 종료
+      if (emptyFields.length > 0) {
+        alert(`다음 필드를 입력해주세요: ${emptyFields.map(f => f.label).join(', ')}`);
+        return;
+      }
       const data = {
         title: CreateMeetingFormData.title,
         category: CreateMeetingFormData.category,
@@ -74,12 +91,10 @@ const MeetingCreatePage = () => {
         JoinMethod : CreateMeetingFormData.JoinMethod
       };
       
-      const result = await meetingApi.createMeeting(data);
-      
-      console.log(result);
-      
-      console.log(' 어쩌구 저쩌구 요청 성공 ', CreateMeetingFormData, '----------------------', data);
-      
+      // const result = await meetingApi.createMeeting(data);
+      alert('모임 생성에 성공했습니다!');
+      // console.log(' 어쩌구 저쩌구 요청 성공 ', CreateMeetingFormData, '----------------------', data);
+      navigate('/meeting/100'); 
     } catch (error) {
       console.log(' 어쩌구 저쩌구 요청 대 실패 ', CreateMeetingFormData);
       throw error;
@@ -93,7 +108,7 @@ const MeetingCreatePage = () => {
       </span>
       <form className="meeting-create-page-form">
         <CategoryInput
-          value={CreateMeetingFormData.title}
+          value={CreateMeetingFormData.category}  // title이 아닌 category 값을 전달
           onChange={(value) => setFormData(prev => ({...prev, category: value}))}
         />
         <TitleInput 

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import type { Value } from 'react-calendar/dist/cjs/shared/types';
 import 'react-calendar/dist/Calendar.css';
-import '../../styles/meeting/CalanderSelector.scss';
+import '../../styles/meeting/createpage/CalanderSelector.scss';
+import CheckMarker from '../common/CheckMarker';
 
 interface CalanderSelectorProps {
   date: string;
@@ -31,7 +32,12 @@ const CalanderSelector: React.FC<CalanderSelectorProps> = ({
 
   return (
     <div className="calander-selector-container">
-      <label className="calander-selector-title">모임 일시<span> *</span></label>
+      <div className='calander-selector-header'>
+        <label className="calander-selector-header-title">모임 일시<span> *</span></label>
+        <CheckMarker
+          value={ time }
+        />
+      </div>
       <hr/>
       <div className="calander-selector-day-picker">
       <Calendar

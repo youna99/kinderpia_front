@@ -1,6 +1,6 @@
-@import '../common/reset';
-@import '../common/variables';
-@import '../common/utils';
+@import '../../common/reset';
+@import '../../common/variables';
+@import '../../common/utils';
 
 .map-selector {
   &-container {
@@ -18,17 +18,23 @@
     }
   }
 
-  &-title {
+  &-header {
     margin-top: $title1;
-    font-weight: 500;
-    font-size: $headline;
-    span {
-      color: #ff0044;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    &-title {
+      font-weight: 500;
+      font-size: $headline;
+      span {
+        color: #ff0044;
+      }
     }
   }
 
   &-search-box {
-    position: relative;  // 드롭다운의 기준점
+    position: relative;
   }
 
   &-search-input {
@@ -36,9 +42,10 @@
     height: 6rem;
     padding: 0px 16px;
     border: 1px solid $border-color;
-    border-radius: 0.4rem;
+    border-radius: 0.6rem;
     box-sizing: border-box;
-    font-size: $body;
+    font-size: $title3;
+    font-family: inherit;
 
     &:focus {
       border-color: $main-color;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import React from 'react'
-import '../../styles/meeting/StaticMapView.scss'
+import '../../styles/meeting/createpage/StaticMapView.scss'
 interface MapViewProps {
   latitute: number;
   longitude: number;

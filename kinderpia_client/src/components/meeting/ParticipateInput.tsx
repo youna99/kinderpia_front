@@ -1,4 +1,5 @@
-import '../../styles/meeting/ParticipateInput.scss';
+import '../../styles/meeting/createpage/ParticipateInput.scss';
+import CheckMarker from '../common/CheckMarker';
 
 interface ParticipateInputProps {
   value: number;
@@ -51,9 +52,12 @@ const ParticipateInput: React.FC<ParticipateInputProps> = ({
 
   return (
     <div className="participate-input-container">
-      <label className="participate-input-title">
-        참여 인원<span> *</span>
-      </label>
+      <div className='participate-input-header'>
+        <label className="participate-input-header-title">
+          참여 인원<span> *</span>
+        </label>
+        <CheckMarker value={value} />
+      </div>
       <hr />
       <div className="participate-input-input">
         <div className="participate-input-radio-group">
