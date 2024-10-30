@@ -23,11 +23,14 @@ export interface MeetingData{
   description: string;
   JoinMethod : boolean;
   meetingStatus : string;
+  createdAt :string;
 }
 
 export interface MeetingUserData{
-
-  
+  userId: number,
+  isJoined : boolean,  
+  ispermitted : boolean,
+  isReport: boolean,
 }
 
 export interface CategoryResponse {

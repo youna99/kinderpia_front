@@ -55,6 +55,7 @@ function MeetingDetailPage() {
     <div className='meeting-detail-page'>
       <MeetingInfo
         data={meetingData}
+        user={userData}
       />
       <MeetingAction
         data={userData}

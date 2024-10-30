@@ -1,4 +1,6 @@
 import React from 'react'
+
+//타입 호출
 import { MeetingUserData } from '../../../types/meeting'
 
 interface MeetingActionProps{
@@ -10,7 +12,6 @@ const MeetingAction:React.FC<MeetingActionProps> = ({
 }) => {
   return (
     <div className='meeting-action-container'>
-      
     </div>
   )
 }
