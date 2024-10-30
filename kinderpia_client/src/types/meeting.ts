@@ -10,22 +10,25 @@ export interface CreateMeetingFormData {
   JoinMethod: boolean;
 }
 
-// export interface MeetingData{
-//   id : number;
-//   title: string;
-//   category: string;
-//   participants: number;
-//   maxParticipants : number;
-//   writer : string;
-//   location: string;
-//   latitute :number;
-//   longitute :number;
-//   selectedDate: string;
-//   selectedTime: string;
-//   description: string;
-//   JoinMethod : boolean;
-//   meetingStatus : string;
-// }
+export interface MeetingData{
+  meetingId : number;
+  title: string;
+  category: string;
+  participants: number;
+  maxParticipants : number;
+  writer : string;
+  location: string;
+  selectedDate: string;
+  selectedTime: string;
+  description: string;
+  JoinMethod : boolean;
+  meetingStatus : string;
+}
+
+export interface MeetingUserData{
+
+  
+}
 
 export interface CategoryResponse {
   categories: string[];

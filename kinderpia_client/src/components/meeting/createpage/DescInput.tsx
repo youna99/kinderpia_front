@@ -1,5 +1,5 @@
-import '../../styles/meeting/createpage/DescInput.scss';
-import CheckMarker from '../common/CheckMarker';
+import '../../../styles/meeting/createpage/DescInput.scss';
+import CheckMarker from '../../common/CheckMarker';
 interface DescInputProps {
   value: string;
   onChange?: (value: string) => void;

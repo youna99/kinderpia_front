@@ -1,5 +1,5 @@
-import '../../styles/meeting/createpage/ParticipateInput.scss';
-import CheckMarker from '../common/CheckMarker';
+import '../../../styles/meeting/createpage/ParticipateInput.scss';
+import CheckMarker from '../../common/CheckMarker';
 
 interface ParticipateInputProps {
   value: number;

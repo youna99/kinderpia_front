@@ -1,5 +1,5 @@
-import '../../styles/meeting/createpage/TitleInput.scss';
-import CheckMarker from '../common/CheckMarker';
+import '../../../styles/meeting/createpage/TitleInput.scss';
+import CheckMarker from '../../common/CheckMarker';
 
 interface TitleInputProps {
   value: string;

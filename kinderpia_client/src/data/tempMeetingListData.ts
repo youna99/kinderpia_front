@@ -9,7 +9,7 @@ export const dummyMeetingList: MettingListInfo[] = [
     selectedDate: '2024-10-30',
     selectedTime: '10:00',
     writer: '글쓴이',
-    participants: 5,
+    participants: 5, // 현재 참가 인원
     meetingStatus: '모집중',
   },
   {
