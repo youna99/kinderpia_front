@@ -6,7 +6,7 @@ import { dummyPlaceDetail } from '../../data/tempPlaceDetail';
 
 // 타입 호출
 import { PlaceData } from '../../types/place';
-import MapView from '../../components/common/MapView';
+import MapView from '../../components/common/StaticMapView';
 import ReviewInput from '../../components/review/ReviewInput';
 import ReviewList from '../../components/review/ReviewList';
 

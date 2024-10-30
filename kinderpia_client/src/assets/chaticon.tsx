@@ -1,12 +1,12 @@
 interface ChatIcon {
-  category: string;
+  meetingCategory: string;
   icon: () => JSX.Element;
 }
 
 // 채팅방 svg 아이콘
 export const chaticons: ChatIcon[] = [
   {
-    category: "오락 및 여가",
+    meetingCategory: "오락 및 여가",
     icon: () => (
       <svg
         width="55"
@@ -37,7 +37,7 @@ export const chaticons: ChatIcon[] = [
     ),
   },
   {
-    category: "자연 및 환경",
+    meetingCategory: "자연 및 환경",
     icon: () => (
       <svg
         width="55"
@@ -68,7 +68,7 @@ export const chaticons: ChatIcon[] = [
     ),
   },
   {
-    category: "교육 및 문화",
+    meetingCategory: "교육 및 문화",
     icon: () => (
       <svg
         width="55"
@@ -99,7 +99,7 @@ export const chaticons: ChatIcon[] = [
     ),
   },
   {
-    category: "체험 및 활동",
+    meetingCategory: "체험 및 활동",
     icon: () => (
       <svg
         width="55"
@@ -130,7 +130,7 @@ export const chaticons: ChatIcon[] = [
     ),
   },
   {
-    category: "스포츠 및 운동",
+    meetingCategory: "스포츠 및 운동",
     icon: () => (
       <svg
         width="55"
@@ -161,7 +161,7 @@ export const chaticons: ChatIcon[] = [
     ),
   },
   {
-    category: "기타",
+    meetingCategory: "기타",
     icon: () => (
       <svg
         width="55"

@@ -1,8 +1,10 @@
+import '../../styles/meeting/TitleInput.scss';
+
 interface TitleInputProps {
   value: string;
   onChange: (value: string) => void;
-  maxLength?: number;  // 최대 글자수 제한
-  placeholder?: string;  // placeholder 텍스트
+  maxLength?: number;
+  placeholder?: string;
 }
 
 const TitleInput: React.FC<TitleInputProps> = ({ 
@@ -14,24 +16,26 @@ const TitleInput: React.FC<TitleInputProps> = ({
   const currentLength = value.length;
 
   return (
-    <div className="titleinput-container">
-      <label className="titleinput-title">모임 명을 적어주세요.</label>
-      <input 
-        type="text"
-        className="titleinput-input"
-        value={value}
-        onChange={(e) => {
-          if (e.target.value.length <= maxLength) {
-            onChange(e.target.value);
-          }
-        }}
-        maxLength={maxLength}
-        placeholder={placeholder}
-      />
-      {/* 텍스트 인풋창에 글자수 제한을 표시하기 위해서  */}
-      <div className="titleinput-length"> 
-        <span>{currentLength}</span>
-        <span>/{maxLength}</span>
+    <div className="title-input-container">
+      <label className="title-input-title">모임 명<span> *</span></label>
+      <hr/>
+      <div className="title-input-wrapper">
+        <input 
+          type="text"
+          className="title-input-wrapper-input"
+          value={value}
+          onChange={(e) => {
+            if (e.target.value.length <= maxLength) {
+              onChange(e.target.value);
+            }
+          }}
+          maxLength={maxLength}
+          placeholder={placeholder}
+        />
+        <div className="title-input-wrapper-length">
+          <span>{currentLength}</span>
+          <span>/{maxLength}</span>
+        </div>
       </div>
     </div>
   );

@@ -25,11 +25,18 @@ const MeetingList: React.FC<MettingListInfo> = ({
           </div>
           <div className="meeting-writer-participants">
             <span className="meetWriter">{writer}</span>
-            <span className="meetParticipants">{participants}</span>
+            <span className="xi-group meeting-icon"></span>
+            <span className="meetParticipants">{participants} 명 참여</span>
           </div>
         </div>
         <div className="meetingStatus-container">
-          <span className="meetStatus">{meetingStatus}</span>
+          <span
+            className={`meetStatus ${
+              meetingStatus === '모집중' ? 'recruiting' : 'closed'
+            }`}
+          >
+            {meetingStatus}
+          </span>
         </div>
       </div>
     </section>

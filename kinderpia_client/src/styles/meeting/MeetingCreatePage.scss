@@ -1,0 +1,18 @@
+@import '../common/reset';
+@import '../common/variables';
+@import '../common/utils';
+
+.meeting-create-page{
+  
+  margin-bottom: 100px; // 하단 여백 추가
+  
+  &-form{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
+  &-notice{
+    font-size: $footnote;
+    color:#ff0044;
+  }
+}
