@@ -1,0 +1,24 @@
+@import '../common/reset';
+@import '../common/variables';
+@import '../common/utils';
+
+.meeting-update-page {
+  &-notice {
+    font-size: $footnote;
+    color: #ff0044;
+  }
+  &-form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
+  .location,
+  .Date-Time {
+    margin-top: $title1;
+    font-weight: 500;
+    font-size: $headline;
+    span {
+      margin-right: 2rem;
+    }
+  }
+}
