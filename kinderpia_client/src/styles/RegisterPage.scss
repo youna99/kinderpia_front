@@ -52,6 +52,9 @@
         top: -1.5rem;
         left: 0;
         transform: translateY(-50%);
+        .required-icon {
+          color: blue;
+        }
       }
       input {
         width: 100%;

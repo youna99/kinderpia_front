@@ -4,6 +4,8 @@ import RegisterInput from '../components/FormInput';
 import '../styles/RegisterPage.scss';
 import termsAndConditions from '../data/termsAndConditions';
 import axios from 'axios';
+import { showAlert, simpleAlert } from '../utils/alert';
+import { useNavigate } from 'react-router-dom';
 
 interface RegisterFormInputs {
   userId: string;
@@ -30,6 +32,7 @@ export default function RegisterPage() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [eyeIconClass, setEyeIconClass] = useState('xi-eye');
+  const navigate = useNavigate();
 
   // 비밀번호 보이기/안보이기 아이콘 토글
   const togglePasswordVisibility = () => {
@@ -47,38 +50,96 @@ export default function RegisterPage() {
     setValue(field, '');
   };
 
-  // 중복 확인 API 호출
+  // 중복 확인 API 호출 함수
   const checkDuplicate = async (
     field: 'userId' | 'nickName' | 'email' | 'phoneNum',
     value: string
   ) => {
-    const response = await axios.post(
-      `https://your-api-url.com/check-${field}`,
-      {
+    try {
+      const response = await axios.post(`/api/user/check/${field}`, {
         [field]: value,
-      }
-    );
+      });
 
-    return response.data.isDuplicate; // true or false
+      if (response.status === 200) {
+        return false; // 중복이 아님
+      } else if (response.status === 409) {
+        return true; // 중복됨
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        const status = error.response.status;
+        if (status === 400) {
+          if (field === 'userId') {
+            setError('userId', {
+              type: 'manual',
+              message: '아이디 형식이 유효하지 않습니다.',
+            });
+          } else if (field === 'nickName') {
+            setError('nickName', {
+              type: 'manual',
+              message: '닉네임 형식이 유효하지 않습니다.',
+            });
+          } else if (field === 'email') {
+            setError('email', {
+              type: 'manual',
+              message: '이메일 형식이 유효하지 않습니다.',
+            });
+          } else if (field === 'phoneNum') {
+            setError('phoneNum', {
+              type: 'manual',
+              message: '전화번호 형식이 유효하지 않습니다.',
+            });
+          }
+        }
+      }
+      // 예외 상황에서는 기본적으로 중복으로 간주
+      return true; // 기본적으로 중복으로 간주
+    }
+
+    return false; // 기본적으로 중복이 아님
   };
 
   const handleDuplicateCheck = async (
     field: 'userId' | 'nickName' | 'email' | 'phoneNum',
     value: string
   ) => {
+    // 필드가 빈 값일 경우 처리
+    if (!value) {
+      setError(field, {
+        type: 'manual',
+        message: `${
+          field === 'userId'
+            ? '아이디'
+            : field === 'nickName'
+            ? '닉네임'
+            : field === 'email'
+            ? '이메일'
+            : '전화번호'
+        }를 입력해주세요.`,
+      });
+      return;
+    }
+
     try {
       const isDuplicate = await checkDuplicate(field, value);
+
       if (field === 'userId' || field === 'nickName') {
         if (isDuplicate) {
-          alert(
-            `${
-              field === 'userId' ? '아이디' : '닉네임'
-            }이(가) 이미 사용 중입니다.`
+          showAlert(
+            'warning',
+            `이미 사용 중인 ${field === 'userId' ? '아이디' : '닉네임'} 입니다.`
           );
+          setError(field, {
+            type: 'manual',
+            message: `이미 사용 중인 ${
+              field === 'userId' ? '아이디' : '닉네임'
+            } 입니다.`,
+          });
         } else {
           alert(
             `${field === 'userId' ? '아이디' : '닉네임'}이(가) 사용 가능합니다.`
           );
+          setError(field, { type: 'manual', message: '' }); // 에러 메시지 클리어
         }
       } else if (field === 'email') {
         if (isDuplicate) {
@@ -87,7 +148,7 @@ export default function RegisterPage() {
             message: '이메일이 이미 사용 중입니다.',
           });
         } else {
-          setError('email', { type: 'manual', message: '' });
+          setError('email', { type: 'manual', message: '' }); // 에러 메시지 클리어
         }
       } else if (field === 'phoneNum') {
         if (isDuplicate) {
@@ -96,7 +157,7 @@ export default function RegisterPage() {
             message: '전화번호가 이미 사용 중입니다.',
           });
         } else {
-          setError('phoneNum', { type: 'manual', message: '' });
+          setError('phoneNum', { type: 'manual', message: '' }); // 에러 메시지 클리어
         }
       }
     } catch (error) {
@@ -104,10 +165,19 @@ export default function RegisterPage() {
     }
   };
 
-  const onSubmit: SubmitHandler<RegisterFormInputs> = (data) => {
-    // 약관 동의 부분 제외
+  const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
     const { agreeTerms, agreePrivacy, ...restData } = data;
-    console.log('회원가입 데이터 (약관 제외):', restData);
+
+    try {
+      const response = await axios.post('/api/user/register', restData);
+      if (response.status === 201) {
+        simpleAlert('success', '회원가입이 완료되었습니다!');
+        navigate('/user/login');
+      }
+    } catch (error) {
+      console.error('회원가입 오류:', error);
+      simpleAlert('error', '회원가입 중 오류가 발생했습니다.');
+    }
   };
 
   return (
