@@ -32,31 +32,31 @@ export default function ChatContainer({ chatroomId }: ChatRoomProps) {
 
   // 소켓 설정
   useEffect(() => {
-    const socket = new SockJS(`${url}/topic/chatroom/${chatroomId}`);
+    // const socket = new SockJS(`${url}/topic/chatroom/${chatroomId}`);
 
-    const client = new Client({
-      webSocketFactory: () => socket,
-      debug: (str) => {
-        console.log(str);
-      },
-      onConnect: () => {
-        // 채팅방 메시지 구독
-        client.subscribe(`/topic/chatroom/${chatroomId}`, (message) => {
-          const chatMessage = JSON.parse(message.body);
-          setMessages((prevMessages) => [...prevMessages, chatMessage]);
-        })
-      },
-      onStompError: (frame) => {
-        console.error(frame.body);
-      }
-    });
+    // const client = new Client({
+    //   webSocketFactory: () => socket,
+    //   debug: (str) => {
+    //     console.log(str);
+    //   },
+    //   onConnect: () => {
+    //     // 채팅방 메시지 구독
+    //     client.subscribe(`/topic/chatroom/${chatroomId}`, (message) => {
+    //       const chatMessage = JSON.parse(message.body);
+    //       setMessages((prevMessages) => [...prevMessages, chatMessage]);
+    //     })
+    //   },
+    //   onStompError: (frame) => {
+    //     console.error(frame.body);
+    //   }
+    // });
 
-    client.activate;
+    // client.activate;
 
 
     // 언마운트 시 소켓 연결 종료
     return () => {
-      client.deactivate;
+      // client.deactivate;
     }
   }, [chatroomId]);
 
