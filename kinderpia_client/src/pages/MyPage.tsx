@@ -27,10 +27,6 @@ const MyPage: React.FC = () => {
     <section id="mypage">
       <div className="title-wrap">
         <h2 className="title">마이페이지</h2>
-        <button className="logout-btn">
-          로그아웃
-          <span className="xi-log-out logout-icon"></span>
-        </button>
       </div>
       <Tab tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
       {renderContent()}
