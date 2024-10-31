@@ -54,11 +54,13 @@ export const showAlert = async (
 
 export const confirmAlert = async (
   icon: 'success' | 'error' | 'warning' | 'info' | 'question',
-  title: string
+  title: string,
+  text?: string
 ) => {
   const result = await Swal.fire({
     icon,
     title,
+    text,
     showCancelButton: true,
     confirmButtonColor: '#59a4d6',
     cancelButtonColor: '#777',
