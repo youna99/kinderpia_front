@@ -1,7 +1,7 @@
 export const tempChatInfo = {
   chatroomId: 1,
   meetingId: 1,
-  meetingTitle: "꿩먹고 알먹기",
+  meetingTitle: "내 생일 파티에 너만 못 온 그날 혜진이가 엄청 혼났던 그날 지원이가 여친이랑 헤어진 그날 걔는 언제나 네가 없이 그날 너무 멋있는 옷을 입고 그날",
   meetingCategory: "오락 및 여가",
   lastMessage: "으음",
   totalCapacity: 6,

@@ -4,9 +4,10 @@ import "../../styles/chatlist/ChatRoom.scss";
 
 interface ChatRoomProp {
   room: ChatRoomListInfo;
+  onClick: () => void;
 }
 
-export default function ChatRoom({ room }: ChatRoomProp) {
+export default function ChatRoom({ room, onClick }: ChatRoomProp) {
   // 카테고리마다 다른 아이콘 렌더링해주는 함수
   const getIcon = (meetingCategory: string) => {
     const icon = chaticons.find(
@@ -16,7 +17,7 @@ export default function ChatRoom({ room }: ChatRoomProp) {
   };
 
   return (
-    <li className="chatroom-list" title={room.meetingTitle}>
+    <li className="chatroom-list" title={room.meetingTitle} onClick={onClick}>
       <figure className="chatroom-icon">{getIcon(room.meetingCategory)}</figure>
       <div className="chatroom-info">
         <div className="chatroom-bx">

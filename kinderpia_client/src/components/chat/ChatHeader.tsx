@@ -2,9 +2,8 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/chat/ChatHeader.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { useState, Suspense, lazy } from "react";
-
-const ChatMembersMenu = lazy(() => import("./ChatMemebersMenu"));
+import { useState } from "react";
+import ChatMembersMenu from "./ChatMembersMenu";
 
 // 채팅방 헤더 컴포넌트 - 뒤로가기, 채팅방 제목, 채팅방 멤버보기
 export default function ChatHeader() {
@@ -19,8 +18,8 @@ export default function ChatHeader() {
   const { meetingTitle } = chatroom;
 
   const openMenu = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   return (
     <div className="chat-header">
@@ -38,15 +37,11 @@ export default function ChatHeader() {
         {/* 채팅방 정보 보기 버튼 */}
         <div className="chat-header__column">
           <button onClick={openMenu}>
-            <span className="xi-bars"></span>
+            <span className="xi-info-o"></span>
           </button>
         </div>
       </div>
-      {open && (
-        <Suspense fallback={<div>멤버 정보 불러오는중...</div>}>
-          <ChatMembersMenu setOpen={setOpen}/>
-        </Suspense>
-      ) }   
+      <ChatMembersMenu setOpen={setOpen} open={open} />
     </div>
   );
 }

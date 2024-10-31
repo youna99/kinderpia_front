@@ -9,6 +9,12 @@
   background-color: transparent;
   .chatroom-icon {
     margin-right: 2rem;
+    width: 55px;
+    height: 55px;
+    svg {
+      width: 100%;
+      height: auto;
+    }
   }
   .chatroom-info {
     display: flex;
@@ -25,26 +31,64 @@
       }
       .chatroom-capacity {
         display: flex;
-        color : #888;
+        color: #888;
         font-size: 1.2rem;
-        
+
         span {
           display: block;
         }
         span {
           &:first-child {
-            margin-right: .3rem;
+            margin-right: 0.3rem;
           }
         }
       }
     }
     .chatroom-lastmsg {
       font-size: 1.4rem;
-      color : #555;
+      color: #555;
     }
   }
   &:hover {
     background-color: $bg-color;
     cursor: pointer;
+  }
+}
+
+@media (max-width: $lg) {
+  .chatroom-list {
+    .chatroom-icon {
+      margin-right: 0.5rem;
+      width: 4rem;
+      height: 4rem;
+    }
+    .chatroom-info {
+      .chatroom-bx {
+        gap: 0;
+        .chatroom-title {
+          font-size: $body;
+          padding-bottom: 0.4rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $sm) {
+  .chatroom-list {
+    .chatroom-icon {
+      width: 3rem;
+      height: 3rem;
+    }
+    .chatroom-info {
+      .chatroom-bx {
+        .chatroom-title {
+          padding-bottom: 0.4rem;
+        }
+      }
+    }
+    .chatroom-lastmsg {
+      display: none;
+    }
   }
 }

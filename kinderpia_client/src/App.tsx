@@ -3,9 +3,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import Layout from './layout/Layout';
-import ChatlistPage from './pages/ChatListPage';
-import ChatPage from './pages/ChatPage';
-import './App.css';
+
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import MainPage from './pages/MainPage';
@@ -18,6 +16,8 @@ import MeetingUpdate from './pages/meeting/MeetingUpdatePage';
 import PlacePage from './pages/place/PlacePage';
 import PlaceDetailPage from './pages/place/PlaceDetailPage';
 import MyPage from './pages/MyPage';
+
+import ChatlistPage from './pages/ChatListPage';
 
 function App() {
   return (
@@ -35,9 +35,7 @@ function App() {
               {/* 개인정보 수정 페이지 */}
               <Route path="/mypage/editUser" element={<MyPage />} />
               {/* 채팅방 목록 */}
-              <Route path="chatroom" element={<ChatlistPage />} />
-              {/* 채팅방 */}
-              <Route path="chatroom/:chatroomid" element={<ChatPage />} />
+              <Route path="chatroom/list" element={<ChatlistPage />} />
               {/* 모임 관련 라우트 */}
               <Route path="meeting">
                 {/* 모임 목록 페이지 */}

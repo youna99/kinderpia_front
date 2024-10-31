@@ -9,14 +9,12 @@ export const chaticons: ChatIcon[] = [
     meetingCategory: "오락 및 여가",
     icon: () => (
       <svg
-        width="55"
-        height="55"
         viewBox="0 0 55 55"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
       >
-        <rect width="55" height="55" fill="url(#pattern0_271_971)" />
+        <rect width="100%" height="100%" fill="url(#pattern0_271_971)" />
         <defs>
           <pattern
             id="pattern0_271_971"
@@ -40,14 +38,12 @@ export const chaticons: ChatIcon[] = [
     meetingCategory: "자연 및 환경",
     icon: () => (
       <svg
-        width="55"
-        height="55"
         viewBox="0 0 55 55"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
       >
-        <rect width="55" height="55" fill="url(#pattern0_271_979)" />
+        <rect width="100%" height="100%" fill="url(#pattern0_271_979)" />
         <defs>
           <pattern
             id="pattern0_271_979"
@@ -71,14 +67,12 @@ export const chaticons: ChatIcon[] = [
     meetingCategory: "교육 및 문화",
     icon: () => (
       <svg
-        width="55"
-        height="55"
         viewBox="0 0 55 55"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
       >
-        <rect width="55" height="55" fill="url(#pattern0_271_981)" />
+        <rect width="100%" height="100%" fill="url(#pattern0_271_981)" />
         <defs>
           <pattern
             id="pattern0_271_981"
@@ -102,14 +96,12 @@ export const chaticons: ChatIcon[] = [
     meetingCategory: "체험 및 활동",
     icon: () => (
       <svg
-        width="55"
-        height="55"
         viewBox="0 0 55 55"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
       >
-        <rect width="55" height="55" fill="url(#pattern0_297_956)" />
+        <rect width="100%" height="100%" fill="url(#pattern0_297_956)" />
         <defs>
           <pattern
             id="pattern0_297_956"
@@ -133,14 +125,12 @@ export const chaticons: ChatIcon[] = [
     meetingCategory: "스포츠 및 운동",
     icon: () => (
       <svg
-        width="55"
-        height="55"
         viewBox="0 0 55 55"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
       >
-        <rect width="55" height="55" fill="url(#pattern0_270_969)" />
+        <rect width="100%" height="100%" fill="url(#pattern0_270_969)" />
         <defs>
           <pattern
             id="pattern0_270_969"
@@ -164,14 +154,12 @@ export const chaticons: ChatIcon[] = [
     meetingCategory: "기타",
     icon: () => (
       <svg
-        width="55"
-        height="55"
         viewBox="0 0 55 55"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
       >
-        <rect width="55" height="55" fill="url(#pattern0_271_973)" />
+        <rect width="100%" height="100%" fill="url(#pattern0_271_973)" />
         <defs>
           <pattern
             id="pattern0_271_973"
