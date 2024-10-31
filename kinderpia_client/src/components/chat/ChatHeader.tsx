@@ -38,7 +38,7 @@ export default function ChatHeader() {
         {/* 채팅방 정보 보기 버튼 */}
         <div className="chat-header__column">
           <button onClick={openMenu}>
-            <span className="xi-bars"></span>
+            <span className="xi-info-o"></span>
           </button>
         </div>
       </div>

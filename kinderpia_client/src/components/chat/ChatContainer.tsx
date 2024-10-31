@@ -64,10 +64,62 @@ export default function ChatContainer({ chatroomId }: ChatRoomProps) {
     <div className="chat-container">
       <ChatMessage
         sender="슈슈슈슈퍼노바"
-        msg="사건은 다가와 아오에 거세게 다가와 아오에 감히 건드리지 못할걸 누구든 말야 지금 내안에선 슈슈슈슈퍼노바 노바 하이퍼 캔스탑 스텔라 원초 그걸 찾아 아파트아파트 아파트아파트 아파트"
+        msg="사건은 다가와 아오에 거세게 다가와 아오에 우린 어디서 왔나 아오에 질문은 계속돼 아오에 감히 건드리지 못할걸 누구든 말야 지금 내안에선 슈슈슈슈퍼노바 노바 하이퍼 캔스탑 스텔라 원초 그걸 찾아 아파트아파트 아파트아파트 아파트"
         time="09:11"
         image="https://dain302.github.io/kokoa-clone-2022/photo/cherrycookie.jpg"
       />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
+      <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
       <ChatMessage sender="own" msg="hello" time="09:11" image="dkdkdkdk" />
     </div>
   );
