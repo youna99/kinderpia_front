@@ -2,14 +2,32 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import ChatMember from "./ChatMember";
 import "../../styles/chat/ChatMembersMenu.scss";
+import { useEffect } from "react";
 
 interface ChatMenuProps {
-  setOpen : React.Dispatch<React.SetStateAction<boolean>>
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // 채팅 참여 멤버 컴포넌트(설정과비슷?)
-export default function ChatMemebersMenu({setOpen} : ChatMenuProps) {
+export default function ChatMemebersMenu({ setOpen }: ChatMenuProps) {
   const { chatroom } = useSelector((state: RootState) => state.chat);
+
+  useEffect(() => {
+    // 멤버 컴포넌트 열리면 채팅방 대화창 스크롤 막기
+    const chatroom = document.querySelector(
+      ".chatroom"
+    ) as HTMLDivElement | null;
+
+    if (chatroom) {
+      chatroom.style.overflowY = "hidden";
+    }
+
+    return () => {
+      if (chatroom) {
+        chatroom.style.overflowY = "auto";
+      } 
+    };
+  }, []);
 
   if (!chatroom) return <div>멤버 정보 불러오는중...</div>;
 
@@ -17,12 +35,12 @@ export default function ChatMemebersMenu({setOpen} : ChatMenuProps) {
 
   const closeMenu = () => {
     setOpen(false);
-  }
+  };
 
   const leaveMeeting = () => {
-    console.log('이 모임을 나갈테야');
-    
-  }
+    console.log("이 모임을 나갈테야");
+    // 모임 떠나기 api 요청 하기(/api/meeting/leave)
+  };
 
   return (
     <div className="chatmenu-container">
