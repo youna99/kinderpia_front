@@ -27,7 +27,9 @@
       position: absolute;
       top: 2rem;
       left: 2rem;
-      // color: #7e99b6;
+      .required-icon {
+        display: none;
+      }
     }
     input {
       width: 100%;
