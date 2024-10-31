@@ -50,7 +50,9 @@ export const EditMyInfoBtn: React.FC<EditMyInfoBtnProps> = ({ userId }) => {
     });
 
     if (password) {
-      Swal.fire('비밀번호가 확인되었습니다. 내 정보 수정 페이지로 이동합니다.');
+      await Swal.fire(
+        '비밀번호가 확인되었습니다. 내 정보 수정 페이지로 이동합니다.'
+      );
       navigate('/mypage/editUser');
     }
   };
