@@ -7,14 +7,14 @@ import { EditMyInfoBtn } from './EditMyInfoBtn';
 
 const MyInfo: React.FC = () => {
   const profileData = {
-    user_id: 12,
-    login_id: 'test1',
-    user_pw: 'test1',
+    userId: 12,
+    loginId: 'test1',
+    userPw: 'test1',
     email: 'test1@gmail.com',
-    phone_num: '01012345678',
-    is_blacklist: 'false',
-    is_deleted: 'false',
-    profile_img: '/images/usericon.png',
+    phoneNum: '01012345678',
+    isBlacklist: 'false',
+    isDeleted: 'false',
+    profileImg: '/images/usericon.png',
     nickname: '사용자닉네임저쩌고라라라라라저',
   };
 
@@ -23,21 +23,21 @@ const MyInfo: React.FC = () => {
       <div className="profile">
         {/* 프로필 수정 컴포넌트 */}
         <ChangeProfileImg
-          profileImg={profileData.profile_img}
-          userId={profileData.user_id}
+          profileImg={profileData.profileImg}
+          userId={profileData.userId}
         />
         <div className="profile-details">
           {/* 닉네임 수정 컴포넌트 */}
           <EditNickName
             nickname={profileData.nickname}
-            userId={profileData.user_id}
+            userId={profileData.userId}
           />
         </div>
         {/* 내 정보 수정 버튼 컴포넌트 */}
-        <EditMyInfoBtn userId={profileData.user_id} />
+        <EditMyInfoBtn userId={profileData.userId} />
       </div>
       {/* 모임 캘린더 컴포넌트 */}
-      <ScheduleCalender />
+      <ScheduleCalender userId={profileData.userId} />
     </section>
   );
 };

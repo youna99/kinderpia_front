@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import Swal from 'sweetalert2';
+import { requestHeader } from '../../api/requestHeader';
 
 interface EditNickNameProps {
   nickname: string;
@@ -37,9 +37,12 @@ export const EditNickName: React.FC<EditNickNameProps> = ({
         } else {
           // 닉네임 중복 체크
           // try {
-          //   const response = await axios.post('/api/user/check/nickname', {
-          //     nickname: nickname,
-          //   });
+          //   const response = await requestHeader.post(
+          //     '/api/user/check/nickname',
+          //     {
+          //       nickname: nickname,
+          //     }
+          //   );
           //   if (response.data.exists) {
           //     // Error(409:이미 사용 중인 닉네임입니다./400:유효성 검사)
           //     Swal.showValidationMessage('해당 닉네임이 이미 있습니다.');
@@ -60,7 +63,7 @@ export const EditNickName: React.FC<EditNickNameProps> = ({
 
   const updateNickname = async (nickname: string) => {
     // try {
-    //   const response = await axios.put(`/api/user/${userId}/nickname`, {
+    //   const response = await requestHeader.put(`/api/user/${userId}`, {
     //     nickname: nickname,
     //   });
     //   if (response.status === 200) {

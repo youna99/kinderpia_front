@@ -1,7 +1,7 @@
 import React from 'react';
 import Swal from 'sweetalert2';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { requestHeader } from '../../api/requestHeader';
 
 interface EditMyInfoBtnProps {
   userId: number;
@@ -34,10 +34,13 @@ export const EditMyInfoBtn: React.FC<EditMyInfoBtnProps> = ({ userId }) => {
         } else {
           // 비밀번호 확인 API 호출
           // try {
-          //   const response = await axios.post('/api/user/check/userpw', {
-          //     userId: userId,
-          //     password: password,
-          //   });
+          //   const response = await requestHeader.post(
+          //     '/api/user/check/userpw',
+          //     {
+          //       userId: userId,
+          //       userPw: password,
+          //     }
+          //   );
           //   if (!response.data.match) {
           //     Swal.showValidationMessage('비밀번호가 일치하지 않습니다.');
           //   }

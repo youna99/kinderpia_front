@@ -1,10 +1,10 @@
 // MyPage.tsx
 import React, { useState } from 'react';
 import MyInfo from '../components/MyPage/MyInfo';
-import MeetingHistory from '../components/MyPage/MeetingHistory';
 import MyReviews from '../components/MyPage/MyReviews';
 import Tab from '../components/MyPage/Tab';
 import '../styles/mypage/MyPage.scss';
+import MeetingHistory from '../components/MyPage/MeetingHistory';
 
 const MyPage: React.FC = () => {
   const tabs = ['내 정보', '모임 내역', '나의 리뷰'];

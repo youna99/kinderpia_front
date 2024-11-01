@@ -42,7 +42,7 @@ export const ChangeProfileImg: React.FC<ChangeProfileImgProps> = ({
 
           // 파일 업로드
           const formData = new FormData();
-          formData.append('profileImage', file);
+          formData.append('file', file);
 
           // try {
           //   const response = await axios.post(`/api/user/${userId}`, formData, {

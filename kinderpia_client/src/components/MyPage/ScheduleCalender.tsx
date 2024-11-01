@@ -1,11 +1,9 @@
-// 해당 유저의 모임목록 받아오기
-// 모임목록에서 모임 일시(meeting_time)
 import React, { useState, useEffect } from 'react';
 import Calendar, { CalendarProps } from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../../styles/mypage/ScheduleCalender.scss';
+import { requestHeader } from '../../api/requestHeader';
 
-// Sample Meeting Type
 type Meeting = {
   id: number;
   title: string;
@@ -15,33 +13,39 @@ type Meeting = {
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-// Calendar component
-export default function ScheduleCalender() {
+interface ScheduleCalenderProps {
+  userId: number;
+}
+
+const ScheduleCalender: React.FC<ScheduleCalenderProps> = ({ userId }) => {
   const [value, onChange] = useState<Value>(new Date());
-  const [meetings, setMeetings] = useState<Meeting[]>([]); //모임목록data
-  const [selectedMeetings, setSelectedMeetings] = useState<Meeting[]>([]); //선택된 날짜 모임목록
+  const [meetings, setMeetings] = useState<Meeting[]>([]);
+  const [selectedMeetings, setSelectedMeetings] = useState<Meeting[]>([]);
 
   // Fetch meetings data from API
   useEffect(() => {
     const fetchMeetings = async () => {
-      const fetchedMeetings: Meeting[] = [
-        { id: 1, title: 'Meeting A', meeting_time: '2024-10-30T10:00:00' },
-        { id: 2, title: 'Meeting B', meeting_time: '2024-10-30T15:00:00' },
-        { id: 3, title: 'Meeting C', meeting_time: '2024-11-01T10:00:00' },
-      ];
-      setMeetings(fetchedMeetings);
+      try {
+        const response = await requestHeader.get(
+          `/api/user/meeting/list/${userId}`
+        );
+        const fetchedMeetings: Meeting[] = response.data; // API에서 받은 데이터
+        setMeetings(fetchedMeetings);
 
-      const today = new Date();
-      const todayMeetings = fetchedMeetings.filter(
-        (meeting) =>
-          new Date(meeting.meeting_time).toDateString() === today.toDateString()
-      );
-      setSelectedMeetings(todayMeetings);
+        const today = new Date();
+        const todayMeetings = fetchedMeetings.filter(
+          (meeting) =>
+            new Date(meeting.meeting_time).toDateString() ===
+            today.toDateString()
+        );
+        setSelectedMeetings(todayMeetings);
+      } catch (error) {
+        console.error('모임 목록을 가져오는 중 오류 발생:', error);
+      }
     };
     fetchMeetings();
-  }, []);
+  }, [userId]);
 
-  // 오늘 모임목록 있으면 달력에 표시하기
   const tileContent = ({ date, view }: { date: Date; view: string }) => {
     if (view === 'month') {
       const meetingDates = meetings.map((meeting) =>
@@ -53,7 +57,6 @@ export default function ScheduleCalender() {
     }
   };
 
-  // 날짜 선택 ->해당 날짜 모임 가져오기
   const onDateClick: CalendarProps['onChange'] = (date) => {
     onChange(date as Value);
     const selectedDate = Array.isArray(date) ? date[0] : date;
@@ -114,4 +117,6 @@ export default function ScheduleCalender() {
       </div>
     </div>
   );
-}
+};
+
+export default ScheduleCalender;
