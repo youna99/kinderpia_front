@@ -32,7 +32,7 @@ export const getChatRoom = async (
 ): Promise<ChatRoomResponse> => {
   const response = await requestHeader.post(
     `/api/chatroom`,
-    { chatroomId },
+    chatroomId,
     { withCredentials: true }
   );
   return response;
