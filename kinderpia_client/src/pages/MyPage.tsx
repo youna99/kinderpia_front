@@ -9,6 +9,7 @@ import MeetingHistory from '../components/MyPage/MeetingHistory';
 const MyPage: React.FC = () => {
   const tabs = ['내 정보', '모임 내역', '나의 리뷰'];
   const [activeTab, setActiveTab] = useState(tabs[0]);
+  // const token = sessionStorage.getItem('token');
 
   const renderContent = () => {
     switch (activeTab) {

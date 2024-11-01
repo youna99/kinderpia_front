@@ -3,7 +3,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 interface ChangeProfileImgProps {
-  profileImg: string;
+  profileImg: string | null;
   userId: number;
 }
 

@@ -7,14 +7,15 @@ import { EditMyInfoBtn } from './EditMyInfoBtn';
 
 const MyInfo: React.FC = () => {
   const profileData = {
-    userId: 12,
-    loginId: 'test1',
-    userPw: 'test1',
-    email: 'test1@gmail.com',
+    userId: 1,
+    loginId: 'test1111',
+    userPw: 'test1111',
+    email: 'test1111@naver.com',
     phoneNum: '01012345678',
     isBlacklist: 'false',
     isDeleted: 'false',
-    profileImg: '/images/usericon.png',
+    // profileImg: '/images/usericon.png',
+    profileImg: null,
     nickname: '사용자닉네임저쩌고라라라라라저',
   };
 
