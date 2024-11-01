@@ -64,8 +64,9 @@ const MeetingPage: React.FC = () => {
               meetingCategory={meeting.meetingCategory}
               location={meeting.location}
               meetingTime={meeting.meetingTime}
-              writer={meeting.writer}
-              participants={meeting.participants}
+              nickname={meeting.nickname}
+              capacity={meeting.capacity}
+              totalCapacity={meeting.totalCapacity}
               meetingStatus={meeting.meetingStatus}
             />
           ))}

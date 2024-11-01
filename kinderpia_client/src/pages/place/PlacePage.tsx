@@ -85,7 +85,7 @@ const PlacePage: React.FC = () => {
               key={place.placeId}
               placeId={place.placeId}
               placeName={place.placeName}
-              category={place.category}
+              placeCategoryName={place.placeCategoryName}
               rating={place.rating}
               paid={place.paid}
               placeImg={place.placeImg}
