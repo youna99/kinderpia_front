@@ -12,6 +12,7 @@
       position: relative;
       overflow-y: auto;
       max-height: calc(100vh - 16rem);
+      overflow-x: hidden;
     }
     .chatroom-wrapper {
       border-right: 1px solid $border-color;
@@ -37,3 +38,18 @@
     }
   }
 }
+
+
+// @media (max-width: $md) {
+//   .chatlist {
+//     .chatlist-wrapper {
+//       flex-direction: column;
+//       &:first-child {
+//         width: 100%;
+//       }
+//       &:last-child {
+//         width: 100%;
+//       }
+//     }
+//   }
+// }
