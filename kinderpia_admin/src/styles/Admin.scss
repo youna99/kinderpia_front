@@ -1,0 +1,13 @@
+@import './common/reset';
+@import './common/utils';
+@import './common/variables';
+
+main {
+  .sideTabs {
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}

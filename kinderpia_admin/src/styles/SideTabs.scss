@@ -1,0 +1,52 @@
+@import './common/reset';
+@import './common/utils';
+@import './common/variables';
+
+.sidetab {
+  // 전체 탭
+  display: flex;
+  height: 100vh;
+
+  .tab-container {
+    display: flex;
+
+    .tab-list {
+      background-color: $status-color;
+      width: 20rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+      // 각 탭 스타일
+      .tab-user,
+      .tab-meeting,
+      .tab-report,
+      .tab-blacklist {
+        padding: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ebbe35;
+        transition: background-color 0.3s;
+        font-size: $title3;
+
+        // 선택된 탭의 스타일
+        &.tab-selected {
+          background-color: #ecb45a; // 선택된 탭의 배경색
+          font-weight: bold;
+        }
+
+        // 호버 시 스타일
+        &:hover {
+          background-color: #ecb45a; // 호버 시 배경색
+        }
+      }
+    }
+  }
+
+  // 탭 내용 영역
+  .tab-content {
+    flex: 1;
+    padding: 1rem;
+  }
+}

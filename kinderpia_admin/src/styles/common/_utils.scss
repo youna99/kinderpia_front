@@ -1,0 +1,22 @@
+@import './variables';
+
+button,
+body {
+  font-family: 'GmarketSansMedium';
+}
+
+main {
+  margin-top: 8rem;
+  margin-bottom: 10rem;
+}
+
+// .inner {
+//   // max-width: $lg;
+//   // margin: auto;
+//   // box-sizing: border-box;
+// }
+
+.logo {
+  font-family: 'EF_jejudoldam';
+  font-size: $title1;
+}

@@ -1,0 +1,13 @@
+@import '../common/reset';
+@import '../common/utils';
+@import '../common/variables';
+
+.chart-container {
+  width: 80rem;
+
+  .monthSelect {
+    padding: 10px;
+    font-size: $title3;
+    cursor: pointer;
+  }
+}
