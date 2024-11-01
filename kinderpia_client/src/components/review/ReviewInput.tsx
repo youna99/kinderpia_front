@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import CommonButton1 from '../common/CommonButton1';
 
+import '../../styles/review/ReviewInput.scss';
+
 interface ReviewInputProps {
   placeId: string;
 }
@@ -72,11 +74,16 @@ const ReviewInput: React.FC<ReviewInputProps> = ({
   }
 
   return (
-    <div className='review-input-box'>
-      <div className='review-input-title'>
+    <div className='review-input-container'>
+      <div className='review-input-header'>
+        <div className='review-input-header-title'>
+          리뷰
+        </div>
+      </div>
+      <hr/>
+      <div className='review-input-subtitle'>
         별점을 눌러 만족도를 알려주세요 :D
       </div>
-      
       <div className='review-input-star'>
         {stars.map((rating) => (
           <button
@@ -85,7 +92,7 @@ const ReviewInput: React.FC<ReviewInputProps> = ({
             aria-label={`${rating}점`}
             disabled={isSubmitting}
           >
-            {rating <= star ? '⭐' : '☆'}
+            {rating <= star ? <span className='xi-star'></span> : <span className='xi-star-o'></span>}
           </button>
         ))}
       </div>
@@ -98,7 +105,7 @@ const ReviewInput: React.FC<ReviewInputProps> = ({
           disabled={isSubmitting}
           maxLength={500}
         />
-        <div className='review-input-length'>
+        <div className='review-inpu-content-length'>
           {content.length} / 500
         </div>
         <CommonButton1

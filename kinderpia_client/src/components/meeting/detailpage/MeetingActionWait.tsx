@@ -1,6 +1,8 @@
 import React from 'react'
 import CommonButton1 from '../../common/CommonButton1'
 
+import '../../../styles/meeting/detailpage/MeetingActionWait.scss';
+
 const MeetingActionWait = () => {
 
   const pleaseWait = async (): Promise<void> => {
@@ -8,13 +10,14 @@ const MeetingActionWait = () => {
   }
   
   return (
-    <CommonButton1 
-    
-      text='수락 대기중'
-      onClick={pleaseWait}
-      disabled={true}
-      isLoading={false}
-    />
+    <div className='meeting-action-wait-container'>
+      <CommonButton1 
+        text='수락 대기중'
+        onClick={pleaseWait}
+        disabled={true}
+        isLoading={false}
+      />
+    </div>
   )
 }
 

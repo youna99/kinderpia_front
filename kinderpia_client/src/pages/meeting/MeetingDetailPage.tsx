@@ -31,7 +31,7 @@ function MeetingDetailPage() {
     const data = dummyMeetings[ Number(meetingId)-1 ];
     try {
       setMeetingData(data);
-      setUserData(dummyMeetingUser1);
+      setUserData(dummyMeetingUser2);
     } catch (error) {
       console.error('Error fetching place data:', error);
     } finally {
@@ -58,7 +58,8 @@ function MeetingDetailPage() {
         user={userData}
       />
       <MeetingAction
-        data={userData}
+        user={userData}
+        data={meetingData}
       />
     </div>
   )
