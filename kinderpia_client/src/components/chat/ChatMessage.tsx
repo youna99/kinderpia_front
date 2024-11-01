@@ -53,7 +53,7 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
           >
             {chatmsgContent}
           </span>
-          <span className="message-time">{createdAt}</span>
+          <span className="message-time">{createdAt.toLocaleTimeString()}</span>
         </div>
       </div>
     </div>
