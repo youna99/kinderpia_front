@@ -5,7 +5,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import LoginInput from '../components/FormInput';
 import axios from 'axios';
 import { simpleAlert } from '../utils/alert';
-import { requestHeader } from '../api/requestHeader';
 
 interface LoginFormInputs {
   loginId: string;
@@ -44,34 +43,46 @@ export default function LoginPage() {
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     console.log(data);
 
-    // try {
-    //   const response = await requestHeader.post('/api/user/login', data);
-    //   if (response.status === 200) {
-    //     console.log('로그인 완료:', response.data);
-    //     await simpleAlert('success', '로그인 성공!', 'top-end');
-    //     navigate('/');
-    //   }
-    // } catch (error) {
-    //   if (axios.isAxiosError(error)) {
-    //     const status = error.response?.status;
-    //     if (status === 401 || status === 404) {
-    //       setError('userPw', {
-    //         type: 'manual',
-    //         message: '아이디 또는 비밀번호가 잘못 되었습니다.',
-    //       });
-    //     } else if (status === 403) {
-    //       setError('userPw', {
-    //         type: 'manual',
-    //         message: '탈퇴한 사용자입니다.',
-    //       });
-    //     } else {
-    //       setError('userPw', {
-    //         type: 'manual',
-    //         message: '알 수 없는 오류가 발생했습니다.',
-    //       });
-    //     }
-    //   }
-    // }
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/api/user/login',
+        data,
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.status === 200) {
+        console.log('로그인 완료:', response);
+        console.log(response.headers);
+        // console.log(response.headers['Authorization']);//대문자안댐
+        const token = response.headers['authorization'];
+        console.log(token);
+        // 일단 세션에 저장
+
+        await simpleAlert('success', '로그인 성공!', 'top-end');
+        navigate('/');
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status;
+        if (status === 401 || status === 404) {
+          setError('userPw', {
+            type: 'manual',
+            message: '아이디 또는 비밀번호가 잘못 되었습니다.',
+          });
+        } else if (status === 403) {
+          setError('userPw', {
+            type: 'manual',
+            message: '탈퇴한 사용자입니다.',
+          });
+        } else {
+          setError('userPw', {
+            type: 'manual',
+            message: '알 수 없는 오류가 발생했습니다.',
+          });
+        }
+      }
+    }
   };
 
   return (

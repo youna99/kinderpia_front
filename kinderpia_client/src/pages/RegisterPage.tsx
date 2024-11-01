@@ -6,7 +6,6 @@ import termsAndConditions from '../data/termsAndConditions';
 import axios from 'axios';
 import { showAlert, simpleAlert } from '../utils/alert';
 import { useNavigate } from 'react-router-dom';
-import { requestHeader } from '../api/requestHeader';
 
 interface RegisterFormInputs {
   loginId: string;
@@ -51,137 +50,106 @@ export default function RegisterPage() {
     setValue(field, '');
   };
 
-  // 중복 확인 API 호출 함수
-  const checkDuplicate = async (
-    field: 'loginId' | 'nickname' | 'email' | 'phoneNum',
+  // 중복 검사 API 호출 함수
+  const handleCheckDuplicate = async (
+    field: 'loginId' | 'nickname',
     value: string
   ) => {
-    try {
-      const response = await requestHeader.post(`/api/user/check/${field}`, {
-        [field]: value,
-      });
-
-      if (response.status === 200) {
-        return false; // 중복이 아님
-      } else if (response.status === 409) {
-        return true; // 중복됨
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        const status = error.response.status;
-        if (status === 400) {
-          if (field === 'loginId') {
-            setError('loginId', {
-              type: 'manual',
-              message: '아이디 형식이 유효하지 않습니다.',
-            });
-          } else if (field === 'nickname') {
-            setError('nickname', {
-              type: 'manual',
-              message: '닉네임 형식이 유효하지 않습니다.',
-            });
-          } else if (field === 'email') {
-            setError('email', {
-              type: 'manual',
-              message: '이메일 형식이 유효하지 않습니다.',
-            });
-          } else if (field === 'phoneNum') {
-            setError('phoneNum', {
-              type: 'manual',
-              message: '전화번호 형식이 유효하지 않습니다.',
-            });
-          }
-        }
-      }
-      // 예외 상황에서는 기본적으로 중복으로 간주
-      return true; // 기본적으로 중복으로 간주
-    }
-
-    return false; // 기본적으로 중복이 아님
-  };
-
-  const handleDuplicateCheck = async (
-    field: 'loginId' | 'nickname' | 'email' | 'phoneNum',
-    value: string
-  ) => {
-    // 필드가 빈 값일 경우 처리
     if (!value) {
+      const message =
+        field === 'loginId'
+          ? '아이디를 입력해주세요.'
+          : '닉네임을 입력해주세요.';
       setError(field, {
         type: 'manual',
-        message: `${
-          field === 'loginId'
-            ? '아이디'
-            : field === 'nickname'
-            ? '닉네임'
-            : field === 'email'
-            ? '이메일'
-            : '전화번호'
-        }를 입력해주세요.`,
+        message: message,
       });
       return;
     }
 
     try {
-      const isDuplicate = await checkDuplicate(field, value);
+      const response = await axios.post(
+        `http://localhost:8080/api/user/check/${field}`,
+        { [field]: value },
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response);
 
-      if (field === 'loginId' || field === 'nickname') {
-        if (isDuplicate) {
-          showAlert(
-            'warning',
-            `이미 사용 중인 ${
-              field === 'loginId' ? '아이디' : '닉네임'
-            } 입니다.`
-          );
-          setError(field, {
-            type: 'manual',
-            message: `이미 사용 중인 ${
-              field === 'loginId' ? '아이디' : '닉네임'
-            } 입니다.`,
-          });
-        } else {
-          alert(
-            `${
-              field === 'loginId' ? '아이디' : '닉네임'
-            }이(가) 사용 가능합니다.`
-          );
-          setError(field, { type: 'manual', message: '' }); // 에러 메시지 클리어
-        }
-      } else if (field === 'email') {
-        if (isDuplicate) {
-          setError('email', {
-            type: 'manual',
-            message: '이메일이 이미 사용 중입니다.',
-          });
-        } else {
-          setError('email', { type: 'manual', message: '' }); // 에러 메시지 클리어
-        }
-      } else if (field === 'phoneNum') {
-        if (isDuplicate) {
-          setError('phoneNum', {
-            type: 'manual',
-            message: '전화번호가 이미 사용 중입니다.',
-          });
-        } else {
-          setError('phoneNum', { type: 'manual', message: '' }); // 에러 메시지 클리어
-        }
+      if (response.data.data === false) {
+        showAlert('success', '사용할 수 있는 정보입니다.');
       }
-    } catch (error) {
-      console.error('중복 확인 오류:', error);
+    } catch (error: any) {
+      console.log(error);
+
+      if (error.response?.data.status === 409) {
+        setError(field, {
+          type: 'manual',
+          message: `${error.response.data.message}`,
+        });
+      } else if (error.response?.data.status === 400) {
+        setError(field, {
+          type: 'manual',
+          message: `${error.response.data.message}`,
+        });
+      }
     }
   };
 
-  const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
-    const { agreeTerms, agreePrivacy, ...restData } = data;
+  // 포커스 아웃 시 중복 검사
+  const checkDuplicate = async (field: 'email' | 'phoneNum', value: string) => {
+    if (!value) {
+      const message =
+        field === 'email'
+          ? '이메일을 입력해주세요.'
+          : '전화번호를 입력해주세요.';
+      setError(field, {
+        type: 'manual',
+        message: message,
+      });
+      return;
+    }
 
     try {
-      const response = await requestHeader.post('/api/user/register', restData);
-      if (response.status === 201) {
-        simpleAlert('success', '회원가입이 완료되었습니다!');
-        navigate('/user/login');
+      const response = await axios.post(
+        `http://localhost:8080/api/user/check/${field}`,
+        { [field]: value },
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.data.data === false) {
+        simpleAlert('success', '사용 가능한 정보입니다.');
       }
+    } catch (error: any) {
+      if (error.response?.data.status === 409) {
+        setError(field, {
+          type: 'manual',
+          message: `${error.response.data.message}`,
+        });
+      } else if (error.response?.data.status === 400) {
+        setError(field, {
+          type: 'manual',
+          message: `${error.response.data.message}`,
+        });
+      }
+    }
+  };
+
+  // 폼 제출 함수
+  const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
+    const { agreeTerms, agreePrivacy, ...restData } = data;
+    // 중복 검사 여부 확인
+
+    try {
+      await axios.post('/api/register', restData, {
+        withCredentials: true,
+      });
+      showAlert('success', '회원가입에 성공했습니다!');
+      navigate('/login');
     } catch (error) {
-      console.error('회원가입 오류:', error);
-      simpleAlert('error', '회원가입 중 오류가 발생했습니다.');
+      showAlert('error', '회원가입에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
@@ -206,7 +174,7 @@ export default function RegisterPage() {
           <button
             type="button"
             className="double-check"
-            onClick={() => handleDuplicateCheck('loginId', watch('loginId'))}
+            onClick={() => handleCheckDuplicate('loginId', watch('loginId'))}
           >
             중복확인
           </button>
@@ -259,7 +227,7 @@ export default function RegisterPage() {
           <button
             type="button"
             className="double-check"
-            onClick={() => handleDuplicateCheck('nickname', watch('nickname'))}
+            onClick={() => handleCheckDuplicate('nickname', watch('nickname'))}
           >
             중복확인
           </button>
@@ -276,7 +244,7 @@ export default function RegisterPage() {
             regex={/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/}
             regexMessage="올바른 이메일 형식이 아닙니다. (예: user@gmail.com)"
             placeholder="ex) user@gmail.com"
-            onBlur={() => handleDuplicateCheck('email', watch('email'))}
+            onBlur={() => checkDuplicate('email', watch('email'))}
           />
         </div>
         <div className="input-box">
@@ -291,7 +259,7 @@ export default function RegisterPage() {
             regex={/^[0-9]{10,11}$/}
             regexMessage="전화번호는 0-9의 숫자로 10자리 또는 11자리 숫자로만 이루어져야 합니다."
             placeholder="‘-’없이 숫자만 입력"
-            onBlur={() => handleDuplicateCheck('phoneNum', watch('phoneNum'))}
+            onBlur={() => checkDuplicate('phoneNum', watch('phoneNum'))}
           />
         </div>
         <div id="agree">
