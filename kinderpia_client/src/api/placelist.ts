@@ -20,8 +20,7 @@ export const getPlace = async (placeId: any) => {
   } catch (error: any) {
     if (error.response?.status === 404) {
       console.error(`장소를 찾을 수 없습니다. PlaceId: ${placeId}`);
-      
     }
-    throw error; // 에러를 다시 던져서 호출하는 쪽에서 처리할 수 있게 함
+    throw error;
   }
 };
