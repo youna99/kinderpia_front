@@ -19,6 +19,7 @@ import MyPage from './pages/MyPage';
 import EditUserPage from './pages/EditUserPage';
 
 import ChatlistPage from './pages/ChatListPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
@@ -56,7 +57,9 @@ function App() {
                 <Route path=":placeId" element={<PlaceDetailPage />} />
               </Route>
               {/* 메인 페이지 */}
-              <Route index element={<MainPage />} />
+              <Route index element={<MainPage />} />              
+              {/* 404 라우트 추가 - 모든 라우트의 맨 마지막에 위치 */}
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

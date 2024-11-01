@@ -29,3 +29,20 @@
 
   }
 }
+.review-item-header-info-wrapper-report {
+  cursor: pointer;
+  color: #666;
+  font-size: 14px;
+  
+  &:hover {
+    color: #ff0000;  // 마우스 오버 시 색상 변경
+    text-decoration: underline;
+  }
+  
+  // 키보드 포커스 스타일
+  &:focus {
+    outline: none;
+    color: #ff0000;
+    text-decoration: underline;
+  }
+}
