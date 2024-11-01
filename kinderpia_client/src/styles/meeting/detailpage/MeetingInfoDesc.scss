@@ -2,3 +2,44 @@
 @import '../../common/variables';
 @import '../../common/utils';
 
+.meeting-info-desc {
+  &-container {
+    margin-top: $caption;
+    
+    hr {
+      height: 1px;
+      background-color: #000;
+      border: none;
+      width: 100%;
+      margin: 0px auto;
+    }
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    
+    &-title {
+      font-size: $headline;
+    }
+    &-report {
+      font-size: $button;
+    }
+  }
+
+  &-body {
+    margin-top: $footnote;
+    display: flex;          // 추가
+    flex-direction: column; // 추가
+
+    &-createdAt {
+      align-self: flex-end; // 추가
+      color: $status-color3;
+    }
+
+    &-content {
+      font-size: $body;
+      margin-top: $footnote; // content와 createdAt 사이 간격
+    }
+  }
+}
