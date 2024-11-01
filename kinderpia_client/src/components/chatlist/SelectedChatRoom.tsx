@@ -79,6 +79,7 @@ export default function SelectedChatRoom() {
 
   // 메세지 전송 함수
   const sendMessage = (message: string) => {
+    const now = Date.now();
     if (clientRef.current?.connected) {
       const messageObj = {
         chatroomId,
@@ -89,6 +90,7 @@ export default function SelectedChatRoom() {
         body: JSON.stringify(messageObj),
       });
     }
+    
   };
 
   return (

@@ -36,7 +36,7 @@ function App() {
               {/* 개인정보 수정 페이지 */}
               <Route path="/mypage/editUser" element={<EditUserPage />} />
               {/* 채팅방 목록 */}
-              <Route path="chatroom/list" element={<ChatlistPage />} />
+              <Route path="chatroom/list/102" element={<ChatlistPage />} />
               {/* 모임 관련 라우트 */}
               <Route path="meeting">
                 {/* 모임 목록 페이지 */}

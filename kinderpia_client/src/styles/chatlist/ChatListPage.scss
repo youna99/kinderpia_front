@@ -26,6 +26,7 @@
 
 @media (max-width: $lg) {
   .chatlist {
+    padding: 0;
     .chatlist-wrapper {
       > section {
         &:first-child {
@@ -39,17 +40,28 @@
   }
 }
 
-
-// @media (max-width: $md) {
-//   .chatlist {
-//     .chatlist-wrapper {
-//       flex-direction: column;
-//       &:first-child {
-//         width: 100%;
-//       }
-//       &:last-child {
-//         width: 100%;
-//       }
-//     }
-//   }
-// }
+@media (max-width: $md) {
+  .chatlist {
+    .chatlist-wrapper {
+      width: 100%;
+      flex-direction: column;
+      > section {
+        &:first-child {
+          width: 100%;
+        }
+        &:last-child {
+          width: 100%;
+        }
+      }
+      .chatroom-wrapper {
+        h2 {
+          padding: 0;
+          padding-top: 1rem;
+        }
+        ul {
+          display: flex;
+        }
+      }
+    }
+  }
+}
