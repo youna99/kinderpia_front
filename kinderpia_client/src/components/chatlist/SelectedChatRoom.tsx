@@ -34,12 +34,18 @@ export default function SelectedChatRoom() {
   const chatTopic = `/topic/chatroom/${chatroomId}`;
   const chatSend = `/app/chatroom/${chatroomId}/chatmsg`;
 
+  // temp
+  const jwt = 'djaslkdjalksdjlkasjdlkasjdlka'
+
   useEffect(() => {
     // 소켓 설정
     const socket = new SockJS(`${url}`);
 
     clientRef.current = new Client({
       webSocketFactory: () => socket, // 소켓 연결 반환
+      connectHeaders : {
+        Authorization: `Bearer ${jwt}`, 
+      },
       debug: (str) => {
         // 디버그 메시지 출력
         console.log(str);
@@ -79,24 +85,27 @@ export default function SelectedChatRoom() {
 
   // 메세지 전송 함수
   const sendMessage = (message: string) => {
-    const messageObj = {
-      chatroomId,
-      chatmsgContent: message,
-      createdAt: new Date(),
-    };
-    dispatch(setMessages([...messages, messageObj]));
-    // if (clientRef.current?.connected) {
-    //   const messageObj = {
-    //     chatroomId,
-    //     chatmsgContent: message,
-    //     createdAt: new Date(),
-    //   };
-    //   clientRef.current.publish({
-    //     destination: chatSend,
-    //     body: JSON.stringify(messageObj),
-    //   });
-    //   dispatch(setMessages([...messages, messageObj]));
-    // }
+    // const messageObj = {
+    //   chatroomId,
+    //   chatmsgContent: message,
+    //   createdAt: new Date(),
+    // };
+    // dispatch(setMessages([...messages, messageObj]));
+    if (clientRef.current?.connected) {
+      const messageObj = {
+        chatroomId,
+        chatmsgContent: message,
+        createdAt: new Date(),
+      };
+      clientRef.current.publish({
+        destination: chatSend,
+        headers : {
+          Authorization: `Bearer ${jwt}`, 
+        },
+        body: JSON.stringify(messageObj),
+      });
+      dispatch(setMessages([...messages, messageObj]));
+    }
   };
 
   return (
