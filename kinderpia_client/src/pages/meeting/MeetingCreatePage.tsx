@@ -144,6 +144,7 @@ const MeetingCreatePage = () => {
         <CommonButton1        
           text="모임 생성하기" 
           onClick={buttonActionProps}
+          preventDefault={true}
         />
       </form>
     </div>

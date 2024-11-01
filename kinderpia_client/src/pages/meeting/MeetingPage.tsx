@@ -10,6 +10,8 @@ import { MettingListInfo } from '../../types/meetinglist';
 // 데이터 호출 - 더미데이터 호출, API 호출
 import { dummyMeetingList } from '../../data/tempMeetingListData';
 
+import '../../styles/meeting/MeetingPage.scss';
+
 // 서버 응답 타입 정의
 interface SearchResponse {
   meetings: MettingListInfo[];
@@ -55,7 +57,7 @@ const MeetingPage: React.FC = () => {
       {isSearching ? (
         <div className="meeting-search-status">검색 중...</div>
       ) : meetings.length > 0 ? (
-        <div className="meeting-list-">
+        <div className="meeting-list">
           {meetings.map((meeting) => (
             <MeetingList
               key={meeting.meetingId}
@@ -71,7 +73,7 @@ const MeetingPage: React.FC = () => {
           ))}
         </div>
       ) : (
-        <div className="text-center py-8 text-gray-500">
+        <div className="meeting-404">
           검색 결과가 없습니다.
         </div>
       )}

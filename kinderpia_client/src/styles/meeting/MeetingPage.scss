@@ -1,0 +1,24 @@
+@import '../common/variables';
+@import '../common/utils';
+
+.meeting{
+  &-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px auto;
+  }
+
+  &-search{
+    width: 100%;
+  }
+  &-list{
+    width: 100%;
+    section{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
