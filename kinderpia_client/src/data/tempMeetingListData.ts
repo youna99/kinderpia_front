@@ -7,8 +7,9 @@ export const dummyMeetingList: MettingListInfo[] = [
     meetingCategory: '오락 & 여가',
     location: '용산구',
     meetingTime: '2024-10-30 10:00',
-    writer: '글쓴이',
-    participants: 5, // 현재 참가 인원
+    nickname: '글쓴이',
+    capacity: 5, // 현재 참가 인원
+    totalCapacity: 10,
     meetingStatus: '모집중',
   },
   {
@@ -17,8 +18,9 @@ export const dummyMeetingList: MettingListInfo[] = [
     meetingCategory: '오락 & 여가',
     location: '송파구',
     meetingTime: '2024-11-02 14:00',
-    writer: '여행 매니아',
-    participants: 8,
+    nickname: '여행 매니아',
+    capacity: 8,
+    totalCapacity: 10,
     meetingStatus: '인원마감',
   },
   {
@@ -27,8 +29,9 @@ export const dummyMeetingList: MettingListInfo[] = [
     meetingCategory: '자연 & 환경',
     location: '성동구',
     meetingTime: '2024-11-05 12:00',
-    writer: '자연 사랑',
-    participants: 6,
+    nickname: '자연 사랑',
+    capacity: 6,
+    totalCapacity: 10,
     meetingStatus: '모임종료',
   },
   {
@@ -37,8 +40,9 @@ export const dummyMeetingList: MettingListInfo[] = [
     meetingCategory: '체험 & 활동',
     location: '영등포구',
     meetingTime: '2024-11-07 15:00',
-    writer: '전망러',
-    participants: 4,
+    nickname: '전망러',
+    capacity: 4,
+    totalCapacity: 10,
     meetingStatus: '모집중',
   },
   {
@@ -47,8 +51,9 @@ export const dummyMeetingList: MettingListInfo[] = [
     meetingCategory: '교육 & 문화',
     location: '용산구',
     meetingTime: '2024-11-10 11:00',
-    writer: '문화인',
-    participants: 10,
+    nickname: '문화인',
+    capacity: 10,
+    totalCapacity: 10,
     meetingStatus: '모집중',
   },
 ];

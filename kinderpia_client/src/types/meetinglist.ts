@@ -4,7 +4,8 @@ export interface MettingListInfo {
   meetingCategory: string;
   location: string;
   meetingTime: string;
-  writer: string;
-  participants: number;
+  nickname: string;
+  capacity: number;
+  totalCapacity: number;
   meetingStatus: string;
 }
