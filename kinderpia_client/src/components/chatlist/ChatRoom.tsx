@@ -1,6 +1,6 @@
-import { chaticons } from "../../assets/chaticon";
 import { ChatRoomListInfo } from "../../types/chat";
 import "../../styles/chatlist/ChatRoom.scss";
+import { getIcon } from "../../utils/getIcon";
 
 interface ChatRoomProp {
   room: ChatRoomListInfo;
@@ -8,14 +8,6 @@ interface ChatRoomProp {
 }
 
 export default function ChatRoom({ room, onClick }: ChatRoomProp) {
-  // 카테고리마다 다른 아이콘 렌더링해주는 함수
-  const getIcon = (meetingCategory: string) => {
-    const icon = chaticons.find(
-      (icon) => icon.meetingCategory === meetingCategory
-    );
-    return icon ? icon.icon() : null;
-  };
-
   return (
     <li className="chatroom-list" title={room.meetingTitle} onClick={onClick}>
       <figure className="chatroom-icon">{getIcon(room.meetingCategory)}</figure>

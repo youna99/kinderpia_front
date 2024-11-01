@@ -26,9 +26,9 @@ export default function ChatHeader() {
       <div className="chat-header__container">
         {/* 뒤로가기 */}
         <div className="chat-header__column">
-          <button onClick={() => navigate(-1)}>
+          {/* <button onClick={() => navigate(-1)}>
             <span className="xi-angle-left"></span>
-          </button>
+          </button> */}
         </div>
         {/* 채팅방 제목 */}
         <div className="chat-header__column">

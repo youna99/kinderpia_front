@@ -1,6 +1,8 @@
-import React from 'react'
+import React,{ useEffect, useState } from 'react'
+import { dummyReviews } from '../../data/tempReviewList'
 
 const ReviewList = () => {
+  
   return (
     <div>ReviewList</div>
   )

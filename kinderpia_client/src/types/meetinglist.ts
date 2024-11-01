@@ -1,10 +1,9 @@
 export interface MettingListInfo {
-  meetingId : number;
-  title: string;
-  category: string;
+  meetingId: number;
+  meetingTitle: string;
+  meetingCategory: string;
   location: string;
-  selectedDate: string;
-  selectedTime: string;
+  meetingTime: string;
   writer: string;
   participants: number;
   meetingStatus: string;

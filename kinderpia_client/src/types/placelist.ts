@@ -1,8 +1,8 @@
 export interface PlaceListInfo {
-  placeid: number;
-  title: string;
-  category: string;
-  rating: number;
-  priceType: string;
-  image: string;
+  placeId: number;
+  placeName: string;
+  category?: string;
+  rating?: number;
+  paid: string;
+  placeImg: string;
 }

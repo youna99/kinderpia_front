@@ -19,12 +19,12 @@ export interface ChatRoomInfo extends ChatRoomListInfo {
 }
 
 export interface ChatMessageInfo {
-    chatmsgId: number;
+    chatmsgId?: number;
     chatroomId: number;
-    senderId: number;
-    senderNickname: string;
-    senderProfileImg: string;
+    senderId?: number;
+    senderNickname?: string;
+    senderProfileImg?: string;
     chatmsgContent: string;
-    createdAt: string; // LocalDateTime 형식의 문자열
-    messageType: string; // MessageType의 문자열 표현
+    createdAt: Date; // LocalDateTime 형식의 문자열
+    messageType?: string; // MessageType의 문자열 표현
 }

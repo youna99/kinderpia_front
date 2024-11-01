@@ -1,0 +1,31 @@
+@import '../../common/variables';
+@import '../../common/utils';
+
+.meeting-action-join{
+  &-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: $headline;
+  }
+  &-participate{
+    span{
+      font-size: $title3;
+      margin-right: $headline;
+      
+    }
+    input{
+      font-size: $title3;
+      text-align: center;
+      border: none;
+    }
+    button{
+      margin-right: $headline;
+      font-size: $headline;
+    }
+  }
+  &-btn{
+    width: 60%;
+  }
+}
