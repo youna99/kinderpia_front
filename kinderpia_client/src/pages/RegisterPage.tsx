@@ -6,12 +6,13 @@ import termsAndConditions from '../data/termsAndConditions';
 import axios from 'axios';
 import { showAlert, simpleAlert } from '../utils/alert';
 import { useNavigate } from 'react-router-dom';
+import { requestHeader } from '../api/requestHeader';
 
 interface RegisterFormInputs {
-  userId: string;
+  loginId: string;
   userPw: string;
   pwCheck: string;
-  nickName: string;
+  nickname: string;
   email: string;
   phoneNum: string;
   agreeTerms: boolean;
@@ -45,18 +46,18 @@ export default function RegisterPage() {
 
   // 인풋창 지우기 함수
   const clearInput = (
-    field: 'userId' | 'userPw' | 'pwCheck' | 'nickName' | 'email' | 'phoneNum'
+    field: 'loginId' | 'userPw' | 'pwCheck' | 'nickname' | 'email' | 'phoneNum'
   ) => {
     setValue(field, '');
   };
 
   // 중복 확인 API 호출 함수
   const checkDuplicate = async (
-    field: 'userId' | 'nickName' | 'email' | 'phoneNum',
+    field: 'loginId' | 'nickname' | 'email' | 'phoneNum',
     value: string
   ) => {
     try {
-      const response = await axios.post(`/api/user/check/${field}`, {
+      const response = await requestHeader.post(`/api/user/check/${field}`, {
         [field]: value,
       });
 
@@ -69,13 +70,13 @@ export default function RegisterPage() {
       if (axios.isAxiosError(error) && error.response) {
         const status = error.response.status;
         if (status === 400) {
-          if (field === 'userId') {
-            setError('userId', {
+          if (field === 'loginId') {
+            setError('loginId', {
               type: 'manual',
               message: '아이디 형식이 유효하지 않습니다.',
             });
-          } else if (field === 'nickName') {
-            setError('nickName', {
+          } else if (field === 'nickname') {
+            setError('nickname', {
               type: 'manual',
               message: '닉네임 형식이 유효하지 않습니다.',
             });
@@ -100,7 +101,7 @@ export default function RegisterPage() {
   };
 
   const handleDuplicateCheck = async (
-    field: 'userId' | 'nickName' | 'email' | 'phoneNum',
+    field: 'loginId' | 'nickname' | 'email' | 'phoneNum',
     value: string
   ) => {
     // 필드가 빈 값일 경우 처리
@@ -108,9 +109,9 @@ export default function RegisterPage() {
       setError(field, {
         type: 'manual',
         message: `${
-          field === 'userId'
+          field === 'loginId'
             ? '아이디'
-            : field === 'nickName'
+            : field === 'nickname'
             ? '닉네임'
             : field === 'email'
             ? '이메일'
@@ -123,21 +124,25 @@ export default function RegisterPage() {
     try {
       const isDuplicate = await checkDuplicate(field, value);
 
-      if (field === 'userId' || field === 'nickName') {
+      if (field === 'loginId' || field === 'nickname') {
         if (isDuplicate) {
           showAlert(
             'warning',
-            `이미 사용 중인 ${field === 'userId' ? '아이디' : '닉네임'} 입니다.`
+            `이미 사용 중인 ${
+              field === 'loginId' ? '아이디' : '닉네임'
+            } 입니다.`
           );
           setError(field, {
             type: 'manual',
             message: `이미 사용 중인 ${
-              field === 'userId' ? '아이디' : '닉네임'
+              field === 'loginId' ? '아이디' : '닉네임'
             } 입니다.`,
           });
         } else {
           alert(
-            `${field === 'userId' ? '아이디' : '닉네임'}이(가) 사용 가능합니다.`
+            `${
+              field === 'loginId' ? '아이디' : '닉네임'
+            }이(가) 사용 가능합니다.`
           );
           setError(field, { type: 'manual', message: '' }); // 에러 메시지 클리어
         }
@@ -169,7 +174,7 @@ export default function RegisterPage() {
     const { agreeTerms, agreePrivacy, ...restData } = data;
 
     try {
-      const response = await axios.post('/api/user/register', restData);
+      const response = await requestHeader.post('/api/user/register', restData);
       if (response.status === 201) {
         simpleAlert('success', '회원가입이 완료되었습니다!');
         navigate('/user/login');
@@ -189,11 +194,11 @@ export default function RegisterPage() {
           <RegisterInput
             label="아이디"
             type="text"
-            id="userId"
+            id="loginId"
             register={register}
             requiredMessage="아이디를 입력해주세요."
-            clearInput={() => clearInput('userId')}
-            error={errors.userId?.message}
+            clearInput={() => clearInput('loginId')}
+            error={errors.loginId?.message}
             regex={/^[a-z0-9]{6,12}$/}
             regexMessage="아이디는 영어, 소문자, 숫자로 6-12 자 사이여야 합니다."
             placeholder="아이디"
@@ -201,7 +206,7 @@ export default function RegisterPage() {
           <button
             type="button"
             className="double-check"
-            onClick={() => handleDuplicateCheck('userId', watch('userId'))}
+            onClick={() => handleDuplicateCheck('loginId', watch('loginId'))}
           >
             중복확인
           </button>
@@ -242,11 +247,11 @@ export default function RegisterPage() {
           <RegisterInput
             label="닉네임"
             type="text"
-            id="nickName"
+            id="nickname"
             register={register}
             requiredMessage="닉네임을 입력해주세요."
-            clearInput={() => clearInput('nickName')}
-            error={errors.nickName?.message}
+            clearInput={() => clearInput('nickname')}
+            error={errors.nickname?.message}
             regex={/^[가-힣a-zA-Z0-9]{2,15}$/}
             regexMessage="닉네임은 한글, 영어, 숫자로 2-15자 사이여야 합니다."
             placeholder="닉네임을 정해주세요."
@@ -254,7 +259,7 @@ export default function RegisterPage() {
           <button
             type="button"
             className="double-check"
-            onClick={() => handleDuplicateCheck('nickName', watch('nickName'))}
+            onClick={() => handleDuplicateCheck('nickname', watch('nickname'))}
           >
             중복확인
           </button>

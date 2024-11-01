@@ -5,9 +5,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import LoginInput from '../components/FormInput';
 import axios from 'axios';
 import { simpleAlert } from '../utils/alert';
+import { requestHeader } from '../api/requestHeader';
 
 interface LoginFormInputs {
-  userId: string;
+  loginId: string;
   userPw: string;
 }
 
@@ -36,42 +37,41 @@ export default function LoginPage() {
   };
 
   // 해당 필드를 빈 문자열로 설정
-  const clearInput = (field: 'userId' | 'userPw') => {
+  const clearInput = (field: 'loginId' | 'userPw') => {
     setValue(field, '');
   };
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
-    try {
-      const response = await axios.post(
-        'http://localhost::8080/api/user/login',
-        data
-      );
-      if (response.status === 200) {
-        console.log('로그인 완료:', response.data);
-        await simpleAlert('success', '로그인 성공!', 'top-end');
-        navigate('/');
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const status = error.response?.status;
-        if (status === 401 || status === 404) {
-          setError('userPw', {
-            type: 'manual',
-            message: '아이디 또는 비밀번호가 잘못 되었습니다.',
-          });
-        } else if (status === 403) {
-          setError('userPw', {
-            type: 'manual',
-            message: '탈퇴한 사용자입니다.',
-          });
-        } else {
-          setError('userPw', {
-            type: 'manual',
-            message: '알 수 없는 오류가 발생했습니다.',
-          });
-        }
-      }
-    }
+    console.log(data);
+
+    // try {
+    //   const response = await requestHeader.post('/api/user/login', data);
+    //   if (response.status === 200) {
+    //     console.log('로그인 완료:', response.data);
+    //     await simpleAlert('success', '로그인 성공!', 'top-end');
+    //     navigate('/');
+    //   }
+    // } catch (error) {
+    //   if (axios.isAxiosError(error)) {
+    //     const status = error.response?.status;
+    //     if (status === 401 || status === 404) {
+    //       setError('userPw', {
+    //         type: 'manual',
+    //         message: '아이디 또는 비밀번호가 잘못 되었습니다.',
+    //       });
+    //     } else if (status === 403) {
+    //       setError('userPw', {
+    //         type: 'manual',
+    //         message: '탈퇴한 사용자입니다.',
+    //       });
+    //     } else {
+    //       setError('userPw', {
+    //         type: 'manual',
+    //         message: '알 수 없는 오류가 발생했습니다.',
+    //       });
+    //     }
+    //   }
+    // }
   };
 
   return (
@@ -82,11 +82,11 @@ export default function LoginPage() {
           <LoginInput
             label="아이디"
             type="text"
-            id="userId"
+            id="loginId"
             register={register}
             requiredMessage="아이디를 입력해주세요."
-            clearInput={() => clearInput('userId')}
-            error={errors.userId?.message}
+            clearInput={() => clearInput('loginId')}
+            error={errors.loginId?.message}
           />
           <LoginInput
             label="비밀번호"

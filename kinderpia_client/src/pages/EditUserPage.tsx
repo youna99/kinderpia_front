@@ -3,9 +3,9 @@ import '../styles/mypage/EditUserPage.scss';
 import RegisterInput from '../components/FormInput';
 import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import axios from 'axios';
 import { simpleAlert } from '../utils/alert';
 import { ResignBtn } from '../components/MyPage/ResignBtn';
+import { requestHeader } from '../api/requestHeader';
 interface EditUserFormProps {
   userPw: string;
   pwCheck: string;
@@ -14,14 +14,14 @@ interface EditUserFormProps {
 
 export default function EditUserPage() {
   const userData = {
-    user_id: 12,
-    login_id: 'test1',
-    user_pw: 'test1',
+    userId: 12,
+    loginId: 'test1',
+    userPw: 'test1',
     email: 'test1@gmail.com',
-    phone_num: '01012345678',
-    is_blacklist: 'false',
-    is_deleted: 'false',
-    profile_img: '/images/usericon.png',
+    phoneNum: '01012345678',
+    isBlacklist: 'false',
+    isDeleted: 'false',
+    profileImg: '/images/usericon.png',
     nickname: '사용자닉네임저쩌고라라라라라저',
   };
 
@@ -56,7 +56,7 @@ export default function EditUserPage() {
 
   const checkDuplicatePhoneNum = async (phoneNum: string) => {
     try {
-      const response = await axios.post('/api/user/check/phonenum', {
+      const response = await requestHeader.post('/api/user/check/phonenum', {
         phoneNum,
       });
       return response.data.isDuplicate; // true or false
@@ -71,7 +71,7 @@ export default function EditUserPage() {
 
     // 비밀번호와 전화번호 수정 API 호출
     try {
-      const response = await axios.put(`/api/user/${userData.user_id}`, {
+      const response = await requestHeader.put(`/api/user/${userData.userId}`, {
         userPw,
         phoneNum,
       });
@@ -93,7 +93,7 @@ export default function EditUserPage() {
         <div className="img-wrap">
           <figure>
             <img
-              src={userData.profile_img}
+              src={userData.profileImg}
               alt="프로필 이미지"
               className="profile-image"
             />
@@ -105,7 +105,7 @@ export default function EditUserPage() {
           </p>
           <p>
             <label htmlFor="">ID</label>
-            <input type="text" disabled placeholder={userData.login_id} />
+            <input type="text" disabled placeholder={userData.loginId} />
           </p>
           <p>
             <label htmlFor="">Email</label>
@@ -113,7 +113,7 @@ export default function EditUserPage() {
           </p>
           <p>
             <label htmlFor="">Tel</label>
-            <input type="tel" disabled placeholder={userData.phone_num} />
+            <input type="tel" disabled placeholder={userData.phoneNum} />
           </p>
           <p className="noti-txt">아이디와 이메일은 변경할 수 없습니다. 😢</p>
         </div>
@@ -184,7 +184,7 @@ export default function EditUserPage() {
           정보 수정
         </button>
       </form>
-      <ResignBtn userId={userData.user_id} />
+      <ResignBtn userId={userData.userId} />
     </section>
   );
 }
