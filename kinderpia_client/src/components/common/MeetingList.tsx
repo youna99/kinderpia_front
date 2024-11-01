@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MettingListInfo } from '../../types/meetinglist';
 import '../../styles/MeetingList.scss';
 
 const MeetingList: React.FC<MettingListInfo> = ({
+  meetingId,
   title,
   category,
   location,
@@ -12,8 +14,15 @@ const MeetingList: React.FC<MettingListInfo> = ({
   participants,
   meetingStatus,
 }) => {
+  const navigate = useNavigate();
+  
+  const buttonCanSendYouThere = ( id : number)=>{
+    navigate(`/meeting/${id}`);
+  };
   return (
-    <section>
+    <section
+      onClick={()=>{buttonCanSendYouThere(meetingId)}}
+    >
       <div className="meeting-container">
         <div className="meetingInfo-container">
           <span className="category">{category}</span>

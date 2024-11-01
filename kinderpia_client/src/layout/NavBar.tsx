@@ -19,7 +19,7 @@ export default function NavBar() {
           </Link>
         </li>
         <li className="nav-list">
-          <Link to={'/chatroom'}>
+          <Link to={'/chatroom/list'}>
             <span className="xi-message-o nav-icon"></span>
             <span>채팅</span>
           </Link>

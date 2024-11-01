@@ -1,4 +1,6 @@
-import '../../styles/meeting/JoinMethodInput.scss';
+import '../../../styles/meeting/createpage/JoinMethodInput.scss';
+import CheckMarker from '../../common/CheckMarker';
+
 interface JoinMethodProps {
   value: boolean;
   onChange?: (requiresApproval: boolean) => void;
@@ -13,9 +15,14 @@ const JoinMethodInput: React.FC<JoinMethodProps> = ({
 }) => {
   return (
     <div className="join-method-container">
-      <label className="join-method-title">
-        신청 방식{isRequired && <span> *</span>}
-      </label>
+      <div className='join-method-header'>
+        <label className="join-method-header-title">
+          신청 방식{isRequired && <span> *</span>}
+        </label>
+        <CheckMarker
+          value={value}
+        />
+      </div>
       <hr />
       <div className="join-method-options">
         <div className="option-item">

@@ -60,6 +60,33 @@ app.get('/api/search', async (req, res) => {
   }
 });
 
+app.get('/api/coordinate', async (req, res) => {
+  const { query } = req.query;
+
+  if (!query) {
+    return res.status(400).json({ error: '검색어가 필요합니다.' });
+  }
+
+  try {
+    const coordinates = await transformCoordinates(query, query);
+    
+    if (!coordinates) {
+      return res.status(404).json({ error: '좌표를 찾을 수 없습니다.' });
+    }
+
+    const locationData = {
+      name: query,
+      address: query,
+      coordinates: coordinates
+    };
+
+    res.json(locationData);
+  } catch (error) {
+    console.error('검색 오류:', error);
+    res.status(500).json({ error: '검색 중 오류가 발생했습니다.' });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`서버가 포트 ${PORT}에서 실행 중입니다.`);

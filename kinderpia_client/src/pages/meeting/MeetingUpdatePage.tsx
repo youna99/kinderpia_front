@@ -3,15 +3,15 @@ import {
   CreateMeetingFormData,
   UpdateMeetingFormData,
 } from '../../types/meeting';
-import CategoryInput from '../../components/meeting/CategoryInput';
-import TitleInput from '../../components/meeting/TitleInput';
-import ParticipateInput from '../../components/meeting/ParticipateInput';
-import DescInput from '../../components/meeting/DescInput';
-import JoinMethodInput from '../../components/meeting/JoinMethodInput';
+import CategoryInput from '../../components/meeting/createpage/CategoryInput';
+import TitleInput from '../../components/meeting/createpage/TitleInput';
+import ParticipateInput from '../../components/meeting/createpage/ParticipateInput';
+import DescInput from '../../components/meeting/createpage/DescInput';
+import JoinMethodInput from '../../components/meeting/createpage/JoinMethodInput';
 import CommonButton1 from '../../components/common/CommonButton1';
 import { updateMeeting } from '../../api/meeting';
 
-import '../../styles/meeting/MeetingUpdatePage.scss';
+import '../../styles/meeting/createpage/MeetingUpdatePage.scss';
 
 const data: CreateMeetingFormData = {
   title: '에버랜드 같이 가요~!',

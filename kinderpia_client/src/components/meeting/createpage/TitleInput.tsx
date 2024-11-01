@@ -1,4 +1,5 @@
-import '../../styles/meeting/TitleInput.scss';
+import '../../../styles/meeting/createpage/TitleInput.scss';
+import CheckMarker from '../../common/CheckMarker';
 
 interface TitleInputProps {
   value: string;
@@ -17,9 +18,14 @@ const TitleInput: React.FC<TitleInputProps> = ({
 
   return (
     <div className="title-input-container">
-      <label className="title-input-title">
-        모임 명<span> *</span>
-      </label>
+      <div className='title-input-header'>
+        <label className="title-input-header-title">
+          모임 명<span> *</span>
+        </label>
+        <CheckMarker
+          value={value}
+        />
+      </div>
       <hr />
       <div className="title-input-wrapper">
         <input

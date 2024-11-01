@@ -20,7 +20,7 @@ export const sendChatMessage = (chatroomId:number) => {
 
 // 채팅 메시지 조회(목록)
 export const getChatMessages = (chatroomId:number) => {
-    requestHeader.get(`/api/chatmsg/${chatroomId}`)
+    requestHeader.get(`/api/chatroom/chatmsg/${chatroomId}`)
 };
 
 

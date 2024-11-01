@@ -6,6 +6,7 @@ interface ChatRoomsState {
   error: boolean;
   loading: boolean;
   isEmpty: boolean;
+  isSelected : boolean;
 }
 
 const initialState: ChatRoomsState = {
@@ -13,6 +14,7 @@ const initialState: ChatRoomsState = {
   error: false,
   loading: true,
   isEmpty: true,
+  isSelected : true,
 };
 
 const chatRoomSlice = createSlice({
@@ -31,9 +33,12 @@ const chatRoomSlice = createSlice({
     setEmpty: (state, action: PayloadAction<boolean>) => {
       state.isEmpty = action.payload;
     },
+    setSelected: (state, action: PayloadAction<boolean>) => {
+      state.isSelected = action.payload;
+    }
   },
 });
 
-export const { setChatRooms, setError, setLoading, setEmpty } =
+export const { setChatRooms, setError, setLoading, setEmpty, setSelected } =
   chatRoomSlice.actions;
 export default chatRoomSlice.reducer;

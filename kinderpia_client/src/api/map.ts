@@ -17,6 +17,21 @@ export const searchLocation = async (query: string): Promise<SearchResultItem[]>
   }
 };
 
+
+export const getCoordinate = async(query :string) : Promise<LocationData> =>{
+  try {
+    const response = await axios.get(`${API_BASE_URL}/api/coordinate`, {
+      params: { query }
+    });
+    await console.log('state1',response.data);
+    
+    return response.data;
+  } catch (error) {
+    console.error('위치 검색 오류:', error);
+    throw error;
+  }
+}
+
 export const saveLocation = async (locationData: LocationData): Promise<void> => {
   try {
     await requestHeader.post(`${API_BASE_URL}/api/location`, locationData);

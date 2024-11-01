@@ -1,6 +1,6 @@
-@import '../common/reset';
-@import '../common/variables';
-@import '../common/utils';
+@import '../../common/reset';
+@import '../../common/variables';
+@import '../../common/utils';
 
 .join-method {
   &-container {
@@ -18,12 +18,18 @@
     }
   }
 
-  &-title {
+  &-header {
     margin-top: $title1;
-    font-weight: 500;
-    font-size: $headline;
-    span {
-      color: #ff0044;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    &-title {
+      font-weight: 500;
+      font-size: $headline;
+      span {
+        color: #ff0044;
+      }
     }
   }
   

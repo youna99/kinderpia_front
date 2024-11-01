@@ -10,6 +10,7 @@ import MapView from '../../components/common/StaticMapView';
 import ReviewInput from '../../components/review/ReviewInput';
 import ReviewList from '../../components/review/ReviewList';
 
+
 const PlaceDetailPage = () => {
   const { placeId } = useParams<{ placeId: string }>();
   const [ placeData, setPlaceData] = useState<PlaceData>();
@@ -47,10 +48,9 @@ const PlaceDetailPage = () => {
       <div className='place-detail-info'>
         
       </div>
-      <MapView
-        longitude={placeData.longitude}
-        latitute={placeData.latitute}
-      />
+      {/* <MapView
+
+      /> */}
       <ReviewInput
         placeId={placeId}
       />

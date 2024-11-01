@@ -1,16 +1,25 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PlaceListInfo } from '../../types/placelist';
 import '../../styles/PlaceList.scss';
 
 const PlaceList: React.FC<PlaceListInfo> = ({
+  placeid,
   title,
   category,
   rating,
   priceType,
   image,
 }) => {
+  const navigate = useNavigate();
+  
+  const buttonCanSendYouThere = ( id : number)=>{
+    navigate(`/place/${id}`);
+  };
   return (
-    <section>
+    <section
+      onClick={()=>{buttonCanSendYouThere(placeid)}}
+    >
       <div className="place-container">
         <div className="place-image">
           <img src={image} alt={title} />
