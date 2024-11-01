@@ -43,14 +43,14 @@ export default function ChatlistPage() {
   // 비동기 요청
   useEffect(() => {
     // 임시 데이터
-    tempChatList();
-    // fetchChatList();
+    // tempChatList();
+    fetchChatList();
   }, [dispatch, isEmpty]);
 
   // 채팅방 목록 조회 함수(비동기) -> 백엔드와 연결 후 활성화
   const fetchChatList = async () => {
     try {
-      const res = await getChatList();
+      const res = await getChatList(102,1,1);
       console.log(res);
       if (res?.status === 200) {
         dispatch(setChatRooms(res.data));

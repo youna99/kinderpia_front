@@ -18,7 +18,7 @@ export default function ChatContainer({ chatroomId }: ChatRoomProps) {
 
   useEffect(() => {
     endMessageRef.current?.scrollIntoView({ behavior: "auto" });
-  }, []);
+  }, [messages]);
 
   return (
     <div className="chat-container">
