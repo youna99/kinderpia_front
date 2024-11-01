@@ -32,6 +32,10 @@ export default function RegisterPage() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [eyeIconClass, setEyeIconClass] = useState('xi-eye');
+  const [isLoginIdChecked, setIsLoginIdChecked] = useState(false);
+  const [isNicknameChecked, setIsNicknameChecked] = useState(false);
+  const [isEmailChecked, setIsEmailChecked] = useState(false);
+  const [isPhoneNumChecked, setIsPhoneNumChecked] = useState(false);
   const navigate = useNavigate();
 
   // 비밀번호 보이기/안보이기 아이콘 토글
@@ -50,64 +54,22 @@ export default function RegisterPage() {
     setValue(field, '');
   };
 
+  // 400번 유효성검사에러 409 이미사용중인정보
   // 중복 검사 API 호출 함수
   const handleCheckDuplicate = async (
-    field: 'loginId' | 'nickname',
+    field: 'loginId' | 'nickname' | 'email' | 'phoneNum',
     value: string
   ) => {
     if (!value) {
       const message =
         field === 'loginId'
           ? '아이디를 입력해주세요.'
-          : '닉네임을 입력해주세요.';
-      setError(field, {
-        type: 'manual',
-        message: message,
-      });
-      return;
-    }
-
-    try {
-      const response = await axios.post(
-        `http://localhost:8080/api/user/check/${field}`,
-        { [field]: value },
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(response);
-
-      if (response.data.data === false) {
-        showAlert('success', '사용할 수 있는 정보입니다.');
-      }
-    } catch (error: any) {
-      console.log(error);
-
-      if (error.response?.data.status === 409) {
-        setError(field, {
-          type: 'manual',
-          message: `${error.response.data.message}`,
-        });
-      } else if (error.response?.data.status === 400) {
-        setError(field, {
-          type: 'manual',
-          message: `${error.response.data.message}`,
-        });
-      }
-    }
-  };
-
-  // 포커스 아웃 시 중복 검사
-  const checkDuplicate = async (field: 'email' | 'phoneNum', value: string) => {
-    if (!value) {
-      const message =
-        field === 'email'
+          : field === 'nickname'
+          ? '닉네임을 입력해주세요.'
+          : field === 'email'
           ? '이메일을 입력해주세요.'
           : '전화번호를 입력해주세요.';
-      setError(field, {
-        type: 'manual',
-        message: message,
-      });
+      setError(field, { type: 'manual', message });
       return;
     }
 
@@ -115,39 +77,73 @@ export default function RegisterPage() {
       const response = await axios.post(
         `http://localhost:8080/api/user/check/${field}`,
         { [field]: value },
-        {
-          withCredentials: true,
-        }
+        { withCredentials: true }
       );
+
       if (response.data.data === false) {
-        simpleAlert('success', '사용 가능한 정보입니다.');
+        simpleAlert('success', `${response.data.message}`);
+        if (field === 'loginId') setIsLoginIdChecked(true);
+        else if (field === 'nickname') setIsNicknameChecked(true);
+        else if (field === 'email') setIsEmailChecked(true);
+        else if (field === 'phoneNum') setIsPhoneNumChecked(true);
       }
     } catch (error: any) {
-      if (error.response?.data.status === 409) {
-        setError(field, {
-          type: 'manual',
-          message: `${error.response.data.message}`,
-        });
-      } else if (error.response?.data.status === 400) {
-        setError(field, {
-          type: 'manual',
-          message: `${error.response.data.message}`,
-        });
+      const status = error.response?.data.status;
+      const message = error.response?.data.message;
+      if (status === 409 || status === 400) {
+        setError(field, { type: 'manual', message });
       }
     }
   };
 
   // 폼 제출 함수
   const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
-    const { agreeTerms, agreePrivacy, ...restData } = data;
-    // 중복 검사 여부 확인
+    if (!isLoginIdChecked) {
+      setError('loginId', {
+        type: 'manual',
+        message: '아이디 중복 검사를 완료해주세요.',
+      });
+      return;
+    }
+
+    if (data.userPw !== data.pwCheck) {
+      setError('pwCheck', {
+        type: 'manual',
+        message: '비밀번호가 일치하지 않습니다.',
+      });
+      return;
+    }
+
+    if (!isNicknameChecked) {
+      setError('nickname', {
+        type: 'manual',
+        message: '닉네임 중복 검사를 완료해주세요.',
+      });
+      return;
+    }
+
+    if (!isEmailChecked) {
+      setError('email', {
+        type: 'manual',
+        message: '이메일 중복 검사를 완료해주세요.',
+      });
+      return;
+    }
+
+    if (!isPhoneNumChecked) {
+      setError('phoneNum', {
+        type: 'manual',
+        message: '전화번호 중복 검사를 완료해주세요.',
+      });
+      return;
+    }
 
     try {
-      await axios.post('/api/register', restData, {
+      await axios.post('http://localhost:8080/api/user/register', data, {
         withCredentials: true,
       });
       showAlert('success', '회원가입에 성공했습니다!');
-      navigate('/login');
+      navigate('user/login');
     } catch (error) {
       showAlert('error', '회원가입에 실패했습니다. 다시 시도해주세요.');
     }
@@ -168,7 +164,7 @@ export default function RegisterPage() {
             clearInput={() => clearInput('loginId')}
             error={errors.loginId?.message}
             regex={/^[a-z0-9]{6,12}$/}
-            regexMessage="아이디는 영어, 소문자, 숫자로 6-12 자 사이여야 합니다."
+            regexMessage="아이디는 6글자 이상 12글자 이하이며, 영어 소문자와 숫자만 가능합니다."
             placeholder="아이디"
           />
           <button
@@ -221,7 +217,7 @@ export default function RegisterPage() {
             clearInput={() => clearInput('nickname')}
             error={errors.nickname?.message}
             regex={/^[가-힣a-zA-Z0-9]{2,15}$/}
-            regexMessage="닉네임은 한글, 영어, 숫자로 2-15자 사이여야 합니다."
+            regexMessage="닉네임은 2글자 이상 15글자 이하이며, 한글, 영어, 숫자만 가능합니다."
             placeholder="닉네임을 정해주세요."
           />
           <button
@@ -244,7 +240,7 @@ export default function RegisterPage() {
             regex={/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/}
             regexMessage="올바른 이메일 형식이 아닙니다. (예: user@gmail.com)"
             placeholder="ex) user@gmail.com"
-            onBlur={() => checkDuplicate('email', watch('email'))}
+            onBlur={() => handleCheckDuplicate('email', watch('email'))}
           />
         </div>
         <div className="input-box">
@@ -257,9 +253,9 @@ export default function RegisterPage() {
             clearInput={() => clearInput('phoneNum')}
             error={errors.phoneNum?.message}
             regex={/^[0-9]{10,11}$/}
-            regexMessage="전화번호는 0-9의 숫자로 10자리 또는 11자리 숫자로만 이루어져야 합니다."
+            regexMessage="전화번호는 10~11자리 숫자여야 합니다."
             placeholder="‘-’없이 숫자만 입력"
-            onBlur={() => checkDuplicate('phoneNum', watch('phoneNum'))}
+            onBlur={() => handleCheckDuplicate('phoneNum', watch('phoneNum'))}
           />
         </div>
         <div id="agree">
