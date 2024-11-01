@@ -1,6 +1,6 @@
-@import './common/reset';
-@import './common/variables';
-@import './common/utils';
+@import '../common/reset';
+@import '../common/variables';
+@import '../common/utils';
 
 .meeting-container {
   display: flex;
@@ -9,12 +9,12 @@
   border-radius: 1rem;
   box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
   margin: 0.8rem;
-  
-  &:hover{
+
+  &:hover {
     opacity: 0.6;
     cursor: pointer;
   }
-  
+
   .meetingInfo-container {
     margin: 1rem;
     .category {

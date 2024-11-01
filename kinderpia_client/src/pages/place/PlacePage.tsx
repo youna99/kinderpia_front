@@ -28,12 +28,14 @@ const PlacePage: React.FC = () => {
   useEffect(() => {
     setPlaces(dummyPlaceList);
   }, []);
-  
+
   const handleSearch = async (searchTerm: string) => {
     setIsSearching(true);
     setCurrentSearchTerm(searchTerm); // 검색어 상태 업데이트
     try {
-      const response = await fetch(`/api/meetings/search?query=${encodeURIComponent(searchTerm)}`);
+      const response = await fetch(
+        `/api/meetings/search?query=${encodeURIComponent(searchTerm)}`
+      );
       const data: SearchResponse = await response.json();
       setPlaces(data.places);
     } catch (error) {
@@ -48,10 +50,10 @@ const PlacePage: React.FC = () => {
     handleSearch(district);
   };
 
-  return (    
+  return (
     <div className="meeting-page">
       <div className="map-container">
-        <SeoulMap 
+        <SeoulMap
           onDistrictClick={handleDistrictClick}
           selectedDistrict={selectedDistrict}
         />
@@ -63,8 +65,8 @@ const PlacePage: React.FC = () => {
           isLoading={isSearching}
         />
       </div>
-      <div className='meeting-title-box'>
-        <div className='meeting-title'>
+      <div className="meeting-title-box">
+        <div className="meeting-title">
           장소 검색
           {currentSearchTerm && (
             <span className="search-result-text">
@@ -72,9 +74,7 @@ const PlacePage: React.FC = () => {
             </span>
           )}
         </div>
-        <div className='meeting-filter'>
-          필터보기
-        </div>
+        <div className="meeting-filter">필터보기</div>
       </div>
       {isSearching ? (
         <div className="meeting-search-status">검색 중...</div>
@@ -82,26 +82,25 @@ const PlacePage: React.FC = () => {
         <div className="meeting-list-item">
           {places.map((place) => (
             <PlaceList
-              key={place.placeid}
-              placeid={place.placeid}
-              title={place.title}
+              key={place.placeId}
+              placeId={place.placeId}
+              placeName={place.placeName}
               category={place.category}
               rating={place.rating}
-              priceType={place.priceType}
-              image={place.image}
+              paid={place.paid}
+              placeImg={place.placeImg}
             />
           ))}
         </div>
       ) : (
         <div className="meeting-list-404">
-          {currentSearchTerm ? 
-            `'${currentSearchTerm}' 에 대한 검색 결과가 없습니다.` : 
-            '검색 결과가 없습니다.'
-          }
+          {currentSearchTerm
+            ? `'${currentSearchTerm}' 에 대한 검색 결과가 없습니다.`
+            : '검색 결과가 없습니다.'}
         </div>
       )}
     </div>
   );
 };
 
-export default PlacePage
+export default PlacePage;
