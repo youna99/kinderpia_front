@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/common/Header.scss';
 import { Link } from 'react-router-dom';
-import Footer from './Footer';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,6 +11,29 @@ export default function Header() {
   const handleLinkClick = () => {
     setIsMenuOpen(false);
   };
+
+  const handleOutsideClick = (event: MouseEvent) => {
+    const menu = document.querySelector('.menu');
+    const button = document.querySelector('.nav-icon');
+
+    // 메뉴와 버튼 외부를 클릭했을 때 메뉴 닫기
+    if (
+      isMenuOpen &&
+      menu &&
+      button &&
+      !menu.contains(event.target as Node) &&
+      !button.contains(event.target as Node)
+    ) {
+      setIsMenuOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [isMenuOpen]);
   return (
     <>
       <header>

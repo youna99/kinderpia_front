@@ -37,6 +37,7 @@ const FormInput: React.FC<InputFieldProps> = ({
   return (
     <div className="input-wrap">
       <label htmlFor={id} className="label">
+        <span className="required-icon">*</span>
         {label}
       </label>
       <input
