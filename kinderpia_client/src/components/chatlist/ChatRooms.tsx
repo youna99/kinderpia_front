@@ -1,8 +1,8 @@
 import ChatRoom from "./ChatRoom";
 import { RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
-import { getChatRoom } from "../../api/chat";
-import { setChatInfo } from "../../store/chatSlice";
+import { getChatMessages, getChatRoom } from "../../api/chat";
+import { setChatInfo, setMessages } from "../../store/chatSlice";
 
 export default function ChatRooms() {
   const dispatch = useDispatch();
@@ -10,8 +10,14 @@ export default function ChatRooms() {
 
   const enterChatroom = async (chatroomId: number) => {
     try {
-      const res = getChatRoom(chatroomId);
-      // dispatch(setChatInfo(res.data))
+      // 단일 채팅방 조회
+      const res = await getChatRoom(chatroomId);
+      if(res.status === 200) {
+        dispatch(setChatInfo(res.data))
+        // 채팅방의 메세지 조회
+        const res2 = await getChatMessages(chatroomId);
+        dispatch(setMessages(res2.data))
+      }
     } catch (error) {
       console.error(error);
     }
