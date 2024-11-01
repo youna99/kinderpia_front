@@ -8,7 +8,7 @@ import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Link } from 'react-router-dom';
-import { getPlace } from '../api/placelist';
+import { getPlaces } from '../api/placelist';
 import { getMeeting } from '../api/meetinglist';
 import '../styles/MainPage.scss';
 import { dummyMeetingList } from '../data/tempMeetingListData';
@@ -21,7 +21,7 @@ function MainPage() {
   // GET) 장소목록데이터 가져오기
   const getPlaceList = async () => {
     try {
-      const data = await getPlace({
+      const data = await getPlaces({
         // sort: 'star',
         sort: 'date',
         page: 1,
