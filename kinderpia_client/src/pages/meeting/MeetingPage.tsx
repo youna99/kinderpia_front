@@ -60,11 +60,10 @@ const MeetingPage: React.FC = () => {
             <MeetingList
               key={meeting.meetingId}
               meetingId={meeting.meetingId}
-              title={meeting.title}
-              category={meeting.category}
+              meetingTitle={meeting.meetingTitle}
+              meetingCategory={meeting.meetingCategory}
               location={meeting.location}
-              selectedDate={meeting.selectedDate}
-              selectedTime={meeting.selectedTime}
+              meetingTime={meeting.meetingTime}
               writer={meeting.writer}
               participants={meeting.participants}
               meetingStatus={meeting.meetingStatus}

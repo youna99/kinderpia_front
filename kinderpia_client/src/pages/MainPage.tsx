@@ -22,11 +22,14 @@ function MainPage() {
   const getPlaceList = async () => {
     try {
       const data = await getPlace({
-        sort: 'star',
+        // sort: 'star',
+        sort: 'date',
         page: 1,
-        limit: 5,
+        size: 5,
       });
-      setPlaceList(data);
+      console.log(`data>>>>`, data.content);
+
+      setPlaceList(data.content);
     } catch (error) {
       console.log('장소목록 가져오는 중 에러 발생!: ', error);
     }
@@ -36,22 +39,23 @@ function MainPage() {
   const getMeetingList = async () => {
     try {
       const data = await getMeeting({
-        sort: 'default',
-        page: 1,
-        limit: 3,
-        keyword: '',
+        // sort: 'open',
+        // page: 1,
+        // size: 3,
       });
-      setMeetingList(data);
+      console.log('meetingdata >>>>', data.data.dataList);
+
+      setMeetingList(data.data.dataList);
     } catch (error) {
       console.log('모임목록 가져오는 중 에러 발생!', error);
     }
   };
 
   useEffect(() => {
-    setPlaceList(dummyPlaceList);
-    setMeetingList(dummyMeetingList);
-    // getPlaceList();
-    // getMeetingList();
+    // setPlaceList(dummyPlaceList);
+    // setMeetingList(dummyMeetingList);
+    getPlaceList();
+    getMeetingList();
   }, []);
 
   return (
@@ -63,31 +67,33 @@ function MainPage() {
             <h2 className="title">인기 장소</h2>
             <p className="add">아이들과 함께 특별한 하루를 만들어보세요!</p>
           </div>
-          <div className="more">더보기</div>
+          <Link to={'/place'}>
+            <div className="more">더보기</div>
+          </Link>
         </div>
         <Swiper
           slidesPerView={2.5}
-          spaceBetween={30}
+          spaceBetween={10}
           modules={[Pagination]}
           navigation={true}
           breakpoints={{
             640: {
               slidesPerView: 5,
-              spaceBetween: 10,
+              spaceBetween: 50,
             },
           }}
           className="swiper"
         >
           {placeList.map((place) => (
-            <SwiperSlide key={place.placeid}>
+            <SwiperSlide key={place.placeId}>
               <PlaceList
-                key={place.placeid}
-                placeid={place.placeid}
-                title={place.title}
+                key={place.placeId}
+                placeId={place.placeId}
+                placeName={place.placeName}
                 category={place.category}
-                rating={place.rating}
-                priceType={place.priceType}
-                image={place.image}
+                // rating={place.rating}
+                paid={place.paid}
+                placeImg={place.placeImg}
               />
             </SwiperSlide>
           ))}
@@ -109,11 +115,10 @@ function MainPage() {
           {meetingList.slice(0, 4).map((meeting) => (
             <MeetingList
               meetingId={meeting.meetingId}
-              title={meeting.title}
-              category={meeting.category}
+              meetingTitle={meeting.meetingTitle}
+              meetingCategory={meeting.meetingCategory}
               location={meeting.location}
-              selectedDate={meeting.selectedDate}
-              selectedTime={meeting.selectedTime}
+              meetingTime={meeting.meetingTime}
               writer={meeting.writer}
               participants={meeting.participants}
               meetingStatus={meeting.meetingStatus}

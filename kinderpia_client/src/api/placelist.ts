@@ -3,7 +3,7 @@ import { requestHeader } from './requestHeader';
 export const getPlace = async (params: {
   sort: string;
   page: number;
-  limit: number;
+  size: number;
   category?: string;
   keyword?: string;
 }) => {

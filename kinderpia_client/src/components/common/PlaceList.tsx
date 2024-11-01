@@ -1,36 +1,40 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PlaceListInfo } from '../../types/placelist';
-import '../../styles/PlaceList.scss';
+import '../../styles/common/PlaceList.scss';
 
 const PlaceList: React.FC<PlaceListInfo> = ({
-  placeid,
-  title,
+  placeId,
+  placeName,
   category,
-  rating,
-  priceType,
-  image,
+  // rating,
+  paid,
+  placeImg,
 }) => {
   const navigate = useNavigate();
-  
-  const buttonCanSendYouThere = ( id : number)=>{
+
+  const buttonCanSendYouThere = (id: number) => {
     navigate(`/place/${id}`);
   };
   return (
     <section
-      onClick={()=>{buttonCanSendYouThere(placeid)}}
+      className="place-section"
+      onClick={() => {
+        buttonCanSendYouThere(placeId);
+      }}
     >
       <div className="place-container">
         <div className="place-image">
-          <img src={image} alt={title} />
+          <img src={placeImg} alt={placeName} />
           <span className="place-category">{category}</span>
         </div>
         <div className="place-content">
-          <h3 className="title">{title}</h3>
+          <h3 className="title">{placeName}</h3>
           <div className="rating">
-            <span className="star">⭐</span> {rating}
+            {/* <span className="star">⭐</span> {rating} */}
+            <span className="star">⭐</span> 5.0
           </div>
-          <p className="price-type">{priceType}</p>
+          <p className="price-type">{paid ? '유료' : '무료'}</p>
         </div>
       </div>
     </section>
