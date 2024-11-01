@@ -2,3 +2,94 @@
 @import '../../common/variables';
 @import '../../common/utils';
 
+.meeting-info-detail {
+  &-container {    
+    width: 100%;
+    height: 30vh;
+    position: relative;
+    z-index: 1;
+    display: flex;           
+    justify-content: center; 
+    align-items: flex-end;   
+  }
+
+  &-category {
+    position: absolute;    
+    top: 10px;            
+    left: 10px;           
+    font-family: inherit;
+    font-size: $caption;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px $footnote;
+    z-index: 5;
+  }
+
+  &-coverImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0.5;
+    width: 100%;
+    height: 90%;
+    background-image: url('../../../assets/images/tempImage1.jpg');
+  }
+
+  &-wrapper {
+    position: relative;     
+    background-color: $active-color;
+    width: 60%;
+    border-radius: 20px;
+    padding: $title2;
+    z-index: 5;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    &-title{
+      font-weight: 700;
+      font-size: $title3;
+    }
+
+    &-human {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;  // 세로 중앙 정렬 추가
+      margin: $footnote 0;  // 상하 여백 추가
+
+      &-writer {
+        display: flex;      // 추가
+        align-items: center; // 추가
+        gap: 8px;          // 프로필 이미지와 이름 사이 간격
+
+        &-profileImage {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background-image: url('../../../assets/images/tempIcon1.png');
+          background-size: cover;     // 이미지가 영역에 맞게 조절
+          background-position: center; // 이미지 중앙 정렬
+          background-repeat: no-repeat;
+        }
+
+        &-name {
+          font-size: $caption;
+          color: #333;
+        }
+      }
+      &-participants{
+        font-size: $caption;
+        &-icon{
+          margin-right: $caption;
+        }
+      }
+    }
+
+    &-hash{
+      .hash-tag{
+        color: #616161;
+        margin-right: $footnote;
+      }
+    }
+  }
+}

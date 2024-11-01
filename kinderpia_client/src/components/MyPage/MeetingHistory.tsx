@@ -27,7 +27,8 @@ const MeetingHistory: React.FC = () => {
         <div className="meeting-list-">
           {meetings.map((meeting) => (
             <MeetingList
-              // key={meeting.meetingId}
+              key={meeting.meetingId}
+              meetingId={meeting.meetingId}
               title={meeting.title}
               category={meeting.category}
               location={meeting.location}
