@@ -24,8 +24,8 @@ const MeetingInfoDesc:React.FC<MeetingInfoDescProps> = ({
   return (
     <div className='meeting-info-desc-container'>
       <div className='meeting-info-desc-header'>
-        <label className='meeting-info-desc-title'>모임 내용</label>
-        <div className='meeting-info-desc-report'>
+        <label className='meeting-info-desc-header-title'>모임 내용</label>
+        <div className='meeting-info-desc-header-report'>
           { user?.isReport 
             ? <div
                 onClick={()=>{report(meetingId)}}
@@ -33,8 +33,10 @@ const MeetingInfoDesc:React.FC<MeetingInfoDescProps> = ({
         </div>
       </div>
       <hr/>
-      <div className='meeting-info-desc-createdAt'>{createdAt}</div>
-      <div className='meeting-info-desc-content'>{description}</div>
+      <div className='meeting-info-desc-body'>
+        <div className='meeting-info-desc-body-createdAt'>{createdAt}</div>
+        <div className='meeting-info-desc-body-content'>{description}</div>
+      </div>
     </div>
   )
 }

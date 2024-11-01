@@ -1,3 +1,9 @@
 @import '../../common/reset';
 @import '../../common/variables';
 @import '../../common/utils';
+
+.static-map-container{
+  display: flex;
+  margin: $caption auto;
+  width: 90%;
+}

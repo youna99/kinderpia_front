@@ -37,9 +37,9 @@ const MeetingInfoDetail:React.FC<MeetingInfoDetailProps> = ({
     <div className='meeting-info-detail-container'>
       <div className='meeting-info-detail-coverImage'>
       </div>
-      <div className='meeting-info-detail-category'>
+      <span className='meeting-info-detail-category'>
         {category}
-      </div>
+      </span>
       <div className='meeting-info-detail-wrapper'>
         <div className='meeting-info-detail-wrapper-title'>
           {title}

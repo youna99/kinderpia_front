@@ -50,7 +50,7 @@ const StaticMapView: React.FC<MapViewProps> = ({
   }
 
   return (
-    <div>
+    <div className="static-map-container">
       <img 
         className="map" 
         src={src} 
