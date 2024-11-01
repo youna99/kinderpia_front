@@ -74,11 +74,24 @@
   }
 }
 
+@media (max-width: $md) {
+  .chatroom-list {
+    padding: 1rem 0;
+    .chatroom-info {
+      .chatroom-bx {
+        .chatroom-title {
+          font-size: 1.4rem;
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: $sm) {
   .chatroom-list {
     .chatroom-icon {
-      width: 3rem;
-      height: 3rem;
+      width: 2rem;
+      height: 2rem;
     }
     .chatroom-info {
       .chatroom-bx {
