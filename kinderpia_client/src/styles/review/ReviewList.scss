@@ -1,2 +1,10 @@
-@import './common/variables';
-@import './common/utils';
+@import '../common/variables';
+@import '../common/utils';
+
+.review-list{
+  &-container{
+    display: flex;
+    flex-direction: column;
+    gap: $caption;
+  }
+}

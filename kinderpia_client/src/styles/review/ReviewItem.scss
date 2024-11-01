@@ -1,0 +1,31 @@
+@import '../common/variables';
+@import '../common/utils';
+
+.review-item{
+  &-container{
+    display: flex;
+    flex-direction: column;
+
+    hr{
+      height: 1px;
+      background-color: #000;
+      border: none;
+      width: 100%;
+      margin: 0px auto;
+    }
+  }
+  &-header{
+    display: flex;
+    flex-direction: row;
+    
+    &-info{
+      display: flex;
+      flex-direction: column;
+      &-wrapper{
+        display: flex;
+        flex-direction: row;
+      }
+    }
+
+  }
+}
