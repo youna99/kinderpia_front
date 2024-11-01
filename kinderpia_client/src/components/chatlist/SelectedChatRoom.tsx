@@ -79,18 +79,24 @@ export default function SelectedChatRoom() {
 
   // 메세지 전송 함수
   const sendMessage = (message: string) => {
-    const now = Date.now();
-    if (clientRef.current?.connected) {
-      const messageObj = {
-        chatroomId,
-        chatmsgContent: message,
-      };
-      clientRef.current.publish({
-        destination: chatSend,
-        body: JSON.stringify(messageObj),
-      });
-    }
-    
+    const messageObj = {
+      chatroomId,
+      chatmsgContent: message,
+      createdAt: new Date(),
+    };
+    dispatch(setMessages([...messages, messageObj]));
+    // if (clientRef.current?.connected) {
+    //   const messageObj = {
+    //     chatroomId,
+    //     chatmsgContent: message,
+    //     createdAt: new Date(),
+    //   };
+    //   clientRef.current.publish({
+    //     destination: chatSend,
+    //     body: JSON.stringify(messageObj),
+    //   });
+    //   dispatch(setMessages([...messages, messageObj]));
+    // }
   };
 
   return (

@@ -31,6 +31,7 @@ export default function ChatInput({ onSendMessage }: ChatInputProps) {
           id="chatMessage"
           placeholder="메시지를 입력해주세요"
           ref={inputRef}
+          maxLength={500}
         />
         <button className="chatsend-btn" type="submit">
           <span className="xi-arrow-up"></span>
