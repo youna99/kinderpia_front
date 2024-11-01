@@ -9,8 +9,9 @@ const MeetingList: React.FC<MettingListInfo> = ({
   meetingCategory,
   location,
   meetingTime,
-  writer,
-  participants,
+  nickname,
+  capacity,
+  totalCapacity,
   meetingStatus,
 }) => {
   const navigate = useNavigate();
@@ -33,9 +34,11 @@ const MeetingList: React.FC<MettingListInfo> = ({
             <p className="meetDate">{meetingTime}</p>
           </div>
           <div className="meeting-writer-participants">
-            <span className="meetWriter">{writer}</span>
+            <span className="meetWriter">{nickname}</span>
             <span className="xi-group meeting-icon"></span>
-            <span className="meetParticipants">{participants} 명 참여</span>
+            <span className="meetParticipants">
+              {capacity}/{totalCapacity}
+            </span>
           </div>
         </div>
         <div className="meetingStatus-container">

@@ -2,11 +2,12 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PlaceListInfo } from '../../types/placelist';
 import '../../styles/common/PlaceList.scss';
+import { getIcon } from '../../utils/getIcon';
 
 const PlaceList: React.FC<PlaceListInfo> = ({
   placeId,
   placeName,
-  category,
+  placeCategoryName,
   // rating,
   paid,
   placeImg,
@@ -16,6 +17,10 @@ const PlaceList: React.FC<PlaceListInfo> = ({
   const buttonCanSendYouThere = (id: number) => {
     navigate(`/place/${id}`);
   };
+
+  // 카테고리별 아이콘이미지 가져오기
+  const categoryIconImg = placeCategoryName ? getIcon(placeCategoryName) : null;
+
   return (
     <section
       className="place-section"
@@ -25,8 +30,12 @@ const PlaceList: React.FC<PlaceListInfo> = ({
     >
       <div className="place-container">
         <div className="place-image">
-          <img src={placeImg} alt={placeName} />
-          <span className="place-category">{category}</span>
+          {categoryIconImg ? (
+            <figure className="place-icon">{categoryIconImg}</figure>
+          ) : (
+            <img src={placeImg} alt={placeName} />
+          )}
+          <span className="place-category">{placeCategoryName}</span>
         </div>
         <div className="place-content">
           <h3 className="title">{placeName}</h3>
