@@ -25,7 +25,6 @@ export const getCategory = async (): Promise<String[]> => {
   return response.data.categories;
 };
 
-// 모임 수정
 export const updateMeeting = async (
   meetingid: number,
   data: UpdateMeetingFormData
@@ -36,7 +35,6 @@ export const updateMeeting = async (
   return response.data;
 };
 
-// 모든 API 함수들을 하나의 객체로 내보내기
 export const meetingApi = {
   createMeeting,
   getCategory,

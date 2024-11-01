@@ -23,7 +23,6 @@ export const getCoordinate = async(query :string) : Promise<LocationData> =>{
     const response = await axios.get(`${API_BASE_URL}/api/coordinate`, {
       params: { query }
     });
-    await console.log('state1',response.data);
     
     return response.data;
   } catch (error) {

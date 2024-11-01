@@ -19,40 +19,59 @@ interface SearchResponse {
   total: number;
 }
 
+type SortType = 'rating' | 'time' | null;
+
 const PlacePage: React.FC = () => {
   const [places, setPlaces] = useState<PlaceListInfo[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
-  const [currentSearchTerm, setCurrentSearchTerm] = useState<string>(''); // 현재 검색어 상태 추가
+  const [currentSearchTerm, setCurrentSearchTerm] = useState<string>('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [sortBy, setSortBy] = useState<SortType>(null);
 
+  // 초기 데이터 로드
   useEffect(() => {
     setPlaces(dummyPlaceList);
   }, []);
 
-  const handleSearch = async (searchTerm: string) => {
+  // 검색 함수
+  const handleSearch = async (searchTerm: string, sort?: SortType) => {
     setIsSearching(true);
-    setCurrentSearchTerm(searchTerm); // 검색어 상태 업데이트
+    setCurrentSearchTerm(searchTerm);
     try {
-      const response = await fetch(
-        `/api/meetings/search?query=${encodeURIComponent(searchTerm)}`
-      );
+      // 정렬 방식을 쿼리 파라미터로 전달
+      const queryParams = new URLSearchParams({
+        query: searchTerm,
+        ...(sort && { sort }) // sort 값이 있을 때만 추가
+      });
+
+      const response = await fetch(`/api/meetings/search?${queryParams}`);
       const data: SearchResponse = await response.json();
       setPlaces(data.places);
     } catch (error) {
-      console.error('모임 검색 중 오류 발생:', error);
+      console.error('검색 중 오류 발생:', error);
     } finally {
       setIsSearching(false);
     }
   };
 
+  // 지역 선택 핸들러
   const handleDistrictClick = (district: string) => {
     setSelectedDistrict(district);
-    handleSearch(district);
+    handleSearch(district, sortBy);
+  };
+
+  // 정렬 핸들러
+  const handleSort = (type: SortType) => {
+    setSortBy(type);
+    setIsDropdownOpen(false);
+    // 현재 검색어로 다시 검색 요청 (새로운 정렬 방식 적용)
+    handleSearch(currentSearchTerm, type);
   };
 
   return (
     <div className="meeting-page">
-      <div className="map-container">
+      <div className="meeting-map-container">
         <SeoulMap
           onDistrictClick={handleDistrictClick}
           selectedDistrict={selectedDistrict}
@@ -65,17 +84,35 @@ const PlacePage: React.FC = () => {
           isLoading={isSearching}
         />
       </div>
-      <div className="meeting-title-box">
-        <div className="meeting-title">
+      <div className="meeting-header">
+        <div className="meeting-header-title">
           장소 검색
           {currentSearchTerm && (
-            <span className="search-result-text">
+            <span className="meeting-header-result">
               '{currentSearchTerm}' 에 대한 검색 결과입니다.
             </span>
           )}
         </div>
-        <div className="meeting-filter">필터보기</div>
+        <div className="meeting-header-filter">
+          <div className="dropdown">
+            <button 
+              className="dropdown-toggle"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            >
+              {sortBy === 'rating' ? '평점순' : 
+               sortBy === 'time' ? '시간순' : 
+               '필터보기'}
+            </button>
+            {isDropdownOpen && (
+              <div className="dropdown-menu">
+                <button onClick={() => handleSort('rating')}>평점순</button>
+                <button onClick={() => handleSort('time')}>시간순</button>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
+      <hr/>
       {isSearching ? (
         <div className="meeting-search-status">검색 중...</div>
       ) : places.length > 0 ? (
