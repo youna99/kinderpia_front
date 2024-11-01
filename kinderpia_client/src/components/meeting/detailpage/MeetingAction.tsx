@@ -1,7 +1,7 @@
 import React from 'react'
 
 // 타입 호출
-import { MeetingUserData } from '../../../types/meeting'
+import { MeetingData, MeetingUserData } from '../../../types/meeting'
 
 // 컴포넌트 호출
 import MeetingActionJoin from './MeetingActionJoin'
@@ -12,10 +12,12 @@ import MeetingActionWait from './MeetingActionWait'
 import '../../../styles/meeting/detailpage/MeetingAction.scss'
 
 interface MeetingActionProps {
-  data?: MeetingUserData
+  user?: MeetingUserData
+  data?: MeetingData
 }
 
 const MeetingAction: React.FC<MeetingActionProps> = ({
+  user,
   data
 }) => {
 
@@ -24,11 +26,12 @@ const MeetingAction: React.FC<MeetingActionProps> = ({
   }
   return (
     <div className='meeting-action-container'>
-      {!data?.isJoined && <MeetingActionJoin
+      {!user?.isJoined && <MeetingActionJoin
+        data={data}
         onSubmit={meetingActionJoinReq}
       />}
-      {data?.isJoined && !data?.ispermitted && <MeetingActionWait />}
-      {data?.isJoined && data?.ispermitted && <MeetingActionJoined />}
+      {user?.isJoined && !user?.ispermitted && <MeetingActionWait />}
+      {user?.isJoined && user?.ispermitted && <MeetingActionJoined />}
     </div>
   )
 }
