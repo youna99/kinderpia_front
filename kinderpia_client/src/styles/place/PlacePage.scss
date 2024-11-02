@@ -44,11 +44,17 @@
     }
   }
 
-  .meeting-list-item {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  &-list-item {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
-    padding: 20px 0;
+    margin: $caption auto;
+    width: 100%;
+  
+    .place-section {
+      width: calc(50% - 10px);
+    }
   }
 
   .meeting-list-404 {

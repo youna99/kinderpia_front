@@ -43,3 +43,9 @@ export interface UpdateMeetingFormData {
   hasParticipantsLimit: boolean;
   description: string;
 }
+
+export interface MeetingJoinData{
+  userId : number;
+  meetingId : number;
+  capacity : number;
+}

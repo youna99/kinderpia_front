@@ -9,7 +9,7 @@ import ParticipateInput from '../../components/meeting/createpage/ParticipateInp
 import DescInput from '../../components/meeting/createpage/DescInput';
 import JoinMethodInput from '../../components/meeting/createpage/JoinMethodInput';
 import CommonButton1 from '../../components/common/CommonButton1';
-import { updateMeeting } from '../../api/meeting';
+import { putMeeting } from '../../api/meeting';
 
 import '../../styles/meeting/createpage/MeetingUpdatePage.scss';
 
