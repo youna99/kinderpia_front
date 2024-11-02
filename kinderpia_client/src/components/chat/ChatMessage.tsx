@@ -30,6 +30,8 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
     return () => clearTimeout(timer);
   };
 
+
+  // 로직 변경 필요 -> senderNickname 이 아니라 senderId 로 확인해서 자신인지 아닌지 확인해야함
   return (
     <div
       className={`message message-${

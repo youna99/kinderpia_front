@@ -43,7 +43,7 @@ export default function SelectedChatRoom() {
 
     clientRef.current = new Client({
       webSocketFactory: () => socket, // 소켓 연결 반환
-      connectHeaders : {
+      connectHeaders : { // 토큰 값 넘겨줌
         Authorization: `Bearer ${jwt}`, 
       },
       debug: (str) => {
@@ -100,7 +100,7 @@ export default function SelectedChatRoom() {
       clientRef.current.publish({
         destination: chatSend,
         headers : {
-          Authorization: `Bearer ${jwt}`, 
+          Authorization: `Bearer ${jwt}`,  // 토큰 값 넘기기
         },
         body: JSON.stringify(messageObj),
       });

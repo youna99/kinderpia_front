@@ -25,7 +25,6 @@ function MeetingDetailPage() {
   useEffect(() => {
     if (!meetingId) return;
     
-    console.log('현재 접근한 장소 ID:', meetingId);
     setIsLoading(true);
     
     const data = dummyMeetings[ Number(meetingId)-1 ];
@@ -57,6 +56,7 @@ function MeetingDetailPage() {
         data={meetingData}
         user={userData}
       />
+      <hr/>
       <MeetingAction
         user={userData}
         data={meetingData}

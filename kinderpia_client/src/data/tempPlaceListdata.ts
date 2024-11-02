@@ -7,7 +7,7 @@ export const dummyPlaceList: PlaceListInfo[] = [
     placeCategoryName: '오락 및 여가',
     rating: 4.5,
     paid: '유료',
-    placeImg: 'url',
+    placeImg: '/assets/images/tempImage1',
   },
   {
     placeId: 2,
