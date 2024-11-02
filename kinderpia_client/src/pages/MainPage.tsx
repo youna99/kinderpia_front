@@ -13,6 +13,7 @@ import { getMeeting } from '../api/meetinglist';
 import '../styles/MainPage.scss';
 import { dummyMeetingList } from '../data/tempMeetingListData';
 import { dummyPlaceList } from '../data/tempPlaceListdata';
+import { MainBanner } from '../components/MainBanner';
 
 function MainPage() {
   const [placeList, setPlaceList] = useState<PlaceListInfo[]>([]); // 장소 목록 관리
@@ -79,8 +80,8 @@ function MainPage() {
   };
 
   return (
-    <section className="main">
-      <section className="introduce">소개글</section>
+    <section id="main">
+      <MainBanner />
       <section className="placelist-container">
         <div className="headline-container">
           <div className="title-container">

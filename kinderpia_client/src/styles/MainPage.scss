@@ -2,10 +2,10 @@
 @import './common/variables';
 @import './common/utils';
 
-.introduce {
-  background-color: gray;
-  height: 15rem;
-  margin-bottom: 1.5rem;
+#main {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 }
 
 .placelist-container {
@@ -80,5 +80,24 @@
   .meetingcard {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// 스와이퍼 배너
+.introduce {
+  .banner-img {
+    width: 100%;
+  }
+  .swiper-slide {
+    background: #fff;
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: $main-color;
+    padding: 0 1rem;
+  }
+  .swiper-pagination {
+    text-align: left;
+    margin-left: 2rem;
   }
 }
