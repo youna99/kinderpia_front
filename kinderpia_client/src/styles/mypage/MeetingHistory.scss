@@ -1,2 +1,43 @@
 @import '../common/variables';
 @import '../common/utils';
+
+.mymeeting-head {
+  padding: 2rem 0 0;
+  display: flex;
+  justify-content: space-between;
+  h3 {
+    font-size: $body;
+  }
+  .filter {
+    position: relative;
+    select {
+      padding: 0.5rem 2.5rem 0.5rem 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      color: #333;
+      background-color: transparent;
+      cursor: pointer;
+      transition: border-color 0.3s;
+      &:focus {
+        border-color: #007bff; /* 포커스 시 테두리 색상 변경 */
+        outline: none; /* 기본 아웃라인 제거 */
+      }
+      option {
+        padding: 1rem;
+      }
+    }
+    .dropdown-icon {
+      position: absolute;
+      top: 50%;
+      right: 0.5rem;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      z-index: -1;
+    }
+  }
+}
+#mymeeting {
+  .meeting-container {
+    min-width: 100%;
+  }
+}

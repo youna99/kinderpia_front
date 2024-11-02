@@ -5,39 +5,32 @@ import { ChangeProfileImg } from './ChangeProfileImg';
 import { EditNickName } from './EditNickName';
 import { EditMyInfoBtn } from './EditMyInfoBtn';
 
-const MyInfo: React.FC = () => {
-  const profileData = {
-    userId: 12,
-    loginId: 'test1',
-    userPw: 'test1',
-    email: 'test1@gmail.com',
-    phoneNum: '01012345678',
-    isBlacklist: 'false',
-    isDeleted: 'false',
-    profileImg: '/images/usericon.png',
-    nickname: '사용자닉네임저쩌고라라라라라저',
-  };
+interface MyInfoProps {
+  userId: string | null;
+  userInfo: {
+    profileImg?: string; // 프로필 이미지가 선택적임을 나타냄
+    nickname?: string; // 닉네임이 선택적임을 나타냄
+  } | null; // userInfo가 null일 수 있음을 명시
+}
+
+const MyInfo: React.FC<MyInfoProps> = ({ userId, userInfo }) => {
+  const profileImg = userInfo?.profileImg || '/images/usericon.png';
+  const nickname = userInfo?.nickname || '사용자 이름 없음';
 
   return (
     <section className="my-info">
       <div className="profile">
         {/* 프로필 수정 컴포넌트 */}
-        <ChangeProfileImg
-          profileImg={profileData.profileImg}
-          userId={profileData.userId}
-        />
+        <ChangeProfileImg profileImg={profileImg} userId={userId} />
         <div className="profile-details">
           {/* 닉네임 수정 컴포넌트 */}
-          <EditNickName
-            nickname={profileData.nickname}
-            userId={profileData.userId}
-          />
+          <EditNickName nickname={nickname} userId={userId} />
         </div>
         {/* 내 정보 수정 버튼 컴포넌트 */}
-        <EditMyInfoBtn userId={profileData.userId} />
+        <EditMyInfoBtn userId={userId} />
       </div>
       {/* 모임 캘린더 컴포넌트 */}
-      <ScheduleCalender userId={profileData.userId} />
+      <ScheduleCalender userId={userId} />
     </section>
   );
 };

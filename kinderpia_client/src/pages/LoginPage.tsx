@@ -52,12 +52,11 @@ export default function LoginPage() {
         }
       );
       if (response.status === 200) {
-        console.log('로그인 완료:', response);
-        console.log(response.headers);
-        // console.log(response.headers['Authorization']);//대문자안댐
-        const token = response.headers['authorization'];
-        console.log(token);
+        // console.log('로그인 완료:', response)
+
         // 일단 세션에 저장
+        const token = response.headers['authorization'];
+        sessionStorage.setItem('token', token);
 
         await simpleAlert('success', '로그인 성공!', 'top-end');
         navigate('/');
