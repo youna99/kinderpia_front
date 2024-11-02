@@ -7,6 +7,12 @@ import { EditUserInfo } from '../components/MyPage/EditUserInfo';
 export default function EditUserPage() {
   const [userId, setUserId] = useState<string | null>(null);
   const [userInfo, setUserInfo] = useState<any>(null); // 유저 정보를 저장할 상태
+  const [isUpdated, setIsUpdated] = useState(false);
+
+  // 업데이트 상태를 변경하는 함수
+  const handleUpdate = () => {
+    setIsUpdated((prev) => !prev);
+  };
 
   const extractUserIdFromToken = (token: string): string | null => {
     if (!token) return null;
@@ -34,6 +40,13 @@ export default function EditUserPage() {
       console.error('유저 정보를 불러오는 중 오류 발생:', error);
     }
   };
+
+  // userId가 설정되거나, isUpdated가 변경될 때 fetchUserInfo 실행
+  useEffect(() => {
+    if (userId) {
+      fetchUserInfo(userId);
+    }
+  }, [userId, isUpdated]);
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -94,7 +107,7 @@ export default function EditUserPage() {
           <p className="noti-txt">아이디와 이메일은 변경할 수 없습니다. 😢</p>
         </div>
       </div>
-      <EditUserInfo userId={userId} />
+      <EditUserInfo userId={userId} onUpdate={handleUpdate} />
       <ResignBtn userId={userId} />
     </section>
   );

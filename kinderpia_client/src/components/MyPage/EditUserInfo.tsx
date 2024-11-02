@@ -6,14 +6,20 @@ import { simpleAlert } from '../../utils/alert';
 import { useNavigate } from 'react-router-dom';
 
 interface EditUserFormProps {
-  userPw: string;
-  pwCheck: string;
-  phoneNum: string;
+  userPw?: string;
+  pwCheck?: string;
+  phoneNum?: string;
 }
 
-export const EditUserInfo = ({ userId }: { userId: string | null }) => {
+interface EditUserInfoProps {
+  userId: string | null;
+  onUpdate: () => void; // onUpdate prop 추가
+}
+
+export const EditUserInfo = ({ userId, onUpdate }: EditUserInfoProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [eyeIconClass, setEyeIconClass] = useState('xi-eye');
+  const [isPhoneNumChecked, setIsPhoneNumChecked] = useState(false);
   const navigate = useNavigate();
 
   const {
@@ -23,8 +29,14 @@ export const EditUserInfo = ({ userId }: { userId: string | null }) => {
     watch,
     setValue,
     setError,
+    reset,
   } = useForm<EditUserFormProps>({
     mode: 'onChange',
+    defaultValues: {
+      userPw: '',
+      pwCheck: '',
+      phoneNum: '',
+    },
   });
 
   // 비밀번호 보이기/안보이기 아이콘 토글
@@ -45,39 +57,73 @@ export const EditUserInfo = ({ userId }: { userId: string | null }) => {
   const checkDuplicatePhoneNum = async (phoneNum: string) => {
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/user/check/phonenum',
+        'http://localhost:8080/api/user/check/phoneNum',
         {
           phoneNum,
-        }
+        },
+        { withCredentials: true }
       );
-      return response.data.isDuplicate; // true or false
-    } catch (error) {
-      console.error('중복 확인 오류:', error);
-      return true; // 예외 발생 시 중복으로 간주
+
+      if (response.data.data === false) {
+        setError('phoneNum', {
+          type: 'manual',
+          message: response.data.message,
+        });
+        if (phoneNum) {
+          setIsPhoneNumChecked(true);
+        }
+      }
+    } catch (error: any) {
+      const status = error.response?.data.status;
+      const message = error.response?.data.message;
+      if (status === 409 || status === 400) {
+        setError('phoneNum', { type: 'manual', message });
+      }
+      setIsPhoneNumChecked(false); // 예외 발생 시 중복으로 간주
     }
   };
 
   // 회원정보 수정 폼 전송
   const onSubmit: SubmitHandler<EditUserFormProps> = async (data) => {
-    const { userPw, phoneNum } = data;
-    // 비밀번호와 전화번호 수정 API 호출
+    const { userPw, pwCheck, phoneNum } = data;
+
+    if (phoneNum && !isPhoneNumChecked) {
+      setError('phoneNum', {
+        type: 'manual',
+        message: '전화번호 중복 검사를 완료해주세요.',
+      });
+      return;
+    }
+
+    if (userPw && userPw !== pwCheck) {
+      setError('pwCheck', {
+        type: 'manual',
+        message: '비밀번호가 일치하지 않습니다.',
+      });
+      return;
+    }
+
+    const updateData: any = {};
+    if (phoneNum) updateData.phoneNum = phoneNum;
+    if (userPw) updateData.userPw = userPw;
+
     try {
       const response = await axios.put(
         `http://localhost:8080/api/user/${userId}`,
-        {
-          userPw,
-          phoneNum,
-        }
+        updateData
       );
       if (response.status === 200) {
         simpleAlert('success', '정보가 수정되었습니다.');
-        navigate('/mypage/editUser'); // 수정 후 마이페이지로 이동
+        reset();
+        onUpdate(); //부모 컴포넌트의 상태 업데이트
+        navigate('/mypage/editUser');
       }
     } catch (error) {
       console.error('수정 오류:', error);
       alert('정보 수정 중 오류가 발생했습니다.');
     }
   };
+
   return (
     <>
       <h2 className="title">내 정보 수정</h2>
@@ -91,21 +137,11 @@ export const EditUserInfo = ({ userId }: { userId: string | null }) => {
             clearInput={() => clearInput('phoneNum')}
             error={errors.phoneNum?.message}
             regex={/^[0-9]{10,11}$/}
-            regexMessage="전화번호는 0-9의 숫자로 10자리 또는 11자리 숫자로만 이루어져야 합니다."
+            regexMessage="전화번호는 10~11자리 숫자여야 합니다."
             placeholder="‘-’없이 숫자만 입력"
-            onBlur={async () => {
+            onBlur={() => {
               const phoneNum = watch('phoneNum');
-              if (phoneNum) {
-                const isDuplicate = await checkDuplicatePhoneNum(phoneNum);
-                if (isDuplicate) {
-                  setError('phoneNum', {
-                    type: 'manual',
-                    message: '전화번호가 이미 사용 중입니다.',
-                  });
-                } else {
-                  setError('phoneNum', { type: 'manual', message: '' });
-                }
-              }
+              if (phoneNum) checkDuplicatePhoneNum(phoneNum);
             }}
           />
         </div>
