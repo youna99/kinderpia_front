@@ -18,7 +18,7 @@ import { tempChatListdata } from "../data/tempChatListdata";
 
 export default function ChatlistPage() {
   const dispatch = useDispatch();
-  const { isEmpty, isSelected } = useSelector(
+  const { rooms, isEmpty, isSelected } = useSelector(
     (state: RootState) => state.chatRooms
   );
 
@@ -47,7 +47,7 @@ export default function ChatlistPage() {
     // 임시 데이터
     tempChatList();
     // fetchChatList();
-  }, [dispatch, isEmpty]);
+  }, [dispatch, isEmpty, isSelected]);
 
   // 채팅방 목록 조회 함수(비동기) -> 백엔드와 연결 후 활성화
   const fetchChatList = async () => {
