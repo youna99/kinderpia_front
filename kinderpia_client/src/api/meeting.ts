@@ -25,7 +25,6 @@ export const getCategory = async (): Promise<String[]> => {
   return response.data.categories;
 };
 
-// 모임 수정
 export const updateMeeting = async (
   meetingid: number,
   data: UpdateMeetingFormData

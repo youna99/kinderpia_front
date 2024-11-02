@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import '../styles/common/SeoulMap.scss'
+
 interface SeoulMapProps {
   onDistrictClick?: (district: string) => void;
   selectedDistrict?: string | null;

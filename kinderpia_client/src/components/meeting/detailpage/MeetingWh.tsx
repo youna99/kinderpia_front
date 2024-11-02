@@ -20,7 +20,7 @@ const MeetingWh: React.FC<MeetingWhProps> = ({
       <div className='meeting-wh-header'>
         <div className='meeting-wh-header-title'>모임 일시/장소</div>
       </div>
-      <hr/>
+      <hr className='hr1'/>
       <StaticMapView
         location={location}
       />
@@ -32,6 +32,7 @@ const MeetingWh: React.FC<MeetingWhProps> = ({
           <span>모임 시간 : </span>{selectedDate}   {selectedTime}
         </p>
       </div>
+      <hr className='hr2'/>
     </div>
   )
 }

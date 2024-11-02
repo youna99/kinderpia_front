@@ -1,5 +1,7 @@
 import React, { useState, KeyboardEvent } from 'react';
 
+import '../../styles/meeting/SearchInput.scss';
+
 interface SearchInputProps {
   placeholder: string;
   onSearch: (searchTerm: string) => Promise<void>;

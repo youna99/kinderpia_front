@@ -29,7 +29,6 @@ const StaticMapView: React.FC<MapViewProps> = ({
         if (result.coordinates) {
           setSrc(`https://simg.pstatic.net/static.map/v2/map/staticmap.bin?crs=EPSG:4326&baselayer=bl_vc_bg&overlayers=ol_vc_an&scale=2&caller=mw_smart_booking&overlayers=ol_vc_an&center=${result.coordinates.lng},${result.coordinates.lat}&markers=color:0xFF0000|type:c|size:small|label:a|pos:${result.coordinates.lng} ${result.coordinates.lat}&level=14&w=335&h=170&lang=ko`);
         }
-        console.log(result);
         
       } catch (error) {
         console.error('좌표 가져오기 실패:', error);

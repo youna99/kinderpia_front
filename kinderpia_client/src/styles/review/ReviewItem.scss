@@ -1,0 +1,48 @@
+@import '../common/variables';
+@import '../common/utils';
+
+.review-item{
+  &-container{
+    display: flex;
+    flex-direction: column;
+
+    hr{
+      height: 1px;
+      background-color: #000;
+      border: none;
+      width: 100%;
+      margin: 0px auto;
+    }
+  }
+  &-header{
+    display: flex;
+    flex-direction: row;
+    
+    &-info{
+      display: flex;
+      flex-direction: column;
+      &-wrapper{
+        display: flex;
+        flex-direction: row;
+      }
+    }
+
+  }
+}
+.review-item-header-info-wrapper-report {
+  cursor: pointer;
+  color: #666;
+  font-size: 14px;
+  
+  &:hover {
+    color: #ff0000;  // 마우스 오버 시 색상 변경
+    text-decoration: underline;
+  }
+  
+  // 키보드 포커스 스타일
+  &:focus {
+    outline: none;
+    color: #ff0000;
+    text-decoration: underline;
+  }
+}

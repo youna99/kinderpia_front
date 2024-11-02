@@ -8,7 +8,7 @@ import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Link } from 'react-router-dom';
-import { getPlace } from '../api/placelist';
+import { getPlaces } from '../api/placelist';
 import { getMeeting } from '../api/meetinglist';
 import '../styles/MainPage.scss';
 import { dummyMeetingList } from '../data/tempMeetingListData';
@@ -21,15 +21,15 @@ function MainPage() {
   // GET) 장소목록데이터 가져오기
   const getPlaceList = async () => {
     try {
-      const data = await getPlace({
+      const data = await getPlaces({
         // sort: 'star',
         sort: 'date',
         page: 1,
         size: 5,
       });
-      console.log(`data>>>>`, data.content);
+      console.log(`place data>>>>`, data.data.content);
 
-      setPlaceList(data.content);
+      setPlaceList(data.data.content);
     } catch (error) {
       console.log('장소목록 가져오는 중 에러 발생!: ', error);
     }
@@ -58,6 +58,26 @@ function MainPage() {
     getMeetingList();
   }, []);
 
+  // 날짜, 시간 형태 변경
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+
+    // 날짜 부분 포맷 (예: "2024년 11월 1일")
+    const datePart = date.toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+
+    // 시간 부분 포맷 (예: "오후 2:00")
+    const timePart = date.toLocaleTimeString('ko-KR', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    return `${datePart} ${timePart}`;
+  };
+
   return (
     <section className="main">
       <section className="introduce">소개글</section>
@@ -79,7 +99,7 @@ function MainPage() {
           breakpoints={{
             640: {
               slidesPerView: 5,
-              spaceBetween: 50,
+              spaceBetween: 30,
             },
           }}
           className="swiper"
@@ -90,7 +110,7 @@ function MainPage() {
                 key={place.placeId}
                 placeId={place.placeId}
                 placeName={place.placeName}
-                category={place.category}
+                placeCategoryName={place.placeCategoryName}
                 // rating={place.rating}
                 paid={place.paid}
                 placeImg={place.placeImg}
@@ -118,9 +138,10 @@ function MainPage() {
               meetingTitle={meeting.meetingTitle}
               meetingCategory={meeting.meetingCategory}
               location={meeting.location}
-              meetingTime={meeting.meetingTime}
-              writer={meeting.writer}
-              participants={meeting.participants}
+              meetingTime={formatDate(meeting.meetingTime)}
+              nickname={meeting.nickname}
+              capacity={meeting.capacity}
+              totalCapacity={meeting.totalCapacity}
               meetingStatus={meeting.meetingStatus}
             />
           ))}
