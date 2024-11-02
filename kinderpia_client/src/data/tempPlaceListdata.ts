@@ -41,4 +41,12 @@ export const dummyPlaceList: PlaceListInfo[] = [
     paid: '무료',
     placeImg: 'url',
   },
+  {
+    placeId: 6,
+    placeName: '새싹 영등포 캠퍼스',
+    placeCategoryName: '교육 및 문화',
+    rating: 5,
+    paid: '무료',
+    placeImg: 'url',
+  },
 ];
