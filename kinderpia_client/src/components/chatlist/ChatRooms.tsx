@@ -20,10 +20,10 @@ export default function ChatRooms() {
         // 단일 채팅방 조회
         const res = await getChatRoom(chatroomId);
         if (res.status === 200) {
-          dispatch(setChatInfo(res.data));
+          dispatch(setChatInfo(res.data.data));
           // 채팅방의 메세지 조회
-          const res2 = await getChatMessages(chatroomId);
-          dispatch(setMessages(res2.data));
+          const res2 = await getChatMessages(chatroomId,1,10);
+          dispatch(setMessages(res2.data.data.chatmsgList));
         }
       } catch (error) {
         console.error(error);

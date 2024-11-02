@@ -25,7 +25,7 @@ export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
     ) as HTMLDivElement | null;
 
     if (chatroom) {
-      chatroom.style.overflowY = "hidden";
+      chatroom.style.overflowY = open ? "hidden" : "auto";
     }
 
     return () => {
@@ -33,7 +33,7 @@ export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
         chatroom.style.overflowY = "auto";
       } 
     };
-  }, []);
+  }, [open]);
 
   if (!chatroom) return <div>멤버 정보 불러오는중...</div>;
 
