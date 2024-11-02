@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Calendar, { CalendarProps } from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../../styles/mypage/ScheduleCalender.scss';
-import { requestHeader } from '../../api/requestHeader';
+import axios from 'axios';
 
 type Meeting = {
-  id: number;
+  id: string | null;
   title: string;
   meeting_time: string;
 };
@@ -14,7 +14,7 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 interface ScheduleCalenderProps {
-  userId: number;
+  userId: string | null;
 }
 
 const ScheduleCalender: React.FC<ScheduleCalenderProps> = ({ userId }) => {
@@ -22,27 +22,26 @@ const ScheduleCalender: React.FC<ScheduleCalenderProps> = ({ userId }) => {
   const [meetings, setMeetings] = useState<Meeting[]>([]);
   const [selectedMeetings, setSelectedMeetings] = useState<Meeting[]>([]);
 
-  // Fetch meetings data from API
-  useEffect(() => {
-    const fetchMeetings = async () => {
-      try {
-        const response = await requestHeader.get(
-          `/api/user/meeting/list/${userId}`
-        );
-        const fetchedMeetings: Meeting[] = response.data; // API에서 받은 데이터
-        setMeetings(fetchedMeetings);
+  const fetchMeetings = async () => {
+    // try {
+    //   const response = await axios.get(
+    //     `http://localhost:8080/api/user/meetingTime/list/${userId}`,
+    //     { withCredentials: true }
+    //   );
+    //   const fetchedMeetings: Meeting[] = response.data.data; // API에서 받은 데이터
+    //   setMeetings(fetchedMeetings);
+    //   const today = new Date();
+    //   const todayMeetings = fetchedMeetings.filter(
+    //     (meeting) =>
+    //       new Date(meeting.meeting_time).toDateString() === today.toDateString()
+    //   );
+    //   setSelectedMeetings(todayMeetings);
+    // } catch (error) {
+    //   console.error('모임 목록을 가져오는 중 오류 발생:', error);
+    // }
+  };
 
-        const today = new Date();
-        const todayMeetings = fetchedMeetings.filter(
-          (meeting) =>
-            new Date(meeting.meeting_time).toDateString() ===
-            today.toDateString()
-        );
-        setSelectedMeetings(todayMeetings);
-      } catch (error) {
-        console.error('모임 목록을 가져오는 중 오류 발생:', error);
-      }
-    };
+  useEffect(() => {
     fetchMeetings();
   }, [userId]);
 

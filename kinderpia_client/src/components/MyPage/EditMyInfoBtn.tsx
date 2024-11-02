@@ -4,13 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import axios, { AxiosError } from 'axios';
 
 interface EditMyInfoBtnProps {
-  userId: number;
+  userId: string | null;
 }
 
 //200 확인, 에러: 401 비밀번호 불일치, 400 유효성검사
 export const EditMyInfoBtn: React.FC<EditMyInfoBtnProps> = ({ userId }) => {
   const navigate = useNavigate();
-  const token = sessionStorage.getItem('token');
 
   const handleEditClick = async () => {
     const { value: password } = await Swal.fire({
@@ -44,7 +43,8 @@ export const EditMyInfoBtn: React.FC<EditMyInfoBtnProps> = ({ userId }) => {
               {
                 userId: userId,
                 userPw: password,
-              }
+              },
+              { withCredentials: true }
             );
 
             // 응답 상태 코드에 따라 처리

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import axios, { AxiosError } from 'axios';
 
 interface EditNickNameProps {
   nickname: string;
-  userId: number;
+  userId: string | null;
 }
 
 export const EditNickName: React.FC<EditNickNameProps> = ({
@@ -13,6 +13,11 @@ export const EditNickName: React.FC<EditNickNameProps> = ({
 }) => {
   const [newNickname, setNewNickname] = useState(nickname);
   const nicknameRegex = /^[가-힣a-zA-Z0-9]{2,15}$/;
+
+  // nickname prop이 변경될 때 newNickname 상태 업데이트
+  useEffect(() => {
+    setNewNickname(nickname);
+  }, [nickname]);
 
   const handleEditClick = async () => {
     const { value: inputNickname } = await Swal.fire({
@@ -43,7 +48,8 @@ export const EditNickName: React.FC<EditNickNameProps> = ({
               'http://localhost:8080/api/user/check/nickname',
               {
                 nickname: nickname,
-              }
+              },
+              { withCredentials: true }
             );
 
             if (response.data.exists) {
@@ -76,6 +82,7 @@ export const EditNickName: React.FC<EditNickNameProps> = ({
       await updateNickname(inputNickname);
     }
   };
+  // 닉네임 수정
   const updateNickname = async (nickname: string) => {
     try {
       const response = await axios.put(

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 interface ChangeProfileImgProps {
-  profileImg: string | null;
-  userId: number;
+  profileImg: string;
+  userId: string | null;
 }
 
 export const ChangeProfileImg: React.FC<ChangeProfileImgProps> = ({
@@ -14,6 +14,10 @@ export const ChangeProfileImg: React.FC<ChangeProfileImgProps> = ({
   const [selectedImage, setSelectedImage] = useState<string | null>(
     profileImg || null
   );
+
+  useEffect(() => {
+    setSelectedImage(profileImg);
+  }, [profileImg]);
 
   const handleImageChange = async () => {
     const { value: file } = await Swal.fire({
@@ -44,18 +48,23 @@ export const ChangeProfileImg: React.FC<ChangeProfileImgProps> = ({
           const formData = new FormData();
           formData.append('file', file);
 
-          // try {
-          //   const response = await axios.post(`/api/user/${userId}`, formData, {
-          //     headers: {
-          //       'Content-Type': 'multipart/form-data',
-          //     },
-          //   });
-          //   console.log('이미지 업로드 성공:', response.data);
-          //   Swal.fire('프로필을 수정했습니다.');
-          // } catch (error) {
-          //   console.error('이미지 업로드 실패:', error);
-          //   Swal.fire('이미지 업로드에 실패했습니다.');
-          // }
+          try {
+            const response = await axios.post(
+              `http://localhost:8080/api/user/${userId}`,
+              formData,
+              {
+                headers: {
+                  'Content-Type': 'multipart/form-data',
+                },
+                withCredentials: true,
+              }
+            );
+            console.log('이미지 업로드 성공:', response.data);
+            Swal.fire('프로필을 수정했습니다.');
+          } catch (error) {
+            console.error('이미지 업로드 실패:', error);
+            Swal.fire('이미지 업로드에 실패했습니다.');
+          }
         } else {
           Swal.fire('이미지 미리보기를 가져오는 데 실패했습니다.');
         }

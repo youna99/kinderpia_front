@@ -5,7 +5,7 @@ import axios from 'axios';
 import { confirmAlert } from '../../utils/alert';
 import { requestHeader } from '../../api/requestHeader';
 
-export const ResignBtn = ({ userId }: { userId: number }) => {
+export const ResignBtn = ({ userId }: { userId: string | null }) => {
   const navigate = useNavigate();
 
   const handleResignClick = async () => {

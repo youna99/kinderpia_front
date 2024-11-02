@@ -6,7 +6,7 @@ interface InputFieldProps {
   type: string;
   id: string;
   register: UseFormRegister<any>;
-  requiredMessage: string;
+  requiredMessage?: string;
   regexMessage?: string;
   regex?: RegExp;
   placeholder?: string;
@@ -44,7 +44,7 @@ const FormInput: React.FC<InputFieldProps> = ({
         type={type}
         id={id}
         {...register(id, {
-          required: requiredMessage,
+          required: requiredMessage || false,
           ...(regex && regexMessage
             ? {
                 pattern: {
@@ -55,7 +55,7 @@ const FormInput: React.FC<InputFieldProps> = ({
             : {}),
         })}
         placeholder={placeholder}
-        aria-required="true" // 필수 입력 필드임을 명시
+        aria-required={!!requiredMessage} // 필수 입력 필드임을 명시
         aria-invalid={!!error} // 에러 여부를 명시
         aria-describedby={`${id}-error`} // 에러 메시지와 연결
         onFocus={(e) => {
