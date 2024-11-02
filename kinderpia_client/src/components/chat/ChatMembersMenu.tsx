@@ -5,6 +5,7 @@ import "../../styles/chat/ChatMembersMenu.scss";
 import { useEffect } from "react";
 import { leaveMeeting } from "../../api/meeting";
 import { setSelected } from "../../store/chatRoomsSlice";
+import { confirmAlert, simpleAlert } from "../../utils/alert";
 
 interface ChatMenuProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -44,15 +45,20 @@ export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
 
   const handleeLeaveMeeting = async (meetingId:number) => {
     console.log("이 모임을 나갈테야");
-    try {
-      const res = await leaveMeeting(meetingId)
-      if(res?.status === 200){
-        // 요청 후 해당되는 대화방을 떠나고(목록에서 삭제), 대화방을 선택해 달라고 하는 UI 보여줘야함
-        setSelected(false);
+    // 모임 떠날거냐고 물어보는거
+    const confirmed = await confirmAlert('warning', '이 모임을 떠나시겠습니까?')
+    if(confirmed) {
+      try {
+        const res = await leaveMeeting(meetingId)
+        if(res?.status === 200){
+          // 요청 후 해당되는 대화방을 떠나고(목록에서 삭제), 대화방을 선택해 달라고 하는 UI 보여줘야함
+          await simpleAlert('success', '모임을 떠났습니다.');
+          setSelected(false);
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
+    } 
   };
 
   return (
