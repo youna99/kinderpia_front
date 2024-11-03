@@ -22,9 +22,21 @@ export const getDefaultPlaceList = async (page: number = 1, size: number = 6) =>
   return response.data;
 };
 
-export const getSearchPlaceList = async (data : defaultPostReq) => {
-  const response = await requestHeader.post('/api/place', data);
-  return response.data;
+export const getSearchPlaceList = async (data: defaultPostReq) => {
+  const params = new URLSearchParams();
+  params.append('sort', data.sort || 'date');
+  params.append('page', String(data.page || 0));
+  params.append('size', String(data.size || 10));
+  params.append('category', data.category || 'all');
+  params.append('keyword', data.keyword || 'none');
+
+  const response = await requestHeader.post('/api/place', params, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  });
+  
+  return response;
 };
 
 export const getPlace = async (placeId: any) => {

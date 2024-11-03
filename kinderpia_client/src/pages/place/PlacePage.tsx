@@ -77,7 +77,6 @@ const PlacePage: React.FC = () => {
     fetchDefaultPlaces();
   }, []);
 
-  // 페이지 변경시 추가 데이터 로딩
   useEffect(() => {
     if (page === 1) return; // 초기 로딩은 제외
 
@@ -89,15 +88,11 @@ const PlacePage: React.FC = () => {
             sort: sortBy || 'date',
             page,
             size: 6,
-            keyword: currentSearchTerm,
+            category: 'all',
+            keyword: currentSearchTerm
           };
           const response = await getSearchPlaceList(reqData);
           const newPlaces = response.data.content;
-          setPlaces(prev => [...prev, ...newPlaces]);
-          setHasMore(newPlaces.length === 6);
-        } else {
-          const result = await getDefaultPlaceList(page, 6);
-          const newPlaces = result.data.content;
           setPlaces(prev => [...prev, ...newPlaces]);
           setHasMore(newPlaces.length === 6);
         }
@@ -111,30 +106,34 @@ const PlacePage: React.FC = () => {
     fetchMorePlaces();
   }, [page, currentSearchTerm, sortBy]);
 
-  // 검색 함수 수정
   const handleSearch = async (searchTerm: string, sort?: SortType) => {
     setIsSearching(true);
     setCurrentSearchTerm(searchTerm);
     setPage(1); // 검색 시 페이지 초기화
-
+    
     try {
       const reqData: defaultPostReq = {
         sort: sort || 'date',
         page: 1,
         size: 6,
-        keyword: searchTerm,
+        category: 'all',
+        keyword: searchTerm
       };
 
       const response = await getSearchPlaceList(reqData);
-      setPlaces(response.data.content); // 검색 시 기존 데이터 초기화
-      setHasMore(response.data.content.length === 6);
+      if (response.data && response.data.content) {
+        setPlaces(response.data.content);
+        setHasMore(response.data.content.length === 6);
+      }
+      console.log('response - search >>>> ', response);
+      
     } catch (error) {
       console.error('검색 중 오류 발생:', error);
     } finally {
       setIsSearching(false);
     }
   };
-  // PlacePage.tsx
+
   useEffect(() => {
     const fetchDefaultPlaces = async () => {
       try {
@@ -188,7 +187,7 @@ const PlacePage: React.FC = () => {
           장소 검색
           {currentSearchTerm && (
             <span className="meeting-header-result">
-              '{currentSearchTerm}' 에 대한 검색 결과입니다.
+              '{currentSearchTerm}' 에 대한 검색 결과
             </span>
           )}
         </div>
