@@ -25,14 +25,14 @@ const PlaceInfo :React.FC<PlaceInfoProps>= ({
         <div className='place-info-coverImage'>
         </div>
         <span className='place-info-category'>
-          {data.category}
+          {data.placeCategoryName}
         </span>
         <div className='place-info-wrapper'>
           <div className='place-info-wrapper-title'>
-            {data.title}
+            {data.placeName}
           </div>
           <div className='place-info-wrapper-star'>
-            <span className='xi-star'></span> {data.avgStar}
+            <span className='xi-star'></span> {data.rating}
           </div>
           <div className='place-info-wrapper-btn' onClick={()=>{btnSendYouThere()}}>
             모임 생성하기
@@ -45,10 +45,10 @@ const PlaceInfo :React.FC<PlaceInfoProps>= ({
         </div>
         <hr/>
         <div className='place-info-details-content'>
-          <span>운영 시간 : {data.openTime}</span>
-          <span>요금 정보 : {data.payment}</span>
-          <span>전화 번호 : {data.phone}</span>
-          <span>홈페이지 주소 : {data.webPageUrl}</span>
+          <span>운영 시간 : {data.operatingDate}</span>
+          <span>요금 정보 : {data.paid}</span>
+          <span>전화 번호 : {data.placeNum}</span>
+          <span>홈페이지 주소 : {data.homepageUrl}</span>
         </div>
       </div>
       <div className='place-info-map'>

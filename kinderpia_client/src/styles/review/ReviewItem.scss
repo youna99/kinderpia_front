@@ -5,7 +5,8 @@
   &-container{
     display: flex;
     flex-direction: column;
-
+    width: 80%;
+    font-size: $body;
     hr{
       height: 1px;
       background-color: #000;
@@ -21,12 +22,52 @@
     &-info{
       display: flex;
       flex-direction: column;
+      width: 100%;
+      &-nickname{
+      }
       &-wrapper{
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
+
+        &-item{
+          display: flex;
+          flex-direction: row;
+          gap: $caption;
+          &-star{
+            font-size: $title1;
+            .xi-star{
+              color: $status-color;
+            }
+            .xi-star-o{
+              color: #000;
+            }
+          }
+        }
       }
     }
+  }
+  
+  &-content{
+    margin-left: $caption;
 
+  }
+
+  &-action{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    &-btn{
+      background-color: $btn-color;
+      border-radius: 5px;
+      color: #ffffff;
+      padding: 5px;
+    }
+    &-like{
+      font-size: $body;
+      color: #414141;
+    }
+    margin-bottom: $caption;
   }
 }
 .review-item-header-info-wrapper-report {
@@ -35,11 +76,10 @@
   font-size: 14px;
   
   &:hover {
-    color: #ff0000;  // 마우스 오버 시 색상 변경
+    color: #ff0000; 
     text-decoration: underline;
   }
   
-  // 키보드 포커스 스타일
   &:focus {
     outline: none;
     color: #ff0000;

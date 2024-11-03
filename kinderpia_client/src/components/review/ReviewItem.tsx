@@ -31,6 +31,18 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ data }) => {
     
     setShowReportModal(false);
   };
+  const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
+    return (
+      <div className='review-item-header-info-wrapper-item-star'>
+        {[...Array(5)].map((_, index) => (
+          <span 
+            key={index} 
+            className={index < rating ? 'xi-star' : 'xi-star-o'}
+          />
+        ))}
+      </div>
+    );
+  };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -55,11 +67,11 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ data }) => {
             {nickname}
           </div>
           <div className='review-item-header-info-wrapper'>
-            <div className='review-item-header-info-wrapper-star'>
-              {review.star}점
-            </div>
-            <div className='review-item-header-info-wrapper-date'>
-              {formatDate(review.createdAt)}
+            <div className='review-item-header-info-wrapper-item'>
+              <StarRating rating={review.star} />
+              <div className='review-item-header-info-wrapper-item-date'>
+                {formatDate(review.createdAt)}
+              </div>
             </div>
             <div 
               className='review-item-header-info-wrapper-report'
@@ -76,11 +88,11 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ data }) => {
         {review.reviewContent}
       </div>
       <div className='review-item-action'>
-        <div className='review-item-like'>
-          좋아요 {likeCount}
-        </div>
         <div className='review-item-action-btn'>
           수정/삭제
+        </div>
+        <div className='review-item-action-like'>
+          {likeCount} 명이 이 리뷰가 유용하다고 응답했어요!
         </div>
       </div>
       <hr/>

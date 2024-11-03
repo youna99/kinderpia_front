@@ -1,10 +1,13 @@
 
-export interface PostReviewForm{
-  userId : number;
-  placeId : number;
-  star : number;
-  content : string;
+// types/review.ts
+export interface ReviewFormDTO {
+  reviewId?: number;  // 수정 시에만 필요
+  placeId: number;
+  userId: number;
+  star: number;
+  reviewContent: string;
 }
+
 
 // types/review.ts
 export interface ReviewItem {

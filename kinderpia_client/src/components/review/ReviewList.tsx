@@ -4,18 +4,13 @@ import { getReviewList } from '../../api/review';
 import '../../styles/review/ReviewList.scss';
 import ReviewItem from './ReviewItem'
 
-import { transformedReviews } from '../../data/tempReviewList';
-
 interface ReviewListProps {
   placeId: string;
 }
 
+// ReviewList.tsx
 const ReviewList: React.FC<ReviewListProps> = ({ placeId }) => {
-  // reviews의 초기값을 빈 배열로 설정
-  const [reviewData, setReviewData] = useState<{ reviews: ReviewData[]; averageStar: number }>({
-    reviews: [],
-    averageStar: 0
-  });
+  const [reviews, setReviews] = useState<ReviewData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,15 +19,29 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId }) => {
       try {
         setIsLoading(true);
         setError(null);
+        
         const response = await getReviewList(Number(placeId));
-        // response.data.reviews가 확실히 존재하는지 확인
-        if (response?.data?.reviews) {
-          setReviewData({
-            reviews: response.data.reviews,
-            averageStar: response.data.averageStar
-          });
+        console.log('response >>>> ', response);
+        
+        // 서버 응답을 ReviewItem이 기대하는 형식으로 변환
+        if (Array.isArray(response.data)) {
+          const formattedReviews = response.data.map(review => ({
+            review: {
+              reviewId: review.reviewId,
+              star: review.star,
+              reviewContent: review.reviewContent,
+              createdAt: review.createdAt,
+              updatedAt: review.updatedAt,
+              deleted: review.deleted
+            },
+            nickname: "작성자",
+            profileImg: "",
+            likeCount: 0, 
+            blacklist: false
+          }));
+          setReviews(formattedReviews);
         } else {
-          setReviewData({ reviews: [], averageStar: 0 });
+          setReviews([]);
         }
       } catch (err) {
         setError(err instanceof Error ? err.message : '리뷰를 불러오는데 실패했습니다.');
@@ -47,17 +56,15 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId }) => {
 
   if (isLoading) return <div>로딩 중...</div>;
   if (error) return <div>에러: {error}</div>;
-  
-  // reviews 배열이 존재하는지 확인
-  const { reviews, averageStar } = reviewData;
-  if (!reviews || reviews.length === 0) return <div className='review-list-404'> 작성된 리뷰가 없습니다.</div>;
+  if (reviews.length === 0) return <div className='review-list-404'>작성된 리뷰가 없습니다.</div>;
 
   return (
     <div className='review-list-container'>
-      {reviews.map((reviewData) => (
+      <hr/>
+      {reviews.map((review) => (
         <ReviewItem
-          key={reviewData.review.reviewId}
-          data={reviewData}
+          key={review.review.reviewId}
+          data={review}
         />
       ))}
     </div>
