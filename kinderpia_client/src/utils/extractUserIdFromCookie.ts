@@ -1,4 +1,4 @@
-function getJwtFromCookies() {
+export function getJwtFromCookies() {
   const cookies = document.cookie.split('; ');
   for (let cookie of cookies) {
     if (cookie.startsWith('jwt=')) {
