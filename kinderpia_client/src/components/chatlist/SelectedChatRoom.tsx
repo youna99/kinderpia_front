@@ -1,52 +1,54 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Client } from "@stomp/stompjs";
+import { Client, Stomp } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 
-import { ChatMessageInfo, ChatRoomInfo } from "../../types/chat";
-import { setChatInfo, setMessages } from "../../store/chatSlice";
-import { setLoading } from "../../store/chatRoomsSlice";
+import { ChatMessageInfo } from "../../types/chat";
+import { setMessages } from "../../store/chatSlice";
 import { RootState } from "../../store";
 
 import ChatContainer from "../chat/ChatContainer";
 import ChatHeader from "../chat/ChatHeader";
 import ChatInput from "../chat/ChatInput";
 
+import { getJwtFromCookies } from "../../utils/extractUserIdFromCookie";
 import "../../styles/chatlist/SelectedChatRoom.scss";
-
-import { tempChatInfo } from "../../data/tempChatroomInfo";
-import { tempMsgData } from "../../data/tempChatMessage";
 
 // 채팅방 페이지 컴포넌트
 export default function SelectedChatRoom() {
   const dispatch = useDispatch();
-  const { messages } = useSelector((state: RootState) => state.chat);
-  // 임시 채팅방 아이디
-  const chatroomId = 1;
+  const { chatroom, messages } = useSelector((state: RootState) => state.chat);
 
   const clientRef = useRef<Client | null>(null);
 
+  const chatroomId = chatroom?.chatroomId;
   // 경로
-  // const url = process.env.REACT_APP_API_URL
-  //   ? `${process.env.REACT_APP_API_URL}/ws`
-  //   : "http://localhost:3000/ws";
-  const url = `http://localhost:8080/ws`;
-  const chatTopic = `/topic/chatroom/${chatroomId}`;
-  const chatSend = `/app/chatroom/${chatroomId}/chatmsg`;
-
-  // temp
-  const jwt = 'djaslkdjalksdjlkasjdlkasjdlka'
+  // const url =
+  //   `${process.env.REACT_APP_API_URL}/ws` || "http://localhost:8080/ws";
 
   useEffect(() => {
-    dispatch(setMessages(tempMsgData))
+    const jwt = getJwtFromCookies();
+    const chatTopic = `/topic/chatroom/${chatroomId}`;
+
+    if (!chatroomId) return;
+
     // // 소켓 설정
-    const socket = new SockJS(`${url}`);
+    // const socket = new SockJS(`ws://localhost:8080/ws`);
 
     clientRef.current = new Client({
-      webSocketFactory: () => socket, // 소켓 연결 반환
-      connectHeaders : { // 토큰 값 넘겨줌
-        Authorization: `Bearer ${jwt}`, 
+      webSocketFactory: () => {
+        const socket = new SockJS(`http://localhost:8080/ws`, null, {
+          transports: ['websocket'],
+        })
+        return socket;
+      }, // 소켓 연결 반환
+      reconnectDelay : 5000,
+      heartbeatIncoming:4000,
+      heartbeatOutgoing:4000,
+      connectHeaders: {
+        // 토큰 값 넘겨줌
+        Authorization: `Bearer ${jwt}`,
       },
       debug: (str) => {
         // 디버그 메시지 출력
@@ -72,49 +74,46 @@ export default function SelectedChatRoom() {
     });
 
     // 소켓 연결 시작
-    clientRef.current.activate();
-
-    // 임시 데이터 세팅
-    const tempData: ChatRoomInfo = { ...tempChatInfo };
-    dispatch(setChatInfo(tempData));
-    dispatch(setLoading(false));
+    // clientRef.current.activate();
 
     // 언마운트 시 소켓 연결 종료
     return () => {
-      clientRef.current?.deactivate();
+      // clientRef.current?.deactivate();
     };
   }, [dispatch, chatroomId]);
 
+
   // 메세지 전송 함수
   const sendMessage = (message: string) => {
-    const messageObj = {
-      chatroomId,
-      chatmsgContent: message,
-      createdAt: new Date(),
-    };
-    dispatch(setMessages([...messages, messageObj]));
-    // if (clientRef.current?.connected) {
-    //   const messageObj = {
-    //     chatroomId,
-    //     chatmsgContent: message,
-    //     createdAt: new Date(),
-    //   };
-    //   clientRef.current.publish({
-    //     destination: chatSend,
-    //     headers : {
-    //       Authorization: `Bearer ${jwt}`,  // 토큰 값 넘기기
-    //     },
-    //     body: JSON.stringify(messageObj),
-    //   });
-    //   dispatch(setMessages([...messages, messageObj]));
-    // }
+    const jwt = getJwtFromCookies();
+    if (!chatroomId) return;
+    const chatSend = `/app/${chatroomId}/chatmsg`;
+    if (clientRef.current?.connected) {
+      const messageObj = {
+        chatroomId,
+        chatmsgContent: message,
+        createdAt: new Date().toISOString(),
+      };
+      clientRef.current.publish({
+        destination: chatSend,
+        headers: {
+          Authorization: `Bearer ${jwt}`, // 토큰 값 넘기기
+        },
+        body: JSON.stringify(messageObj),
+      });
+      dispatch(setMessages([...messages, messageObj]));
+    }
   };
 
   return (
     <section className="chatroom">
       <ChatHeader />
-      <ChatContainer chatroomId={chatroomId} />
-      <ChatInput onSendMessage={sendMessage} />
+      {chatroomId ? (
+        <>
+          <ChatContainer chatroomId={chatroomId} />
+          <ChatInput onSendMessage={sendMessage} />
+        </>
+      ) : null}
     </section>
   );
 }

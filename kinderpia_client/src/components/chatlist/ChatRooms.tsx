@@ -4,8 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getChatMessages, getChatRoom } from "../../api/chat";
 import { setChatInfo, setMessages } from "../../store/chatSlice";
 import React, { useCallback, useMemo, useRef, useState } from "react";
+import { getJwtFromCookies } from "../../utils/extractUserIdFromCookie";
+import { setSelected } from "../../store/chatRoomsSlice";
+import { ChatRoomInfo } from "../../types/chat";
 
 export default function ChatRooms() {
+  const [page, setPage] = useState(1);
+
   const dispatch = useDispatch();
   const { rooms } = useSelector((state: RootState) => state.chatRooms);
 
@@ -16,14 +21,19 @@ export default function ChatRooms() {
 
   const enterChatroom = useCallback(
     async (chatroomId: number) => {
+      const jwt = getJwtFromCookies();
       try {
         // 단일 채팅방 조회
-        const res = await getChatRoom(chatroomId);
-        if (res.status === 200) {
-          dispatch(setChatInfo(res.data.data));
+        const res = await getChatRoom(jwt, chatroomId);
+        if (res?.status === 200) {
+          const chatInfo:ChatRoomInfo = res.data
+          dispatch(setChatInfo(chatInfo));
           // 채팅방의 메세지 조회
-          const res2 = await getChatMessages(chatroomId,1,10);
+          const res2 = await getChatMessages(jwt, chatroomId, page);
+          console.log('채팅방 메세지 조회', res2);
+          
           dispatch(setMessages(res2.data.data.chatmsgList));
+          dispatch(setSelected(true));
         }
       } catch (error) {
         console.error(error);
@@ -31,6 +41,7 @@ export default function ChatRooms() {
     },
     [dispatch]
   );
+
 
   const chatRoomItems = useMemo(() => {
     return rooms.map((room) => (

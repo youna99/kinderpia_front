@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ChatRooms from "../components/chatlist/ChatRooms";
 import "../styles/chatlist/ChatListPage.scss";
 import SelectedChatRoom from "../components/chatlist/SelectedChatRoom";
@@ -11,16 +11,21 @@ import {
   setEmpty,
   setError,
   setLoading,
+  setSelected,
 } from "../store/chatRoomsSlice";
 import { getChatList } from "../api/chat";
-import { ChatRoomListInfo } from "../types/chat";
-import { tempChatListdata } from "../data/tempChatListdata";
+import { getJwtFromCookies } from "../utils/extractUserIdFromCookie";
+import { ChatRoomInfo, ChatRoomListInfo } from "../types/chat";
 
 export default function ChatlistPage() {
+  const [page, setPage] = useState(1);
+
   const dispatch = useDispatch();
-  const { rooms, isEmpty, isSelected } = useSelector(
+  const { isEmpty, isSelected } = useSelector(
     (state: RootState) => state.chatRooms
   );
+  const { chatroom } = useSelector((state: RootState) => state.chat);
+  const chatroomId = chatroom?.chatroomId;
 
   useEffect(() => {
     const upBtn = document.querySelector(".up-btn") as HTMLButtonElement | null;
@@ -44,17 +49,35 @@ export default function ChatlistPage() {
 
   // 비동기 요청
   useEffect(() => {
-    // 임시 데이터
-    tempChatList();
-    // fetchChatList();
-  }, [dispatch, isEmpty]);
+    const jwt = getJwtFromCookies();
+    fetchChatList(jwt, page);
+  }, [dispatch, isEmpty, isSelected, chatroomId]);
 
-  // 채팅방 목록 조회 함수(비동기) -> 백엔드와 연결 후 활성화
-  const fetchChatList = async () => {
+  useEffect(() => {
+    
+  
+    return () => {
+      dispatch(setSelected(false))
+    }
+  }, [])
+  
+
+  // 채팅방 목록 조회 함수
+  const fetchChatList = async (token: string | null, page: number) => {
     try {
-      const res = await getChatList(101, 1, 10);
+      const res = await getChatList(token, page);
       if (res?.status === 200) {
-        const chatroomList = res.data.data.chatroomList;
+        const chatroomList: ChatRoomListInfo[] = res.data.data.chatroomList.map(
+          (room: ChatRoomInfo) => ({
+            chatroomId: room.chatroomId,
+            meetingId: room.meetingId,
+            meetingTitle: room.meetingTitle,
+            lastMessage: room.lastMessage,
+            meetingCategory: room.meetingCategoryName,
+            totalCapacity: room.capacity,
+            isActive: room.active,
+          })
+        );
         dispatch(setChatRooms(chatroomList));
         dispatch(setEmpty(chatroomList.length === 0));
         dispatch(setError(false));
@@ -66,15 +89,6 @@ export default function ChatlistPage() {
       dispatch(setLoading(false));
       throw error;
     }
-  };
-
-  // 임시 데이터 불러오는 함수
-  const tempChatList = () => {
-    const tempData: ChatRoomListInfo[] = [...tempChatListdata];
-    dispatch(setChatRooms(tempData));
-    dispatch(setEmpty(tempData.length === 0));
-    dispatch(setError(false));
-    dispatch(setLoading(false));
   };
 
   return (

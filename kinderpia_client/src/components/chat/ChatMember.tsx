@@ -11,7 +11,7 @@ export default function ChatMember({member} : ChatMemberProp) {
       <figure className='chatmember-img'>
         <img src={member.profileImg} alt="프로필 이미지" />
       </figure>
-      <div className='chatmember-name'>{member.username}</div>
+      <div className='chatmember-name'>{member.nickname}</div>
     </li>
   )
 }

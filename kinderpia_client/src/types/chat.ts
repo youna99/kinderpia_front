@@ -1,21 +1,32 @@
-export interface ChatRoomListInfo {
+interface ChatRoomInfos {
     chatroomId : number;
     meetingId : number;
     meetingTitle : string;
-    meetingCategory : string;
     lastMessage : string;
+}
+
+export interface ChatRoomListInfo extends ChatRoomInfos {
+    meetingCategory : string;
     totalCapacity : number;
     isActive : boolean;
 }
 
 export interface ChatRoomMemberInfo {
-    memberId : number;
-    username : string;
+    userId : number;
+    nickname : string;
     profileImg : string;
 }
 
-export interface ChatRoomInfo extends ChatRoomListInfo {
-    member : ChatRoomMemberInfo[];
+export interface ChatRoomInfo {
+    chatroomId : number;
+    meetingId : number;
+    meetingTitle : string;
+    lastMessage : string;
+    active : boolean;
+    capacity : number;
+    lastMessageCreatedAt : Date;
+    meetingCategoryName : string;
+    users : ChatRoomMemberInfo[];
 }
 
 export interface ChatMessageInfo {
@@ -25,5 +36,6 @@ export interface ChatMessageInfo {
     senderNickname?: string;
     senderProfileImg?: string;
     chatmsgContent: string;
-    createdAt: Date;
+    createdAt: string;
+    messageType?: string;
 }

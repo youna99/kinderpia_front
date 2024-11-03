@@ -14,7 +14,7 @@ const initialState: ChatRoomsState = {
   error: false,
   loading: true,
   isEmpty: true,
-  isSelected : true,
+  isSelected : false,
 };
 
 const chatRoomSlice = createSlice({

@@ -22,19 +22,16 @@ interface ChatListResponse {
 
 interface ChatRoomResponse {
   status: number;
-  data: {
-    dataList: null | any;
-    data: ChatRoomInfo;
-  };
+  data: ChatRoomInfo;
   message: string;
 }
 
 interface ChatMessageResponse {
   status: number;
   data: {
-    dataList: null | any;
     data: {
       chatmsgList: ChatMessageInfo[];
+      chatroomId: number;
     };
     pageInfo: {
       page: number;
@@ -50,22 +47,32 @@ interface ChatMessageResponse {
 
 // 채팅방 목록 조회
 export const getChatList = async (
-  userId: number,
+  token: string | null,
   page: number,
-  size: number
 ): Promise<ChatListResponse> => {
-  const response = await requestHeader.get(`/api/chatroom/list/${userId}`, {
-    params: { page, size },
-    withCredentials: true,
-  });
+  const response = await requestHeader.post(
+    `/api/chatroom/list`,
+    {},
+    {
+      params: { page },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    }
+  );
   return response.data;
 };
 
 // 단일 채팅방 조회
 export const getChatRoom = async (
+  token: string | null,
   chatroomId: number
 ): Promise<ChatRoomResponse> => {
   const response = await requestHeader.post(`/api/chatroom`, chatroomId, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
     withCredentials: true,
   });
   return response.data;
@@ -73,13 +80,20 @@ export const getChatRoom = async (
 
 // 채팅 메시지 조회(목록)
 export const getChatMessages = async (
+  token:string|null,
   chatroomId: number,
   page: number,
-  size: number
 ): Promise<ChatMessageResponse> => {
-  const response = await requestHeader.get(
-    `/api/chatroom/chatmsg/${chatroomId}`,
-    { params: { page, size }, withCredentials: true }
+  const response = await requestHeader.post(
+    `/api/chatroom/chatmsg`,
+    chatroomId,
+    {
+      params: { page },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    }
   );
   return response.data;
 };

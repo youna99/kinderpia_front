@@ -37,14 +37,13 @@ export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
 
   if (!chatroom) return <div>멤버 정보 불러오는중...</div>;
 
-  const { chatroomId, meetingId, totalCapacity, isActive, member } = chatroom;
+  const { meetingId, capacity, users } = chatroom;
 
   const closeMenu = () => {
     setOpen(false);
   };
 
   const handleeLeaveMeeting = async (meetingId:number) => {
-    console.log("이 모임을 나갈테야");
     // 모임 떠날거냐고 물어보는거
     const confirmed = await confirmAlert('warning', '이 모임을 떠나시겠습니까?')
     if(confirmed) {
@@ -67,7 +66,7 @@ export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
         <div className="chatmenu-info">
           <span>멤버 보기</span>
           <span className="xi-group"></span>
-          <span>{totalCapacity}명 참여중</span>
+          <span>{capacity}명 참여중</span>
         </div>
         <div className="chatmenu-headerbtn">
           <button onClick={closeMenu}>
@@ -76,8 +75,8 @@ export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
         </div>
       </div>
       <ul className="chatmenu-memberlists">
-        {member.map((member) => (
-          <ChatMember key={member.memberId} member={member} />
+        {users.map((user) => (
+          <ChatMember key={user.userId} member={user} />
         ))}
       </ul>
       <div className="chatmenu-footer">
