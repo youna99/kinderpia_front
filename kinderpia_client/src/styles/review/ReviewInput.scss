@@ -5,7 +5,6 @@
     padding: 2rem 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
     max-width: 670px;
     width: 100%;
 
@@ -35,17 +34,22 @@
   }
   &-subtitle{
     font-size: $title3;
+    margin: $caption;
+    margin-left: $caption;
   }
   &-star{
+    margin: $caption;
+    text-align: center;
     button{
-      font-size: $headline;
+      font-size: 40px;
       .xi-star{
         color: #ffd900;
       }
     }
   }
   &-content{
-    width: 80%;
+    width: 90%;
+    margin: 0px auto;
     textarea {
       resize: none;
       width: 100%;

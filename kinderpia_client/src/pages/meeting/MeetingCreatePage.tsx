@@ -118,7 +118,7 @@ const MeetingCreatePage = () => {
       </span>
       <form className="meeting-create-page-form">
         <CategoryInput
-          value={CreateMeetingFormData.meetingCategoryId}  // title이 아닌 category 값을 전달
+          value={CreateMeetingFormData.meetingCategoryId}
           onChange={(value) => setFormData(prev => ({...prev, meetingCategoryId: value}))}
         />
         <TitleInput 
