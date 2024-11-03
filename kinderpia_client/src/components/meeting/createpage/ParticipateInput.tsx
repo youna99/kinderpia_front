@@ -71,7 +71,7 @@ const ParticipateInput: React.FC<ParticipateInputProps> = ({
             />
             제한 없음
           </label>
-          <label>
+          <label >
             <input
               type="radio"
               name="participateLimit"

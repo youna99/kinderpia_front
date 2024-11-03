@@ -8,7 +8,11 @@ import { dummyPlaceDetail } from '../../data/tempPlaceDetail';
 import { PlaceData } from '../../types/place';
 import ReviewInput from '../../components/review/ReviewInput';
 import ReviewList from '../../components/review/ReviewList';
+import PlaceInfo from '../../components/place/PlaceInfo';
 
+//스타일 호출
+
+import '../../styles/place/PlaceDetailPage.scss';
 
 const PlaceDetailPage = () => {
   const { placeId } = useParams<{ placeId: string }>();
@@ -44,14 +48,14 @@ const PlaceDetailPage = () => {
 
   return (
     <div className="place-detail-page">
-      <div className='place-detail-info'>
-        
-      </div>
+      <PlaceInfo
+        data={placeData}
+      />
       <ReviewInput
         placeId={placeId}
       />
       <ReviewList 
-      
+        placeId={placeId}
       />
     </div>
   );

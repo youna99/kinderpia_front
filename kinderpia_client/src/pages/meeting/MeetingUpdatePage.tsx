@@ -14,15 +14,15 @@ import { putMeeting } from '../../api/meeting';
 import '../../styles/meeting/createpage/MeetingUpdatePage.scss';
 
 const data: CreateMeetingFormData = {
-  title: '에버랜드 같이 가요~!',
-  category: '오락 & 여가',
-  participants: 5,
-  hasParticipantsLimit: true,
-  location: '용산구',
-  selectedDate: '2024-10-30',
-  selectedTime: '10:00',
-  description: '에버랜드 같이 갈 사람 구해요~!!!',
-  JoinMethod: true,
+  userId: 1,
+  meetingTitle: '에버랜드 같이 가요~!',
+  meetingCategoryId: 1,
+  totalCapacity: 5,
+  isLimited: true,
+  meetingLocation: '용산구',
+  meetingTime: '2024-10-30 10:00',
+  meetingContent: '에버랜드 같이 갈 사람 구해요~!!!',
+  isAuthType: true,
 };
 
 function MeetingUpdatePage() {
@@ -32,10 +32,10 @@ function MeetingUpdatePage() {
 
   // 수정 한 데이터 상태관리
   const [updateFormData, setUpdateFormData] = useState<UpdateMeetingFormData>({
-    title: initialMeetingData.title,
-    participants: initialMeetingData.participants,
-    hasParticipantsLimit: initialMeetingData.hasParticipantsLimit,
-    description: initialMeetingData.description,
+    meetingTitle: initialMeetingData.meetingTitle,
+    totalCapacity: initialMeetingData.totalCapacity,
+    hasParticipantsLimit: initialMeetingData.isLimited,
+    description: initialMeetingData.meetingContent,
   }); // 초기값 설정
 
   const handleParticipantsChange = (value: number) => {
@@ -49,7 +49,7 @@ function MeetingUpdatePage() {
     setUpdateFormData((prev) => ({
       ...prev,
       hasParticipantsLimit: hasLimit,
-      participants: hasLimit ? Math.max(initialMeetingData.participants, 1) : 0,
+      totalCapacity: hasLimit ? Math.max(initialMeetingData.totalCapacity, 1) : 0,
     }));
   };
 
@@ -78,18 +78,18 @@ function MeetingUpdatePage() {
       </span>
       <form className="meeting-update-page-form">
         <CategoryInput
-          value={initialMeetingData.category}
+          value={initialMeetingData.meetingCategoryId}
           disabled={true}
           isRequired={false}
         />
         <TitleInput
-          value={updateFormData.title}
+          value={updateFormData.meetingTitle}
           onChange={(value) =>
-            setUpdateFormData((prev) => ({ ...prev, title: value }))
+            setUpdateFormData((prev) => ({ ...prev, meetingTitle: value }))
           }
         />
         <ParticipateInput
-          value={updateFormData.participants}
+          value={updateFormData.totalCapacity}
           onChange={handleParticipantsChange}
           hasLimit={updateFormData.hasParticipantsLimit}
           onLimitChange={handleLimitChange}
@@ -99,14 +99,13 @@ function MeetingUpdatePage() {
         <div className="location">
           <label>모임 장소</label>
           <hr />
-          <div>{initialMeetingData.location}</div>
+          <div>{initialMeetingData.meetingLocation}</div>
         </div>
         <div className="Date-Time">
           <label>모임 일시</label>
           <hr />
           <div>
-            <span>{initialMeetingData.selectedDate}</span>
-            <span>{initialMeetingData.selectedTime}</span>
+            <span>{initialMeetingData.meetingTime}</span>
           </div>
         </div>
         <DescInput
@@ -116,7 +115,7 @@ function MeetingUpdatePage() {
           }
         />
         <JoinMethodInput
-          value={initialMeetingData.JoinMethod}
+          value={initialMeetingData.isAuthType}
           disabled={true}
           isRequired={false}
         />

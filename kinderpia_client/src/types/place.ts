@@ -7,17 +7,9 @@ export interface PlaceData{
   longitude :number;
   description: string;
   img : string;
+  avgStar :number;
   payment : string;
   openTime : string;
   webPageUrl : string;
   phone : string;
-}
-
-export interface ReviewData{
-  id : number;
-  writer: string;
-  writerIcon : string;
-  content : string;
-  star : number;
-  createdAt : string;
 }

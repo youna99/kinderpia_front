@@ -9,6 +9,7 @@ export const dummyPlaceDetail : PlaceData = {
   longitude: 126.9723,
   description : '프로젝트 프로젝트 프로젝트 프로젝트 프로젝트',
   img : '',
+  avgStar : 2.5,
   payment: '무료',
   openTime: '연중무휴',
   webPageUrl : 'localhost:3000',
