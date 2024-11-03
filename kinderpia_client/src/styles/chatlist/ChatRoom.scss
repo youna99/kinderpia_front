@@ -9,8 +9,8 @@
   background-color: transparent;
   .chatroom-icon {
     margin-right: 2rem;
-    width: 55px;
-    height: 55px;
+    width: 7rem;
+    height: 7rem;
     svg {
       width: 100%;
       height: auto;
@@ -19,6 +19,7 @@
   .chatroom-info {
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
     width: 75%;
     .chatroom-bx {
       display: flex;
@@ -59,8 +60,8 @@
   .chatroom-list {
     .chatroom-icon {
       margin-right: 0.5rem;
-      width: 4rem;
-      height: 4rem;
+      width: 6rem;
+      height: 6rem;
     }
     .chatroom-info {
       .chatroom-bx {
@@ -90,8 +91,8 @@
 @media (max-width: $sm) {
   .chatroom-list {
     .chatroom-icon {
-      width: 2rem;
-      height: 2rem;
+      width: 4rem;
+      height: 4rem;
     }
     .chatroom-info {
       .chatroom-bx {
