@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/common/Header.scss';
 import { Link } from 'react-router-dom';
+import { extractUserIdFromCookie } from '../utils/extractUserIdFromCookie';
+import { confirmAlert, simpleAlert } from '../utils/alert';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userIdFromCookie, setUserIdFromCookie] = useState<string | null>(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -29,11 +32,24 @@ export default function Header() {
   };
 
   useEffect(() => {
+    const userIdFromCookie = extractUserIdFromCookie();
+    setUserIdFromCookie(userIdFromCookie);
     document.addEventListener('click', handleOutsideClick);
     return () => {
       document.removeEventListener('click', handleOutsideClick);
     };
   }, [isMenuOpen]);
+
+  const handleLogout = async () => {
+    const confirmed = await confirmAlert('warning', '로그아웃 하시겠습니까?');
+    if (confirmed) {
+      // 로그아웃 처리 로직 추가
+      // 예: 쿠키 삭제, 상태 업데이트 등
+      simpleAlert('success', '로그아웃 되었습니다.', 'top-end');
+    }
+    return;
+  };
+
   return (
     <>
       <header>
@@ -59,24 +75,34 @@ export default function Header() {
                     장소 찾기
                   </Link>
                 </li>
-                <li className="header-list">
-                  <Link
-                    to={'/user/login'}
-                    className="login-btn"
-                    onClick={handleLinkClick}
-                  >
-                    LOGIN
-                  </Link>
-                </li>
-                <li className="header-list">
-                  <Link
-                    to={'user/register'}
-                    className="register-btn"
-                    onClick={handleLinkClick}
-                  >
-                    회원가입
-                  </Link>
-                </li>
+                {userIdFromCookie ? (
+                  <li className="header-list">
+                    <button className="logout-btn" onClick={handleLogout}>
+                      LOGOUT
+                    </button>
+                  </li>
+                ) : (
+                  <>
+                    <li className="header-list">
+                      <Link
+                        to={'/user/login'}
+                        className="login-btn"
+                        onClick={handleLinkClick}
+                      >
+                        LOGIN
+                      </Link>
+                    </li>
+                    <li className="header-list">
+                      <Link
+                        to={'/user/register'}
+                        className="register-btn"
+                        onClick={handleLinkClick}
+                      >
+                        회원가입
+                      </Link>
+                    </li>
+                  </>
+                )}
               </ul>
             )}
             <div className="project-info inner">
