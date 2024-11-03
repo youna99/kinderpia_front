@@ -83,13 +83,12 @@ export const getChatMessages = async (
   token:string|null,
   chatroomId: number,
   page: number,
-  size: number
 ): Promise<ChatMessageResponse> => {
   const response = await requestHeader.post(
     `/api/chatroom/chatmsg`,
     chatroomId,
     {
-      params: { page, size },
+      params: { page },
       headers: {
         Authorization: `Bearer ${token}`,
       },

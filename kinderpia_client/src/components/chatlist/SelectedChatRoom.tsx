@@ -34,10 +34,18 @@ export default function SelectedChatRoom() {
     if (!chatroomId) return;
 
     // // 소켓 설정
-    const socket = new SockJS(`ws://localhost:8080/ws`);
+    // const socket = new SockJS(`ws://localhost:8080/ws`);
 
     clientRef.current = new Client({
-      webSocketFactory: () => socket, // 소켓 연결 반환
+      webSocketFactory: () => {
+        const socket = new SockJS(`http://localhost:8080/ws`, null, {
+          transports: ['websocket'],
+        })
+        return socket;
+      }, // 소켓 연결 반환
+      reconnectDelay : 5000,
+      heartbeatIncoming:4000,
+      heartbeatOutgoing:4000,
       connectHeaders: {
         // 토큰 값 넘겨줌
         Authorization: `Bearer ${jwt}`,
@@ -66,11 +74,11 @@ export default function SelectedChatRoom() {
     });
 
     // 소켓 연결 시작
-    clientRef.current.activate();
+    // clientRef.current.activate();
 
     // 언마운트 시 소켓 연결 종료
     return () => {
-      clientRef.current?.deactivate();
+      // clientRef.current?.deactivate();
     };
   }, [dispatch, chatroomId]);
 

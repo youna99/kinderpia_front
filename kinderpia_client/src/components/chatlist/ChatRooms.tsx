@@ -10,7 +10,6 @@ import { ChatRoomInfo } from "../../types/chat";
 
 export default function ChatRooms() {
   const [page, setPage] = useState(1);
-  const [size, setSize] = useState(1);
 
   const dispatch = useDispatch();
   const { rooms } = useSelector((state: RootState) => state.chatRooms);
@@ -30,7 +29,7 @@ export default function ChatRooms() {
           const chatInfo:ChatRoomInfo = res.data
           dispatch(setChatInfo(chatInfo));
           // 채팅방의 메세지 조회
-          const res2 = await getChatMessages(jwt, chatroomId, page, size);
+          const res2 = await getChatMessages(jwt, chatroomId, page);
           console.log('채팅방 메세지 조회', res2);
           
           dispatch(setMessages(res2.data.data.chatmsgList));

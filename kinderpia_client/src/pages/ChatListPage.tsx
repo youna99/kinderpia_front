@@ -11,11 +11,11 @@ import {
   setEmpty,
   setError,
   setLoading,
+  setSelected,
 } from "../store/chatRoomsSlice";
 import { getChatList } from "../api/chat";
-import {  getJwtFromCookies } from "../utils/extractUserIdFromCookie";
+import { getJwtFromCookies } from "../utils/extractUserIdFromCookie";
 import { ChatRoomInfo, ChatRoomListInfo } from "../types/chat";
-
 
 export default function ChatlistPage() {
   const [page, setPage] = useState(1);
@@ -26,7 +26,6 @@ export default function ChatlistPage() {
   );
   const { chatroom } = useSelector((state: RootState) => state.chat);
   const chatroomId = chatroom?.chatroomId;
-  
 
   useEffect(() => {
     const upBtn = document.querySelector(".up-btn") as HTMLButtonElement | null;
@@ -50,25 +49,35 @@ export default function ChatlistPage() {
 
   // 비동기 요청
   useEffect(() => {
-    const jwt = getJwtFromCookies();    
+    const jwt = getJwtFromCookies();
     fetchChatList(jwt, page);
-    
   }, [dispatch, isEmpty, isSelected, chatroomId]);
 
+  useEffect(() => {
+    
+  
+    return () => {
+      dispatch(setSelected(false))
+    }
+  }, [])
+  
+
   // 채팅방 목록 조회 함수
-  const fetchChatList = async (token:string|null, page:number) => {
+  const fetchChatList = async (token: string | null, page: number) => {
     try {
       const res = await getChatList(token, page);
       if (res?.status === 200) {
-        const chatroomList: ChatRoomListInfo[] = res.data.data.chatroomList.map((room: ChatRoomInfo) => ({
-          chatroomId: room.chatroomId,
-          meetingId: room.meetingId,
-          meetingTitle: room.meetingTitle,
-          lastMessage: room.lastMessage,
-          meetingCategory: room.meetingCategoryName, 
-          totalCapacity: room.capacity,     
-          isActive: room.active,
-        }));
+        const chatroomList: ChatRoomListInfo[] = res.data.data.chatroomList.map(
+          (room: ChatRoomInfo) => ({
+            chatroomId: room.chatroomId,
+            meetingId: room.meetingId,
+            meetingTitle: room.meetingTitle,
+            lastMessage: room.lastMessage,
+            meetingCategory: room.meetingCategoryName,
+            totalCapacity: room.capacity,
+            isActive: room.active,
+          })
+        );
         dispatch(setChatRooms(chatroomList));
         dispatch(setEmpty(chatroomList.length === 0));
         dispatch(setError(false));
