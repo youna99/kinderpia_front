@@ -1,10 +1,17 @@
 @import '../common/variables';
-@import '../common/utils';
 
 .review-list{
   &-container{
     display: flex;
+    align-items: center;
     flex-direction: column;
     gap: $caption;
+  }
+  &-404{
+    width: 50%;
+    margin: $headline auto;
+    font-family: inherit;
+    text-align: center;
+    font-size: $title3;
   }
 }

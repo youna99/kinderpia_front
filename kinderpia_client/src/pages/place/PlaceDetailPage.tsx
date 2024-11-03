@@ -73,8 +73,12 @@ const PlaceDetailPage = () => {
           placeNum={placeDetail.placeNum}
         />
       </div>
-      <ReviewInput placeId={placeId} />
-      <ReviewList />
+      <ReviewInput 
+        placeId={placeId} 
+        />      
+      <ReviewList 
+        placeId={placeId}
+      />
     </div>
   );
 };

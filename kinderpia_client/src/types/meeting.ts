@@ -1,13 +1,16 @@
 export interface CreateMeetingFormData {
-  title: string;
-  category: string;
-  participants: number;
-  hasParticipantsLimit: boolean;
-  location: string;
-  selectedDate: string;
-  selectedTime: string;
-  description: string;
-  JoinMethod: boolean;
+  userId: number;
+  meetingCategoryId: number;
+  meetingTitle :string;
+  totalCapacity: number;
+  isLimited: boolean;
+  meetingLocation: string;
+  meetingTime: string;
+  meetingContent: string;
+  isAuthType: boolean;
+
+  // private LocalDateTime meetingTime;  // 모임 일시
+  // private MeetingStatus meetingStatus = MeetingStatus.ONGOING;  // 모임 상태 (기본값 "ONGOING")
 }
 
 export interface MeetingData{
@@ -38,8 +41,8 @@ export interface CategoryResponse {
 }
 
 export interface UpdateMeetingFormData {
-  title: string;
-  participants: number;
+  meetingTitle: string;
+  totalCapacity: number;
   hasParticipantsLimit: boolean;
   description: string;
 }

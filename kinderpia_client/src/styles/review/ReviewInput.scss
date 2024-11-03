@@ -1,12 +1,13 @@
 @import '../common/variables';
-@import '../common/utils';
 
 .review-input{
   &-container {
-    position: relative;
+    padding: 2rem 0;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    align-items: center;
+    max-width: 670px;
+    width: 100%;
 
     hr {
       height: 1px;
@@ -18,6 +19,7 @@
   }
 
   &-header {
+    width: 100%;
     margin-top: $title1;
     display: flex;
     justify-content: space-between;
@@ -43,6 +45,7 @@
     }
   }
   &-content{
+    width: 80%;
     textarea {
       resize: none;
       width: 100%;

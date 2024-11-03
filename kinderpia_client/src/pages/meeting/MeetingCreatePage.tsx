@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';  // import 추가
 
 // type 호출
@@ -21,82 +21,92 @@ import { meetingApi } from '../../api/meeting';
 
 //style 호출
 import '../../styles/meeting/createpage/MeetingCreatePage.scss'
+import { extractUserIdFromCookie } from '../../utils/extractUserIdFromCookie';
 
 const MeetingCreatePage = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [CreateMeetingFormData, setFormData] = useState<CreateMeetingFormData>({
-    title: '',
-    category: '',
-    participants: 1,
-    hasParticipantsLimit: false,  // 초기값 추가
-    location: '',
-    selectedDate: '',
-    selectedTime: '',
-    description: '',
-    JoinMethod: false
+    userId: 0,
+    meetingCategoryId: 1,
+    meetingTitle: '',
+    totalCapacity: 1,
+    isLimited: false,
+    meetingLocation: '',
+    meetingTime: '',
+    meetingContent: '',
+    isAuthType: false
   });
+  // 컴포넌트 마운트 시 userId 설정
+  useEffect(() => {
+    const setUserId = async () => {
+      const userId = await extractUserIdFromCookie() || '11123';
+      setFormData(prev => ({
+        ...prev,
+        userId: parseInt(userId)
+      }));
+    };
+    setUserId();
+  }, []);
 
   const handleParticipantsChange = (value: number) => {
     setFormData(prev => ({
       ...prev,
-      participants: value
+      totalCapacity: value
     }));
   };
 
   const handleParticipantsLimitChange = (hasLimit: boolean) => {
     setFormData(prev => ({
       ...prev,
-      hasParticipantsLimit: hasLimit,
-      participants: hasLimit ? 1 : 0
+      isLimited: hasLimit,
+      totalCapacity: hasLimit ? 1 : 0
     }));
   };
 
-  const handleJoinMethodChange = (JoinMethod: boolean) => {
+  const handleJoinMethodChange = (isAuthType: boolean) => {
     setFormData(prev => ({
       ...prev,
-      JoinMethod
+      isAuthType
     }));
   };
 
   const buttonActionProps = async () => {    
     try {    
       const requiredFields = [
-        { field: 'title', label: '제목' },
-        { field: 'category', label: '모임 유형' },
-        { field: 'location', label: '모임 장소' },
-        { field: 'selectedDate', label: '모임 날짜' },
-        { field: 'selectedTime', label: '모임 시간' },
-        { field: 'description', label: '모임 설명' }
+        { field: 'meetingTitle', label: '제목' },
+        { field: 'meetingCategoryId', label: '모임 유형' },
+        { field: 'meetingLocation', label: '모임 장소' },
+        { field: 'meetingTime', label: '모임 일시' },
+        { field: 'meetingContent', label: '모임 설명' }
       ];
-
+  
       // 비어있는 필수 필드 찾기
       const emptyFields = requiredFields.filter(
         ({ field }) => !CreateMeetingFormData[field as keyof CreateMeetingFormData]
       );
-
+  
       // 비어있는 필드가 있으면 알림 후 함수 종료
       if (emptyFields.length > 0) {
         alert(`다음 필드를 입력해주세요: ${emptyFields.map(f => f.label).join(', ')}`);
         return;
       }
-      const data = {
-        title: CreateMeetingFormData.title,
-        category: CreateMeetingFormData.category,
-        participants: CreateMeetingFormData.participants,
-        hasParticipantsLimit: CreateMeetingFormData.hasParticipantsLimit,
-        location: CreateMeetingFormData.location,
-        selectedDate: CreateMeetingFormData.selectedDate,
-        selectedTime: CreateMeetingFormData.selectedTime,
-        description: CreateMeetingFormData.description,
-        JoinMethod : CreateMeetingFormData.JoinMethod
+      
+      const nowUserId = await extractUserIdFromCookie();
+      
+      // userId가 null이면 에러 처리
+      if (!nowUserId) {
+        alert('로그인이 필요한 서비스입니다.');
+        return;
+      }
+  
+      const data: CreateMeetingFormData = {
+        ...CreateMeetingFormData,
       };
       
-      // const result = await meetingApi.createMeeting(data);
-      alert('모임 생성에 성공했습니다!');
-      // console.log(' 어쩌구 저쩌구 요청 성공 ', CreateMeetingFormData, '----------------------', data);
-      navigate('/meeting/100'); 
+      const result = await meetingApi.postMeeting(data);
+      await console.log('data!!!!!!', result);
     } catch (error) {
-      console.log(' 어쩌구 저쩌구 요청 대 실패 ', CreateMeetingFormData);
+      console.log('요청 실패', CreateMeetingFormData);
       throw error;
     }
   };
@@ -108,37 +118,35 @@ const MeetingCreatePage = () => {
       </span>
       <form className="meeting-create-page-form">
         <CategoryInput
-          value={CreateMeetingFormData.category}  // title이 아닌 category 값을 전달
-          onChange={(value) => setFormData(prev => ({...prev, category: value}))}
+          value={CreateMeetingFormData.meetingCategoryId}  // title이 아닌 category 값을 전달
+          onChange={(value) => setFormData(prev => ({...prev, meetingCategoryId: value}))}
         />
         <TitleInput 
-          value={CreateMeetingFormData.title}
-          onChange={(value) => setFormData(prev => ({...prev, title: value}))}
+          value={CreateMeetingFormData.meetingTitle}
+          onChange={(value) => setFormData(prev => ({...prev, meetingTitle: value}))}
         />
         <ParticipateInput 
-          value={CreateMeetingFormData.participants}
+          value={CreateMeetingFormData.totalCapacity}
           onChange={handleParticipantsChange}
-          hasLimit={CreateMeetingFormData.hasParticipantsLimit}
+          hasLimit={CreateMeetingFormData.isLimited}
           onLimitChange={handleParticipantsLimitChange}
           min={1}
           max={10}
         />
         <MapSelector 
-          location={CreateMeetingFormData.location}
-          onChange={(value) => setFormData(prev => ({...prev, location: value}))}
+          location={CreateMeetingFormData.meetingLocation}
+          onChange={(value) => setFormData(prev => ({...prev, meetingLocation: value}))}
         />
         <CalenderSelector 
-          date={CreateMeetingFormData.selectedDate}
-          time={CreateMeetingFormData.selectedTime}
-          onDateChange={(value) => setFormData(prev => ({...prev, selectedDate: value}))}
-          onTimeChange={(value) => setFormData(prev => ({...prev, selectedTime: value}))}
+          meetingTime={CreateMeetingFormData.meetingTime}
+          onDateChange={(value) => setFormData(prev => ({...prev, meetingTime: value}))}
         />
         <DescInput 
-          value={CreateMeetingFormData.description}
-          onChange={(value) => setFormData(prev => ({...prev, description: value}))}
+          value={CreateMeetingFormData.meetingContent}
+          onChange={(value) => setFormData(prev => ({...prev, meetingContent: value}))}
         />
         <JoinMethodInput
-          value={CreateMeetingFormData.JoinMethod}
+          value={CreateMeetingFormData.isAuthType}
           onChange={handleJoinMethodChange}
         />
         <CommonButton1        
