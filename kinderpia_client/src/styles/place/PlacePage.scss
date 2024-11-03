@@ -117,13 +117,27 @@
     width: 100%;
   }
 }
-
+@media (max-width: 700px) {
+  .meeting-header-title{
+    margin-left: 10px;
+  }
+}
 @media (max-width: 480px) {
   .meeting {
     &-list-item {
       .place-section {
         width: 100%; // 모바일에서는 한 줄에 하나씩
         margin-bottom: 15px;
+      }
+    }
+  }
+  .meeting-header-result{
+    font-size: 0.9rem;
+  }
+  .meeting-header-filter{
+    .dropdown{
+      &-toggle{
+        font-size: $footnote;
       }
     }
   }
