@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // 데이터 호출 - 더미데이터, api
 import { dummyMeetings } from '../../data/tempMeetingDetailData';
@@ -16,6 +16,7 @@ import MeetingAction from '../../components/meeting/detailpage/MeetingAction';
 import { MeetingData, MeetingUserData } from '../../types/meeting';
 
 function MeetingDetailPage() {
+  const navigate = useNavigate();
   
   const { meetingId } = useParams<{ meetingId: string }>();
   const [ meetingData, setMeetingData] = useState<MeetingData>();
@@ -47,7 +48,8 @@ function MeetingDetailPage() {
   }
 
   if (!meetingId) {
-    return <div>데이터가 없습니다 ㅠ</div>;
+    // navigate('/not-found', { replace: true });
+    return null;
   }
 
   return (

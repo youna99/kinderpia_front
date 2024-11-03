@@ -1,6 +1,4 @@
-@import '../common/reset';
 @import '../common/variables';
-@import '../common/utils';
 
 .common-btn{
   width: 100%;
@@ -10,4 +8,8 @@
   border-radius: 5px;
   font-size: $title3;
   color: #ffffff;
+  &:hover{
+    opacity: 0.8;
+    cursor: pointer;
+  }
 }

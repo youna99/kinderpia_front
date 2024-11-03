@@ -1,68 +1,151 @@
-import {ReviewData} from '../types/place';
+import {ReviewData} from '../types/reiew';
 
-export const dummyReviews: ReviewData[] = [
-  {
-      id: 1,
-      writer: "행복한엄마",
-      writerIcon: "/assets/images/tempIcon1.png",
-      content: "아이들이 정말 즐거워했어요! 선생님들도 친절하시고 시설도 깨끗합니다. 특히 미술 수업이 알차게 구성되어 있어서 좋았어요.",
-      star: 5,
-      createdAt: "2024-03-15"
-  },
-  {
-      id: 2,
-      writer: "즐거운아빠",
-      writerIcon: "/assets/images/tempIcon1.png",
-      content: "주차가 조금 불편했지만 프로그램은 매우 만족스러웠습니다. 다음에 또 방문하고 싶네요!",
-      star: 4,
-      createdAt: "2024-03-14"
-  },
-  {
-      id: 3,
-      writer: "베이비맘",
-      writerIcon: "/assets/images/tempIcon1.png",
-      content: "위생적이고 안전한 환경에서 아이가 즐겁게 놀 수 있어서 좋았어요. 다만 간식 메뉴가 조금 더 다양했으면 좋겠어요.",
-      star: 4,
-      createdAt: "2024-03-13"
-  },
-  {
-      id: 4,
-      writer: "키즈파파",
-      writerIcon: "/assets/images/tempIcon1.png",
-      content: "아이들을 위한 프로그램이 잘 구성되어 있고, 선생님들의 전문성이 돋보였습니다. 강추합니다!",
-      star: 5,
-      createdAt: "2024-03-12"
-  },
-  {
-      id: 5,
-      writer: "쌍둥이맘",
-      writerIcon: "/assets/images/tempIcon1.png",
-      content: "쌍둥이들이 너무 좋아했어요. 공간이 넓어서 좋았고 안전관리도 잘 되어있습니다.",
-      star: 5,
-      createdAt: "2024-03-11"
-  },
-  {
-      id: 6,
-      writer: "도담맘",
-      writerIcon: "/assets/images/tempIcon1.png",
-      content: "프로그램은 좋았는데 예약이 좀 힘들었어요. 인기가 많아서 그런가봐요.",
-      star: 4,
-      createdAt: "2024-03-10"
-  },
-  {
-      id: 7,
-      writer: "해피키즈",
-      writerIcon: "/assets/images/tempIcon1.png",
-      content: "체험 프로그램이 다양해서 좋았어요. 특히 만들기 수업이 인상적이었습니다.",
-      star: 5,
-      createdAt: "2024-03-09"
-  },
-  {
-      id: 8,
-      writer: "놀자맘",
-      writerIcon: "/assets/images/tempIcon1.png",
-      content: "가격대비 만족스러웠어요. 시설도 깨끗하고 직원분들도 친절하셨습니다.",
-      star: 4,
-      createdAt: "2024-03-08"
-  }
-];
+export const transformedReviews = {
+    "data": {
+        "reviews": [
+            {
+                "review": {
+                    "reviewId": 1,
+                    "star": 5,
+                    "reviewContent": "정말 좋은 경험이었어요. 추천합니다!",
+                    "createdAt": "2024-10-20T14:15:00",
+                    "updatedAt": "2024-10-20T14:15:00",
+                    "deleted": false
+                },
+                "nickname": "joyfulmom",
+                "profileImg": "profile1.png",
+                "likeCount": 7,
+                "blacklist": false
+            },
+            {
+                "review": {
+                    "reviewId": 2,
+                    "star": 4,
+                    "reviewContent": "시설이 깨끗하고 좋았어요. 다만 조금 혼잡했어요.",
+                    "createdAt": "2024-10-18T09:30:00",
+                    "updatedAt": "2024-10-18T09:30:00",
+                    "deleted": false
+                },
+                "nickname": "happy_dad",
+                "profileImg": "profile2.png",
+                "likeCount": 3,
+                "blacklist": false
+            },
+            {
+                "review": {
+                    "reviewId": 3,
+                    "star": 2,
+                    "reviewContent": "조금 실망스러웠어요. 기대했던 것만큼은 아니었어요.",
+                    "createdAt": "2024-10-15T18:40:00",
+                    "updatedAt": "2024-10-15T18:40:00",
+                    "deleted": false
+                },
+                "nickname": "sally",
+                "profileImg": "profile3.png",
+                "likeCount": 1,
+                "blacklist": false
+            },
+            {
+                "review": {
+                    "reviewId": 4,
+                    "star": 5,
+                    "reviewContent": "아이들이 정말 즐거워했어요. 다음에도 방문하고 싶습니다!",
+                    "createdAt": "2024-10-10T10:20:00",
+                    "updatedAt": "2024-10-10T10:20:00",
+                    "deleted": false
+                },
+                "nickname": "mommy_kim",
+                "profileImg": "profile4.png",
+                "likeCount": 10,
+                "blacklist": false
+            },
+            {
+                "review": {
+                    "reviewId": 5,
+                    "star": 3,
+                    "reviewContent": "보통이었어요. 특별히 좋지도 나쁘지도 않았습니다.",
+                    "createdAt": "2024-10-08T15:45:00",
+                    "updatedAt": "2024-10-08T15:45:00",
+                    "deleted": false
+                },
+                "nickname": "neutral_user",
+                "profileImg": "profile5.png",
+                "likeCount": 0,
+                "blacklist": false
+            },
+            {
+                "review": {
+                    "reviewId": 6,
+                    "star": 4,
+                    "reviewContent": "가격 대비 훌륭했어요. 만족스럽습니다.",
+                    "createdAt": "2024-10-05T11:50:00",
+                    "updatedAt": "2024-10-05T11:50:00",
+                    "deleted": false
+                },
+                "nickname": "frugal_dad",
+                "profileImg": "profile6.png",
+                "likeCount": 5,
+                "blacklist": false
+            },
+            {
+                "review": {
+                    "reviewId": 7,
+                    "star": 2,
+                    "reviewContent": "별로였어요. 서비스가 개선되었으면 좋겠어요.",
+                    "createdAt": "2024-10-02T08:15:00",
+                    "updatedAt": "2024-10-02T08:15:00",
+                    "deleted": false
+                },
+                "nickname": "not_so_happy",
+                "profileImg": "profile7.png",
+                "likeCount": 0,
+                "blacklist": false
+            },
+            {
+                "review": {
+                    "reviewId": 8,
+                    "star": 5,
+                    "reviewContent": "강력 추천합니다! 정말 좋은 시간 보냈어요.",
+                    "createdAt": "2024-09-30T17:25:00",
+                    "updatedAt": "2024-09-30T17:25:00",
+                    "deleted": false
+                },
+                "nickname": "recommend_love",
+                "profileImg": "profile8.png",
+                "likeCount": 15,
+                "blacklist": false
+            },
+            {
+                "review": {
+                    "reviewId": 9,
+                    "star": 1,
+                    "reviewContent": "전혀 만족스럽지 않았어요. 다시는 가지 않을 것 같아요.",
+                    "createdAt": "2024-09-25T12:00:00",
+                    "updatedAt": "2024-09-25T12:00:00",
+                    "deleted": false
+                },
+                "nickname": "disappointed",
+                "profileImg": "profile9.png",
+                "likeCount": 0,
+                "blacklist": false
+            },
+            {
+                "review": {
+                    "reviewId": 10,
+                    "star": 4,
+                    "reviewContent": "다양한 활동이 있어서 좋았어요. 다만 시간이 부족했네요.",
+                    "createdAt": "2024-09-22T14:30:00",
+                    "updatedAt": "2024-09-22T14:30:00",
+                    "deleted": false
+                },
+                "nickname": "active_mom",
+                "profileImg": "profile10.png",
+                "likeCount": 6,
+                "blacklist": false
+            }
+        ],
+        "averageStar": 3
+    },
+    "status": 200,
+    "message": "리뷰 목록 조회 완료"
+}

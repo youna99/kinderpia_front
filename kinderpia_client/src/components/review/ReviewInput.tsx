@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import CommonButton1 from '../common/CommonButton1';
 
 import '../../styles/review/ReviewInput.scss';
+import { simpleAlert } from '../../utils/alert';
+import { postReview } from '../../api/review';
+import { extractUserIdFromCookie } from '../../utils/extractUserIdFromCookie';
 
 interface ReviewInputProps {
   placeId: string;
@@ -14,12 +17,17 @@ const ReviewInput: React.FC<ReviewInputProps> = ({
   const [star, setStar] = useState<number>(0);
   const [content, setContent] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [userId, setUserId] = useState(0);
+  const [pagePlaceId, setPagePlaceId] =useState(0);
 
   // 별점 렌더링을 위한 배열
   const stars = [1, 2, 3, 4, 5];
 
   useEffect(() => {
     setIsLoading(false);
+    setPagePlaceId(Number(placeId));
+    const tempSpace = Number(extractUserIdFromCookie())|| 0;
+    setUserId(tempSpace);
   }, [placeId]);
 
   // 별점 선택 핸들러
@@ -34,32 +42,40 @@ const ReviewInput: React.FC<ReviewInputProps> = ({
 
   // 리뷰 제출 핸들러
   const handleSubmit = async () => {
+    
+    if(userId === 0) {
+      simpleAlert('warning','로그인 해주세요!','center');
+      return;
+    }
+
     if (star === 0) {
-      alert('별점을 선택해주세요.');
+      simpleAlert('warning','별점을 입력해주세요!','center');
       return;
     }
 
     if (!content.trim()) {
-      alert('리뷰 내용을 입력해주세요.');
+      simpleAlert('warning','리뷰 내용을 입력해주세요!','center');
       return;
     }
 
     setIsSubmitting(true);
     try {
       const reviewData = {
-        placeId,
+        placeId : pagePlaceId,
+        userId,
         star,
-        content: content.trim()
+        reviewContent: content.trim()
       };
       
-      console.log('리뷰 제출:', reviewData);
+      const result = postReview(reviewData);
+
       setStar(0);
       setContent('');
       alert('리뷰가 등록되었습니다.');
       
     } catch (error) {
       console.error('리뷰 등록 중 오류 발생:', error);
-      alert('리뷰 등록에 실패했습니다. 다시 시도해주세요.');
+      simpleAlert('warning','리뷰 등록에 실패했습니다. 다시 시도해주세요.','center');
     } finally {
       setIsSubmitting(false);
     }
@@ -111,7 +127,7 @@ const ReviewInput: React.FC<ReviewInputProps> = ({
         <CommonButton1
           text='리뷰 작성하기'
           onClick={handleSubmit}
-          disabled={isSubmitting || star === 0 || !content.trim()}  
+          disabled={isSubmitting}  
         />
       </div>
     </div>

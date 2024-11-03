@@ -1,5 +1,4 @@
 @import '../common/variables';
-@import '../common/utils';
 
 .meeting-container {
   display: flex;
@@ -80,6 +79,10 @@
       }
 
       &.closed {
+        background-color: #edb4d8;
+      }
+
+      &.ended {
         background-color: #b5b5b5;
       }
     }

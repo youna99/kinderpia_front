@@ -14,6 +14,14 @@ export interface PlaceData {
   rating?: number;
 }
 
+export interface defaultPostReq {
+  sort?: string;
+  page?: number;
+  size?: number;
+  category?: string;
+  keyword: string;
+}
+
 export interface ReviewData {
   id: number;
   writer: string;

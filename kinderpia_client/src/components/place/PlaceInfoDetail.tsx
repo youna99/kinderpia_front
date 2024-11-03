@@ -3,13 +3,14 @@ import { PlaceData } from '../../types/place';
 import { getIcon } from '../../utils/getIcon';
 import '../../styles/place/PlaceInfoDetail.scss';
 import { Link, useNavigate } from 'react-router-dom';
+import StaticMapView from '../common/StaticMapView';
 
 const PlaceInfoDetail: React.FC<PlaceData> = ({
   //   placeId,
   placeName,
   placeCategoryName,
   location,
-  //   detailAddress,
+  detailAddress,
   //   latitude,
   //   longitude,
   //   placeImg,
@@ -61,7 +62,15 @@ const PlaceInfoDetail: React.FC<PlaceData> = ({
             <p className="url">홈페이지로 이동하기 (click!)</p>
           </Link>
         </div>
-        <hr />
+      </section>
+      <section className='placeInfo-map'>
+        <div className='placeInfo-map-title'>
+          지도
+        </div>
+        <hr/>
+        <StaticMapView
+          location={detailAddress}
+        />
       </section>
     </>
   );

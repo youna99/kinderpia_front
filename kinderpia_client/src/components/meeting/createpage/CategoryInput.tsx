@@ -4,10 +4,10 @@ import '../../../styles/meeting/createpage/CategoryInput.scss';
 import CheckMarker from '../../common/CheckMarker';
 
 interface CategoryInputProps {
-  value: string;
-  onChange?: (value: string) => void;
+  value: number;
+  onChange?: (value: number) => void;
   disabled?: boolean;
-  isRequired?: boolean; // 필수 여부(*)를 결정하는 prop 추가
+  isRequired?: boolean;
 }
 
 const CategoryInput: React.FC<CategoryInputProps> = ({
@@ -29,9 +29,10 @@ const CategoryInput: React.FC<CategoryInputProps> = ({
 
       <hr />
       <select
-        className={`category-input-select ${!value ? 'placeholder' : ''}`}  // placeholder 클래스 조건부 추가
-        onChange={(e) => onChange && onChange(e.target.value)}
+        className={`category-input-select ${!value ? 'placeholder' : ''}`}
+        onChange={(e) => onChange && onChange(Number(e.target.value))}
         disabled={disabled}
+        value={value || ''}
       >
         <option value="" className="category-input-option">
           모임 유형 선택하기
@@ -41,7 +42,6 @@ const CategoryInput: React.FC<CategoryInputProps> = ({
             className="category-input-option"
             key={type.value}
             value={type.value}
-            // selected={value === type.value}  // 현재 value와 일치하는 항목 선택
           >
             {type.label}
           </option>

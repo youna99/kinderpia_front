@@ -1,12 +1,12 @@
 @import '../common/variables';
-@import '../common/utils';
 
 .review-input{
   &-container {
-    position: relative;
+    padding: 2rem 0;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    max-width: 670px;
+    width: 100%;
 
     hr {
       height: 1px;
@@ -18,6 +18,7 @@
   }
 
   &-header {
+    width: 100%;
     margin-top: $title1;
     display: flex;
     justify-content: space-between;
@@ -33,16 +34,22 @@
   }
   &-subtitle{
     font-size: $title3;
+    margin: $caption;
+    margin-left: $caption;
   }
   &-star{
+    margin: $caption;
+    text-align: center;
     button{
-      font-size: $headline;
+      font-size: 40px;
       .xi-star{
         color: #ffd900;
       }
     }
   }
   &-content{
+    width: 90%;
+    margin: 0px auto;
     textarea {
       resize: none;
       width: 100%;

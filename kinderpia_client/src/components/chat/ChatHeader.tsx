@@ -9,9 +9,9 @@ import ChatMembersMenu from "./ChatMembersMenu";
 export default function ChatHeader() {
   const [open, setOpen] = useState(false);
 
-  const navigate = useNavigate();
-
   const { chatroom } = useSelector((state: RootState) => state.chat);
+  console.log(chatroom);
+  
 
   if (!chatroom) return <div>채팅방 정보 불러오는 중</div>;
 
@@ -26,9 +26,6 @@ export default function ChatHeader() {
       <div className="chat-header__container">
         {/* 뒤로가기 */}
         <div className="chat-header__column">
-          {/* <button onClick={() => navigate(-1)}>
-            <span className="xi-angle-left"></span>
-          </button> */}
         </div>
         {/* 채팅방 제목 */}
         <div className="chat-header__column">

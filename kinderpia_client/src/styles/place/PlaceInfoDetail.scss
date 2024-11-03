@@ -69,6 +69,13 @@
     }
   }
 }
+.placeInfo{
+  &-map{
+    margin: $caption auto;
+    width: 100%;
+    font-size: $title2;
+  }
+}
 
 .placeInfo-detail-container {
   margin-top: $caption;
@@ -78,9 +85,12 @@
   }
 
   .place-text {
+    margin: $caption;
+    margin-left: $caption;
     font-size: $body;
 
-    Link {
+    .url {
+      color: #414141;
       cursor: pointer;
     }
   }
