@@ -29,9 +29,7 @@ const chatSlice = createSlice({
       state.loading = action.payload;
     },
     setMessages: (state, action: PayloadAction<ChatMessageInfo[]>) => {
-      state.messages = action.payload;
-      console.log('dasdasd',state.messages);
-      
+      state.messages = action.payload;      
     }
   },
 });

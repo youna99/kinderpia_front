@@ -1,6 +1,6 @@
 import { ChatMessageInfo } from "../types/chat";
 
-export const tempMsgData: ChatMessageInfo[] = [
+export const tempMsgData = [
   {
     chatmsgId: 1,
     chatroomId: 1,

@@ -49,7 +49,7 @@ function App() {
               />
               {/* 채팅방 목록 */}
               <Route
-                path="chatroom/list/:userId"
+                path="chatroom/list"
                 element={<PrivateRoute element={<ChatlistPage />} />}
               />
               {/* 모임 관련 라우트 */}
