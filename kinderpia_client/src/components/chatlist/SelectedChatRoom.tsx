@@ -16,6 +16,7 @@ import ChatInput from "../chat/ChatInput";
 import "../../styles/chatlist/SelectedChatRoom.scss";
 
 import { tempChatInfo } from "../../data/tempChatroomInfo";
+import { tempMsgData } from "../../data/tempChatMessage";
 
 // 채팅방 페이지 컴포넌트
 export default function SelectedChatRoom() {
@@ -38,7 +39,8 @@ export default function SelectedChatRoom() {
   const jwt = 'djaslkdjalksdjlkasjdlkasjdlka'
 
   useEffect(() => {
-    // 소켓 설정
+    dispatch(setMessages(tempMsgData))
+    // // 소켓 설정
     const socket = new SockJS(`${url}`);
 
     clientRef.current = new Client({

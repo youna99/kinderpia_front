@@ -25,12 +25,12 @@ export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
     ) as HTMLDivElement | null;
 
     if (chatroom) {
-      chatroom.style.overflowY = open ? "hidden" : "auto";
+      // chatroom.style.overflowY = open ? "hidden" : "auto";
     }
 
     return () => {
       if (chatroom) {
-        chatroom.style.overflowY = "auto";
+        // chatroom.style.overflowY = "auto";
       } 
     };
   }, [open]);
