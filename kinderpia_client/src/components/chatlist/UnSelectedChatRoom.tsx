@@ -5,7 +5,7 @@ export default function UnSelectedChatRoom() {
   return (
     <section className="unselect">
       <div className="unselect-content">
-        <div><ChatIcon /></div>
+        <div className="empty-room"><ChatIcon /></div>
         <div>대화방을 선택해주세요</div>
       </div>
     </section>

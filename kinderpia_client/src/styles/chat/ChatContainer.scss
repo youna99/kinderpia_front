@@ -1,11 +1,9 @@
 @import "../common/variables";
 
 .chat-container {
-    position: relative;
-    top: 0;   
     box-sizing: border-box;
     padding : 0 3rem;
-    min-height: 80vh;
+    height: 77vh;
     overflow-y: scroll;
 }
 

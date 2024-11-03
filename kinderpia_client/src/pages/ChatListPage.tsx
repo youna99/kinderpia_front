@@ -47,16 +47,16 @@ export default function ChatlistPage() {
     // 임시 데이터
     tempChatList();
     // fetchChatList();
-  }, [dispatch, isEmpty, isSelected]);
+  }, [dispatch, isEmpty]);
 
   // 채팅방 목록 조회 함수(비동기) -> 백엔드와 연결 후 활성화
   const fetchChatList = async () => {
     try {
-      const res = await getChatList(102, 1, 1);
-      console.log(res);
+      const res = await getChatList(101, 1, 10);
       if (res?.status === 200) {
-        dispatch(setChatRooms(res.data));
-        dispatch(setEmpty(res.data.length === 0));
+        const chatroomList = res.data.data.chatroomList;
+        dispatch(setChatRooms(chatroomList));
+        dispatch(setEmpty(chatroomList.length === 0));
         dispatch(setError(false));
         dispatch(setLoading(false));
       }

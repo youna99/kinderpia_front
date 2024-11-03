@@ -25,6 +25,5 @@ export interface ChatMessageInfo {
     senderNickname?: string;
     senderProfileImg?: string;
     chatmsgContent: string;
-    createdAt: Date; // LocalDateTime 형식의 문자열
-    messageType?: string; // MessageType의 문자열 표현
+    createdAt: Date;
 }

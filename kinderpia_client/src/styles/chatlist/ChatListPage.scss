@@ -1,9 +1,13 @@
 @import "../common/variables";
 
 .chatlist {
-  position: relative;
   padding: 0 1.6rem;
-  top: 2rem;
+  position: relative;
+  top: 5rem;
+  .empty-room {
+    width: 100px;
+    margin: auto;
+  }
   .chatlist-wrapper {
     display: flex;
 
@@ -11,7 +15,7 @@
       width: 50%;
       position: relative;
       overflow-y: auto;
-      max-height: calc(100vh - 16rem);
+      height: calc(100vh - 13rem);
       overflow-x: hidden;
     }
     .chatroom-wrapper {
