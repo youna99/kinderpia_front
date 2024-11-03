@@ -16,10 +16,12 @@ const MyPage: React.FC = () => {
 
   // 컴포넌트가 처음 마운트될 때 실행
   useEffect(() => {
-    const userIdFromToken = extractUserIdFromCookie();
-    if (userIdFromToken) {
-      setUserId(userIdFromToken);
-      fetchUserInfo(userIdFromToken); // 사용자 정보 요청
+    const userIdFromCookie = extractUserIdFromCookie();
+    console.log(userIdFromCookie);
+
+    if (userIdFromCookie) {
+      setUserId(userIdFromCookie);
+      fetchUserInfo(userIdFromCookie); // 사용자 정보 요청
     }
   }, []);
 

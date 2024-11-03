@@ -20,6 +20,8 @@ import EditUserPage from './pages/EditUserPage';
 
 import ChatlistPage from './pages/ChatListPage';
 import NotFoundPage from './pages/NotFoundPage';
+import LoginRequiredPage from './pages/LoginRequiredPage';
+import PrivateRoute from './components/common/PrivateRoute';
 
 function App() {
   return (
@@ -32,34 +34,46 @@ function App() {
               <Route path="user/login" element={<LoginPage />} />
               {/* 회원가입 */}
               <Route path="user/register" element={<RegisterPage />} />
+              {/* 로그인 요구 페이지 */}
+              {/* PrivateRoute(로그인 필요) -마이페이지,  개인정보수정페이지, 채팅방목록페이지, 모임생성페이지, 모임수정페이지 */}
+              <Route path="login/required" element={<LoginRequiredPage />} />
               {/* 마이페이지 */}
-              <Route path="/mypage" element={<MyPage />} />
+              <Route
+                path="/mypage"
+                element={<PrivateRoute element={<MyPage />} />}
+              />
               {/* 개인정보 수정 페이지 */}
-              <Route path="/mypage/editUser" element={<EditUserPage />} />
+              <Route
+                path="/mypage/editUser"
+                element={<PrivateRoute element={<EditUserPage />} />}
+              />
               {/* 채팅방 목록 */}
-              <Route path="chatroom/list/:userId" element={<ChatlistPage />} />
+              <Route
+                path="chatroom/list/:userId"
+                element={<PrivateRoute element={<ChatlistPage />} />}
+              />
               {/* 모임 관련 라우트 */}
               <Route path="meeting">
-                {/* 모임 목록 페이지 */}
                 <Route index element={<Meeting />} />
-                {/* 모임 생성 페이지 */}
-                <Route path="create" element={<MeetingCreate />} />
-                {/* 모임 상세 페이지 */}
+                <Route
+                  path="create"
+                  element={<PrivateRoute element={<MeetingCreate />} />}
+                />
                 <Route path=":meetingId" element={<MeetingDetail />} />
-                {/* 모임 수정 페이지 */}
-                <Route path=":meetingId/edit" element={<MeetingUpdate />} />
+                <Route
+                  path=":meetingId/edit"
+                  element={<PrivateRoute element={<MeetingUpdate />} />}
+                />
               </Route>
               {/* 장소 라우트 */}
               <Route path="place">
-                {/* 장소 목록 페이지 */}
                 <Route index element={<PlacePage />} />
-                {/* 장소 상세 페이지 */}
                 <Route path=":placeId" element={<PlaceDetailPage />} />
               </Route>
               {/* 메인 페이지 */}
-              <Route index element={<MainPage />} />              
-              {/* 404 라우트 추가 - 모든 라우트의 맨 마지막에 위치 */}
-              <Route path="*" element={<NotFoundPage />} />
+              <Route index element={<MainPage />} />
+              {/* 404 라우트 추가 */}
+              <Route path="" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

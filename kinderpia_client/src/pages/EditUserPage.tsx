@@ -3,6 +3,7 @@ import '../styles/mypage/EditUserPage.scss';
 import { ResignBtn } from '../components/MyPage/ResignBtn';
 import axios from 'axios';
 import { EditUserInfo } from '../components/MyPage/EditUserInfo';
+import { extractUserIdFromCookie } from '../utils/extractUserIdFromCookie';
 
 export default function EditUserPage() {
   const [userId, setUserId] = useState<string | null>(null);
@@ -14,18 +15,20 @@ export default function EditUserPage() {
     setIsUpdated((prev) => !prev);
   };
 
-  const extractUserIdFromToken = (token: string): string | null => {
-    if (!token) return null;
-    try {
-      const tokenWithoutBearer = token.split(' ')[1];
-      const payload = tokenWithoutBearer.split('.')[1];
-      const decodedPayload = JSON.parse(atob(payload));
-      return decodedPayload.sub;
-    } catch (error) {
-      console.error('토큰에서 사용자 ID 추출 중 오류 발생:', error);
-      return null;
+  // userId가 설정되거나, isUpdated가 변경될 때 fetchUserInfo 실행
+  useEffect(() => {
+    if (userId) {
+      fetchUserInfo(userId);
     }
-  };
+  }, [userId, isUpdated]);
+
+  useEffect(() => {
+    const userIdFromCookie = extractUserIdFromCookie();
+    if (userIdFromCookie) {
+      setUserId(userIdFromCookie);
+      fetchUserInfo(userIdFromCookie);
+    }
+  }, []);
 
   const fetchUserInfo = async (userId: string) => {
     try {
@@ -40,24 +43,6 @@ export default function EditUserPage() {
       console.error('유저 정보를 불러오는 중 오류 발생:', error);
     }
   };
-
-  // userId가 설정되거나, isUpdated가 변경될 때 fetchUserInfo 실행
-  useEffect(() => {
-    if (userId) {
-      fetchUserInfo(userId);
-    }
-  }, [userId, isUpdated]);
-
-  useEffect(() => {
-    const token = sessionStorage.getItem('token');
-    if (token) {
-      const userIdFromToken = extractUserIdFromToken(token);
-      if (userIdFromToken) {
-        setUserId(userIdFromToken);
-        fetchUserInfo(userIdFromToken);
-      }
-    }
-  }, []);
 
   return (
     <section id="edit-user">
