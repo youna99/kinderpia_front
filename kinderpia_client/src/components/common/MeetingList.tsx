@@ -44,7 +44,11 @@ const MeetingList: React.FC<MettingListInfo> = ({
         <div className="meetingStatus-container">
           <span
             className={`meetStatus ${
-              meetingStatus === 'ONGOING' ? 'recruiting' : 'closed'
+              meetingStatus === 'ONGOING'
+                ? 'recruiting'
+                : meetingStatus === 'COMPLETED'
+                ? 'closed'
+                : 'ended'
             }`}
           >
             {meetingStatus === 'ONGOING' && '모집중'}

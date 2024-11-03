@@ -80,6 +80,10 @@
       }
 
       &.closed {
+        background-color: #edb4d8;
+      }
+
+      &.ended {
         background-color: #b5b5b5;
       }
     }

@@ -9,7 +9,7 @@ export const getMeeting = async (params: {
 }) => {
   const response = await requestHeader.get('/api/meeting/list/open', {
     params,
-    withCredentials:true
+    withCredentials: true,
   });
   return response.data;
 };
@@ -23,8 +23,7 @@ export const getMeetingList = async (params: {
 }) => {
   const response = await requestHeader.get('/api/meeting/list', {
     params,
-    withCredentials:true
+    withCredentials: true,
   });
   return response.data;
 };
-

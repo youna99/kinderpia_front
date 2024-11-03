@@ -11,8 +11,6 @@ import { Link } from 'react-router-dom';
 import { getPlaces } from '../api/placelist';
 import { getMeeting } from '../api/meetinglist';
 import '../styles/MainPage.scss';
-import { dummyMeetingList } from '../data/tempMeetingListData';
-import { dummyPlaceList } from '../data/tempPlaceListdata';
 import { MainBanner } from '../components/MainBanner';
 
 function MainPage() {
@@ -53,8 +51,6 @@ function MainPage() {
   };
 
   useEffect(() => {
-    // setPlaceList(dummyPlaceList);
-    // setMeetingList(dummyMeetingList);
     getPlaceList();
     getMeetingList();
   }, []);
@@ -133,19 +129,26 @@ function MainPage() {
           </Link>
         </div>
         <div className="meetingcard">
-          {meetingList.slice(0, 4).map((meeting) => (
-            <MeetingList
-              meetingId={meeting.meetingId}
-              meetingTitle={meeting.meetingTitle}
-              meetingCategory={meeting.meetingCategory}
-              location={meeting.location}
-              meetingTime={formatDate(meeting.meetingTime)}
-              nickname={meeting.nickname}
-              capacity={meeting.capacity}
-              totalCapacity={meeting.totalCapacity}
-              meetingStatus={meeting.meetingStatus}
-            />
-          ))}
+          {meetingList.length === 0 ? (
+            <p className="no-meeting">모임이 없습니다.</p>
+          ) : (
+            meetingList
+              .slice(0, 4)
+              .map((meeting) => (
+                <MeetingList
+                  key={meeting.meetingId}
+                  meetingId={meeting.meetingId}
+                  meetingTitle={meeting.meetingTitle}
+                  meetingCategory={meeting.meetingCategory}
+                  location={meeting.location}
+                  meetingTime={formatDate(meeting.meetingTime)}
+                  nickname={meeting.nickname}
+                  capacity={meeting.capacity}
+                  totalCapacity={meeting.totalCapacity}
+                  meetingStatus={meeting.meetingStatus}
+                />
+              ))
+          )}
         </div>
       </section>
     </section>
