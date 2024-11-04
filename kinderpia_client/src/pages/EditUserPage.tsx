@@ -4,6 +4,7 @@ import { ResignBtn } from '../components/MyPage/ResignBtn';
 import axios from 'axios';
 import { EditUserInfo } from '../components/MyPage/EditUserInfo';
 import { extractUserIdFromCookie } from '../utils/extractUserIdFromCookie';
+import { formatDate } from '../utils/formatDate';
 
 export default function EditUserPage() {
   const [userId, setUserId] = useState<string | null>(null);
@@ -43,6 +44,7 @@ export default function EditUserPage() {
       console.error('유저 정보를 불러오는 중 오류 발생:', error);
     }
   };
+  console.log(userInfo);
 
   return (
     <section id="edit-user">
@@ -63,7 +65,12 @@ export default function EditUserPage() {
         </div>
         <div className="profile-details">
           <p className="createat">
-            가입일자 : <span>2024.10.31</span>
+            가입일자 :{' '}
+            <span>
+              {userInfo?.createdAt
+                ? formatDate(userInfo.createdAt)
+                : '정보 없음'}
+            </span>
           </p>
           <p>
             <label htmlFor="">ID</label>
