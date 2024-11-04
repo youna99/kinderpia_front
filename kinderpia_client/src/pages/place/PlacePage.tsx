@@ -37,6 +37,9 @@ const PlacePage: React.FC = () => {
   const observer = useRef<IntersectionObserver>();
   // const lastPlaceElementRef = useRef<HTMLDivElement>(null);
 
+  // meeting-header-title 요소를 참조할 ref 생성
+  const headerTitleRef = useRef<HTMLDivElement>(null);
+
   // 무한 스크롤 observer 설정
   const lastPlaceRef = useCallback(
     (node: HTMLDivElement) => {
@@ -127,11 +130,23 @@ const PlacePage: React.FC = () => {
         keyword: searchTerm,
       };
 
+      console.log('reqData>>>', reqData);
+
       const response = await getSearchPlaceList(reqData);
       console.log('response >>>', response.data.content);
 
       setPlaces(response.data.content); // 검색 시 기존 데이터 초기화
       setHasMore(response.data.content.length === 6);
+
+      console.log('headerTitleRef.current', headerTitleRef.current);
+
+      // 검색 후 meeting-header-title 요소로 포커스 이동
+      if (headerTitleRef.current) {
+        headerTitleRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }
     } catch (error) {
       console.error('검색 중 오류 발생:', error);
     } finally {
@@ -167,7 +182,7 @@ const PlacePage: React.FC = () => {
           isLoading={isSearching}
         />
       </div>
-      <div className="meeting-header">
+      <div className="meeting-header" ref={headerTitleRef}>
         <div className="meeting-header-title">
           장소 검색
           {currentSearchTerm && (
@@ -211,7 +226,9 @@ const PlacePage: React.FC = () => {
               <PlaceList
                 placeId={place.placeId}
                 placeName={place.placeName}
-                placeCategoryName={place.placeCategoryName}
+                placeCategoryName={
+                  place.placeCategoryName || place.placeCtgName
+                }
                 rating={place.rating}
                 paid={place.paid}
                 placeImg={place.placeImg}

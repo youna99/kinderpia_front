@@ -25,42 +25,10 @@ export const getDefaultPlaceList = async (
   return response.data;
 };
 
-// export const getSearchPlaceList = async (data: defaultPostReq) => {
-//   const params = new URLSearchParams();
-//   params.append('sort', data.sort || 'date');
-//   params.append('page', String(data.page || 0));
-//   params.append('size', String(data.size || 10));
-//   params.append('category', data.category || 'all');
-//   params.append('keyword', data.keyword || 'none');
-
-//   const response = await requestHeader.get(
-//     '/api/place',
-//     { params }
-//     // headers: {
-//     //   'Content-Type': 'application/x-www-form-urlencoded',
-//     // },
-//   );
-
-//   return response;
-// };
-
-// export const getSearchPlaceList = async (params: {
-//   category: string;
-//   keyword: string;
-// }) => {
-//   const response = await requestHeader.get('/api/place', { params });
-//   return response.data;
-// };
-
 export const getSearchPlaceList = async (data: defaultPostReq) => {
   const response = await requestHeader.post(
     '/api/place',
-    {
-      category: data.category,
-      keyword: data.keyword,
-      page: data.page,
-      size: data.size,
-    },
+    {},
     {
       params: {
         category: data.category,

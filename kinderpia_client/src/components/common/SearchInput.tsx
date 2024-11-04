@@ -21,10 +21,11 @@ const SearchInput: React.FC<SearchInputProps> = ({
 
   const handleSearch = async () => {
     if (!searchTerm.trim()) return;
-    
+
     try {
       setInternalLoading(true);
       await onSearch(searchTerm);
+      setSearchTerm(''); // input창 초기화
     } catch (error) {
       console.error('검색 중 오류가 발생했습니다:', error);
     } finally {
