@@ -12,7 +12,7 @@ import ChatContainer from "../chat/ChatContainer";
 import ChatHeader from "../chat/ChatHeader";
 import ChatInput from "../chat/ChatInput";
 
-import { getJwtFromCookies } from "../../utils/extractUserIdFromCookie";
+import { extractUserIdFromCookie, getJwtFromCookies } from "../../utils/extractUserIdFromCookie";
 import "../../styles/chatlist/SelectedChatRoom.scss";
 
 // 채팅방 페이지 컴포넌트
@@ -74,11 +74,11 @@ export default function SelectedChatRoom() {
     });
 
     // 소켓 연결 시작
-    // clientRef.current.activate();
+    clientRef.current.activate();
 
     // 언마운트 시 소켓 연결 종료
     return () => {
-      // clientRef.current?.deactivate();
+      clientRef.current?.deactivate();
     };
   }, [dispatch, chatroomId]);
 
@@ -86,13 +86,16 @@ export default function SelectedChatRoom() {
   // 메세지 전송 함수
   const sendMessage = (message: string) => {
     const jwt = getJwtFromCookies();
+    const senderId = Number(extractUserIdFromCookie());
     if (!chatroomId) return;
     const chatSend = `/app/${chatroomId}/chatmsg`;
     if (clientRef.current?.connected) {
       const messageObj = {
         chatroomId,
+        senderId,
         chatmsgContent: message,
-        createdAt: new Date().toISOString(),
+        createdAt: new Date().toISOString(), // 나중에 한국 기준 시간으로 바꿔줄 것 지금은 외국 시간으로 되어있음
+        messageType : 'CHAT'
       };
       clientRef.current.publish({
         destination: chatSend,

@@ -67,6 +67,8 @@ export default function ChatlistPage() {
     try {
       const res = await getChatList(token, page);
       if (res?.status === 200) {
+        console.log(res);
+        
         const chatroomList: ChatRoomListInfo[] = res.data.data.chatroomList.map(
           (room: ChatRoomInfo) => ({
             chatroomId: room.chatroomId,
