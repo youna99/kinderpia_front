@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "../../styles/chat/ChatMessage.scss";
 import { ChatMessageInfo } from "../../types/chat";
 import { extractUserIdFromCookie } from "../../utils/extractUserIdFromCookie";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { ReactComponent as Crown } from "../../assets/crown.svg";
 
 interface MessageInfoProps {
   messageInfo: ChatMessageInfo;
@@ -18,11 +21,12 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
     createdAt,
     messageType,
   } = messageInfo;
+  const { chatroom } = useSelector((state: RootState) => state.chat);
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const userId = extractUserIdFromCookie();
-  
+
   // 나머지 렌더링 로직
   // 웹에서는 우클릭, 모바일에서는 길게 눌러서 신고창 열리게 하기
   // 우클릭
@@ -58,7 +62,7 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
   // senderId 로 확인해서 자신인지 아닌지 확인
   return (
     <>
-      {messageType ==='CHAT' && senderId ? (
+      {messageType === "CHAT" && senderId ? (
         <div
           className={`message message-${
             senderId === Number(userId) ? "own" : "other"
@@ -66,7 +70,13 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
         >
           {senderId !== Number(userId) ? (
             <figure className="message-profile">
-              <img src={senderProfileImg ? senderProfileImg : `/images/userIcon.png`} alt="profile image" />
+              {senderId === chatroom?.meetingHeader ? <Crown /> : null}
+              <img
+                src={
+                  senderProfileImg ? senderProfileImg : `/images/userIcon.png`
+                }
+                alt="profile image"
+              />
             </figure>
           ) : null}
           <div className="message-content">

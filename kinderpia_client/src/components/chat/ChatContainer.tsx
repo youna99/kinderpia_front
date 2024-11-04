@@ -4,12 +4,8 @@ import ChatMessage from "./ChatMessage";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 
-interface ChatRoomProps {
-  chatroomId: number;
-}
-
 // 채팅방 메시지 컨테이너 컴포넌트
-export default function ChatContainer({ chatroomId }: ChatRoomProps) {
+export default function ChatContainer() {
   // 내가 보낸 메시지, 다른 사람이 보낸 메시지 구분 필요 -> sender 로 하고 나의 메시지는 own 으로 표시
   const { messages } = useSelector((state: RootState) => state.chat);
 
