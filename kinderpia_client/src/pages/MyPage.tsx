@@ -17,7 +17,6 @@ const MyPage: React.FC = () => {
   // 컴포넌트가 처음 마운트될 때 실행
   useEffect(() => {
     const userIdFromCookie = extractUserIdFromCookie();
-    console.log(userIdFromCookie);
 
     if (userIdFromCookie) {
       setUserId(userIdFromCookie);
@@ -47,7 +46,7 @@ const MyPage: React.FC = () => {
       case '모임 내역':
         return <MeetingHistory userId={userId} />;
       case '나의 리뷰':
-        return <MyReviews />;
+        return <MyReviews userId={userId} userInfo={userInfo} />;
       default:
         return null;
     }

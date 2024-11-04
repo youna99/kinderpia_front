@@ -1,0 +1,95 @@
+@import '../common/variables';
+@import '../common/utils';
+
+.review-wrap {
+  position: relative;
+  border-bottom: 1px solid $border-color;
+  padding: 1rem 2rem;
+  font-size: $body;
+  h3 {
+    font-size: $title3;
+    .xi-maker {
+      margin-right: 1rem;
+      font-size: 2rem;
+      color: $main-color;
+    }
+  }
+  .report-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    cursor: pointer;
+  }
+  .delete-btn {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    cursor: pointer;
+  }
+  .star-wrap {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 0.5rem;
+    .xi-star {
+      color: $status-color;
+      font-size: 1.8rem;
+    }
+  }
+  .review-content {
+    font-size: $title3;
+    padding: 1rem 0;
+  }
+  .write-txt {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+    font-size: $caption;
+    color: gray;
+    margin-bottom: 1.5rem;
+    .user-profile {
+      display: flex;
+      align-items: flex-end;
+      gap: 1rem;
+      padding-right: 3rem;
+      img {
+        width: 2rem;
+        border-radius: 50%;
+      }
+      h4 {
+        font-size: $caption;
+        position: relative;
+        &::after {
+          content: '';
+          display: block;
+          width: 1px;
+          height: 1.4rem;
+          position: absolute;
+          background: #d0d0d0;
+          top: 50%;
+          transform: translateY(-52%);
+          right: -2rem;
+        }
+      }
+    }
+  }
+  .like-count-wrap {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    .like-pin {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      background: $main-color;
+      color: #fff;
+    }
+    .xi-check {
+      vertical-align: middle;
+      margin-right: 0.5rem;
+      border: none;
+    }
+  }
+  &:hover {
+    background: rgb(216, 239, 255);
+  }
+}

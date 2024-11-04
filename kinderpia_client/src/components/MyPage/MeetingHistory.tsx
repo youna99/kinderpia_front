@@ -47,7 +47,8 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
           response = {
             data: {
               meetings: allMeetings.data.meetings.filter(
-                (meeting: MettingListInfo) => meeting.meetingStatus === '모집중'
+                (meeting: MettingListInfo) =>
+                  meeting.meetingStatus === 'ONGOING'
               ),
             },
           };
