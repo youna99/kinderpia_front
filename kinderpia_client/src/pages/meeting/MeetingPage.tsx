@@ -7,10 +7,12 @@ import MeetingList from '../../components/common/MeetingList';
 //타입 호출
 import { MettingListInfo } from '../../types/meetinglist';
 
-// 데이터 호출 - 더미데이터 호출, API 호출
-import { dummyMeetingList } from '../../data/tempMeetingListData';
+// // 데이터 호출 - 더미데이터 호출, API 호출
+// import { dummyMeetingList } from '../../data/tempMeetingListData';
 
 import '../../styles/meeting/MeetingPage.scss';
+import { meetingApi } from '../../api/meeting';
+import { getMeetingListOpen, getMeetingList } from '../../api/meetinglist';
 
 // 서버 응답 타입 정의
 interface SearchResponse {
@@ -19,51 +21,53 @@ interface SearchResponse {
 }
 
 const MeetingPage: React.FC = () => {
+  // 빈 배열로 초기화하여 undefined 방지
   const [meetings, setMeetings] = useState<MettingListInfo[]>([]);
   const [filteredMeetings, setFilteredMeetings] = useState<MettingListInfo[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [filter, setFilter] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
-  // 초기 데이터 로드
   useEffect(() => {
-    const loadInitialData = () => {
-      setMeetings(dummyMeetingList);
-      setFilteredMeetings(dummyMeetingList);
-    };
+    const fetchMeetings = async () => {
+      try {
+        const response = await getMeetingListOpen({
+        });
+        
+        if (!response || !response.data.dataList) {
+          throw new Error('Invalid response format');
+        }
+        
+        setMeetings(response.data.dataList);
+        setFilteredMeetings(response.data.dataList);
 
-    loadInitialData();
-    // 실제 API 호출 시:
-    // const fetchMeetings = async () => {
-    //   try {
-    //     const response = await fetch('/api/meetings');
-    //     const data = await response.json();
-    //     setMeetings(data.meetings);
-    //     setFilt eredMeetings(data.meetings);
-    //   } catch (error) {
-    //     console.error('모임 목록 로드 중 오류 발생:', error);
-    //   }
-    // };
-    // fetchMeetings();
+
+        setError(null);
+      } catch (error) {
+        console.error('모임 목록 로드 중 오류 발생:', error);
+        setError('모임 목록을 불러오는데 실패했습니다.');
+        setMeetings([]);
+        setFilteredMeetings([]);
+      }
+    };
+    fetchMeetings();
   }, []);
 
-  // 검색어와 필터 변경 시 목록 필터링
   useEffect(() => {
     const filterMeetings = () => {
-      let result = [...meetings];
+      let result = [...(meetings || [])];
 
-      // 검색어로 필터링
       if (searchTerm) {
         result = result.filter(meeting => 
           meeting.meetingTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
           meeting.meetingCategory.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          meeting.location.toLowerCase().includes(searchTerm.toLowerCase())
+          meeting.meetingLocation.toLowerCase().includes(searchTerm.toLowerCase())
         );
       }
 
-      // 모집 상태로 필터링
       if (filter) {
-        result = result.filter(meeting => meeting.meetingStatus === '모집중');
+        result = result.filter(meeting => meeting.meetingStatus === "ONGOING");
       }
 
       setFilteredMeetings(result);
@@ -71,27 +75,21 @@ const MeetingPage: React.FC = () => {
 
     filterMeetings();
   }, [meetings, searchTerm, filter]);
-
   // 검색 핸들러
   const handleSearch = async (term: string) => {
     setIsSearching(true);
     setSearchTerm(term);
+    console.log(1);
     
     try {
-      // 실제 API 호출의 경우:
-      // const response = await fetch(
-      //   `/api/meetings/search?query=${encodeURIComponent(term)}&onlyRecruiting=${filter}`
-      // );
-      // const data: SearchResponse = await response.json();
-      // setMeetings(data.meetings);
-      
-      // 더미 데이터를 사용한 검색 시뮬레이션
-      const searchResults = dummyMeetingList.filter(meeting =>
-        meeting.meetingTitle.toLowerCase().includes(term.toLowerCase()) ||
-        meeting.meetingCategory.toLowerCase().includes(term.toLowerCase()) ||
-        meeting.location.toLowerCase().includes(term.toLowerCase())
+      console.log(2);
+      const response = await fetch(
+        `/api/meetings/search?query=${encodeURIComponent(term)}&onlyRecruiting=${filter}`
       );
-      setMeetings(searchResults);
+      console.log(3);
+      const data: SearchResponse = await response.json();
+      console.log(4);
+      setMeetings(data.meetings);
     } catch (error) {
       console.error('모임 검색 중 오류 발생:', error);
     } finally {
@@ -130,7 +128,9 @@ const MeetingPage: React.FC = () => {
       </div>
       <hr/>
 
-      {isSearching ? (
+      {error ? (
+        <div className="meeting-error">{error}</div>
+      ) : isSearching ? (
         <div className="meeting-search-status">검색 중...</div>
       ) : filteredMeetings.length > 0 ? (
         <div className="meeting-list">
@@ -140,7 +140,9 @@ const MeetingPage: React.FC = () => {
               meetingId={meeting.meetingId}
               meetingTitle={meeting.meetingTitle}
               meetingCategory={meeting.meetingCategory}
-              location={meeting.location}
+              meetingLocation={meeting.meetingLocation}
+              createdAt={meeting.createdAt}
+              district={meeting.district}
               meetingTime={meeting.meetingTime}
               nickname={meeting.nickname}
               capacity={meeting.capacity}

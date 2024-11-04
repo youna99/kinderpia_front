@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import '../../../styles/meeting/detailpage/MeetingWh.scss';
 
@@ -15,6 +15,23 @@ const MeetingWh: React.FC<MeetingWhProps> = ({
   meetingTime,
   detailAddress
 }) => {
+  const [formatDateTime, setFormatDateTime] =useState('');
+
+  useEffect(()=>{
+    const formatString = (isoString: string): string => {
+      const date = new Date(isoString);
+      
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+    
+      return `${year}-${month}-${day} ${hours}:${minutes}`;
+    }
+
+    setFormatDateTime( formatString(meetingTime||''));
+  },[meetingTime])
   return (
     <div className='meeting-wh-container'>
       <div className='meeting-wh-header'>
@@ -29,7 +46,7 @@ const MeetingWh: React.FC<MeetingWhProps> = ({
           <span className='meeting-wh-text-content-title'>모임 장소 : </span>{meetingLocation}
         </p>
         <p className='meeting-wh-text-content meeting-when'>
-          <span>모임 시간 : </span>{meetingTime}
+          <span>모임 시간 : </span>{formatDateTime  }
         </p>
       </div>
       <hr className='hr2'/>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MettingListInfo } from '../../types/meetinglist';
 import axios from 'axios';
 import MeetingList from '../common/MeetingList';
-import { dummyMeetingList } from '../../data/tempMeetingListData';
+// import { dummyMeetingList } from '../../data/tempMeetingListData';
 import '../../styles/mypage/MeetingHistory.scss';
 interface MeetingHistoryProps {
   userId: string | null;
@@ -85,8 +85,10 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
             meetingId={meeting.meetingId}
             meetingTitle={meeting.meetingTitle}
             meetingCategory={meeting.meetingCategory}
-            location={meeting.location}
-            meetingTime={meeting.meetingTime}
+            createdAt={meeting.createdAt}
+            district={meeting.district}
+            meetingLocation={meeting.meetingLocation}
+            meetingTime={formatDate(meeting.meetingTime)}
             nickname={meeting.nickname}
             capacity={meeting.capacity}
             totalCapacity={meeting.totalCapacity}
