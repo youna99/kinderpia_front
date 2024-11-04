@@ -1,4 +1,3 @@
-// meetingApi.ts
 import {
   CreateMeetingFormData,
   CategoryResponse,
@@ -18,8 +17,8 @@ export const getMeeting = async (meetingId: number): Promise<MeetingDetailData> 
 
 export const postMeeting = async (
   data: CreateMeetingFormData
-): Promise<CreateMeetingFormData> => {
-  const response = await requestHeader.post<CreateMeetingFormData>(
+) => {
+  const response = await requestHeader.post(
     '/api/meeting',
     data,
     { withCredentials: true }

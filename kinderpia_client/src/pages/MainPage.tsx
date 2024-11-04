@@ -9,7 +9,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Link } from 'react-router-dom';
 import { getPlaces } from '../api/placelist';
-import { getMeeting } from '../api/meetinglist';
+import { getMeetingListOpen } from '../api/meetinglist';
 import '../styles/MainPage.scss';
 import { MainBanner } from '../components/MainBanner';
 
@@ -37,7 +37,7 @@ function MainPage() {
   // GET) 모임목록데이터 가져오기
   const getMeetingList = async () => {
     try {
-      const data = await getMeeting({
+      const data = await getMeetingListOpen({
         // sort: 'open',
         // page: 1,
         // size: 3,
@@ -140,7 +140,9 @@ function MainPage() {
                   meetingId={meeting.meetingId}
                   meetingTitle={meeting.meetingTitle}
                   meetingCategory={meeting.meetingCategory}
-                  location={meeting.location}
+                  createdAt={meeting.createdAt}
+                  district={meeting.district}
+                  meetingLocation={meeting.meetingLocation}
                   meetingTime={formatDate(meeting.meetingTime)}
                   nickname={meeting.nickname}
                   capacity={meeting.capacity}
