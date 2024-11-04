@@ -55,7 +55,6 @@ const MapSelector: React.FC<MapSelectorProps> = ({
         // 매치된 결과가 있으면 구 이름 반환, 없으면 빈 문자열 반환
         return districtMatch ? districtMatch[1] : '';
       };
-      
       const formattedResults: SearchResult[] = results.map(item => ({
         address: item.name,
         district : extractDistrict(item.address),
@@ -86,8 +85,8 @@ const MapSelector: React.FC<MapSelectorProps> = ({
     setSelectedLocation(result);
     setSearchInput(result.address);
     setIsDropdownOpen(false);
-    onChangeD(result.address);
-    onChangeL(result.district);
+    onChangeD(result.district);
+    onChangeL(result.address);
   };
 
   return (
