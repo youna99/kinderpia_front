@@ -107,7 +107,10 @@ export default function Header() {
             )}
             <div className="project-info inner">
               <div className="footer-info">
-                <a href="https://github.com/SeSAC-3rd-Kinderpia">
+                <a
+                  href="https://github.com/SeSAC-3rd-Kinderpia"
+                  title="킨더피아 깃허브로 이동"
+                >
                   <span className="xi-github-alt"></span>
                   <span className="footer-infotxt">github</span>
                 </a>
