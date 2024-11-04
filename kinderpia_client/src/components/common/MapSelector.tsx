@@ -10,6 +10,7 @@ interface MapSelectorProps {
   district: string;
   detailAddress:string;
   onChangeL: (address: string) => void;
+  onChangeA: (detailAddress:string) =>void;
   onChangeD: (district: string) => void;
 }
 
@@ -26,6 +27,7 @@ const MapSelector: React.FC<MapSelectorProps> = ({
   district,
   detailAddress,
   onChangeL,
+  onChangeA,
   onChangeD
 }) => {
   const [searchInput, setSearchInput] = useState("");
@@ -48,7 +50,6 @@ const MapSelector: React.FC<MapSelectorProps> = ({
     try {
       const results = await searchLocation(searchInput);
       // 응답 데이터를 SearchResult[] 형식으로 변환
-      console.log(' >>>>>>> ' ,results);
       const extractDistrict = (address: string | null | undefined): string => {
         // 주소가 없거나 빈 문자열인 경우 처리
         if (!address) return '';
@@ -66,7 +67,6 @@ const MapSelector: React.FC<MapSelectorProps> = ({
         latitude: item.coordinates.lat,
         longitude: item.coordinates.lng
       }));
-      
       setSearchResults(formattedResults);
       setIsDropdownOpen(true);
     } catch (error) {
@@ -91,6 +91,7 @@ const MapSelector: React.FC<MapSelectorProps> = ({
     setSearchInput(result.address);
     setIsDropdownOpen(false);
     onChangeD(result.district);
+    onChangeA(result.detailAddress);
     onChangeL(result.address);
   };
 
