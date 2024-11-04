@@ -18,6 +18,7 @@ const data: CreateMeetingFormData = {
   meetingTitle: '에버랜드 같이 가요~!',
   meetingCategoryId: 1,
   totalCapacity: 5,
+  district: '',
   isLimited: true,
   meetingLocation: '용산구',
   meetingTime: '2024-10-30 10:00',

@@ -30,12 +30,14 @@ const MeetingCreatePage = () => {
     meetingCategoryId: 1,
     meetingTitle: '',
     totalCapacity: 1,
+    district : '',
     isLimited: false,
     meetingLocation: '',
     meetingTime: '',
     meetingContent: '',
     isAuthType: false
   });
+
   // 컴포넌트 마운트 시 userId 설정
   useEffect(() => {
     const setUserId = async () => {
@@ -135,7 +137,9 @@ const MeetingCreatePage = () => {
         />
         <MapSelector 
           location={CreateMeetingFormData.meetingLocation}
-          onChange={(value) => setFormData(prev => ({...prev, meetingLocation: value}))}
+          district={CreateMeetingFormData.district}
+          onChangeL={(value) => setFormData(prev => ({...prev, meetingLocation: value}))}
+          onChangeD={(value) => setFormData(prev => ({...prev, district : value}))}
         />
         <CalenderSelector 
           meetingTime={CreateMeetingFormData.meetingTime}

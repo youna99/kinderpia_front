@@ -7,10 +7,11 @@ import {
 } from '../types/meeting';
 import { requestHeader } from './requestHeader';
 
-export const getMeeting = async (meetingId : number) => {
+export const getMeeting = async ( meetingId : number) => {
   const response = await requestHeader.get(
-    `/api/meetings/${meetingId}`
+    `/api/meeting/${meetingId}`
   );
+  
   return response.data;
 };
 
