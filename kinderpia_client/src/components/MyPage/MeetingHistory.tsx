@@ -13,53 +13,56 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
   const [filter, setFilter] = useState<string>('all'); // 기본값을 'all'로 설정
 
   //더미데이터
-  useEffect(() => {
-    const loadInitialData = () => {
-      setMeetings(dummyMeetingList);
-    };
-    loadInitialData();
-  }, []);
-
   // useEffect(() => {
-  //   const fetchMeetings = async () => {
-  //     try {
-  //       if (!userId) return;
-
-  //       let response;
-  //       if (filter === 'all') {
-  //         response = await axios.get(
-  //           `http://localhost:8080/api/user/meeting/list/${userId}`,
-  //           { withCredentials: true }
-  //         );
-  //       } else if (filter === 'created') {
-  //         response = await axios.get(
-  //           `http://localhost:8080/api/user/meeting/leader/list/${userId}`,
-  //           { withCredentials: true }
-  //         );
-  //       } else if (filter === 'ongoing') {
-  //         const allMeetings = await axios.get(
-  //           `http://localhost:8080/api/user/meeting/list/${userId}`,
-  //           { withCredentials: true }
-  //         );
-  //         response = {
-  //           data: {
-  //             meetings: allMeetings.data.meetings.filter(
-  //               (meeting: MettingListInfo) => meeting.meetingStatus === '모집중'
-  //             ),
-  //           },
-  //         };
-  //       }
-
-  //       if (response) {
-  //         setMeetings(response.data.meetings);
-  //       }
-  //     } catch (error) {
-  //       console.error('모임 목록 로드 중 오류 발생:', error);
-  //     }
+  //   const loadInitialData = () => {
+  //     setMeetings(dummyMeetingList);
   //   };
+  //   loadInitialData();
+  // }, []);
 
-  //   fetchMeetings();
-  // }, [userId, filter]);
+  useEffect(() => {
+    const fetchMeetings = async () => {
+      try {
+        if (!userId) return;
+
+        let response;
+        if (filter === 'all') {
+          response = await axios.get(
+            `http://localhost:8080/api/user/meeting/list/${userId}?page=1&size=10`,
+            { withCredentials: true }
+          );
+          console.log('전체모임데이터', response.data);
+        } else if (filter === 'created') {
+          response = await axios.get(
+            `http://localhost:8080/api/user/meeting/leader/list/${userId}`,
+            { withCredentials: true }
+          );
+          console.log('내가만든 모임데이터', response);
+        } else if (filter === 'ongoing') {
+          const allMeetings = await axios.get(
+            `http://localhost:8080/api/user/meeting/list/${userId}`,
+            { withCredentials: true }
+          );
+          console.log('모집중 모임데이터', response);
+          response = {
+            data: {
+              meetings: allMeetings.data.meetings.filter(
+                (meeting: MettingListInfo) => meeting.meetingStatus === '모집중'
+              ),
+            },
+          };
+        }
+
+        if (response) {
+          setMeetings(response.data.data);
+        }
+      } catch (error) {
+        console.error('모임 목록 로드 중 오류 발생:', error);
+      }
+    };
+
+    fetchMeetings();
+  }, [userId, filter]);
 
   return (
     <section id="mymeeting">
@@ -75,7 +78,7 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
         </div>
       </div>
       <div className="meeting-list">
-        {meetings.map((meeting) => (
+        {/* {meetings.map((meeting) => (
           <MeetingList
             key={meeting.meetingId}
             meetingId={meeting.meetingId}
@@ -88,7 +91,7 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
             totalCapacity={meeting.totalCapacity}
             meetingStatus={meeting.meetingStatus}
           />
-        ))}
+        ))} */}
       </div>
     </section>
   );

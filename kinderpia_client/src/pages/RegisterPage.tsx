@@ -143,7 +143,7 @@ export default function RegisterPage() {
         withCredentials: true,
       });
       showAlert('success', '회원가입에 성공했습니다!');
-      navigate('user/login');
+      navigate('/user/login');
     } catch (error) {
       showAlert('error', '회원가입에 실패했습니다. 다시 시도해주세요.');
     }
