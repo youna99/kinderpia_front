@@ -5,15 +5,15 @@ import '../../../styles/meeting/detailpage/MeetingWh.scss';
 import StaticMapView from '../../common/StaticMapView';
 
 interface MeetingWhProps{
-  location? :string;
-  selectedDate? : string;
-  selectedTime? : string;
+  meetingLocation? :string;
+  meetingTime? : string;
+  detailAddress? :string;
 }
 
 const MeetingWh: React.FC<MeetingWhProps> = ({
-  location,
-  selectedDate,
-  selectedTime
+  meetingLocation,
+  meetingTime,
+  detailAddress
 }) => {
   return (
     <div className='meeting-wh-container'>
@@ -22,14 +22,14 @@ const MeetingWh: React.FC<MeetingWhProps> = ({
       </div>
       <hr className='hr1'/>
       <StaticMapView
-        location={location}
+        location={detailAddress}
       />
       <div className='meeting-wh-text'>
         <p className='meeting-wh-text-content meeting-where'>
-          <span className='meeting-wh-text-content-title'>모임 장소 : </span>{location}
+          <span className='meeting-wh-text-content-title'>모임 장소 : </span>{meetingLocation}
         </p>
         <p className='meeting-wh-text-content meeting-when'>
-          <span>모임 시간 : </span>{selectedDate}   {selectedTime}
+          <span>모임 시간 : </span>{meetingTime}
         </p>
       </div>
       <hr className='hr2'/>

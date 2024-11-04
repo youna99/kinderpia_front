@@ -31,11 +31,12 @@ const MeetingCreatePage = () => {
     meetingTitle: '',
     totalCapacity: 1,
     district : '',
-    isLimited: false,
+    limited: false,
     meetingLocation: '',
     meetingTime: '',
     meetingContent: '',
-    isAuthType: false
+    detailAddress: '',
+    authType: false
   });
 
   // 컴포넌트 마운트 시 userId 설정
@@ -130,13 +131,14 @@ const MeetingCreatePage = () => {
         <ParticipateInput 
           value={CreateMeetingFormData.totalCapacity}
           onChange={handleParticipantsChange}
-          hasLimit={CreateMeetingFormData.isLimited}
+          hasLimit={CreateMeetingFormData.limited}
           onLimitChange={handleParticipantsLimitChange}
           min={1}
           max={10}
         />
         <MapSelector 
           location={CreateMeetingFormData.meetingLocation}
+          detailAddress={CreateMeetingFormData.detailAddress}
           district={CreateMeetingFormData.district}
           onChangeL={(value) => setFormData(prev => ({...prev, meetingLocation: value}))}
           onChangeD={(value) => setFormData(prev => ({...prev, district : value}))}
@@ -150,7 +152,7 @@ const MeetingCreatePage = () => {
           onChange={(value) => setFormData(prev => ({...prev, meetingContent: value}))}
         />
         <JoinMethodInput
-          value={CreateMeetingFormData.isAuthType}
+          value={CreateMeetingFormData.authType}
           onChange={handleJoinMethodChange}
         />
         <CommonButton1        
