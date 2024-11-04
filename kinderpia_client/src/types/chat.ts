@@ -1,12 +1,10 @@
-interface ChatRoomInfos {
+export interface ChatRoomListInfo {
     chatroomId : number;
     meetingId : number;
     meetingTitle : string;
     lastMessage : string;
-}
-
-export interface ChatRoomListInfo extends ChatRoomInfos {
     meetingCategory : string;
+    meetingHeader : number;
     totalCapacity : number;
     isActive : boolean;
 }

@@ -5,18 +5,19 @@ import "../../styles/chat/ChatMembersMenu.scss";
 import { useEffect } from "react";
 import { postLeaveMeeting } from "../../api/meeting";
 import { setSelected } from "../../store/chatRoomsSlice";
-import { confirmAlert, simpleAlert } from "../../utils/alert";
+import { confirmAlert, showAlert, simpleAlert } from "../../utils/alert";
+import { extractUserIdFromCookie } from "../../utils/extractUserIdFromCookie";
 
 interface ChatMenuProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  open : boolean;
+  open: boolean;
 }
 
 // 채팅 참여 멤버 컴포넌트(설정과비슷?)
 export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
   const { chatroom } = useSelector((state: RootState) => state.chat);
-  console.log(open);
-  
+  const userId = Number(extractUserIdFromCookie());
+  console.log(chatroom);
 
   useEffect(() => {
     // 멤버 컴포넌트 열리면 채팅방 대화창 스크롤 막기
@@ -25,13 +26,13 @@ export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
     ) as HTMLDivElement | null;
 
     if (chatroom) {
-      // chatroom.style.overflowY = open ? "hidden" : "auto";
+      chatroom.style.overflowY = open ? "hidden" : "auto";
     }
 
     return () => {
       if (chatroom) {
-        // chatroom.style.overflowY = "auto";
-      } 
+        chatroom.style.overflowY = "auto";
+      }
     };
   }, [open]);
 
@@ -43,25 +44,33 @@ export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
     setOpen(false);
   };
 
-  const handleeLeaveMeeting = async (meetingId:number) => {
+  const handleeLeaveMeeting = async (meetingId: number) => {
+    if (userId === chatroom?.meetingHeader) {
+      showAlert("warning", "모임장은 모임을 떠날 수 없습니다.");
+      return;
+    }
+
     // 모임 떠날거냐고 물어보는거
-    const confirmed = await confirmAlert('warning', '이 모임을 떠나시겠습니까?')
-    if(confirmed) {
+    const confirmed = await confirmAlert(
+      "warning",
+      "이 모임을 떠나시겠습니까?"
+    );
+    if (confirmed) {
       try {
-        const res = await postLeaveMeeting(meetingId)
-        if(res?.status === 200){
+        const res = await postLeaveMeeting(meetingId);
+        if (res?.status === 200) {
           // 요청 후 해당되는 대화방을 떠나고(목록에서 삭제), 대화방을 선택해 달라고 하는 UI 보여줘야함
-          await simpleAlert('success', '모임을 떠났습니다.');
+          simpleAlert("success", "모임을 떠났습니다.");
           setSelected(false);
         }
       } catch (error) {
         console.error(error);
       }
-    } 
+    }
   };
 
   return (
-    <div className={`chatmenu-container ${open? 'open' : ''}`}>
+    <div className={`chatmenu-container ${open ? "open" : ""}`}>
       <div className="chatmenu-header">
         <div className="chatmenu-info">
           <span>멤버 보기</span>
@@ -80,10 +89,12 @@ export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
         ))}
       </ul>
       <div className="chatmenu-footer">
-        <button onClick={() => handleeLeaveMeeting(meetingId)}>
-          <span className="xi-log-out"></span>
-          <span>모임 나가기</span>
-        </button>
+        {userId === chatroom?.meetingHeader ? null : (
+          <button onClick={() => handleeLeaveMeeting(meetingId)}>
+            <span className="xi-log-out"></span>
+            <span>모임 나가기</span>
+          </button>
+        )}
       </div>
     </div>
   );

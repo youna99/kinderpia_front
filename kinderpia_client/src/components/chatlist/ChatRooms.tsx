@@ -13,8 +13,6 @@ export default function ChatRooms() {
 
   const dispatch = useDispatch();
   const { rooms } = useSelector((state: RootState) => state.chatRooms);
-  console.log(rooms);
-  
 
   const scrollRef = useRef<HTMLUListElement>(null);
   const observeRef = useRef<HTMLDivElement>(null);
@@ -30,13 +28,12 @@ export default function ChatRooms() {
         // 단일 채팅방 조회
         const res = await getChatRoom(jwt, chatroomId);
         if (res?.status === 200) {
-          console.log('chat enter',res);
-          
           const chatInfo: ChatRoomInfo = res.data;
           dispatch(setChatInfo(chatInfo));
           // 채팅방의 메세지 조회
           const res2 = await getChatMessages(jwt, chatroomId, msgPage);
-          dispatch(setMessages(res2.data.data.chatmsgList));
+          const chatMsgList = [...res2.data.data.chatmsgList].reverse()
+          dispatch(setMessages(chatMsgList));
           dispatch(setSelected(true));
         }
       } catch (error) {
