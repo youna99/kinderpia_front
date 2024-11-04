@@ -17,8 +17,8 @@ const MeetingActionJoin: React.FC<MeetingActionJoinProps> = ({
   const [maxCount, setMaxCount] = useState(1);
 
   useEffect(() => {
-    if (data?.maxParticipants && data?.participants) {
-      const availableCount = data.maxParticipants - data.participants;
+    if (data?.totalCapacity && data?.participants) {
+      const availableCount = data.totalCapacity - data.participants;
       setMaxCount(Math.max(1, availableCount));
     }
   }, [data]);

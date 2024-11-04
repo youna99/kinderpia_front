@@ -30,6 +30,7 @@ const PlacePage: React.FC = () => {
   const [currentSearchTerm, setCurrentSearchTerm] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [sortBy, setSortBy] = useState<SortType>(null);
+  
   // 무한 스크롤을 위한 상태 추가
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);

@@ -18,11 +18,13 @@ const data: CreateMeetingFormData = {
   meetingTitle: '에버랜드 같이 가요~!',
   meetingCategoryId: 1,
   totalCapacity: 5,
-  isLimited: true,
+  district: '',
+  detailAddress:'',
+  limited: true,
   meetingLocation: '용산구',
   meetingTime: '2024-10-30 10:00',
   meetingContent: '에버랜드 같이 갈 사람 구해요~!!!',
-  isAuthType: true,
+  authType: true,
 };
 
 function MeetingUpdatePage() {
@@ -34,7 +36,7 @@ function MeetingUpdatePage() {
   const [updateFormData, setUpdateFormData] = useState<UpdateMeetingFormData>({
     meetingTitle: initialMeetingData.meetingTitle,
     totalCapacity: initialMeetingData.totalCapacity,
-    hasParticipantsLimit: initialMeetingData.isLimited,
+    hasParticipantsLimit: initialMeetingData.limited,
     description: initialMeetingData.meetingContent,
   }); // 초기값 설정
 
@@ -115,7 +117,7 @@ function MeetingUpdatePage() {
           }
         />
         <JoinMethodInput
-          value={initialMeetingData.isAuthType}
+          value={initialMeetingData.authType}
           disabled={true}
           isRequired={false}
         />

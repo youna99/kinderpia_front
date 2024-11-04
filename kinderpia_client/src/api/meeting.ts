@@ -4,8 +4,17 @@ import {
   CategoryResponse,
   UpdateMeetingFormData,
   MeetingJoinData,
+  MeetingDetailData,
 } from '../types/meeting';
 import { requestHeader } from './requestHeader';
+
+export const getMeeting = async (meetingId: number): Promise<MeetingDetailData> => {
+  const response = await requestHeader.get(
+    `/api/meeting/${meetingId}`
+  );
+  
+  return response.data.data;
+};
 
 export const postMeeting = async (
   data: CreateMeetingFormData
@@ -25,9 +34,6 @@ export const getCategory = async (): Promise<String[]> => {
   );
   return response.data.categories;
 };
-
-
-
 
 export const putMeeting = async (
   meetingid: number,
@@ -54,7 +60,6 @@ export const postJoinMeeting = async (
   });
   return response.data;
 };
-
 
 // 모든 API 함수들을 하나의 객체로 내보내기
 export const meetingApi = {

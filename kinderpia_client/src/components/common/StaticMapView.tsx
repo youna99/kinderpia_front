@@ -23,6 +23,8 @@ const StaticMapView: React.FC<MapViewProps> = ({
     const fetchCoordinates = async () => {
       if (!location) return;
       
+      console.log(location);
+      
       setIsLoading(true);
       try {
         const result = await getCoordinate(location);

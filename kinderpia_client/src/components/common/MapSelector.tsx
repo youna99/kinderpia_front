@@ -7,23 +7,33 @@ import '../../styles/meeting/createpage/MapSelector.scss';
 
 interface MapSelectorProps {
   location: string;
-  onChange: (address: string) => void;
+  district: string;
+  detailAddress:string;
+  onChangeL: (address: string) => void;
+  onChangeD: (district: string) => void;
 }
 
 interface SearchResult {
   address: string;
+  district : string;
+  detailAddress : string;
   latitude: number;
   longitude: number;
 }
 
 const MapSelector: React.FC<MapSelectorProps> = ({ 
   location,
-  onChange 
+  district,
+  detailAddress,
+  onChangeL,
+  onChangeD
 }) => {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<SearchResult>({
     address: "",
+    district: '',
+    detailAddress: '',
     latitude: 37.5662952,
     longitude: 126.9779451
   });
@@ -38,8 +48,21 @@ const MapSelector: React.FC<MapSelectorProps> = ({
     try {
       const results = await searchLocation(searchInput);
       // 응답 데이터를 SearchResult[] 형식으로 변환
+      console.log(' >>>>>>> ' ,results);
+      const extractDistrict = (address: string | null | undefined): string => {
+        // 주소가 없거나 빈 문자열인 경우 처리
+        if (!address) return '';
+        
+        // "구" 패턴 찾기 (서울특별시/경기도 등의 구)
+        const districtMatch = address.match(/\s([^\s]+구)\s/);
+        
+        // 매치된 결과가 있으면 구 이름 반환, 없으면 빈 문자열 반환
+        return districtMatch ? districtMatch[1] : '';
+      };
       const formattedResults: SearchResult[] = results.map(item => ({
         address: item.name,
+        district : extractDistrict(item.address),
+        detailAddress: item.address || item.roadAddress,
         latitude: item.coordinates.lat,
         longitude: item.coordinates.lng
       }));
@@ -67,7 +90,8 @@ const MapSelector: React.FC<MapSelectorProps> = ({
     setSelectedLocation(result);
     setSearchInput(result.address);
     setIsDropdownOpen(false);
-    onChange(result.address);
+    onChangeD(result.district);
+    onChangeL(result.address);
   };
 
   return (

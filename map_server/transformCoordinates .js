@@ -2,9 +2,6 @@ const axios = require('axios');
 
 async function transformCoordinates(address, roadAddress) {
   try {
-    console.log('address', address);
-    console.log('roadAddress', roadAddress);
-
     let response = await axios.get(
       'https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode', {
         params: {
