@@ -43,8 +43,8 @@ export default function Header() {
   const handleLogout = async () => {
     const confirmed = await confirmAlert('warning', '로그아웃 하시겠습니까?');
     if (confirmed) {
-      // 로그아웃 처리 로직 추가
-      // 예: 쿠키 삭제, 상태 업데이트 등
+      // 쿠키삭제
+      document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       simpleAlert('success', '로그아웃 되었습니다.', 'top-end');
     }
     return;
