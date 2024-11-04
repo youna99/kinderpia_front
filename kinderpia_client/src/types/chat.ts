@@ -21,6 +21,7 @@ export interface ChatRoomInfo {
     chatroomId : number;
     meetingId : number;
     meetingTitle : string;
+    meetingHeader : number;
     lastMessage : string;
     active : boolean;
     capacity : number;

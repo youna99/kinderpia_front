@@ -2,8 +2,10 @@
 
 .chatlist {
   padding: 0 1.6rem;
-  position: relative;
-  top: 5rem;
+  position: fixed;
+  top: 8rem;
+  width: $lg;
+  margin: auto;
   .empty-room {
     width: 100px;
     margin: auto;
@@ -15,7 +17,7 @@
       width: 50%;
       position: relative;
       overflow-y: auto;
-      height: calc(100vh - 13rem);
+      height: calc(100vh - 16rem);
       overflow-x: hidden;
     }
     .chatroom-wrapper {
@@ -31,6 +33,7 @@
 @media (max-width: $lg) {
   .chatlist {
     padding: 0;
+    width: 100%;
     .chatlist-wrapper {
       > section {
         &:first-child {
@@ -47,7 +50,7 @@
 @media (max-width: $md) {
   .chatlist {
     height: calc(100vh - 16rem);
-    top: 2rem;
+    top: 8rem;
     .chatlist-wrapper {
       width: 100%;
       height: 100%;
@@ -55,7 +58,7 @@
       > section {
         &:first-child {
           width: 100%;
-          height: 6.1rem;
+          height: 5rem;
         }
         &:last-child {
           width: 100%;
@@ -63,7 +66,7 @@
       }
       .chatroom-wrapper {
         border-bottom: 1px solid #ccc;
-        overflow-y: none;
+        overflow-y: hidden;
         h2 {
           display: none;
         }

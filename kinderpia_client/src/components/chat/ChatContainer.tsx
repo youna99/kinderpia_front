@@ -22,8 +22,8 @@ export default function ChatContainer({ chatroomId }: ChatRoomProps) {
   return (
     <div className="chat-container">
       {
-        messages?.map((message) => (
-          <ChatMessage messageInfo={message} key={message.chatmsgId}/>
+        messages?.map((message, index) => (
+          <ChatMessage messageInfo={message} key={index}/>
         ))
       }
       <div ref={endMessageRef}></div>

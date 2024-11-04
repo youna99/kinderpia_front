@@ -9,12 +9,16 @@ import { setSelected } from "../../store/chatRoomsSlice";
 import { ChatRoomInfo } from "../../types/chat";
 
 export default function ChatRooms() {
-  const [page, setPage] = useState(1);
+  const [msgPage, setMsgPage] = useState(1);
 
   const dispatch = useDispatch();
   const { rooms } = useSelector((state: RootState) => state.chatRooms);
+  console.log(rooms);
+  
 
   const scrollRef = useRef<HTMLUListElement>(null);
+  const observeRef = useRef<HTMLDivElement>(null);
+
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
@@ -26,12 +30,12 @@ export default function ChatRooms() {
         // 단일 채팅방 조회
         const res = await getChatRoom(jwt, chatroomId);
         if (res?.status === 200) {
-          const chatInfo:ChatRoomInfo = res.data
+          console.log('chat enter',res);
+          
+          const chatInfo: ChatRoomInfo = res.data;
           dispatch(setChatInfo(chatInfo));
           // 채팅방의 메세지 조회
-          const res2 = await getChatMessages(jwt, chatroomId, page);
-          console.log('채팅방 메세지 조회', res2);
-          
+          const res2 = await getChatMessages(jwt, chatroomId, msgPage);
           dispatch(setMessages(res2.data.data.chatmsgList));
           dispatch(setSelected(true));
         }
@@ -41,7 +45,6 @@ export default function ChatRooms() {
     },
     [dispatch]
   );
-
 
   const chatRoomItems = useMemo(() => {
     return rooms.map((room) => (
@@ -90,6 +93,7 @@ export default function ChatRooms() {
       >
         {rooms.length > 0 && chatRoomItems}
       </ul>
+      {rooms.length > 11 && <div ref={observeRef}>더보기....</div>}
     </section>
   );
 }

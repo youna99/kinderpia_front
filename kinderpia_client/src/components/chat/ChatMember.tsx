@@ -9,7 +9,7 @@ export default function ChatMember({member} : ChatMemberProp) {
   return (
     <li className='chatmember-list'>
       <figure className='chatmember-img'>
-        <img src={member.profileImg} alt="프로필 이미지" />
+        <img src={member.profileImg ? member.profileImg : '/images/userIcon.png'} alt="프로필 이미지" />
       </figure>
       <div className='chatmember-name'>{member.nickname}</div>
     </li>
