@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ReviewData, ReviewResponse } from '../../types/reiew';
+import { Review, ReviewsResponse } from '../../types/reiew';
 import { getReviewList } from '../../api/review';
 import '../../styles/review/ReviewList.scss';
 import ReviewItem from './ReviewItem'
@@ -8,9 +8,8 @@ interface ReviewListProps {
   placeId: string;
 }
 
-// ReviewList.tsx
 const ReviewList: React.FC<ReviewListProps> = ({ placeId }) => {
-  const [reviews, setReviews] = useState<ReviewData[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -23,23 +22,12 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId }) => {
         const response = await getReviewList(Number(placeId));
         console.log('response >>>> ', response);
         
-        // 서버 응답을 ReviewItem이 기대하는 형식으로 변환
-        if (Array.isArray(response.data)) {
-          const formattedReviews = response.data.map(review => ({
-            review: {
-              reviewId: review.reviewId,
-              star: review.star,
-              reviewContent: review.reviewContent,
-              createdAt: review.createdAt,
-              updatedAt: review.updatedAt,
-              deleted: review.deleted
-            },
-            nickname: "작성자",
-            profileImg: "",
-            likeCount: 0, 
-            blacklist: false
-          }));
-          setReviews(formattedReviews);
+        // 중첩된 데이터 구조에 맞게 접근
+        const reviewData = response.data;
+        if (reviewData.reviews) {
+          setReviews(reviewData.reviews);
+          console.log('reviews >>>> ', reviewData.reviews);
+          console.log('averageStar >>>> ', reviewData.averageStar);
         } else {
           setReviews([]);
         }
@@ -61,10 +49,10 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId }) => {
   return (
     <div className='review-list-container'>
       <hr/>
-      {reviews.map((review) => (
+      {reviews.map((reviewData) => (
         <ReviewItem
-          key={review.review.reviewId}
-          data={review}
+          key={reviewData.review.reviewId}
+          data={reviewData}
         />
       ))}
     </div>

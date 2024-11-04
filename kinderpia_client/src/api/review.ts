@@ -1,8 +1,8 @@
 import { requestHeader } from "./requestHeader";
-import { ReviewFormDTO, ReviewResponse } from "../types/reiew";
+import { ReviewsResponse, ReviewFormDTO } from "../types/reiew";
 
-export const getReviewList = async (placeId: number): Promise<ReviewResponse> => {
-  const response = await requestHeader.get<ReviewResponse>(
+export const getReviewList = async (placeId: number) => {
+  const response = await requestHeader.get(
     `/api/review/${placeId}`
   );
   return response.data;
