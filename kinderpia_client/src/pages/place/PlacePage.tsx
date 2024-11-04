@@ -16,10 +16,10 @@ import '../../styles/place/PlacePage.scss';
 import { getDefaultPlaceList, getSearchPlaceList } from '../../api/placelist';
 import { defaultPostReq } from '../../types/place';
 
-interface SearchResponse {
-  places: PlaceListInfo[];
-  total: number;
-}
+// interface SearchResponse {
+//   places: PlaceListInfo[];
+//   total: number;
+// }
 
 type SortType = 'rating' | 'time' | null;
 
@@ -36,22 +36,28 @@ const PlacePage: React.FC = () => {
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const observer = useRef<IntersectionObserver>();
-  const lastPlaceElementRef = useRef<HTMLDivElement>(null);
+  // const lastPlaceElementRef = useRef<HTMLDivElement>(null);
+
+  // meeting-header-title 요소를 참조할 ref 생성
+  const headerTitleRef = useRef<HTMLDivElement>(null);
 
   // 무한 스크롤 observer 설정
-  const lastPlaceRef = useCallback((node: HTMLDivElement) => {
-    if (isLoading) return;
-    
-    if (observer.current) observer.current.disconnect();
-    
-    observer.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && hasMore) {
-        setPage(prevPage => prevPage + 1);
-      }
-    });
-    
-    if (node) observer.current.observe(node);
-  }, [isLoading, hasMore]);
+  const lastPlaceRef = useCallback(
+    (node: HTMLDivElement) => {
+      if (isLoading) return;
+
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, hasMore]
+  );
 
   // 초기 데이터 로딩
   useEffect(() => {
@@ -87,19 +93,16 @@ const PlacePage: React.FC = () => {
         setIsLoading(true);
         if (currentSearchTerm) {
           const reqData: defaultPostReq = {
-            sort: sortBy || 'date',
-            page,
-            size: 6,
             keyword: currentSearchTerm,
           };
           const response = await getSearchPlaceList(reqData);
           const newPlaces = response.data.content;
-          setPlaces(prev => [...prev, ...newPlaces]);
+          setPlaces((prev) => [...prev, ...newPlaces]);
           setHasMore(newPlaces.length === 6);
         } else {
           const result = await getDefaultPlaceList(page, 6);
           const newPlaces = result.data.content;
-          setPlaces(prev => [...prev, ...newPlaces]);
+          setPlaces((prev) => [...prev, ...newPlaces]);
           setHasMore(newPlaces.length === 6);
         }
       } catch (error) {
@@ -112,61 +115,57 @@ const PlacePage: React.FC = () => {
     fetchMorePlaces();
   }, [page, currentSearchTerm, sortBy]);
 
-  // 검색 함수 수정
-  const handleSearch = async (searchTerm: string, sort?: SortType) => {
+  // 검색 함수
+  const handleSearch = async (
+    searchTerm: string,
+    category: string,
+    sort?: SortType
+  ) => {
     setIsSearching(true);
     setCurrentSearchTerm(searchTerm);
     setPage(1); // 검색 시 페이지 초기화
 
     try {
       const reqData: defaultPostReq = {
-        sort: sort || 'date',
-        page: 1,
-        size: 6,
+        category: category,
         keyword: searchTerm,
       };
 
+      console.log('reqData>>>', reqData);
+
       const response = await getSearchPlaceList(reqData);
+      console.log('response >>>', response.data.content);
+
       setPlaces(response.data.content); // 검색 시 기존 데이터 초기화
       setHasMore(response.data.content.length === 6);
+
+      console.log('headerTitleRef.current', headerTitleRef.current);
+
+      // 검색 후 meeting-header-title 요소로 포커스 이동
+      if (headerTitleRef.current) {
+        headerTitleRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }
     } catch (error) {
       console.error('검색 중 오류 발생:', error);
     } finally {
       setIsSearching(false);
     }
   };
-  // PlacePage.tsx
-  useEffect(() => {
-    const fetchDefaultPlaces = async () => {
-      try {
-        const result = await getDefaultPlaceList();
-        if (result) {
-          setPlaces(result.data.content); 
-        } else {
-          setPlaces(dummyPlaceList);
-        }
-      } catch (error) {
-        console.error('장소 목록 로딩 중 에러:', error);
-        console.log('에러로 인해 더미데이터 사용');
-        setPlaces(dummyPlaceList);
-      }
-    };
-
-    fetchDefaultPlaces();
-  }, []);
-
 
   // 지역 선택 핸들러
   const handleDistrictClick = (district: string) => {
     setSelectedDistrict(district);
-    handleSearch(district, sortBy);
+    handleSearch(district, 'address', sortBy);
   };
 
   // 정렬 핸들러
   const handleSort = (type: SortType) => {
     setSortBy(type);
     setIsDropdownOpen(false);
-    handleSearch(currentSearchTerm, type);
+    handleSearch(currentSearchTerm, 'title', type);
   };
 
   return (
@@ -180,11 +179,11 @@ const PlacePage: React.FC = () => {
       <div className="meeting-search">
         <SearchInput
           placeholder="장소 검색하기"
-          onSearch={handleSearch}
+          onSearch={(searchTerm) => handleSearch(searchTerm, 'title', sortBy)}
           isLoading={isSearching}
         />
       </div>
-      <div className="meeting-header">
+      <div className="meeting-header" ref={headerTitleRef}>
         <div className="meeting-header-title">
           장소 검색
           {currentSearchTerm && (
@@ -195,13 +194,15 @@ const PlacePage: React.FC = () => {
         </div>
         <div className="meeting-header-filter">
           <div className="dropdown">
-            <button 
+            <button
               className="dropdown-toggle"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-              {sortBy === 'rating' ? '평점순' : 
-              sortBy === 'time' ? '시간순' : 
-              '필터보기'}
+              {sortBy === 'rating'
+                ? '평점순'
+                : sortBy === 'time'
+                ? '시간순'
+                : '필터보기'}
             </button>
             {isDropdownOpen && (
               <div className="dropdown-menu">
@@ -212,21 +213,23 @@ const PlacePage: React.FC = () => {
           </div>
         </div>
       </div>
-      <hr/>
+      <hr />
       {isSearching ? (
         <div className="meeting-search-status">검색 중...</div>
       ) : places.length > 0 ? (
         <div className="meeting-list-item">
           {places.map((place, index) => (
             <div
-              className='meeting-list-item-page'
+              className="meeting-list-item-page"
               key={place.placeId}
               ref={index === places.length - 1 ? lastPlaceRef : null}
             >
               <PlaceList
                 placeId={place.placeId}
                 placeName={place.placeName}
-                placeCategoryName={place.placeCategoryName}
+                placeCategoryName={
+                  place.placeCategoryName || place.placeCtgName
+                }
                 rating={place.rating}
                 paid={place.paid}
                 placeImg={place.placeImg}
