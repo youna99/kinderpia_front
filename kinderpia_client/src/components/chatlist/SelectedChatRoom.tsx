@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Client, Stomp } from "@stomp/stompjs";
+import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 
 import { ChatMessageInfo } from "../../types/chat";
@@ -33,14 +33,9 @@ export default function SelectedChatRoom() {
 
     if (!chatroomId) return;
 
-    // // 소켓 설정
-    // const socket = new SockJS(`ws://localhost:8080/ws`);
-
     clientRef.current = new Client({
       webSocketFactory: () => {
-        const socket = new SockJS(`http://localhost:8080/ws`, null, {
-          transports: ['websocket'],
-        })
+        const socket = new SockJS(`http://localhost:8080/ws`)
         return socket;
       }, // 소켓 연결 반환
       reconnectDelay : 5000,
@@ -59,7 +54,9 @@ export default function SelectedChatRoom() {
         // 채팅방 구독
         clientRef.current?.subscribe(chatTopic, (message) => {
           // 수신 메시지 처리
-          const chatMessage: ChatMessageInfo = JSON.parse(message.body);
+          const chatMessage = JSON.parse(message.body).body.data;
+          console.log('메시지!',chatMessage);
+          
           // 메시지 리덕스에 저장
           dispatch(setMessages([...messages, chatMessage]));
         });
@@ -80,7 +77,7 @@ export default function SelectedChatRoom() {
     return () => {
       clientRef.current?.deactivate();
     };
-  }, [dispatch, chatroomId]);
+  }, [dispatch, chatroomId, messages]);
 
 
   // 메세지 전송 함수

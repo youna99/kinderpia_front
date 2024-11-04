@@ -12,6 +12,8 @@ interface ChatRoomProps {
 export default function ChatContainer({ chatroomId }: ChatRoomProps) {
   // 내가 보낸 메시지, 다른 사람이 보낸 메시지 구분 필요 -> sender 로 하고 나의 메시지는 own 으로 표시
   const { messages } = useSelector((state: RootState) => state.chat);
+  console.log('메세지들',messages);
+  
 
   const endMessageRef = useRef<HTMLDivElement | null>(null);
 
@@ -22,8 +24,8 @@ export default function ChatContainer({ chatroomId }: ChatRoomProps) {
   return (
     <div className="chat-container">
       {
-        messages?.map((message) => (
-          <ChatMessage messageInfo={message} key={message.chatmsgId}/>
+        messages?.map((message, index) => (
+          <ChatMessage messageInfo={message} key={index}/>
         ))
       }
       <div ref={endMessageRef}></div>

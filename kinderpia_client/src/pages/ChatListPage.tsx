@@ -24,7 +24,7 @@ export default function ChatlistPage() {
   const { isEmpty, isSelected } = useSelector(
     (state: RootState) => state.chatRooms
   );
-  const { chatroom } = useSelector((state: RootState) => state.chat);
+  const { chatroom, messages } = useSelector((state: RootState) => state.chat);
   const chatroomId = chatroom?.chatroomId;
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function ChatlistPage() {
   useEffect(() => {
     const jwt = getJwtFromCookies();
     fetchChatList(jwt, page);
-  }, [dispatch, isEmpty, isSelected, chatroomId]);
+  }, [dispatch, isEmpty, isSelected, chatroomId, messages]);
 
   useEffect(() => {
     

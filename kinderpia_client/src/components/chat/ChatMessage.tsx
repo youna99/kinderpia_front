@@ -22,10 +22,10 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const userId = extractUserIdFromCookie();
-  console.log(userId);
-
+  console.log(senderId);
+  
+  // 나머지 렌더링 로직
   // 웹에서는 우클릭, 모바일에서는 길게 눌러서 신고창 열리게 하기
-
   // 우클릭
   const handleContextMenu = (e: React.MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
@@ -56,10 +56,10 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
     return `${ampm} ${formattedHours}:${minutes}`;
   };
 
-  // 로직 변경 필요 -> senderNickname 이 아니라 senderId 로 확인해서 자신인지 아닌지 확인해야함
+  // senderId 로 확인해서 자신인지 아닌지 확인
   return (
     <>
-      {messageType === "CHAT" ? (
+      {messageType ==='CHAT' && senderId ? (
         <div
           className={`message message-${
             senderId === Number(userId) ? "own" : "other"
@@ -67,7 +67,7 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
         >
           {senderId !== Number(userId) ? (
             <figure className="message-profile">
-              <img src={senderProfileImg} alt="profile image" />
+              <img src={senderProfileImg ? senderProfileImg : `/images/userIcon.png`} alt="profile image" />
             </figure>
           ) : null}
           <div className="message-content">
