@@ -19,12 +19,23 @@ const CalanderSelector: React.FC<CalanderSelectorProps> = ({
   );
   const [selectedTime, setSelectedTime] = useState('12:00');
 
-  // 날짜와 시간을 조합하여 ISO 문자열로 변환
+  const formatDateTime = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = '00';
+  
+    // 서버가 요구하는 "yyyy-MM-dd HH:mm:ss" 형식으로 변경
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
+  
   const combineDateTime = (date: Date, timeStr: string): string => {
     const [hours, minutes] = timeStr.split(':');
     const newDate = new Date(date);
     newDate.setHours(parseInt(hours), parseInt(minutes), 0);
-    return newDate.toISOString(); // ISO 형식으로 변환 (서버에서 LocalDateTime으로 파싱 가능)
+    return formatDateTime(newDate);
   };
 
   const handleDateChange = (value: Value) => {
@@ -34,17 +45,19 @@ const CalanderSelector: React.FC<CalanderSelectorProps> = ({
     }
   };
 
-  const handleTimeChange = (timeStr: string) => {
-    setSelectedTime(timeStr);
-    onDateChange(combineDateTime(selectedDate, timeStr));
+  const handleTimeChange = (value: string) => {
+    setSelectedTime(value);
+    onDateChange(combineDateTime(selectedDate, value));
   };
 
-  // // 컴포넌트 마운트 시 초기값 설정
-  // useEffect(() => {
-  //   if (!meetingTime) {
-  //     onDateChange(combineDateTime(selectedDate, selectedTime));
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (meetingTime) {
+      const date = new Date(meetingTime);
+      setSelectedDate(date);
+      const timeString = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+      setSelectedTime(timeString);
+    }
+  }, [meetingTime]);
 
   return (
     <div className="calander-selector-container">

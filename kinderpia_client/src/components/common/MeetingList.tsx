@@ -7,10 +7,12 @@ const MeetingList: React.FC<MettingListInfo> = ({
   meetingId,
   meetingTitle,
   meetingCategory,
-  location,
+  meetingLocation,
   meetingTime,
   nickname,
+  district,
   capacity,
+  createdAt,
   totalCapacity,
   meetingStatus,
 }) => {
@@ -30,7 +32,7 @@ const MeetingList: React.FC<MettingListInfo> = ({
           <span className="category">{meetingCategory}</span>
           <h3 className="meeting-title">{meetingTitle}</h3>
           <div className="meetingInfo">
-            <p className="meetLocation">{location}</p>
+            <p className="meetLocation">{meetingLocation}</p>
             <p className="meetDate">{meetingTime}</p>
           </div>
           <div className="meeting-writer-participants">

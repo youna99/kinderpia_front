@@ -1,6 +1,6 @@
 import { requestHeader } from './requestHeader';
 
-export const getMeeting = async (params: {
+export const getMeetingListOpen = async (params: {
   sort?: string;
   page?: number;
   size?: number;

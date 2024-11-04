@@ -1,11 +1,13 @@
 export interface MettingListInfo {
-  meetingId: number;
-  meetingTitle: string;
-  meetingCategory: string;
-  location: string;
-  meetingTime: string;
-  nickname: string;
   capacity: number;
-  totalCapacity: number;
+  createdAt:string;
+  district: string;
+  meetingCategory: string;
+  meetingId: number;
+  meetingLocation: string;
   meetingStatus: string;
+  meetingTime: string;
+  meetingTitle: string;
+  nickname: string;
+  totalCapacity: number;
 }

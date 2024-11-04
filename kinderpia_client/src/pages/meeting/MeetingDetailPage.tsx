@@ -32,7 +32,6 @@ function MeetingDetailPage() {
       
       try {
         const response = await getMeeting(Number(meetingId));
-        console.log('API Response:', response);
 
         if (response) {
           const result = response;
@@ -52,8 +51,6 @@ function MeetingDetailPage() {
             meetingStatus: result.meetingStatus,
             createdAt: result.createdAt,
           };
-          
-          console.log('Formatted Results:', formattedResults);
           setMeetingData(formattedResults);
           setUserData(dummyMeetingUser2);
         }

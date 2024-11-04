@@ -66,10 +66,10 @@ const MeetingCreatePage = () => {
     }));
   };
 
-  const handleJoinMethodChange = (isAuthType: boolean) => {
+  const handleJoinMethodChange = (authType: boolean) => {
     setFormData(prev => ({
       ...prev,
-      isAuthType
+      authType
     }));
   };
 
@@ -83,12 +83,10 @@ const MeetingCreatePage = () => {
         { field: 'meetingContent', label: '모임 설명' }
       ];
   
-      // 비어있는 필수 필드 찾기
       const emptyFields = requiredFields.filter(
         ({ field }) => !CreateMeetingFormData[field as keyof CreateMeetingFormData]
       );
   
-      // 비어있는 필드가 있으면 알림 후 함수 종료
       if (emptyFields.length > 0) {
         alert(`다음 필드를 입력해주세요: ${emptyFields.map(f => f.label).join(', ')}`);
         return;
@@ -96,7 +94,6 @@ const MeetingCreatePage = () => {
       
       const nowUserId = await extractUserIdFromCookie();
       
-      // userId가 null이면 에러 처리
       if (!nowUserId) {
         alert('로그인이 필요한 서비스입니다.');
         return;
@@ -108,6 +105,8 @@ const MeetingCreatePage = () => {
       
       const result = await meetingApi.postMeeting(data);
       await console.log('data!!!!!!', result);
+
+      navigate(`/meeting/${result.data}`);
     } catch (error) {
       console.log('요청 실패', CreateMeetingFormData);
       throw error;
