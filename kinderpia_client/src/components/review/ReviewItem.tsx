@@ -1,23 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import defaultIcon from '../../assets/images/tempIcon1.png';
 import '../../styles/review/ReviewItem.scss';
 import ReportBox from '../common/ReportBox';
+import { Review } from '../../types/reiew';
 
 interface ReviewItemProps {
-  data: {
-    review: {
-      reviewId: number;
-      star: number;
-      reviewContent: string;
-      createdAt: string;
-      updatedAt: string;
-      deleted: boolean;
-    };
-    nickname: string;
-    profileImg: string;
-    likeCount: number;
-    blacklist: boolean;
-  };
+  data: Review;
 }
 
 const ReviewItem: React.FC<ReviewItemProps> = ({ data }) => {
@@ -28,9 +16,9 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ data }) => {
     console.log('신고 사유:', reason);
     console.log('상세 내용:', message);
     console.log('리뷰 ID:', review.reviewId);
-    
     setShowReportModal(false);
   };
+
   const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
     return (
       <div className='review-item-header-info-wrapper-item-star'>
@@ -43,6 +31,10 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ data }) => {
       </div>
     );
   };
+
+  useEffect(() => {
+    console.log('Review Data:', data);
+  }, [data]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);

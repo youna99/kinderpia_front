@@ -1,4 +1,4 @@
-import {ReviewData} from '../types/reiew';
+// import {ReviewData} from '../types/reiew';
 
 export const transformedReviews = {
     "data": {
