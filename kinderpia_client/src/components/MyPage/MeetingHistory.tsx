@@ -31,7 +31,7 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
             `http://localhost:8080/api/user/meeting/list/${userId}?page=1&size=10`,
             { withCredentials: true }
           );
-          console.log('전체모임데이터', response);
+          console.log('전체모임데이터', response.data);
         } else if (filter === 'created') {
           response = await axios.get(
             `http://localhost:8080/api/user/meeting/leader/list/${userId}`,
@@ -77,8 +77,8 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
           <span className="xi-angle-down-thin dropdown-icon"></span>
         </div>
       </div>
-      {/* <div className="meeting-list">
-        {meetings.map((meeting) => (
+      <div className="meeting-list">
+        {/* {meetings.map((meeting) => (
           <MeetingList
             key={meeting.meetingId}
             meetingId={meeting.meetingId}
@@ -91,8 +91,8 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
             totalCapacity={meeting.totalCapacity}
             meetingStatus={meeting.meetingStatus}
           />
-        ))}
-      </div> */}
+        ))} */}
+      </div>
     </section>
   );
 };
