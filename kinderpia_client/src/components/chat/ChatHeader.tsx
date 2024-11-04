@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import "../../styles/chat/ChatHeader.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";

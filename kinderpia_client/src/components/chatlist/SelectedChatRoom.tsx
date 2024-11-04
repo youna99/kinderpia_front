@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 
-import { ChatMessageInfo } from "../../types/chat";
 import { setMessages } from "../../store/chatSlice";
 import { RootState } from "../../store";
 
@@ -12,7 +11,10 @@ import ChatContainer from "../chat/ChatContainer";
 import ChatHeader from "../chat/ChatHeader";
 import ChatInput from "../chat/ChatInput";
 
-import { extractUserIdFromCookie, getJwtFromCookies } from "../../utils/extractUserIdFromCookie";
+import {
+  extractUserIdFromCookie,
+  getJwtFromCookies,
+} from "../../utils/extractUserIdFromCookie";
 import "../../styles/chatlist/SelectedChatRoom.scss";
 
 // 채팅방 페이지 컴포넌트
@@ -35,12 +37,12 @@ export default function SelectedChatRoom() {
 
     clientRef.current = new Client({
       webSocketFactory: () => {
-        const socket = new SockJS(`http://localhost:8080/ws`)
+        const socket = new SockJS(`http://localhost:8080/ws`);
         return socket;
       }, // 소켓 연결 반환
-      reconnectDelay : 5000,
-      heartbeatIncoming:4000,
-      heartbeatOutgoing:4000,
+      reconnectDelay: 5000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
       connectHeaders: {
         // 토큰 값 넘겨줌
         Authorization: `Bearer ${jwt}`,
@@ -54,7 +56,7 @@ export default function SelectedChatRoom() {
         clientRef.current?.subscribe(chatTopic, (message) => {
           // 수신 메시지 처리
           const chatMessage = JSON.parse(message.body).body.data;
-          
+
           // 메시지 리덕스에 저장
           dispatch(setMessages([...messages, chatMessage]));
         });
@@ -77,11 +79,14 @@ export default function SelectedChatRoom() {
     };
   }, [dispatch, chatroomId, messages]);
 
-
   // 메세지 전송 함수
   const sendMessage = (message: string) => {
     const jwt = getJwtFromCookies();
     const senderId = Number(extractUserIdFromCookie());
+    const now = new Date();
+    const koreaTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
+    const koreaTimeString = koreaTime.toISOString();
+
     if (!chatroomId) return;
     const chatSend = `/app/${chatroomId}/chatmsg`;
     if (clientRef.current?.connected) {
@@ -89,8 +94,8 @@ export default function SelectedChatRoom() {
         chatroomId,
         senderId,
         chatmsgContent: message,
-        createdAt: new Date().toISOString(), // 나중에 한국 기준 시간으로 바꿔줄 것 지금은 외국 시간으로 되어있음
-        messageType : 'CHAT'
+        createdAt: koreaTimeString, // 나중에 한국 기준 시간으로 바꿔줄 것 지금은 외국 시간으로 되어있음
+        messageType: "CHAT",
       };
       clientRef.current.publish({
         destination: chatSend,
@@ -108,7 +113,7 @@ export default function SelectedChatRoom() {
       <ChatHeader />
       {chatroomId ? (
         <>
-          <ChatContainer chatroomId={chatroomId} />
+          <ChatContainer />
           <ChatInput onSendMessage={sendMessage} />
         </>
       ) : null}

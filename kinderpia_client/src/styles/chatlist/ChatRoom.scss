@@ -30,7 +30,13 @@
         font-size: $title2;
         padding-bottom: 0.8rem;
         width: 100%;
+        display: flex;
+        align-items: center;
         @include ellipsisText;
+        svg {
+          width: auto;
+          height: auto;
+        }
       }
       .chatroom-capacity {
         display: flex;

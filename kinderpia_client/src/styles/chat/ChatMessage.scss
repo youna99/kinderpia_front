@@ -9,6 +9,14 @@
     width: 5rem;
     height: 5rem;
     margin-right: 1.5rem;
+    position: relative;
+    svg {
+      position: absolute;
+      top: -1.6rem;
+      left: 1rem;
+      width: auto;
+      height: auto;
+    }
     img {
       width: 100%;
       object-fit: cover;
