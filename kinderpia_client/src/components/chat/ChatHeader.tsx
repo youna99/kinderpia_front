@@ -10,8 +10,6 @@ export default function ChatHeader() {
   const [open, setOpen] = useState(false);
 
   const { chatroom } = useSelector((state: RootState) => state.chat);
-  console.log(chatroom);
-  
 
   if (!chatroom) return <div>채팅방 정보 불러오는 중</div>;
 

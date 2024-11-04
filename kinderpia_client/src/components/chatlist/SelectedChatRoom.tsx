@@ -47,7 +47,6 @@ export default function SelectedChatRoom() {
       },
       debug: (str) => {
         // 디버그 메시지 출력
-        console.log(str);
       },
       onConnect: () => {
         // 소켓 연결 시 호출 함수
@@ -55,7 +54,6 @@ export default function SelectedChatRoom() {
         clientRef.current?.subscribe(chatTopic, (message) => {
           // 수신 메시지 처리
           const chatMessage = JSON.parse(message.body).body.data;
-          console.log('메시지!',chatMessage);
           
           // 메시지 리덕스에 저장
           dispatch(setMessages([...messages, chatMessage]));

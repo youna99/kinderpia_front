@@ -22,7 +22,6 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const userId = extractUserIdFromCookie();
-  console.log(senderId);
   
   // 나머지 렌더링 로직
   // 웹에서는 우클릭, 모바일에서는 길게 눌러서 신고창 열리게 하기

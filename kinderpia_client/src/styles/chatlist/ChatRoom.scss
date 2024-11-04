@@ -21,6 +21,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     width: 75%;
+    @include ellipsisText;
     .chatroom-bx {
       display: flex;
       align-items: center;
@@ -28,6 +29,7 @@
       .chatroom-title {
         font-size: $title2;
         padding-bottom: 0.8rem;
+        width: 100%;
         @include ellipsisText;
       }
       .chatroom-capacity {
@@ -48,6 +50,8 @@
     .chatroom-lastmsg {
       font-size: 1.4rem;
       color: #555;
+      width: 100%;
+      @include ellipsisText;
     }
   }
   &:hover {

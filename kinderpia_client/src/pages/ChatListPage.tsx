@@ -51,7 +51,7 @@ export default function ChatlistPage() {
   useEffect(() => {
     const jwt = getJwtFromCookies();
     fetchChatList(jwt, page);
-  }, [dispatch, isEmpty, isSelected, chatroomId, messages]);
+  }, [dispatch, isEmpty, isSelected, chatroomId, messages, page]);
 
   useEffect(() => {
     
