@@ -102,9 +102,7 @@ const MeetingCreatePage = () => {
       const data: CreateMeetingFormData = {
         ...CreateMeetingFormData,
       };
-      
       const result = await meetingApi.postMeeting(data);
-      await console.log('data!!!!!!', result);
 
       navigate(`/meeting/${result.data}`);
     } catch (error) {
@@ -140,6 +138,7 @@ const MeetingCreatePage = () => {
           detailAddress={CreateMeetingFormData.detailAddress}
           district={CreateMeetingFormData.district}
           onChangeL={(value) => setFormData(prev => ({...prev, meetingLocation: value}))}
+          onChangeA={(value) => setFormData(prev => ({...prev, detailAddress : value}))}
           onChangeD={(value) => setFormData(prev => ({...prev, district : value}))}
         />
         <CalenderSelector 
