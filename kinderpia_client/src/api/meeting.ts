@@ -4,15 +4,16 @@ import {
   CategoryResponse,
   UpdateMeetingFormData,
   MeetingJoinData,
+  MeetingDetailData,
 } from '../types/meeting';
 import { requestHeader } from './requestHeader';
 
-export const getMeeting = async ( meetingId : number) => {
+export const getMeeting = async (meetingId: number): Promise<MeetingDetailData> => {
   const response = await requestHeader.get(
     `/api/meeting/${meetingId}`
   );
   
-  return response.data;
+  return response.data.data;
 };
 
 export const postMeeting = async (

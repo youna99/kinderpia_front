@@ -8,6 +8,7 @@ import '../../styles/meeting/createpage/MapSelector.scss';
 interface MapSelectorProps {
   location: string;
   district: string;
+  detailAddress:string;
   onChangeL: (address: string) => void;
   onChangeD: (district: string) => void;
 }
@@ -15,6 +16,7 @@ interface MapSelectorProps {
 interface SearchResult {
   address: string;
   district : string;
+  detailAddress : string;
   latitude: number;
   longitude: number;
 }
@@ -22,6 +24,7 @@ interface SearchResult {
 const MapSelector: React.FC<MapSelectorProps> = ({ 
   location,
   district,
+  detailAddress,
   onChangeL,
   onChangeD
 }) => {
@@ -30,6 +33,7 @@ const MapSelector: React.FC<MapSelectorProps> = ({
   const [selectedLocation, setSelectedLocation] = useState<SearchResult>({
     address: "",
     district: '',
+    detailAddress: '',
     latitude: 37.5662952,
     longitude: 126.9779451
   });
@@ -58,6 +62,7 @@ const MapSelector: React.FC<MapSelectorProps> = ({
       const formattedResults: SearchResult[] = results.map(item => ({
         address: item.name,
         district : extractDistrict(item.address),
+        detailAddress: item.address || item.roadAddress,
         latitude: item.coordinates.lat,
         longitude: item.coordinates.lng
       }));

@@ -1,5 +1,5 @@
-import React from 'react';
-import { MeetingData, MeetingUserData } from '../../../types/meeting';
+import React, { useState } from 'react';
+import { MeetingData, MeetingDetailData, MeetingUserData } from '../../../types/meeting';
 
 //컴포넌트 호출
 import MeetingInfoDesc from './MeetingInfoDesc';
@@ -8,39 +8,42 @@ import MeetingWh from './MeetingWh';
 
 import '../../../styles/meeting/detailpage/MeetingInfo.scss';
 
-interface MeetingInfoProps{
-  data? : MeetingData
-  user? : MeetingUserData
+interface MeetingInfoProps {
+  data?: MeetingData;
+  user?: MeetingUserData;
 }
 
-const MeetingInfo:React.FC<MeetingInfoProps> = ({
+const MeetingInfo: React.FC<MeetingInfoProps> = ({
   data,
   user
 }) => {
+  if (!data) {
+    return <div>데이터를 불러오는 중입니다...</div>;
+  }
 
   return (
     <div className='meeting-info-container'>
       <MeetingInfoDetail
-        category={data?.category}
-        title={data?.title}
-        writer={data?.writer}
-        participants={data?.participants}
-        maxParticipants={data?.maxParticipants}
-        JoinMethod={data?.JoinMethod}
-        meetingStatus={data?.meetingStatus}
+        meetingCategory={data.meetingCategory}
+        meetingTitle={data.meetingTitle}
+        nickname={data.nickname}
+        participants={data.participants}
+        totalCapacity={data.totalCapacity}
+        authType={data.authType}
+        meetingStatus={data.meetingStatus}
       />
       <MeetingInfoDesc
-        createdAt={data?.createdAt}
-        description={data?.description}
+        createdAt={data.createdAt}
+        description={data.meetingContent}
         user={user}
       />
       <MeetingWh
-        location={data?.location}
-        selectedDate={data?.selectedDate}
-        selectedTime={data?.selectedTime}
+        detailAddress={data.detailAddress}
+        meetingLocation={data.meetingLocation}
+        meetingTime={data.meetingTime}
       />
     </div>
-  )
-}
+  );
+};
 
-export default MeetingInfo
+export default MeetingInfo;

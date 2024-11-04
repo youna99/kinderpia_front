@@ -13,10 +13,9 @@ import '../../../styles/meeting/detailpage/MeetingAction.scss'
 
 // 요청 함수 호출
 import { postJoinMeeting } from '../../../api/meeting'
-
 interface MeetingActionProps {
-  user?: MeetingUserData
-  data?: MeetingData
+  user?: MeetingUserData;
+  data?: MeetingData;
 }
 
 const MeetingAction: React.FC<MeetingActionProps> = ({
@@ -32,7 +31,8 @@ const MeetingAction: React.FC<MeetingActionProps> = ({
   }
   return (
     <div className='meeting-action-container'>
-      {!user?.isJoined && <MeetingActionJoin
+      {!user?.isJoined && 
+      <MeetingActionJoin
         data={data}
         onSubmit={meetingActionJoinReq}
       />}
