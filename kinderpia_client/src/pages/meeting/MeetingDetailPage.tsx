@@ -14,6 +14,7 @@ import MeetingAction from '../../components/meeting/detailpage/MeetingAction';
 
 // 타입 호출
 import { MeetingData, MeetingUserData } from '../../types/meeting';
+import { getMeeting } from '../../api/meeting';
 
 function MeetingDetailPage() {
   const navigate = useNavigate();
@@ -31,6 +32,11 @@ function MeetingDetailPage() {
     const data = dummyMeetings[ Number(meetingId)-1 ];
     try {
       setMeetingData(data);
+
+      const result = getMeeting( Number(meetingId) );
+
+      console.log(result);
+      
       setUserData(dummyMeetingUser2);
     } catch (error) {
       console.error('Error fetching place data:', error);

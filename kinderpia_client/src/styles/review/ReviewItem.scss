@@ -50,7 +50,8 @@
   
   &-content{
     margin-left: $caption;
-
+    overflow: fasd;
+    margin-bottom: $caption;
   }
 
   &-action{
@@ -61,6 +62,8 @@
       background-color: $btn-color;
       border-radius: 5px;
       color: #ffffff;
+      width: 30%;
+      text-align: center;
       padding: 5px;
     }
     &-like{

@@ -5,6 +5,7 @@ export interface CreateMeetingFormData {
   totalCapacity: number;
   isLimited: boolean;
   meetingLocation: string;
+  district: string;
   meetingTime: string;
   meetingContent: string;
   isAuthType: boolean;
