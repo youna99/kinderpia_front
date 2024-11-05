@@ -17,7 +17,6 @@ export const getMeeting = async (
   const response = await requestHeader.get(
     `/api/meeting/${meetingId}`
   );
-  
   return response.data.data;
 };
 
@@ -31,8 +30,6 @@ export const getMeetingUser = async(
 
   return response.data;
 }
-
-
 
 export const postMeeting = async (
   data: CreateMeetingFormData
@@ -71,11 +68,12 @@ export const postLeaveMeeting = async (meetingid : number) => {
 
 // 모임 가입하기
 export const postJoinMeeting = async (
-  data: MeetingJoinData
+  data: MeetingJoinData,
+  meetingId : number
 ) => {
-  const response = await requestHeader.put(`/api/meeting/${data.meetingId}`, data, {
-    withCredentials: true,
-  });
+  console.log(data, meetingId);
+  
+  const response = await requestHeader.post(`/api/userMeeting/join/${meetingId}`, data );
   return response.data;
 };
 

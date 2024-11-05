@@ -17,7 +17,7 @@ const data: CreateMeetingFormData = {
   userId: 1,
   meetingTitle: '에버랜드 같이 가요~!',
   meetingCategoryId: 1,
-  totalCapacity: 5,
+  totalCapacity: 5, 
   district: '',
   detailAddress:'',
   limited: true,
@@ -35,7 +35,7 @@ function MeetingUpdatePage() {
   // 수정 한 데이터 상태관리
   const [updateFormData, setUpdateFormData] = useState<UpdateMeetingFormData>({
     meetingTitle: initialMeetingData.meetingTitle,
-    totalCapacity: initialMeetingData.totalCapacity,
+    totalCapacity: initialMeetingData.totalCapacity, // 변경을 안하는 경우에는 -1 
     hasParticipantsLimit: initialMeetingData.limited,
     description: initialMeetingData.meetingContent,
   }); // 초기값 설정

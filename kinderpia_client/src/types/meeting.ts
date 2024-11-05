@@ -45,13 +45,14 @@ export interface MeetingData{
   authType : boolean;
   meetingStatus : string;
   createdAt :string;
+  userId :number;
 }
 
 export interface MeetingUserData{
   userId: number,
-  isJoined : boolean,  
-  ispermitted : boolean,
-  isReport: boolean,
+  joined : boolean,  
+  accepted : boolean,
+  reported: boolean,
 }
 export interface MeetingUserResponse{
   data: any,
@@ -75,7 +76,5 @@ export interface UpdateMeetingFormData {
 }
 
 export interface MeetingJoinData{
-  userId : number;
-  meetingId : number;
   capacity : number;
 }
