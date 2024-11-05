@@ -11,14 +11,18 @@ import MeetingInfo from '../../components/meeting/detailpage/MeetingInfo';
 import MeetingAction from '../../components/meeting/detailpage/MeetingAction';
 
 // 타입 호출
-import { MeetingData, MeetingDetailData, MeetingUserData } from '../../types/meeting';
+import {
+  MeetingData,
+  MeetingDetailData,
+  MeetingUserData,
+} from '../../types/meeting';
 import { getMeeting, getMeetingUser } from '../../api/meeting';
 import { extractUserIdFromCookie } from '../../utils/extractUserIdFromCookie';
 
 function MeetingDetailPage() {
   const navigate = useNavigate();
   const { meetingId } = useParams<{ meetingId: string }>();
-  
+
   // 초기 상태를 null로 설정하여 데이터 로딩 상태를 명확히 함
   const [meetingData, setMeetingData] = useState<MeetingData>();
   const [userData, setUserData] = useState<MeetingUserData>();
@@ -26,25 +30,25 @@ function MeetingDetailPage() {
 
   useEffect(() => {
     if (!meetingId) return;
-    
+
     const fetchMeetingData = async () => {
       setIsLoading(true);
-      const userId = Number( extractUserIdFromCookie() );
+      const userId = Number(extractUserIdFromCookie());
 
       try {
         const response = await getMeeting(Number(meetingId));
         const userResponse = await getMeetingUser({
           userId,
-          meetingId : Number(meetingId)
+          meetingId: Number(meetingId),
         });
 
         if (response) {
           const result = response;
-          
+
           const formattedResults: MeetingData = {
             meetingId: result.meetingId,
             meetingTitle: result.meetingTitle,
-            detailAddress :result.detailAddress,
+            detailAddress: result.detailAddress,
             meetingCategory: result.meetingCategory,
             participants: result.capacity,
             totalCapacity: result.totalCapacity,
@@ -55,11 +59,10 @@ function MeetingDetailPage() {
             authType: result.authType,
             meetingStatus: result.meetingStatus,
             createdAt: result.createdAt,
-            userId : result.userId,
+            userId: result.userId,
           };
           setMeetingData(formattedResults);
         }
-
       } catch (error) {
         console.error('Error fetching meeting data:', error);
       } finally {
@@ -70,13 +73,13 @@ function MeetingDetailPage() {
     fetchMeetingData();
   }, [meetingId]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchUserData = async () => {
-    const userId = Number(extractUserIdFromCookie());
+      const userId = Number(extractUserIdFromCookie());
       try {
         const userResponse = await getMeetingUser({
           userId,
-          meetingId : Number(meetingId)
+          meetingId: Number(meetingId),
         });
 
         const formattedUserData: MeetingUserData = {
@@ -95,7 +98,7 @@ function MeetingDetailPage() {
     };
 
     fetchUserData();
-  },[])
+  }, []);
 
   if (!meetingId) {
     return <div>낫 타당한 접근방법! </div>;
@@ -111,18 +114,12 @@ function MeetingDetailPage() {
   }
 
   return (
-    <div className='meeting-detail-page'>
-      <MeetingInfo
-        user={userData}
-        data={meetingData}
-      />
-      <hr/>
-      <MeetingAction
-        user={userData}
-        data={meetingData}
-      />
+    <div className="meeting-detail-page">
+      <MeetingInfo user={userData} data={meetingData} />
+      <hr />
+      <MeetingAction user={userData} data={meetingData} />
     </div>
-  )
+  );
 }
 
 export default MeetingDetailPage;
