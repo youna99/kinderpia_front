@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-// 데이터 호출 - 더미데이터, api
-import { dummyPlaceDetail } from '../../data/tempPlaceDetail';
-
 // 타입 호출
 import { PlaceData } from '../../types/place';
 import ReviewInput from '../../components/review/ReviewInput';
@@ -19,11 +16,15 @@ const PlaceDetailPage = () => {
   const [placeDetail, setPlaceDetail] = useState<PlaceData>();
   const navigate = useNavigate();
 
+  console.log('placeID>>', placeId);
+
   // GET) 장소상세데이터 가져오기
   const getPlaceDetail = async () => {
     try {
       const data = await getPlace(placeId);
-      setPlaceDetail(data.data);
+      console.log('data.data.place >>>', data.data.place);
+
+      setPlaceDetail(data.data.place);
     } catch (error) {
       console.log('장소목록 가져오는 중 에러 발생!: ', error);
     }
@@ -34,7 +35,6 @@ const PlaceDetailPage = () => {
     setIsLoading(true);
 
     try {
-      // setPlaceData(dummyPlaceDetail);
       getPlaceDetail();
     } catch (error) {
       console.error('Error fetching place data:', error);
@@ -73,12 +73,8 @@ const PlaceDetailPage = () => {
           placeNum={placeDetail.placeNum}
         />
       </div>
-      <ReviewInput 
-        placeId={placeId} 
-        />      
-      <ReviewList 
-        placeId={placeId}
-      />
+      <ReviewInput placeId={placeId} />
+      <ReviewList placeId={placeId} />
     </div>
   );
 };

@@ -1,97 +1,107 @@
 @import '../common/variables';
 @import '../common/utils';
 
-.placeInfo-container {
-  width: 100%;
-  height: 30vh;
-  position: relative;
-  z-index: 1;
+.container {
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px auto;
+  max-width: 600px;
+  width: 88%;
 
-  .place-info-detail {
-    &-coverImage {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-      opacity: 0.5;
+  .placeInfo-container {
+    width: 100%;
+    height: 30vh;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    .place-info-detail {
+      &-coverImage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        opacity: 0.5;
+        width: 100%;
+        height: 90%;
+        background-color: #bdcbcd;
+      }
+      &-category {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-family: inherit;
+        font-size: $caption;
+        background-color: white;
+        border-radius: 5px;
+        padding: 5px $footnote;
+        z-index: 5;
+      }
+
+      &-wrapper {
+        display: flex;
+        flex-direction: column;
+        background-color: $active-color;
+        width: 60%;
+        border-radius: 20px;
+        padding: 1rem 2rem;
+        z-index: 5;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        font-size: $body;
+
+        &-title {
+          font-weight: 700;
+        }
+
+        &-ratingButton {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+
+          .rating {
+            font-size: $caption;
+          }
+
+          button {
+            font-size: $body;
+            background-color: #ffdd77;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            margin-top: 1rem;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+  .placeInfo {
+    &-map {
+      margin: $caption auto;
       width: 100%;
-      height: 90%;
-      background-color: #bdcbcd;
+      font-size: $title2;
     }
-    &-category {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      font-family: inherit;
-      font-size: $caption;
-      background-color: white;
-      border-radius: 5px;
-      padding: 5px $footnote;
-      z-index: 5;
+  }
+
+  .placeInfo-detail-container {
+    width: 100%;
+    margin-top: $caption;
+
+    .place-header {
+      font-size: $title2;
     }
 
-    &-wrapper {
-      display: flex;
-      flex-direction: column;
-      background-color: $active-color;
-      width: 60%;
-      border-radius: 20px;
-      padding: 1rem 2rem;
-      z-index: 5;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    .place-text {
+      margin: $caption;
+      margin-left: $caption;
       font-size: $body;
 
-      &-title {
-        font-weight: 700;
+      .url {
+        color: #414141;
+        cursor: pointer;
       }
-
-      &-ratingButton {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-
-        .rating {
-          font-size: $caption;
-        }
-
-        button {
-          font-size: $body;
-          background-color: #ffdd77;
-          border-radius: 0.5rem;
-          padding: 0.5rem 1rem;
-          margin-top: 1rem;
-          cursor: pointer;
-        }
-      }
-    }
-  }
-}
-.placeInfo{
-  &-map{
-    margin: $caption auto;
-    width: 100%;
-    font-size: $title2;
-  }
-}
-
-.placeInfo-detail-container {
-  margin-top: $caption;
-
-  .place-header {
-    font-size: $title2;
-  }
-
-  .place-text {
-    margin: $caption;
-    margin-left: $caption;
-    font-size: $body;
-
-    .url {
-      color: #414141;
-      cursor: pointer;
     }
   }
 }

@@ -20,7 +20,7 @@ export interface ReviewItem {
 }
 
 // 리뷰 데이터 전체 구조
-export interface Review {
+export interface ReviewData {
   review: ReviewItem;
   nickname: string;
   profileImg: string | null;
@@ -30,10 +30,10 @@ export interface Review {
 
 // API 응답 구조
 export interface ReviewsResponse {
-    data: {
-      reviews: Review[];
-      averageStar: number;
-    };
-    status: number;
-    message: string;
+  data: {
+    reviews: ReviewData[];
+    averageStar: number;
+  };
+  status: number;
+  message: string;
 }

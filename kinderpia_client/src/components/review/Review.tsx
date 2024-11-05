@@ -9,9 +9,10 @@ interface ReviewItemProps {
   star: number;
   createdAt: string;
   likeCount: number;
-  placeName: string;
+  placeName?: string;
   profileImg?: string;
   nickname?: string;
+  showPlaceName?: boolean;
 }
 
 const Review: React.FC<ReviewItemProps> = ({
@@ -23,12 +24,15 @@ const Review: React.FC<ReviewItemProps> = ({
   placeName,
   profileImg = '/images/usericon.png',
   nickname = '닉네임',
+  showPlaceName = true,
 }) => (
   <div className="review-wrap" key={reviewId}>
-    <h3>
-      <span className="xi-maker"></span>
-      {placeName}
-    </h3>
+    {showPlaceName && (
+      <h3>
+        <span className="xi-maker"></span>
+        {placeName}
+      </h3>
+    )}
     <button className="delete-btn">삭제</button>
     <button className="report-btn">🚨 신고</button>
     <div className="star-wrap">
