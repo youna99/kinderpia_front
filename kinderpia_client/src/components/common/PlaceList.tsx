@@ -8,7 +8,7 @@ const PlaceList: React.FC<PlaceListInfo> = ({
   placeId,
   placeName,
   placeCategoryName,
-  // rating,
+  averageStar,
   paid,
   placeImg,
 }) => {
@@ -41,7 +41,7 @@ const PlaceList: React.FC<PlaceListInfo> = ({
           <h3 className="title">{placeName}</h3>
           <div className="rating">
             {/* <span className="star">⭐</span> {rating} */}
-            <span className="star">⭐</span> {}
+            <span className="star">⭐</span> {averageStar}
           </div>
           <p className="price-type">{paid ? '유료' : '무료'}</p>
         </div>

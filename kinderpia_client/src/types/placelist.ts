@@ -3,7 +3,7 @@ export interface PlaceListInfo {
   placeName: string;
   placeCategoryName?: string;
   placeCtgName?: string;
-  rating?: number;
+  averageStar?: number;
   paid: string;
   placeImg: string;
 }

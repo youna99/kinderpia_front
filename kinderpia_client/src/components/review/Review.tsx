@@ -1,11 +1,9 @@
 // Review.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import '../../styles/review/Review.scss';
 import { formatDate } from '../../utils/formatDate';
 import { confirmAlert, simpleAlert } from '../../utils/alert';
-import { deleteReview } from '../../api/review';
-import { getJwtFromCookies } from '../../utils/extractUserIdFromCookie';
-import { log } from 'console';
+import { deleteReview, postLike } from '../../api/review';
 
 interface ReviewItemProps {
   reviewId: number;
@@ -19,6 +17,7 @@ interface ReviewItemProps {
   showPlaceName?: boolean; // 장소상세페이지에서 placeName 안보이기
   onClick?: () => void; // onClick 프로퍼티 추가(선택)
   isOwner?: boolean; // 현재 사용자와 리뷰 글쓴이가 같은지
+  onDelete?: (reviewId: number) => void; // 삭제가 되었는지 (삭제하면 목록 바로 업데이트 되게 할려고 추가)
 }
 
 const Review: React.FC<ReviewItemProps> = ({
@@ -33,7 +32,12 @@ const Review: React.FC<ReviewItemProps> = ({
   showPlaceName = true, // 마이페이지에서는 기본값 true
   onClick, // onClick 프로퍼티 받기
   isOwner = true, // 마이페이지에서는 기본값 true
+  onDelete,
 }) => {
+  const [currentLikeCount, setCurrentLikeCount] = useState(likeCount); // like 총 수
+  const [isLiked, setIsLiked] = useState(false); // like 버튼 토글
+
+  // 리뷰 삭제
   const handleDeleteReview = async () => {
     const confirmed = await confirmAlert(
       'warning',
@@ -44,9 +48,25 @@ const Review: React.FC<ReviewItemProps> = ({
       try {
         await deleteReview(reviewId);
         simpleAlert('success', '삭제되었습니다.');
+        if (onDelete) onDelete(reviewId);
       } catch (error) {
         simpleAlert('error', '삭제에 실패했습니다. 다시 시도하세요.');
       }
+    }
+  };
+
+  // 도움됨
+  const handleLike = async () => {
+    try {
+      const data = await postLike(reviewId);
+      console.log('data>>>', data);
+
+      setIsLiked(!isLiked);
+      setCurrentLikeCount(
+        isLiked ? currentLikeCount - 1 : currentLikeCount + 1
+      );
+    } catch (error) {
+      simpleAlert('error', '도움됨에 실패했습니다.');
     }
   };
 
@@ -82,10 +102,13 @@ const Review: React.FC<ReviewItemProps> = ({
         <span className="createdAt">{formatDate(createdAt)}</span>
       </div>
       <div className="like-count-wrap">
-        <p className="like-pin">
+        <p
+          className={`like-pin ${isLiked ? 'liked' : ''}`}
+          onClick={handleLike}
+        >
           <span className="xi-check"></span>도움됨
         </p>
-        <p>{likeCount}명에게 도움이 되었습니다</p>
+        <p>{currentLikeCount}명에게 도움이 되었습니다</p>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@
 export interface ReviewFormDTO {
   reviewId?: number;
   placeId: number;
-  userId: number;
+  userId?: number;
   star: number;
   reviewContent: string;
 }

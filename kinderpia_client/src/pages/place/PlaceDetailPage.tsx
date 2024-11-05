@@ -5,9 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { PlaceData, ratingAndCategory } from '../../types/place';
 import ReviewInput from '../../components/review/ReviewInput';
 import ReviewList from '../../components/review/ReviewList';
-import PlaceInfoDetail, {
-  PlaceInfoProps,
-} from '../../components/place/PlaceInfoDetail';
+import PlaceInfoDetail from '../../components/place/PlaceInfoDetail';
 import { getPlace } from '../../api/placelist';
 
 import '../../styles/place/PlaceDetailPage.scss';
@@ -18,10 +16,21 @@ const PlaceDetailPage: React.FC = () => {
   const [placeDetail, setPlaceDetail] = useState<PlaceData>();
   const [ratingAndCategorys, setRatingAndCategorys] =
     useState<ratingAndCategory>();
+  const [reviewcreate, setReviewcreate] = useState<boolean>(false); // 리뷰작성완료상태
+  const [reviewdelete, setReviewdelete] = useState<boolean>(false); // 리뷰삭제완료상태
+
   const navigate = useNavigate();
 
   console.log('placeID>>', placeId);
   console.log('placeIdtype>>>', typeof placeId);
+
+  const handleReviewSubmit = () => {
+    setReviewcreate((prev) => !prev); // 리뷰가 제출되면 상태를 변경
+  };
+
+  const handleReviewDelete = (reviewId: number) => {
+    setReviewdelete((prev) => !prev); // 리뷰가 삭제되면 상태를 변경
+  };
 
   // GET) 장소상세데이터 가져오기
   const getPlaceDetail = async () => {
@@ -75,8 +84,13 @@ const PlaceDetailPage: React.FC = () => {
           <div>로딩중입니다...</div>
         )}
       </div>
-      <ReviewInput placeId={placeId} />
-      <ReviewList placeId={placeId} />
+      <ReviewInput placeId={placeId} onReviewSubmit={handleReviewSubmit} />
+      <ReviewList
+        placeId={placeId}
+        reviewcreate={reviewcreate}
+        onDelete={handleReviewDelete}
+        reviewdelete={reviewdelete}
+      />
     </div>
   );
 };
