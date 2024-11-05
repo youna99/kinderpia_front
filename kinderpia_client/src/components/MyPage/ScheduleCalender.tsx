@@ -22,10 +22,11 @@ const ScheduleCalender: React.FC<ScheduleCalenderProps> = ({ userId }) => {
   const [meetings, setMeetings] = useState<Meeting[]>([]);
   const [selectedMeetings, setSelectedMeetings] = useState<Meeting[]>([]);
 
+  // /api/user/meetingTime/list/{userId}
   const fetchMeetings = async () => {
     // try {
     //   const response = await axios.get(
-    //     `http://localhost:8080/api/user/meetingTime/list/${userId}`,
+    //     `http://localhost:8080/api/user/meetingTime/list/${userId}?page=1&size=10`,
     //     { withCredentials: true }
     //   );
     //   const fetchedMeetings: Meeting[] = response.data.data; // API에서 받은 데이터
