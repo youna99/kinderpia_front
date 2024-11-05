@@ -1,4 +1,5 @@
 
+import { response } from 'express';
 import {
   CreateMeetingFormData,
   CategoryResponse,
@@ -91,12 +92,27 @@ export const putEndMeeting = async(
   return response.data;
 }
 
-// 모든 API 함수들을 하나의 객체로 내보내기
-export const meetingApi = {
-  postMeeting,
-  getCategory,
-  putMeeting,
-  postLeaveMeeting,
-  deleteLeaveMeeting,
-  postJoinMeeting
+// 승인 대기자 목록 불러오기
+export const getMeetingUserWaitList = async(
+  meetingId:number, 
+)=>{
+  const response = await requestHeader.get(`/api/meeting/meeting/${meetingId}/pending-approvals`);
+
+  return response.data;
+}
+
+export const putUserMeetingApprove = async (
+  meetingId: number,
+  userId: number
+) => {
+  const response = await requestHeader.put(`/api/userMeeting/${meetingId}/accept/${userId}`);
+  return response;
+};
+
+export const putUserMeetingReject = async (
+  meetingId: number,
+  userId: number
+) => {
+  const response = await requestHeader.put(`/api/userMeeting/${meetingId}/reject/${userId}`);
+  return response.data;
 };

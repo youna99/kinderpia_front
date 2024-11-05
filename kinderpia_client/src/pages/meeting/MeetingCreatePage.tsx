@@ -17,11 +17,12 @@ import CalenderSelector from '../../components/common/CalanderSelector';
 import CommonButton1 from '../../components/common/CommonButton1';
 
 // api 요청 함수 호출
-import { meetingApi } from '../../api/meeting';
+// import { meetingApi } from '../../api/meeting';
 
 //style 호출
 import '../../styles/meeting/createpage/MeetingCreatePage.scss'
 import { extractUserIdFromCookie } from '../../utils/extractUserIdFromCookie';
+import { postMeeting } from '../../api/meeting';
 
 const MeetingCreatePage = () => {
   const navigate = useNavigate();
@@ -106,7 +107,7 @@ const MeetingCreatePage = () => {
       };
       console.log(data);
       
-      const result = await meetingApi.postMeeting(data);
+      const result = await postMeeting(data);
 
       navigate(`/meeting/${result.data}`);
     } catch (error) {
