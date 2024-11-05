@@ -52,6 +52,9 @@
     margin-left: $caption;
     overflow: fasd;
     margin-bottom: $caption;
+    word-break: break-all;   // 추가: 모든 가능한 위치에서 줄바꿈
+    white-space: pre-wrap;   // 추가: 공백과 줄바꿈 유지하면서 자동 줄바꿈
+    overflow-wrap: break-word; // 추가: 단어 중간에서도 줄바꿈 허용
   }
 
   &-action{

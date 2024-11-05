@@ -53,6 +53,15 @@ export interface MeetingUserData{
   ispermitted : boolean,
   isReport: boolean,
 }
+export interface MeetingUserResponse{
+  data: any,
+  status: number,
+  message :string,
+}
+export interface MeetingUserStatusData{
+  userId : number;
+  meetingId : number;
+}
 
 export interface CategoryResponse {
   categories: string[];
