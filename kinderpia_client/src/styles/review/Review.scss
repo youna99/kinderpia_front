@@ -7,7 +7,7 @@
   padding: 1rem 2rem;
   font-size: $body;
   h3 {
-    font-size: $title3;
+    font-size: $body;
     .xi-maker {
       margin-right: 1rem;
       font-size: 2rem;
@@ -74,6 +74,7 @@
     }
   }
   .like-count-wrap {
+    font-size: 1.4rem;
     display: flex;
     gap: 1rem;
     align-items: center;
@@ -89,7 +90,46 @@
       border: none;
     }
   }
-  &:hover {
-    background: rgb(216, 239, 255);
+}
+
+// 반응형
+@media (max-width: $sm) {
+  .review-wrap {
+    h3 {
+      font-size: 1.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .star-wrap {
+      font-size: $caption;
+      .xi-star {
+        font-size: 1.5rem;
+      }
+    }
+    .review-content {
+      font-size: $body;
+      padding: 1rem 0;
+    }
+    .write-txt {
+      margin-bottom: 1rem;
+      .user-profile {
+        gap: 1rem;
+        padding-right: 2rem;
+        img {
+          width: 1.8rem;
+        }
+        h4 {
+          &::after {
+            right: -1.5rem;
+          }
+        }
+      }
+    }
+    .like-count-wrap {
+      .like-pin {
+        padding: 0.5rem 0.8rem;
+      }
+    }
   }
 }
