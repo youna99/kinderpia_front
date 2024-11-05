@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { useDispatch, useSelector } from "react-redux";
-import { setMessages } from "../store/chatSlice";
+import { addUnreadMessages, setMessages } from "../store/chatSlice";
 import { updateLastmessage } from "../store/chatRoomsSlice";
 import {
   extractUserIdFromCookie,
@@ -38,9 +38,16 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
               chatTopic,
               (message) => {
                 const chatMessage = JSON.parse(message.body).body.data;
+
+                // 들어 있는 방 확인
                 if (chatMessage.chatroomId === currentChatroomId) {
                   dispatch(setMessages([...messages, chatMessage]));
+                } else {
+                  // 안들어가있는 방 메시지 쌓인당
+                  dispatch(addUnreadMessages(chatMessage));
                 }
+
+                // 마지막 메시지 업데이트
                 dispatch(
                   updateLastmessage({
                     chatroomId,

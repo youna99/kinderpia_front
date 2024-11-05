@@ -6,19 +6,21 @@ interface ChatState {
   error: boolean;
   loading: boolean;
   messages: ChatMessageInfo[];
-  msgPages : ChatPageInfo;
+  msgPages: ChatPageInfo;
+  unreadCounts: { [key: number]: number };
 }
 
-const initialState:ChatState = {
+const initialState: ChatState = {
   chatroom: null,
   error: false,
   loading: true,
   messages: [],
   msgPages: {
-    page :1,
-    totalElements:1,
-    totalPages:1
-  }
+    page: 1,
+    totalElements: 1,
+    totalPages: 1,
+  },
+  unreadCounts: {},
 };
 
 const chatSlice = createSlice({
@@ -35,14 +37,29 @@ const chatSlice = createSlice({
       state.loading = action.payload;
     },
     setMessages: (state, action: PayloadAction<ChatMessageInfo[]>) => {
-      state.messages = action.payload;      
+      state.messages = action.payload;
     },
     setMsgPages: (state, action: PayloadAction<ChatPageInfo>) => {
-      state.msgPages = action.payload;      
+      state.msgPages = action.payload;
     },
-    
+    markMessagesAsRead: (state, action: PayloadAction<number>) => {
+      state.unreadCounts[action.payload] = 0; // 특정 채팅방의 읽지 않은 메시지 수 초기화
+    },
+    addUnreadMessages: (state, action: PayloadAction<ChatMessageInfo>) => {
+      state.messages.push(action.payload);
+      state.unreadCounts[action.payload.chatroomId] =
+        (state.unreadCounts[action.payload.chatroomId] || 0) + 1;
+    },
   },
 });
 
-export const {setChatInfo, setError, setLoading, setMessages, setMsgPages} = chatSlice.actions;
+export const {
+  setChatInfo,
+  setError,
+  setLoading,
+  setMessages,
+  setMsgPages,
+  markMessagesAsRead,
+  addUnreadMessages
+} = chatSlice.actions;
 export default chatSlice.reducer;

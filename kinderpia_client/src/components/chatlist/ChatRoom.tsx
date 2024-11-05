@@ -3,6 +3,8 @@ import "../../styles/chatlist/ChatRoom.scss";
 import { getIcon } from "../../utils/getIcon";
 import { extractUserIdFromCookie } from "../../utils/extractUserIdFromCookie";
 import { ReactComponent as Crown } from "../../assets/crown.svg";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 interface ChatRoomProp {
   room: ChatRoomListInfo;
@@ -11,6 +13,8 @@ interface ChatRoomProp {
 
 export default function ChatRoom({ room, onClick }: ChatRoomProp) {
   const userId = Number(extractUserIdFromCookie());
+  const {unreadCounts} = useSelector((state:RootState) => state.chat)
+  const unreadCount = unreadCounts[room.chatroomId];
 
   return (
     <li className="chatroom-list" title={room.meetingTitle} onClick={onClick}>
@@ -26,7 +30,10 @@ export default function ChatRoom({ room, onClick }: ChatRoomProp) {
             <span>{room.capacity}</span>
           </div>
         </div>
-        <div className="chatroom-lastmsg">{room.lastMessage}</div>
+        <div className="chatroom-lastmsg">
+          {unreadCount > 0 && <span className="unread-badge">{unreadCount}</span>}
+          {room.lastMessage}
+         </div>
       </div>
     </li>
   );

@@ -2,7 +2,7 @@ import ChatRoom from "./ChatRoom";
 import { RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { getChatMessages, getChatRoom } from "../../api/chat";
-import { setChatInfo, setMessages, setMsgPages } from "../../store/chatSlice";
+import { markMessagesAsRead, setChatInfo, setMessages, setMsgPages } from "../../store/chatSlice";
 import React, {
   useCallback,
   useEffect,
@@ -97,6 +97,7 @@ export default function ChatRooms({
           dispatch(setMessages(chatMsgList));
           dispatch(setMsgPages(res2.data.pageInfo))
           dispatch(setSelected(true));
+          dispatch(markMessagesAsRead(chatroomId));
         }
       } catch (error) {
         console.error(error);

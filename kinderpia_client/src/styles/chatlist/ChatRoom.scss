@@ -57,7 +57,20 @@
       font-size: 1.4rem;
       color: #555;
       width: 100%;
+      display: flex;
       @include ellipsisText;
+      .unread-badge {
+        background-color: rgba(250, 96, 36, 0.918);
+        color : #fff;
+        display: block;
+        width: 1.8rem;
+        height: 1.8rem;
+        line-height: 1.8rem;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 1.2rem;
+        margin-right: .5rem;
+      }
     }
   }
   &:hover {
