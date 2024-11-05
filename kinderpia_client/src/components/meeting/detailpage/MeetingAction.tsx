@@ -1,7 +1,7 @@
 import React from 'react'
 
 // 타입 호출
-import { MeetingData, MeetingUserData } from '../../../types/meeting'
+import { MeetingData, MeetingJoinData, MeetingUserData } from '../../../types/meeting'
 
 // 컴포넌트 호출
 import MeetingActionJoin from './MeetingActionJoin'
@@ -22,22 +22,25 @@ const MeetingAction: React.FC<MeetingActionProps> = ({
   user,
   data
 }) => {
-  const meetingActionJoinReq= ( capacity : number )=>{
-    const result = postJoinMeeting({
-      meetingId : data?.meetingId || 1,
-      userId : user?.userId || 1,
-      capacity : capacity
-    })
+  const meetingActionJoinReq= ( meetingId : number , data :MeetingJoinData)=>{
+    const result = postJoinMeeting(
+      data,
+      meetingId
+    )
   }
   return (
     <div className='meeting-action-container'>
-      {!user?.isJoined && 
+      {!user?.joined && 
       <MeetingActionJoin
         data={data}
         onSubmit={meetingActionJoinReq}
       />}
-      {user?.isJoined && !user?.ispermitted && <MeetingActionWait />}
-      {user?.isJoined && user?.ispermitted && <MeetingActionJoined />}
+      {user?.joined && !user?.accepted && <MeetingActionWait 
+      
+      />}
+      {user?.joined && user?.accepted && <MeetingActionJoined 
+      
+      />}
     </div>
   )
 }

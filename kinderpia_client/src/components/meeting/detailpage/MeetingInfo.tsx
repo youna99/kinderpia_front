@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { MeetingData, MeetingDetailData, MeetingUserData } from '../../../types/meeting';
+import React from 'react';
+import { MeetingData, MeetingUserData } from '../../../types/meeting';
 
 //컴포넌트 호출
 import MeetingInfoDesc from './MeetingInfoDesc';
@@ -35,6 +35,7 @@ const MeetingInfo: React.FC<MeetingInfoProps> = ({
       <MeetingInfoDesc
         createdAt={data.createdAt}
         description={data.meetingContent}
+        meetingId={data.meetingId}
         user={user}
       />
       <MeetingWh

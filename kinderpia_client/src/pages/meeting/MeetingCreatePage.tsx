@@ -39,10 +39,12 @@ const MeetingCreatePage = () => {
     authType: false
   });
 
-  // 컴포넌트 마운트 시 userId 설정
+
   useEffect(() => {
     const setUserId = async () => {
       const userId = await extractUserIdFromCookie() || '11123';
+      console.log('userId',userId);
+      
       setFormData(prev => ({
         ...prev,
         userId: parseInt(userId)
@@ -61,7 +63,7 @@ const MeetingCreatePage = () => {
   const handleParticipantsLimitChange = (hasLimit: boolean) => {
     setFormData(prev => ({
       ...prev,
-      isLimited: hasLimit,
+      limited: hasLimit,
       totalCapacity: hasLimit ? 1 : 0
     }));
   };
@@ -98,10 +100,13 @@ const MeetingCreatePage = () => {
         alert('로그인이 필요한 서비스입니다.');
         return;
       }
+
   
       const data: CreateMeetingFormData = {
         ...CreateMeetingFormData,
       };
+      console.log(data);
+      
       const result = await meetingApi.postMeeting(data);
 
       navigate(`/meeting/${result.data}`);
