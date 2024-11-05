@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 // 컴포넌트 호출
 import CommonButton1 from '../../common/CommonButton1'
 import { MeetingData, MeetingUserData } from '../../../types/meeting';
+import { deleteLeaveMeeting, putEndMeeting } from '../../../api/meeting';
+import { simpleAlert } from '../../../utils/alert';
 
 interface MeetingActionJoinedProp{
   user?: MeetingUserData;
@@ -16,7 +18,7 @@ const MeetingActionJoined:React.FC<MeetingActionJoinedProp> = ({
 }) => {
   const navigate = useNavigate();
 
-  const [ whoAmI, setWhoAmI ]= useState(true);
+  const [ whoAmI, setWhoAmI ]= useState(false);
   const { meetingId } = useParams<{ meetingId: string }>();
   
   useEffect(()=>{
@@ -31,9 +33,7 @@ const MeetingActionJoined:React.FC<MeetingActionJoinedProp> = ({
 
   const moveToChatRoom = async (): Promise<void> => {
     try {
-      // 채팅방 이동 로직
-      alert('채팅방으로 이동합니다' + meetingId)
-      // 실제로는 여기에 채팅방 이동 관련 비동기 로직이 들어갈 것 같습니다
+      alert('채팅방으로 이동합니다')
     } catch (error) {
       console.error('채팅방 이동 중 오류 발생:', error)
     }
@@ -41,10 +41,13 @@ const MeetingActionJoined:React.FC<MeetingActionJoinedProp> = ({
 
   const leaveMeeting = async (): Promise<void> => {
     try {
-      const confirmed = window.confirm('정말로 모임을 떠나시겠습니까?' + meetingId)
+      const confirmed = window.confirm('정말로 모임을 떠나시겠습니까?')
       if (confirmed) {
-        // 실제로는 여기에 모임 탈퇴 관련 API 호출 등이 들어갈 것 같습니다
-        await new Promise(resolve => setTimeout(resolve, 1000)) // 예시용 딜레이
+        const result = await deleteLeaveMeeting(Number(meetingId));
+        if (result) {
+          simpleAlert('success','모임에서 떠났습니다! 다음에 봐요', 'center');
+          navigate(`/meeting`);
+        }
       }
     } catch (error) {
       console.error('모임 탈퇴 중 오류 발생:', error)
@@ -53,13 +56,14 @@ const MeetingActionJoined:React.FC<MeetingActionJoinedProp> = ({
 
   const deleteMeeting = async (): Promise<void> => {
     try {
-      const confirmed = window.confirm('정말로 모임을 떠나시겠습니까?' + meetingId)
+      const confirmed = window.confirm('정말로 모임을 종료하시겠습니까?')
       if (confirmed) {
-        // 실제로는 여기에 모임 탈퇴 관련 API 호출 등이 들어갈 것 같습니다
-        await new Promise(resolve => setTimeout(resolve, 1000)) // 예시용 딜레이
+        const result = await putEndMeeting(Number(meetingId));
+        simpleAlert('success','모임을 종료했습니다! 다음에 봐요', 'center');
+        navigate(`/meeting`);
       }
     } catch (error) {
-      console.error('모임 삭제 중 오류 발생:', error)
+      console.error('모임 종료 중 오류 발생:', error)
     }
   }
 
@@ -67,7 +71,7 @@ const MeetingActionJoined:React.FC<MeetingActionJoinedProp> = ({
     try {
       navigate(`/meeting/${meetingId}/edit`);
     } catch (error) {
-      console.error('모임 삭제 중 오류 발생:', error)
+      console.error('모임 수정 중 오류 발생:', error)
     }
   }
 
@@ -82,7 +86,7 @@ const MeetingActionJoined:React.FC<MeetingActionJoinedProp> = ({
       { whoAmI
       ?<>
         <CommonButton1
-          text='모임 삭제하기'
+          text='모임 종료하기'
           onClick={deleteMeeting}
           disabled={false}
           isLoading={false}

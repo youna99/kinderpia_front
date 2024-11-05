@@ -1,3 +1,4 @@
+
 import {
   CreateMeetingFormData,
   CategoryResponse,
@@ -64,6 +65,12 @@ export const postLeaveMeeting = async (meetingid : number) => {
   return response;
 }
 
+// 모임 떠나기
+export const deleteLeaveMeeting = async (meetingId : number) => {
+  const response = await requestHeader.delete(`/api/userMeeting/exit/${meetingId}`);
+  return response;
+}
+
 // 모임 가입하기
 export const postJoinMeeting = async (
   data: MeetingJoinData,
@@ -75,11 +82,21 @@ export const postJoinMeeting = async (
   return response.data;
 };
 
+// 모임 종료하기
+export const putEndMeeting = async(
+  meetingId : number
+) => {
+  const response = await requestHeader.put(`/api/meeting/${meetingId}/end`);
+
+  return response.data;
+}
+
 // 모든 API 함수들을 하나의 객체로 내보내기
 export const meetingApi = {
   postMeeting,
   getCategory,
   putMeeting,
   postLeaveMeeting,
+  deleteLeaveMeeting,
   postJoinMeeting
 };

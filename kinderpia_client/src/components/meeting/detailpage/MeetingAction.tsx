@@ -13,21 +13,34 @@ import '../../../styles/meeting/detailpage/MeetingAction.scss'
 
 // 요청 함수 호출
 import { postJoinMeeting } from '../../../api/meeting'
+import { simpleAlert } from '../../../utils/alert'
+import { useNavigate } from 'react-router-dom'
 interface MeetingActionProps {
   user?: MeetingUserData;
   data?: MeetingData;
+  onActionComplete?: () => Promise<void>;
 }
 
 const MeetingAction: React.FC<MeetingActionProps> = ({
   user,
-  data
+  data,
+  onActionComplete
 }) => {
-  const meetingActionJoinReq= ( meetingId : number , data :MeetingJoinData)=>{
-    const result = postJoinMeeting(
-      data,
-      meetingId
-    )
+  const navigate = useNavigate();
+  
+  const meetingActionJoinReq = async (meetingId: number, data: MeetingJoinData) => {
+    try {
+      const result = await postJoinMeeting(data, meetingId);
+      if (result) {
+        simpleAlert('success', '가입 신청에 성공했습니다.', 'center');
+        // 가입 요청 성공 후 상태 갱신
+        await onActionComplete?.();
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
+
   return (
     <div className='meeting-action-container'>
       {!user?.joined && 
@@ -35,14 +48,13 @@ const MeetingAction: React.FC<MeetingActionProps> = ({
         data={data}
         onSubmit={meetingActionJoinReq}
       />}
-      {user?.joined && !user?.accepted && <MeetingActionWait 
-      
-      />}
-      {user?.joined && user?.accepted && <MeetingActionJoined 
-      
+      {user?.joined && !user?.accepted && <MeetingActionWait/>}
+      {user?.joined && user?.accepted && <MeetingActionJoined  
+        data={data}
+        user={user}
       />}
     </div>
   )
 }
 
-export default MeetingAction
+export default MeetingAction;
