@@ -4,12 +4,21 @@ import { getReviewList } from '../../api/review';
 import '../../styles/review/ReviewList.scss';
 // import ReviewItem from './ReviewItem';
 import Review from './Review';
+import { extractUserIdFromCookie } from '../../utils/extractUserIdFromCookie';
 
 interface ReviewListProps {
   placeId: string;
+  reviewcreate: boolean;
+  reviewdelete: boolean;
+  onDelete: (reviewId: number) => void;
 }
 
-const ReviewList: React.FC<ReviewListProps> = ({ placeId }) => {
+const ReviewList: React.FC<ReviewListProps> = ({
+  placeId,
+  reviewcreate,
+  onDelete,
+  reviewdelete,
+}) => {
   const [reviews, setReviews] = useState<ReviewData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -46,22 +55,22 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId }) => {
     };
 
     fetchReviews();
-  }, [placeId]);
+  }, [placeId, reviewcreate, reviewdelete]);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (error) return <div>에러: {error}</div>;
   if (reviews.length === 0)
     return <div className="review-list-404">작성된 리뷰가 없습니다.</div>;
 
+  const currentUserId = extractUserIdFromCookie();
+  console.log('currentUserId >>>', currentUserId);
+
   return (
     <div className="review-list-container">
       <hr />
       {reviews.map((reviewData) => (
-        // <ReviewItem
-        //   key={reviewData.review.reviewId}
-        //   data={reviewData}
-        // />
         <Review
+          key={reviewData.review.reviewId}
           reviewId={reviewData.review.reviewId}
           reviewContent={reviewData.review.reviewContent}
           star={reviewData.review.star}
@@ -70,6 +79,8 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId }) => {
           profileImg={reviewData.profileImg || '/images/usericon.png'}
           nickname={reviewData.nickname}
           showPlaceName={false}
+          isOwner={currentUserId === String(reviewData.userId)}
+          onDelete={onDelete}
         />
       ))}
     </div>

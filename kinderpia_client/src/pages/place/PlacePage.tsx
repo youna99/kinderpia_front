@@ -67,6 +67,8 @@ const PlacePage: React.FC = () => {
         const result = await getDefaultPlaceList(1, 6);
         if (result) {
           setPlaces(result.data.content);
+          console.log('result.data.content >>>', result.data.content);
+
           setHasMore(result.data.content.length === 6); // 6개 미만이면 더 이상 데이터가 없음
         } else {
           setPlaces(dummyPlaceList);
@@ -233,7 +235,7 @@ const PlacePage: React.FC = () => {
                 placeCategoryName={
                   place.placeCategoryName || place.placeCtgName
                 }
-                rating={place.rating}
+                averageStar={place.averageStar || 5}
                 paid={place.paid}
                 placeImg={place.placeImg}
               />

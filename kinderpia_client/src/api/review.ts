@@ -23,3 +23,8 @@ export const deleteReview = async (reviewId: number) => {
   const response = await requestHeader.delete(`/api/review/delete/${reviewId}`);
   return response.data;
 };
+
+export const postLike = async (reviewId: number) => {
+  const response = await requestHeader.post(`/api/review/like/${reviewId}`);
+  return response.data;
+};

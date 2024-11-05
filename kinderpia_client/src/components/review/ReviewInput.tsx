@@ -8,9 +8,13 @@ import { extractUserIdFromCookie } from '../../utils/extractUserIdFromCookie';
 
 interface ReviewInputProps {
   placeId: string;
+  onReviewSubmit: () => void;
 }
 
-const ReviewInput: React.FC<ReviewInputProps> = ({ placeId }) => {
+const ReviewInput: React.FC<ReviewInputProps> = ({
+  placeId,
+  onReviewSubmit,
+}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [star, setStar] = useState<number>(0);
   const [content, setContent] = useState<string>('');
@@ -59,16 +63,18 @@ const ReviewInput: React.FC<ReviewInputProps> = ({ placeId }) => {
     try {
       const reviewData = {
         placeId: pagePlaceId,
-        userId,
+        // userId,
         star,
         reviewContent: content.trim(),
       };
 
-      const result = postReview(reviewData);
+      const result = await postReview(reviewData);
 
+      console.log('result>>>', result);
+      onReviewSubmit();
       setStar(0);
       setContent('');
-      alert('리뷰가 등록되었습니다.');
+      simpleAlert('success', '리뷰가 등록되었습니다.');
     } catch (error) {
       console.error('리뷰 등록 중 오류 발생:', error);
       simpleAlert(
