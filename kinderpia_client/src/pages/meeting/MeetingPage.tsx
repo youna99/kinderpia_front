@@ -11,7 +11,6 @@ import { MettingListInfo } from '../../types/meetinglist';
 // import { dummyMeetingList } from '../../data/tempMeetingListData';
 
 import '../../styles/meeting/MeetingPage.scss';
-import { meetingApi } from '../../api/meeting';
 import { getMeetingListOpen, getMeetingList } from '../../api/meetinglist';
 
 // 서버 응답 타입 정의
