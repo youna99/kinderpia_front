@@ -8,6 +8,7 @@
     gap: $caption;
     width: 88%;
     max-width: 600px;
+    margin-bottom: 10rem;
 
     hr {
       height: 1px;
@@ -23,5 +24,6 @@
     font-family: inherit;
     text-align: center;
     font-size: $title3;
+    margin-bottom: 10rem;
   }
 }

@@ -58,7 +58,7 @@ export default function LoginPage() {
         const token = response.headers['authorization'];
         sessionStorage.setItem('token', token);
 
-        await simpleAlert('success', '로그인 성공!', 'top-end');
+        await simpleAlert('success', '로그인 성공!');
         navigate('/');
       }
     } catch (error) {

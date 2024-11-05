@@ -15,13 +15,11 @@ const JoinMethodInput: React.FC<JoinMethodProps> = ({
 }) => {
   return (
     <div className="join-method-container">
-      <div className='join-method-header'>
+      <div className="join-method-header">
         <label className="join-method-header-title">
           신청 방식{isRequired && <span> *</span>}
         </label>
-        <CheckMarker
-          value={value}
-        />
+        <CheckMarker value={value} />
       </div>
       <hr />
       <div className="join-method-options">

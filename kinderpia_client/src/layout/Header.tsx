@@ -46,7 +46,7 @@ export default function Header() {
     if (confirmed) {
       // 쿠키삭제
       document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      await simpleAlert('success', '로그아웃 되었습니다.', 'top-end');
+      await simpleAlert('success', '로그아웃 되었습니다.');
       navigate('/');
     }
     return;
