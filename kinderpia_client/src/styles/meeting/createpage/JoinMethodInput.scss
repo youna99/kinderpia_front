@@ -5,8 +5,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 16px;    
-    
+    gap: 16px;
+
     hr {
       height: 1px;
       background-color: #000;
@@ -21,7 +21,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     &-title {
       font-weight: 500;
       font-size: $headline;
@@ -30,7 +30,6 @@
       }
     }
   }
-  
 
   &-options {
     display: flex;
@@ -41,14 +40,14 @@
 
     .option-item {
       width: 100%;
-      
+
       label {
         display: flex;
         align-items: center;
         width: 100%;
         cursor: pointer;
-        
-        input[type="radio"] {
+
+        input[type='radio'] {
           appearance: none;
           width: 20px;
           height: 20px;
@@ -59,9 +58,9 @@
 
           &:checked {
             border-color: #59a4d6;
-            
+
             &:after {
-              content: "";
+              content: '';
               position: absolute;
               top: 50%;
               left: 50%;
@@ -86,7 +85,7 @@
           }
         }
 
-        input[type="radio"]:checked + .option-content {
+        input[type='radio']:checked + .option-content {
           color: #efefef;
           background-color: #59a4d6;
         }

@@ -16,6 +16,15 @@
   font-style: normal;
 }
 
+// 태나다체
+@font-face {
+  font-family: 'Tenada';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2')
+    format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 // 색상 정보
 $main-color: #59a4d6;
 $btn-color: #59a4d6;
@@ -27,7 +36,7 @@ $active-color: #b7ddf6;
 $status-color: #ffdd77; //모집중
 $status-color2: #e3e3e3; //인원마감, 모임종료
 
-$status-color3 : #b4b4b4; // input placeholder
+$status-color3: #b4b4b4; // input placeholder
 
 // 중단점 정보
 $ssm: 375px;
