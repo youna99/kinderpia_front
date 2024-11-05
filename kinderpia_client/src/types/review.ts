@@ -2,7 +2,7 @@
 export interface ReviewFormDTO {
   reviewId?: number;
   placeId: number;
-  userId: number;
+  userId?: number;
   star: number;
   reviewContent: string;
 }
@@ -24,6 +24,7 @@ export interface ReviewData {
   profileImg: string | null;
   likeCount: number;
   blacklist: boolean;
+  userId: string;
 }
 
 // API 응답 구조
