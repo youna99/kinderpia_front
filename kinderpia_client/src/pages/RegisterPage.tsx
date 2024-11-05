@@ -6,8 +6,9 @@ import termsAndConditions from '../data/termsAndConditions';
 import axios from 'axios';
 import { showAlert, simpleAlert } from '../utils/alert';
 import { useNavigate } from 'react-router-dom';
-import FakeSignInComponent from '../components/common/FakeSignInComponent';
 import { fakeSignInLogIn } from '../api/meetinglist';
+import FakerComponent from '../components/common/FakerComponent';
+import generateFourDigitNumber from '../utils/fakeNumber';
 
 interface RegisterFormInputs {
   loginId: string;
@@ -20,9 +21,6 @@ interface RegisterFormInputs {
   agreePrivacy: boolean;
 }
 
-function generateFourDigitNumber() {
-  return Math.floor(Math.random() * 9000) + 1000;
-}
 
 export default function RegisterPage() {
   const {
@@ -177,7 +175,7 @@ export default function RegisterPage() {
     <section id="register">
       <h2 className="title">회원가입</h2>
       <p>킨더피아 멤버가 되어보세요.</p>
-      <FakeSignInComponent
+      <FakerComponent
         text={`더미 회원가입 해버리기~  LoginId : test${dummyNumber}, password : test1234`}
         onClick={fakeSignIn}
       />

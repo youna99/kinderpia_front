@@ -7,7 +7,7 @@ interface ExtendedCommonButtonProps extends CommonButtonProps {
   preventDefault?: boolean;
 }
 
-const FakeSignInComponent: React.FC<ExtendedCommonButtonProps> = ({
+const FakerComponent: React.FC<ExtendedCommonButtonProps> = ({
   text,
   onClick,
   disabled = false,
@@ -45,4 +45,4 @@ const FakeSignInComponent: React.FC<ExtendedCommonButtonProps> = ({
   );
 };
 
-export default FakeSignInComponent;
+export default FakerComponent;
