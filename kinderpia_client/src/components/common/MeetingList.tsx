@@ -15,6 +15,7 @@ const MeetingList: React.FC<MettingListInfo> = ({
   createdAt,
   totalCapacity,
   meetingStatus,
+  profileImg,
 }) => {
   const navigate = useNavigate();
 
@@ -36,13 +37,17 @@ const MeetingList: React.FC<MettingListInfo> = ({
             <p className="meetDate">{meetingTime}</p>
           </div>
           <div className="meeting-writer-participants">
+            <img
+              src={profileImg || '/images/usericon.png'}
+              alt=""
+              className="leader-img"
+            />
             <span className="meetWriter">{nickname}</span>
             <span className="xi-group meeting-icon"></span>
             <span className="meetParticipants">
-              { totalCapacity ===99
+              {totalCapacity === 99
                 ? '제한 없음'
-                : `${capacity} / ${totalCapacity}`
-              }
+                : `${capacity} / ${totalCapacity}`}
             </span>
           </div>
         </div>

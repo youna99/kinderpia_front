@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import MeetingList from '../common/MeetingList';
 import '../../styles/mypage/MeetingHistory.scss';
-import { formatDate } from '../../utils/formatDate';
+import { formatDate, formatDetailDate } from '../../utils/formatDate';
 interface MeetingHistoryProps {
   userId: string | null;
+  userInfo: {
+    profileImg?: string;
+    nickname?: string;
+  } | null;
 }
 
 export interface MettingListInfo {
@@ -19,9 +23,13 @@ export interface MettingListInfo {
   meetingTitle: string;
   nickname: string;
   totalCapacity: number;
+  profileImg: string;
 }
 
-const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
+const MeetingHistory: React.FC<MeetingHistoryProps> = ({
+  userId,
+  userInfo,
+}) => {
   const [meetings, setMeetings] = useState<MettingListInfo[]>([]);
   const [filter, setFilter] = useState<string>('all');
 
@@ -77,6 +85,8 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
     fetchMeetings();
   }, [userId, filter]);
 
+  console.log(meetings);
+
   return (
     <section id="mymeeting">
       <div className="mymeeting-head">
@@ -100,11 +110,12 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
             createdAt={meeting.createdAt}
             district={meeting.district}
             meetingLocation={meeting.meetingLocation}
-            meetingTime={formatDate(meeting.meetingTime)}
+            meetingTime={formatDetailDate(meeting.meetingTime)}
             nickname={meeting.nickname}
             capacity={meeting.capacity}
             totalCapacity={meeting.totalCapacity}
             meetingStatus={meeting.meetingStatus}
+            profileImg={userInfo?.profileImg || '/images/usericon.png'}
           />
         ))}
       </div>
