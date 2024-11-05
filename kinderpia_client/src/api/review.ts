@@ -1,18 +1,13 @@
-import { requestHeader } from "./requestHeader";
-import { ReviewsResponse, ReviewFormDTO } from "../types/reiew";
+import { requestHeader } from './requestHeader';
+import { ReviewsResponse, ReviewFormDTO } from '../types/reiew';
 
 export const getReviewList = async (placeId: number) => {
-  const response = await requestHeader.get(
-    `/api/review/${placeId}`
-  );
+  const response = await requestHeader.get(`/api/review/${placeId}`);
   return response.data;
 };
 
 export const postReview = async (data: ReviewFormDTO) => {
-  const response = await requestHeader.post(
-    `/api/review`,
-    data
-  );
+  const response = await requestHeader.post(`/api/review`, data);
   return response.data;
 };
 
@@ -24,10 +19,7 @@ export const updateReview = async (reviewId: number, data: ReviewFormDTO) => {
   return response.data;
 };
 
-export const deleteReview = async (reviewId: number, data: ReviewFormDTO) => {
-  const response = await requestHeader.delete(
-    `/api/review/delete/${reviewId}`,
-    { data }
-  );
+export const deleteReview = async (reviewId: number) => {
+  const response = await requestHeader.delete(`/api/review/delete/${reviewId}`);
   return response.data;
 };

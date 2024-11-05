@@ -13,7 +13,8 @@ import MeetingAction from '../../components/meeting/detailpage/MeetingAction';
 
 // 타입 호출
 import { MeetingData, MeetingDetailData, MeetingUserData } from '../../types/meeting';
-import { getMeeting } from '../../api/meeting';
+import { getMeeting, getMeetingUser } from '../../api/meeting';
+import { extractUserIdFromCookie } from '../../utils/extractUserIdFromCookie';
 
 function MeetingDetailPage() {
   const navigate = useNavigate();
@@ -29,9 +30,17 @@ function MeetingDetailPage() {
     
     const fetchMeetingData = async () => {
       setIsLoading(true);
-      
+      const userId = Number( extractUserIdFromCookie() );
+
       try {
         const response = await getMeeting(Number(meetingId));
+        const userResponse = await getMeetingUser({
+          userId,
+          meetingId : Number(meetingId)
+        });
+
+        console.log(userResponse);
+        
 
         if (response) {
           const result = response;
@@ -52,7 +61,6 @@ function MeetingDetailPage() {
             createdAt: result.createdAt,
           };
           setMeetingData(formattedResults);
-          setUserData(dummyMeetingUser2);
         }
 
       } catch (error) {
@@ -65,6 +73,46 @@ function MeetingDetailPage() {
     fetchMeetingData();
   }, [meetingId]);
 
+  useEffect(()=>{
+    const fetchUserData = async () => {
+    const userId = Number( extractUserIdFromCookie() );
+    console.log('userId >>>> ',userId);
+      try {
+        const userResponse = await getMeetingUser({
+          userId,
+          meetingId : Number(meetingId)
+        });
+
+        // const isJoined : boolean;
+        // const ispermitted : boolean;
+        // const isReport : boolean;
+        
+        // if(!userResponse.data){
+        //   const 
+        // }
+        
+        // const meetingUser:MeetingUserData={
+        //   userId :userId,
+        //   isJoined : isJoined,
+        //   ispermitted: , 
+        //   isReport :
+        // }
+
+
+
+        setUserData(dummyMeetingUser2);
+        console.log(userResponse);
+      
+
+      } catch (error) {
+        console.error('Error fetching meeting data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserData();
+  },[])
 
   if (!meetingId) {
     return <div>낫 타당한 접근방법! </div>;
@@ -82,8 +130,8 @@ function MeetingDetailPage() {
   return (
     <div className='meeting-detail-page'>
       <MeetingInfo
-        data={meetingData}
         user={userData}
+        data={meetingData}
       />
       <hr/>
       <MeetingAction
