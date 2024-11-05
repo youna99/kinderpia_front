@@ -11,9 +11,10 @@ interface ReviewItemProps {
   star: number;
   createdAt: string;
   likeCount: number;
-  placeName: string;
+  placeName?: string;
   profileImg?: string;
   nickname?: string;
+  showPlaceName?: boolean; // 장소상세페이지에서 placeName 안보이기
   onClick?: () => void; // onClick 프로퍼티 추가(선택)
 }
 
@@ -26,6 +27,7 @@ const Review: React.FC<ReviewItemProps> = ({
   placeName,
   profileImg = '/images/usericon.png',
   nickname = '닉네임',
+  showPlaceName = true, // 마이페이지에서는 기본값으로 설정
   onClick, // onClick 프로퍼티 받기
 }) => {
   const handleDeleteReview = async () => {
@@ -46,10 +48,12 @@ const Review: React.FC<ReviewItemProps> = ({
 
   return (
     <div className="review-wrap" key={reviewId}>
-      <h3 className="place-title" onClick={onClick}>
+    {showPlaceName && (
+      <h3>
         <span className="xi-maker"></span>
         {placeName}
       </h3>
+    )}
       <button className="delete-btn" onClick={handleDeleteReview}>
         삭제
       </button>

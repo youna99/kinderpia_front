@@ -34,7 +34,7 @@ const PlaceInfoDetail: React.FC<PlaceData> = ({
   };
 
   return (
-    <>
+    <section className="container">
       <section className="placeInfo-container">
         <div className="place-info-detail-coverImage">{categoryIconImg}</div>
         <span className="place-info-detail-category">{placeCategoryName}</span>
@@ -63,16 +63,12 @@ const PlaceInfoDetail: React.FC<PlaceData> = ({
           </Link>
         </div>
       </section>
-      <section className='placeInfo-map'>
-        <div className='placeInfo-map-title'>
-          지도
-        </div>
-        <hr/>
-        <StaticMapView
-          location={detailAddress}
-        />
+      <section className="placeInfo-map">
+        <div className="placeInfo-map-title">지도</div>
+        <hr />
+        <StaticMapView location={detailAddress} />
       </section>
-    </>
+    </section>
   );
 };
 
