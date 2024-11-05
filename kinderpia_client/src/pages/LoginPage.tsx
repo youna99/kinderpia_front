@@ -55,8 +55,8 @@ export default function LoginPage() {
         // console.log('로그인 완료:', response)
 
         // 일단 세션에 저장
-        const token = response.headers['authorization'];
-        sessionStorage.setItem('token', token);
+        // const token = response.headers['authorization'];
+        // sessionStorage.setItem('token', token);
 
         await simpleAlert('success', '로그인 성공!');
         navigate('/');

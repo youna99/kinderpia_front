@@ -3,7 +3,7 @@ import { RootState } from "../../store";
 import ChatMember from "./ChatMember";
 import "../../styles/chat/ChatMembersMenu.scss";
 import { useEffect } from "react";
-import { postLeaveMeeting } from "../../api/meeting";
+import { deleteLeaveMeeting } from "../../api/meeting";
 import { setSelected } from "../../store/chatRoomsSlice";
 import { confirmAlert, showAlert, simpleAlert } from "../../utils/alert";
 import { extractUserIdFromCookie } from "../../utils/extractUserIdFromCookie";
@@ -57,7 +57,7 @@ export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
     );
     if (confirmed) {
       try {
-        const res = await postLeaveMeeting(meetingId);
+        const res = await deleteLeaveMeeting(meetingId);
         if (res?.status === 200) {
           // 요청 후 해당되는 대화방을 떠나고(목록에서 삭제), 대화방을 선택해 달라고 하는 UI 보여줘야함
           simpleAlert("success", "모임을 떠났습니다.");

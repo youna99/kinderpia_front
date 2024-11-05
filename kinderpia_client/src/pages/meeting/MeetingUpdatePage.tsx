@@ -16,7 +16,7 @@ import JoinMethodInput from '../../components/meeting/createpage/JoinMethodInput
 import CommonButton1 from '../../components/common/CommonButton1';
 
 // api요청 함수 호출
-import { putMeeting, getMeeting, meetingApi } from '../../api/meeting';
+import { putMeeting, getMeeting } from '../../api/meeting';
 
 //스타일 호출
 import '../../styles/meeting/createpage/MeetingUpdatePage.scss';
@@ -28,50 +28,53 @@ function MeetingUpdatePage() {
   const [initialMeetingData, setInitialMeetingData] = useState<MeetingDetailData>();
   // 수정할 데이터 상태관리
   const [updateFormData, setUpdateFormData] = useState<UpdateMeetingFormData>();
-  const [categoryId , setCategoryId] = useState<number>(0);
+  const [categoryId, setCategoryId] = useState<number>(0);
   const { meetingId } = useParams<{ meetingId: string }>();
   const navigate = useNavigate();
 
-  // 초기 데이터 로딩
-  useEffect(() => {
-    if (!meetingId) {
-      navigate('/not-found'); 
-      return;
-    }
-    
-    const MEETING_TYPES = categoryList;
-    const findCategoryIdByLabel = (categoryLabel: string): number => {
-      const category = categoryList.find(cat => cat.label === categoryLabel);
-      return category ? category.value : 6; // 일치하는 카테고리가 없으면 기본값 6(기타) 반환
-    };
-    const fetchMeetingData = async () => {
-      try {
-        const result = await getMeeting(Number(meetingId));
-        setInitialMeetingData(result);
-        
-        if(!initialMeetingData?.meetingCategory){
-          return;
-        }
+  // 카테고리 ID 찾는 함수
+  const findCategoryIdByLabel = (categoryLabel: string): number => {
+    const category = categoryList.find(cat => cat.label === categoryLabel);
+    return category ? category.value : 6;
+  };
 
-        setCategoryId(findCategoryIdByLabel(initialMeetingData?.meetingCategory));
-        // 수정 가능한 필드들만 updateFormData에 설정
-        setUpdateFormData({
-          meetingTitle: result.meetingTitle,
-          totalCapacity: result.totalCapacity,
-          limited: result.totalCapacity > 0,
-          meetingContent: result.meetingContent
-        });
+useEffect(() => {
+  if (!meetingId) {
+    navigate('/not-found'); 
+    return;
+  }
 
-      } catch (error) {
-        console.error('모임 데이터 로딩 중 에러 발생:', error);
-        navigate('/error');
+  const fetchMeetingData = async () => {
+    try {
+      const currentUserId = await extractUserIdFromCookie();
+      const result = await getMeeting(Number(meetingId));
+      if (result.userId !== Number(currentUserId)) {
+        navigate('/not-found');
+        return;
       }
-    };
 
-    fetchMeetingData();
-  }, [meetingId, navigate]);
+      setInitialMeetingData(result);
+      
+      if (result.meetingCategory) {
+        setCategoryId(findCategoryIdByLabel(result.meetingCategory));
+      }
 
-  // 참가 인원 변경 핸들러
+      setUpdateFormData({
+        meetingTitle: result.meetingTitle,
+        totalCapacity: result.totalCapacity,
+        limited: result.totalCapacity > 0,
+        meetingContent: result.meetingContent
+      });
+
+    } catch (error) {
+      console.error('모임 데이터 로딩 중 에러 발생:', error);
+      navigate('/error');
+    }
+  };
+
+  fetchMeetingData();
+}, [meetingId, navigate]);
+
   const handleParticipantsChange = (value: number) => {
     setUpdateFormData(prev => ({
       ...prev!,
@@ -79,16 +82,14 @@ function MeetingUpdatePage() {
     }));
   };
 
-  // 참가 인원 제한 여부 변경 핸들러
   const handleLimitChange = (hasLimit: boolean) => {
     setUpdateFormData(prev => ({
       ...prev!,
-      hasParticipantsLimit: hasLimit,
-      totalCapacity: hasLimit ? prev!.totalCapacity : 0
+      limited: hasLimit,
+      totalCapacity: hasLimit ? 1 : 99
     }));
   };
 
-  // 로딩 중 상태 표시
   if (!initialMeetingData || !updateFormData) {
     return <div className="loading">데이터를 불러오는 중입니다...</div>;
   }
@@ -136,13 +137,6 @@ function MeetingUpdatePage() {
       <span className="meeting-update-page-notice">
         <span className='xi-check'></span> 표시만 수정 가능합니다.
       </span>
-      <form className="meeting-update-page-form">
-        {/* CategoryInput - 카테고리 (수정 불가) */}
-        <CategoryInput
-          value={categoryId}
-          disabled={true}
-          isRequired={false}
-        />
 
         {/* TitleInput - 제목 (수정 가능) */}
         <TitleInput
@@ -163,16 +157,32 @@ function MeetingUpdatePage() {
           min={1}
           max={20}
         />
+        
+        {/* DescInput - 설명 (수정 가능) */}
+        <DescInput
+          value={updateFormData.meetingContent  }
+          onChange={(value) =>
+            setUpdateFormData(prev => ({ ...prev!, meetingContent: value }))
+          }
+        />      
+        
+        <form className="meeting-update-page-form">
+        {/* CategoryInput - 카테고리 (수정 불가) */}
+        <CategoryInput
+          value={categoryId}
+          disabled={true}
+          isRequired={false}
+        />
 
         {/* 모임 장소 (수정 불가) */}
         <div className="location">
           <label>모임 장소</label>
           <hr />
-          <div className='text-body'>
+          <span  className='text-body'>
             {initialMeetingData.meetingLocation}
             {initialMeetingData.detailAddress && 
-              ` (${initialMeetingData.detailAddress})`}
-          </div>
+              `  (${initialMeetingData.detailAddress})`}
+          </span>
         </div>
 
         {/* 모임 일시 (수정 불가) */}
@@ -186,24 +196,58 @@ function MeetingUpdatePage() {
           </div>
         </div>
 
-        {/* DescInput - 설명 (수정 가능) */}
-        <DescInput
-          value={updateFormData.meetingContent  }
-          onChange={(value) =>
-            setUpdateFormData(prev => ({ ...prev!, description: value }))
-          }
-        />
-
         {/* JoinMethodInput - 참가 방식 (수정 불가) */}
-        <JoinMethodInput
-          value={initialMeetingData.authType}
-          disabled={true}
-          isRequired={false}
-        />
-        <CommonButton1
-          text={'모임 수정하기'}
-          onClick={buttonActionProps}
-        />
+
+        <div className="join-method-container">
+          <div className="join-method-header">
+            <label className="join-method-header-title">
+              신청 방식
+            </label>
+          </div>
+          <hr />
+          <div className="join-method-options">
+          {initialMeetingData.authType ?
+            <div className="option-item">
+              <label>
+                <input
+                  type="radio"
+                  name="joinMethod"
+                  value="free"
+                  checked={true}
+                />
+                <div className="option-content">
+                  <div className="option-text">
+                    <strong>자유 참가</strong>
+                    <p>개설자의 승인 없이 참가할 수 있어요</p>
+                  </div>
+                </div>
+              </label>
+            </div>
+
+            :<div className="option-item">
+              <label>
+                <input
+                  type="radio"
+                  name="joinMethod"
+                  value="approval"
+                  checked={true}
+                />
+                <div className="option-content">
+                  <div className="option-text">
+                    <strong>승인 필요</strong>
+                    <p>모임에 참가하려면 개설자의 승인이 필요해요</p>
+                  </div>
+                </div>
+              </label>
+            </div>}
+          </div>
+        </div>
+        <div className='btn-wrapper'>
+          <CommonButton1
+            text={'모임 수정하기'}
+            onClick={buttonActionProps}
+          />
+        </div>
       </form>
     </section>
   );
