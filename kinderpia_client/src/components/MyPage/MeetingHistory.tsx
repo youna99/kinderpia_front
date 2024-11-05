@@ -55,7 +55,10 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
 
           response = {
             data: {
-              dataList: ongoingMeetings,
+              data: {
+                dataList: ongoingMeetings,
+                pageInfo: allMeetings.data.data.pageInfo,
+              },
             },
           };
           console.log('모집중인 모임데이터', response.data);
