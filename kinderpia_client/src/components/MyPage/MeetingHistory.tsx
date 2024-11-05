@@ -23,7 +23,7 @@ export interface MettingListInfo {
 
 const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
   const [meetings, setMeetings] = useState<MettingListInfo[]>([]);
-  const [filter, setFilter] = useState<string>('all'); // 기본값을 'all'로 설정
+  const [filter, setFilter] = useState<string>('all');
 
   useEffect(() => {
     const fetchMeetings = async () => {
@@ -42,26 +42,29 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
             `http://localhost:8080/api/user/meeting/leader/list/${userId}?page=1&size=10`,
             { withCredentials: true }
           );
-          console.log('내가만든 모임데이터', response);
+          console.log('내가만든 모임데이터', response.data);
         } else if (filter === 'ongoing') {
           const allMeetings = await axios.get(
             `http://localhost:8080/api/user/meeting/list/${userId}?page=1&size=10`,
             { withCredentials: true }
           );
-          console.log('모집중 모임데이터', response);
+
+          const ongoingMeetings = allMeetings.data.data.dataList.filter(
+            (meeting: MettingListInfo) => meeting.meetingStatus === 'ONGOING'
+          );
+
           response = {
             data: {
-              meetings: allMeetings.data.meetings.filter(
-                //필터부분 오류생김
-                (meeting: MettingListInfo) =>
-                  meeting.meetingStatus === 'ONGOING'
-              ),
+              dataList: ongoingMeetings,
             },
           };
+          console.log('모집중인 모임데이터', response.data);
         }
 
         if (response) {
-          setMeetings(response.data.data.dataList);
+          if (response.status === 200) {
+            setMeetings(response.data.data.dataList);
+          }
         }
       } catch (error) {
         console.error('모임 목록 로드 중 오류 발생:', error);
@@ -92,7 +95,7 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
             meetingTitle={meeting.meetingTitle}
             meetingCategory={meeting.meetingCtgName}
             createdAt={meeting.createdAt}
-            district={meeting.district} //전체 모임인원수?
+            district={meeting.district}
             meetingLocation={meeting.meetingLocation}
             meetingTime={formatDate(meeting.meetingTime)}
             nickname={meeting.nickname}
