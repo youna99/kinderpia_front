@@ -4,6 +4,7 @@ import { getReviewList } from '../../api/review';
 import '../../styles/review/ReviewList.scss';
 // import ReviewItem from './ReviewItem';
 import Review from './Review';
+import { extractUserIdFromCookie } from '../../utils/extractUserIdFromCookie';
 
 interface ReviewListProps {
   placeId: string;
@@ -53,14 +54,13 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId }) => {
   if (reviews.length === 0)
     return <div className="review-list-404">작성된 리뷰가 없습니다.</div>;
 
+  const currentUserId = extractUserIdFromCookie();
+  console.log('currentUserId >>>', currentUserId);
+
   return (
     <div className="review-list-container">
       <hr />
       {reviews.map((reviewData) => (
-        // <ReviewItem
-        //   key={reviewData.review.reviewId}
-        //   data={reviewData}
-        // />
         <Review
           reviewId={reviewData.review.reviewId}
           reviewContent={reviewData.review.reviewContent}
@@ -70,6 +70,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId }) => {
           profileImg={reviewData.profileImg || '/images/usericon.png'}
           nickname={reviewData.nickname}
           showPlaceName={false}
+          isOwner={currentUserId === String(reviewData.userId)}
         />
       ))}
     </div>

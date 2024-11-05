@@ -2,29 +2,36 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 // 타입 호출
-import { PlaceData } from '../../types/place';
+import { PlaceData, ratingAndCategory } from '../../types/place';
 import ReviewInput from '../../components/review/ReviewInput';
 import ReviewList from '../../components/review/ReviewList';
-import PlaceInfoDetail from '../../components/place/PlaceInfoDetail';
+import PlaceInfoDetail, {
+  PlaceInfoProps,
+} from '../../components/place/PlaceInfoDetail';
 import { getPlace } from '../../api/placelist';
 
 import '../../styles/place/PlaceDetailPage.scss';
 
-const PlaceDetailPage = () => {
+const PlaceDetailPage: React.FC = () => {
   const { placeId } = useParams<{ placeId: string }>();
   const [isLoading, setIsLoading] = useState(true);
   const [placeDetail, setPlaceDetail] = useState<PlaceData>();
+  const [ratingAndCategorys, setRatingAndCategorys] =
+    useState<ratingAndCategory>();
   const navigate = useNavigate();
 
   console.log('placeID>>', placeId);
+  console.log('placeIdtype>>>', typeof placeId);
 
   // GET) 장소상세데이터 가져오기
   const getPlaceDetail = async () => {
     try {
       const data = await getPlace(placeId);
       console.log('data.data.place >>>', data.data.place);
+      console.log('data.data >>>', data.data);
 
       setPlaceDetail(data.data.place);
+      setRatingAndCategorys(data.data);
     } catch (error) {
       console.log('장소목록 가져오는 중 에러 발생!: ', error);
     }
@@ -59,19 +66,14 @@ const PlaceDetailPage = () => {
   return (
     <div className="place-detail-page">
       <div className="place-detail-info">
-        <PlaceInfoDetail
-          placeId={placeDetail.placeId}
-          placeName={placeDetail.placeName}
-          placeCategoryName={placeDetail.placeCategoryName}
-          location={placeDetail.location}
-          detailAddress={placeDetail.detailAddress}
-          latitude={placeDetail.latitude}
-          longitude={placeDetail.longitude}
-          paid={placeDetail.paid}
-          operatingDate={placeDetail.operatingDate}
-          homepageUrl={placeDetail.homepageUrl}
-          placeNum={placeDetail.placeNum}
-        />
+        {placeDetail && ratingAndCategorys ? (
+          <PlaceInfoDetail
+            data={placeDetail}
+            ratingAndCategory={ratingAndCategorys}
+          />
+        ) : (
+          <div>로딩중입니다...</div>
+        )}
       </div>
       <ReviewInput placeId={placeId} />
       <ReviewList placeId={placeId} />

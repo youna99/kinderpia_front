@@ -1,7 +1,7 @@
 import { PlaceData } from '../types/place';
 
 export const dummyPlaceDetail: PlaceData = {
-  placeId: 1,
+  placeId: '1',
   placeName: '새싹 영등포캠퍼스',
   placeCategoryName: '교육, 뭐시기',
   location: '영등포구',
