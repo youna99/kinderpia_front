@@ -3,24 +3,85 @@ import { RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { getChatMessages, getChatRoom } from "../../api/chat";
 import { setChatInfo, setMessages } from "../../store/chatSlice";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { getJwtFromCookies } from "../../utils/extractUserIdFromCookie";
 import { setSelected } from "../../store/chatRoomsSlice";
 import { ChatRoomInfo } from "../../types/chat";
+import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 
-export default function ChatRooms() {
+interface ChatRoomsProps {
+  fetchChatList: (token: string | null, page: number) => Promise<void>;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  currentPage: number;
+}
+
+export default function ChatRooms({
+  fetchChatList,
+  setCurrentPage,
+  currentPage,
+}: ChatRoomsProps) {
   const [msgPage, setMsgPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [pageParams, setPageParams] = useState<number[]>([]);
 
   const dispatch = useDispatch();
-  const { rooms } = useSelector((state: RootState) => state.chatRooms);
+  const { rooms, chatPages } = useSelector(
+    (state: RootState) => state.chatRooms
+  );
 
   const scrollRef = useRef<HTMLUListElement>(null);
-  const observeRef = useRef<HTMLDivElement>(null);
+  const observerRef = useRef<HTMLDivElement>(null);
 
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
 
+  // 무한 스크롤
+  const fetchMoreData = async () => {
+    const jwt = getJwtFromCookies();
+    if (pageParams.includes(currentPage) || isLoading) return;
+    setIsLoading(true);
+    setPageParams((prev) => [...prev, currentPage]);
+    try {
+      await fetchChatList(jwt, currentPage);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      const firstEntry = entries[0];
+      if (
+        firstEntry.isIntersecting &&
+        chatPages.page < chatPages.totalPages &&
+        !isLoading
+      ) {
+        console.log("gdgd");
+        setCurrentPage((prevPage) => prevPage + 1);
+      }
+    });
+
+    if (observerRef.current) observer.observe(observerRef.current);
+
+    return () => {
+      if (observerRef.current) observer.unobserve(observerRef.current);
+    };
+  }, [chatPages.page, chatPages.totalPages, isLoading]);
+
+  useEffect(() => {
+    fetchMoreData();
+  }, [currentPage]);
+
+  // 단일 채팅방 조회 함수
   const enterChatroom = useCallback(
     async (chatroomId: number) => {
       const jwt = getJwtFromCookies();
@@ -32,7 +93,7 @@ export default function ChatRooms() {
           dispatch(setChatInfo(chatInfo));
           // 채팅방의 메세지 조회
           const res2 = await getChatMessages(jwt, chatroomId, msgPage);
-          const chatMsgList = [...res2.data.data.chatmsgList].reverse()
+          const chatMsgList = [...res2.data.data.chatmsgList].reverse();
           dispatch(setMessages(chatMsgList));
           dispatch(setSelected(true));
         }
@@ -90,7 +151,9 @@ export default function ChatRooms() {
       >
         {rooms.length > 0 && chatRoomItems}
       </ul>
-      {rooms.length > 11 && <div ref={observeRef}>더보기....</div>}
+      {chatPages.totalPages > 1 && chatPages.page < chatPages.totalPages && (
+        <div ref={observerRef}>더보기....</div>
+      )}
     </section>
   );
 }

@@ -7,25 +7,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import NoChatRoom from "../components/chatlist/NoChatRoom";
 import {
+  addChatRooms,
   setChatRooms,
   setEmpty,
   setError,
   setLoading,
+  setPages,
   setSelected,
 } from "../store/chatRoomsSlice";
 import { getChatList } from "../api/chat";
 import { getJwtFromCookies } from "../utils/extractUserIdFromCookie";
-import { ChatRoomInfo, ChatRoomListInfo } from "../types/chat";
+import { ChatRoomListInfo } from "../types/chat";
 
 export default function ChatlistPage() {
-  const [page, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const dispatch = useDispatch();
-  const { isEmpty, isSelected } = useSelector(
+  const { rooms, isEmpty, isSelected, chatPages } = useSelector(
     (state: RootState) => state.chatRooms
   );
   const { chatroom, messages } = useSelector((state: RootState) => state.chat);
-  const chatroomId = chatroom?.chatroomId;
 
   useEffect(() => {
     const upBtn = document.querySelector(".up-btn") as HTMLButtonElement | null;
@@ -50,36 +51,32 @@ export default function ChatlistPage() {
   // 비동기 요청
   useEffect(() => {
     const jwt = getJwtFromCookies();
-    fetchChatList(jwt, page);
-  }, [dispatch, isEmpty, isSelected, chatroomId, messages, page]);
+    fetchChatList(jwt, currentPage);
+  }, [dispatch, isEmpty]);
 
   useEffect(() => {
-    
-  
     return () => {
-      dispatch(setSelected(false))
-    }
-  }, [])
-  
+      // 언마운트 시 상태 초기화
+      dispatch(setChatRooms([]));
+      dispatch(setSelected(false));
+      setCurrentPage(1);
+    };
+  }, []);
 
   // 채팅방 목록 조회 함수
   const fetchChatList = async (token: string | null, page: number) => {
     try {
       const res = await getChatList(token, page);
       if (res?.status === 200) {
-        const chatroomList: ChatRoomListInfo[] = res.data.data.chatroomList.map(
-          (room: ChatRoomInfo) => ({
-            chatroomId: room.chatroomId,
-            meetingId: room.meetingId,
-            meetingTitle: room.meetingTitle,
-            lastMessage: room.lastMessage,
-            meetingHeader : room.meetingHeader,
-            meetingCategory: room.meetingCategoryName,
-            totalCapacity: room.capacity,
-            isActive: room.active,
-          })
-        );
-        dispatch(setChatRooms(chatroomList));
+        const chatroomList: ChatRoomListInfo[] = res.data.data.chatroomList;
+        console.log(res);
+
+        if (currentPage === 1) {
+          dispatch(setChatRooms(chatroomList));
+        } else {
+          dispatch(addChatRooms(chatroomList));
+        }
+        dispatch(setPages(res.data.pageInfo));
         dispatch(setEmpty(chatroomList.length === 0));
         dispatch(setError(false));
         dispatch(setLoading(false));
@@ -91,14 +88,17 @@ export default function ChatlistPage() {
       throw error;
     }
   };
-
   return (
     <section className="chatlist">
       {isEmpty ? (
         <NoChatRoom />
       ) : (
         <div className="chatlist-wrapper">
-          <ChatRooms />
+          <ChatRooms
+            fetchChatList={fetchChatList}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          />
           {isSelected ? <SelectedChatRoom /> : <UnSelectedChatRoom />}
         </div>
       )}

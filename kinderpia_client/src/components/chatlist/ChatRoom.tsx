@@ -10,12 +10,11 @@ interface ChatRoomProp {
 }
 
 export default function ChatRoom({ room, onClick }: ChatRoomProp) {
-  console.log(room.meetingHeader);
   const userId = Number(extractUserIdFromCookie());
 
   return (
     <li className="chatroom-list" title={room.meetingTitle} onClick={onClick}>
-      <figure className="chatroom-icon">{getIcon(room.meetingCategory)}</figure>
+      <figure className="chatroom-icon">{getIcon(room.meetingCategoryName)}</figure>
       <div className="chatroom-info">
         <div className="chatroom-bx">
           <h4 className="chatroom-title">
@@ -24,7 +23,7 @@ export default function ChatRoom({ room, onClick }: ChatRoomProp) {
           </h4>
           <div className="chatroom-capacity">
             <span className="xi-group"></span>
-            <span>{room.totalCapacity}</span>
+            <span>{room.capacity}</span>
           </div>
         </div>
         <div className="chatroom-lastmsg">{room.lastMessage}</div>

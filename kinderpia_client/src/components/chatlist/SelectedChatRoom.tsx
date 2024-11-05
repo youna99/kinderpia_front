@@ -25,10 +25,6 @@ export default function SelectedChatRoom() {
   const clientRef = useRef<Client | null>(null);
 
   const chatroomId = chatroom?.chatroomId;
-  // 경로
-  // const url =
-  //   `${process.env.REACT_APP_API_URL}/ws` || "http://localhost:8080/ws";
-
   useEffect(() => {
     const jwt = getJwtFromCookies();
     const chatTopic = `/topic/chatroom/${chatroomId}`;

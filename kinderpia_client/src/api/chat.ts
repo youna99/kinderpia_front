@@ -54,7 +54,7 @@ export const getChatList = async (
     `/api/chatroom/list`,
     {},
     {
-      params: { page },
+      params: { page, size:15 },
       headers: {
         Authorization: `Bearer ${token}`,
       },
