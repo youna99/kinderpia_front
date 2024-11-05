@@ -1,19 +1,35 @@
+
+import { response } from 'express';
 import {
   CreateMeetingFormData,
   CategoryResponse,
   UpdateMeetingFormData,
   MeetingJoinData,
   MeetingDetailData,
+  MeetingUserStatusData,
+  MeetingUserResponse,
 } from '../types/meeting';
 import { requestHeader } from './requestHeader';
 
-export const getMeeting = async (meetingId: number): Promise<MeetingDetailData> => {
+export const getMeeting = async ( 
+  meetingId: number
+): Promise<MeetingDetailData> => {
   const response = await requestHeader.get(
     `/api/meeting/${meetingId}`
   );
-  
   return response.data.data;
 };
+
+export const getMeetingUser = async( 
+  data : MeetingUserStatusData
+): Promise<MeetingUserResponse>=>{
+  const response = await requestHeader.post(
+    `/api/user/meeting/status`,
+    data
+  );
+
+  return response.data;
+}
 
 export const postMeeting = async (
   data: CreateMeetingFormData
@@ -50,21 +66,53 @@ export const postLeaveMeeting = async (meetingid : number) => {
   return response;
 }
 
+// 모임 떠나기
+export const deleteLeaveMeeting = async (meetingId : number) => {
+  const response = await requestHeader.delete(`/api/userMeeting/exit/${meetingId}`);
+  return response;
+}
+
 // 모임 가입하기
 export const postJoinMeeting = async (
-  data: MeetingJoinData
+  data: MeetingJoinData,
+  meetingId : number
 ) => {
-  const response = await requestHeader.put(`/api/meeting/${data.meetingId}`, data, {
-    withCredentials: true,
-  });
+  console.log(data, meetingId);
+  
+  const response = await requestHeader.post(`/api/userMeeting/join/${meetingId}`, data );
   return response.data;
 };
 
-// 모든 API 함수들을 하나의 객체로 내보내기
-export const meetingApi = {
-  postMeeting,
-  getCategory,
-  putMeeting,
-  postLeaveMeeting,
-  postJoinMeeting
+// 모임 종료하기
+export const putEndMeeting = async(
+  meetingId : number
+) => {
+  const response = await requestHeader.put(`/api/meeting/${meetingId}/end`);
+
+  return response.data;
+}
+
+// 승인 대기자 목록 불러오기
+export const getMeetingUserWaitList = async(
+  meetingId:number, 
+)=>{
+  const response = await requestHeader.get(`/api/meeting/meeting/${meetingId}/pending-approvals`);
+
+  return response.data;
+}
+
+export const putUserMeetingApprove = async (
+  meetingId: number,
+  userId: number
+) => {
+  const response = await requestHeader.put(`/api/userMeeting/${meetingId}/accept/${userId}`);
+  return response;
+};
+
+export const putUserMeetingReject = async (
+  meetingId: number,
+  userId: number
+) => {
+  const response = await requestHeader.put(`/api/userMeeting/${meetingId}/reject/${userId}`);
+  return response.data;
 };

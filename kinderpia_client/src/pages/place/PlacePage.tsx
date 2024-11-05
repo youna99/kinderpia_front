@@ -30,7 +30,7 @@ const PlacePage: React.FC = () => {
   const [currentSearchTerm, setCurrentSearchTerm] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [sortBy, setSortBy] = useState<SortType>(null);
-  
+
   // 무한 스크롤을 위한 상태 추가
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -67,6 +67,8 @@ const PlacePage: React.FC = () => {
         const result = await getDefaultPlaceList(1, 6);
         if (result) {
           setPlaces(result.data.content);
+          console.log('result.data.content >>>', result.data.content);
+
           setHasMore(result.data.content.length === 6); // 6개 미만이면 더 이상 데이터가 없음
         } else {
           setPlaces(dummyPlaceList);
@@ -170,6 +172,9 @@ const PlacePage: React.FC = () => {
 
   return (
     <div className="meeting-page">
+      <strong className="page-banner-txt">
+        서울 이곳저곳의 핫플레이스를 찾아보세요!
+      </strong>
       <div className="meeting-map-container">
         <SeoulMap
           onDistrictClick={handleDistrictClick}
@@ -230,7 +235,7 @@ const PlacePage: React.FC = () => {
                 placeCategoryName={
                   place.placeCategoryName || place.placeCtgName
                 }
-                rating={place.rating}
+                averageStar={place.averageStar || 5}
                 paid={place.paid}
                 placeImg={place.placeImg}
               />

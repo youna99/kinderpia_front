@@ -9,7 +9,7 @@ header {
   width: 100%;
   height: 8rem;
   border-bottom: 1px solid $border-color;
-  z-index: 100000000000;
+  z-index: 1000;
   background-color: #fff;
   .inner {
     display: flex;
@@ -37,7 +37,7 @@ header {
     padding: 2rem;
     box-sizing: border-box;
     position: absolute;
-    right: -1rem;
+    right: -100%;
     top: 0s;
     background-color: #fff;
     z-index: 1000;

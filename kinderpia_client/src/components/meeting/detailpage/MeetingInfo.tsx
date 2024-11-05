@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { MeetingData, MeetingDetailData, MeetingUserData } from '../../../types/meeting';
+import React from 'react';
+import { MeetingData, MeetingUserData } from '../../../types/meeting';
 
 //컴포넌트 호출
 import MeetingInfoDesc from './MeetingInfoDesc';
@@ -13,16 +13,13 @@ interface MeetingInfoProps {
   user?: MeetingUserData;
 }
 
-const MeetingInfo: React.FC<MeetingInfoProps> = ({
-  data,
-  user
-}) => {
+const MeetingInfo: React.FC<MeetingInfoProps> = ({ data, user }) => {
   if (!data) {
     return <div>데이터를 불러오는 중입니다...</div>;
   }
 
   return (
-    <div className='meeting-info-container'>
+    <div className="meeting-info-container">
       <MeetingInfoDetail
         meetingCategory={data.meetingCategory}
         meetingTitle={data.meetingTitle}
@@ -35,6 +32,7 @@ const MeetingInfo: React.FC<MeetingInfoProps> = ({
       <MeetingInfoDesc
         createdAt={data.createdAt}
         description={data.meetingContent}
+        meetingId={data.meetingId}
         user={user}
       />
       <MeetingWh

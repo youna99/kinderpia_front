@@ -11,8 +11,8 @@ import { MettingListInfo } from '../../types/meetinglist';
 // import { dummyMeetingList } from '../../data/tempMeetingListData';
 
 import '../../styles/meeting/MeetingPage.scss';
-import { meetingApi } from '../../api/meeting';
 import { getMeetingListOpen, getMeetingList } from '../../api/meetinglist';
+import { formatDetailDate } from '../../utils/formatDate';
 
 // 서버 응답 타입 정의
 interface SearchResponse {
@@ -23,7 +23,9 @@ interface SearchResponse {
 const MeetingPage: React.FC = () => {
   // 빈 배열로 초기화하여 undefined 방지
   const [meetings, setMeetings] = useState<MettingListInfo[]>([]);
-  const [filteredMeetings, setFilteredMeetings] = useState<MettingListInfo[]>([]);
+  const [filteredMeetings, setFilteredMeetings] = useState<MettingListInfo[]>(
+    []
+  );
   const [isSearching, setIsSearching] = useState(false);
   const [filter, setFilter] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -32,16 +34,14 @@ const MeetingPage: React.FC = () => {
   useEffect(() => {
     const fetchMeetings = async () => {
       try {
-        const response = await getMeetingListOpen({
-        });
-        
+        const response = await getMeetingListOpen({});
+
         if (!response || !response.data.dataList) {
           throw new Error('Invalid response format');
         }
-        
+
         setMeetings(response.data.dataList);
         setFilteredMeetings(response.data.dataList);
-
 
         setError(null);
       } catch (error) {
@@ -59,15 +59,24 @@ const MeetingPage: React.FC = () => {
       let result = [...(meetings || [])];
 
       if (searchTerm) {
-        result = result.filter(meeting => 
-          meeting.meetingTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          meeting.meetingCategory.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          meeting.meetingLocation.toLowerCase().includes(searchTerm.toLowerCase())
+        result = result.filter(
+          (meeting) =>
+            meeting.meetingTitle
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase()) ||
+            meeting.meetingCategory
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase()) ||
+            meeting.meetingLocation
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())
         );
       }
 
       if (filter) {
-        result = result.filter(meeting => meeting.meetingStatus === "ONGOING");
+        result = result.filter(
+          (meeting) => meeting.meetingStatus === 'ONGOING'
+        );
       }
 
       setFilteredMeetings(result);
@@ -80,11 +89,13 @@ const MeetingPage: React.FC = () => {
     setIsSearching(true);
     setSearchTerm(term);
     console.log(1);
-    
+
     try {
       console.log(2);
       const response = await fetch(
-        `/api/meetings/search?query=${encodeURIComponent(term)}&onlyRecruiting=${filter}`
+        `/api/meetings/search?query=${encodeURIComponent(
+          term
+        )}&onlyRecruiting=${filter}`
       );
       console.log(3);
       const data: SearchResponse = await response.json();
@@ -104,6 +115,9 @@ const MeetingPage: React.FC = () => {
 
   return (
     <div className="meeting-page">
+      <strong className="page-banner-txt">
+        "함께하는 즐거움", 모임을 찾아보세요!
+      </strong>
       <div className="meeting-search">
         <SearchInput
           placeholder="모임 검색하기"
@@ -111,14 +125,12 @@ const MeetingPage: React.FC = () => {
           isLoading={isSearching}
         />
       </div>
-      <div className='meeting-header'>
-        <div className='meeting-header-title'>
-          모임 정보
-        </div>
-        <div className='meeting-header-filter'>
+      <div className="meeting-header">
+        <div className="meeting-header-title">모임 정보</div>
+        <div className="meeting-header-filter">
           <label className="filter-checkbox">
-            <input 
-              type='checkbox'
+            <input
+              type="checkbox"
               checked={filter}
               onChange={handleFilterChange}
             />
@@ -126,7 +138,7 @@ const MeetingPage: React.FC = () => {
           </label>
         </div>
       </div>
-      <hr/>
+      <hr />
 
       {error ? (
         <div className="meeting-error">{error}</div>
@@ -143,7 +155,7 @@ const MeetingPage: React.FC = () => {
               meetingLocation={meeting.meetingLocation}
               createdAt={meeting.createdAt}
               district={meeting.district}
-              meetingTime={meeting.meetingTime}
+              meetingTime={formatDetailDate(meeting.meetingTime)}
               nickname={meeting.nickname}
               capacity={meeting.capacity}
               totalCapacity={meeting.totalCapacity}

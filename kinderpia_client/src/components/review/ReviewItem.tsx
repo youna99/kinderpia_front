@@ -1,30 +1,36 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import defaultIcon from '../../assets/images/tempIcon1.png';
 import '../../styles/review/ReviewItem.scss';
 import ReportBox from '../common/ReportBox';
-import { Review } from '../../types/reiew';
+import { ReviewData } from '../../types/review';
 
 interface ReviewItemProps {
-  data: Review;
+  data: ReviewData;
 }
 
 const ReviewItem: React.FC<ReviewItemProps> = ({ data }) => {
   const { review, nickname, profileImg, likeCount } = data;
   const [showReportModal, setShowReportModal] = useState(false);
 
-  const handleReport = (reason: string, message: string) => {
-    console.log('신고 사유:', reason);
-    console.log('상세 내용:', message);
-    console.log('리뷰 ID:', review.reviewId);
-    setShowReportModal(false);
-  };
+  const handleReport = async (reason: number, message: string): Promise<void> => {
+    try {
+        console.log('신고 사유:', reason);
+        console.log('상세 내용:', message);
+        console.log('리뷰 ID:', review.reviewId);
+        
+        setShowReportModal(false);
+    } catch (error) {
+        console.error('신고 처리 중 오류 발생:', error);
+        alert('신고 처리 중 오류가 발생했습니다.');
+    }
+};
 
   const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
     return (
       <div className='review-item-header-info-wrapper-item-star'>
         {[...Array(5)].map((_, index) => (
-          <span 
-            key={index} 
+          <span
+            key={index}
             className={index < rating ? 'xi-star' : 'xi-star-o'}
           />
         ))}
@@ -92,11 +98,12 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ data }) => {
         <ReportBox
           onClose={() => setShowReportModal(false)}
           onSubmit={handleReport}
-          targetId={String(review.reviewId)}
+          targetId={(review.reviewId)}
         />
       )}
     </div>
   );
 };
+
 
 export default ReviewItem;

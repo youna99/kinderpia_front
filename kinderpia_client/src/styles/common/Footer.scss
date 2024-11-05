@@ -8,10 +8,17 @@ footer {
   left: 0;
   width: 100%;
   background: #000;
+  border-top: 1px solid #e8e8e8;
   text-align: center;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
   box-sizing: border-box;
-  height: 8rem;
+  height: 4rem;
+  .inner {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 2rem;
+  }
   P {
     color: #fff;
     font-size: 1.4rem;
@@ -21,12 +28,15 @@ footer {
     font-size: 2rem;
     a {
       color: #fff;
-    }
-    .footer-infotxt {
-      display: inline-block;
-      font-weight: 400;
-      margin-left: 0.5rem;
-      font-size: 1.4rem;
+      .xi-github-alt {
+        vertical-align: middle;
+      }
+      .footer-infotxt {
+        display: inline-block;
+        font-weight: 400;
+        margin-left: 0.5rem;
+        font-size: $caption;
+      }
     }
   }
 }

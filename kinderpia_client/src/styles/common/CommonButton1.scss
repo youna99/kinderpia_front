@@ -1,14 +1,15 @@
 @import '../common/variables';
 
-.common-btn{
+.common-btn {
   width: 100%;
   background-color: $main-color;
-  margin: 2rem auto;
-  height: $title1+$title1 ;
+  margin: 1rem auto;
+  height: $title1 + $title1;
   border-radius: 5px;
-  font-size: $title3;
+  font-size: $button;
   color: #ffffff;
-  &:hover{
+  margin-top: 3rem;
+  &:hover {
     opacity: 0.8;
     cursor: pointer;
   }

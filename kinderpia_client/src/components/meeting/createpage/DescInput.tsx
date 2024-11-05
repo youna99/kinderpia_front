@@ -10,7 +10,7 @@ const DescInput: React.FC<DescInputProps> = ({ value, onChange }) => {
     <div className="desc-input-container">
       <div className='desc-input-header'>
         <label className="desc-input-header-title">
-          모임 소개<span> *</span>
+          모임 소개<span className='xi-check'></span>
         </label>
         <CheckMarker
           value={value}

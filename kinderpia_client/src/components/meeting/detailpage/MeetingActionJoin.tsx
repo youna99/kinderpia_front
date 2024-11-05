@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import CommonButton1 from '../../common/CommonButton1'
 
 import '../../../styles/meeting/detailpage/MeetingActionJoin.scss';
-import { MeetingData } from '../../../types/meeting';
+import { MeetingData, MeetingJoinData } from '../../../types/meeting';
 
 interface MeetingActionJoinProps {
   data?: MeetingData,
-  onSubmit: (count: number) => void
+  onSubmit: (count: number, data:MeetingJoinData) => void
 }
 
 const MeetingActionJoin: React.FC<MeetingActionJoinProps> = ({ 
@@ -43,7 +43,9 @@ const MeetingActionJoin: React.FC<MeetingActionJoinProps> = ({
   }
 
   const handleSubmit = async (): Promise<void> => {
-    onSubmit(count)
+    const capacity = count;
+    const meetingId = data?.meetingId || 0;
+    onSubmit(meetingId, {capacity})
   }
 
   return (

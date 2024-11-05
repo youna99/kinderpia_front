@@ -1,17 +1,16 @@
 export interface PlaceData {
-  placeId: number;
+  placeId: string;
   placeName: string;
   placeCategoryName: string;
   location: string;
   detailAddress: string;
   latitude?: number;
   longitude?: number;
-  // placeImg: string;
   paid: boolean;
   operatingDate: string;
   homepageUrl: string;
   placeNum: string;
-  rating?: number;
+  averageStar?: number;
 }
 
 export interface defaultPostReq {
@@ -29,4 +28,9 @@ export interface ReviewData {
   content: string;
   star: number;
   createdAt: string;
+}
+
+export interface ratingAndCategory {
+  averageStar: number;
+  placeCtgName: string;
 }

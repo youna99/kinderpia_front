@@ -45,13 +45,23 @@ export interface MeetingData{
   authType : boolean;
   meetingStatus : string;
   createdAt :string;
+  userId :number;
 }
 
 export interface MeetingUserData{
   userId: number,
-  isJoined : boolean,  
-  ispermitted : boolean,
-  isReport: boolean,
+  joined : boolean,  
+  accepted : boolean,
+  reported: boolean,
+}
+export interface MeetingUserResponse{
+  data: any,
+  status: number,
+  message :string,
+}
+export interface MeetingUserStatusData{
+  userId : number;
+  meetingId : number;
 }
 
 export interface CategoryResponse {
@@ -61,12 +71,10 @@ export interface CategoryResponse {
 export interface UpdateMeetingFormData {
   meetingTitle: string;
   totalCapacity: number;
-  hasParticipantsLimit: boolean;
-  description: string;
+  limited: boolean;
+  meetingContent: string;
 }
 
 export interface MeetingJoinData{
-  userId : number;
-  meetingId : number;
   capacity : number;
 }

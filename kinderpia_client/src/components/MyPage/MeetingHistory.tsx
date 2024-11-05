@@ -1,24 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { MettingListInfo } from '../../types/meetinglist';
 import axios from 'axios';
 import MeetingList from '../common/MeetingList';
-// import { dummyMeetingList } from '../../data/tempMeetingListData';
 import '../../styles/mypage/MeetingHistory.scss';
+import { formatDate, formatDetailDate } from '../../utils/formatDate';
 interface MeetingHistoryProps {
   userId: string | null;
+  userInfo: {
+    profileImg?: string;
+    nickname?: string;
+  } | null;
 }
 
-const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
-  const [meetings, setMeetings] = useState<MettingListInfo[]>([]);
-  const [filter, setFilter] = useState<string>('all'); // 기본값을 'all'로 설정
+export interface MettingListInfo {
+  capacity: number;
+  createdAt: string;
+  district: string;
+  meetingCtgName: string;
+  meetingId: number;
+  meetingLocation: string;
+  meetingStatus: string;
+  meetingTime: string;
+  meetingTitle: string;
+  nickname: string;
+  totalCapacity: number;
+  profileImg: string;
+}
 
-  //더미데이터
-  // useEffect(() => {
-  //   const loadInitialData = () => {
-  //     setMeetings(dummyMeetingList);
-  //   };
-  //   loadInitialData();
-  // }, []);
+const MeetingHistory: React.FC<MeetingHistoryProps> = ({
+  userId,
+  userInfo,
+}) => {
+  const [meetings, setMeetings] = useState<MettingListInfo[]>([]);
+  const [filter, setFilter] = useState<string>('all');
 
   useEffect(() => {
     const fetchMeetings = async () => {
@@ -34,28 +47,35 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
           console.log('전체모임데이터', response.data);
         } else if (filter === 'created') {
           response = await axios.get(
-            `http://localhost:8080/api/user/meeting/leader/list/${userId}`,
+            `http://localhost:8080/api/user/meeting/leader/list/${userId}?page=1&size=10`,
             { withCredentials: true }
           );
-          console.log('내가만든 모임데이터', response);
+          console.log('내가만든 모임데이터', response.data);
         } else if (filter === 'ongoing') {
           const allMeetings = await axios.get(
-            `http://localhost:8080/api/user/meeting/list/${userId}`,
+            `http://localhost:8080/api/user/meeting/list/${userId}?page=1&size=10`,
             { withCredentials: true }
           );
-          console.log('모집중 모임데이터', response);
+
+          const ongoingMeetings = allMeetings.data.data.dataList.filter(
+            (meeting: MettingListInfo) => meeting.meetingStatus === 'ONGOING'
+          );
+
           response = {
             data: {
-              meetings: allMeetings.data.meetings.filter(
-                (meeting: MettingListInfo) =>
-                  meeting.meetingStatus === 'ONGOING'
-              ),
+              data: {
+                dataList: ongoingMeetings,
+                pageInfo: allMeetings.data.data.pageInfo,
+              },
             },
           };
+          console.log('모집중인 모임데이터', response.data);
         }
 
         if (response) {
-          setMeetings(response.data.data);
+          if (response.status === 200) {
+            setMeetings(response.data.data.dataList);
+          }
         }
       } catch (error) {
         console.error('모임 목록 로드 중 오류 발생:', error);
@@ -64,6 +84,8 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
 
     fetchMeetings();
   }, [userId, filter]);
+
+  console.log(meetings);
 
   return (
     <section id="mymeeting">
@@ -79,22 +101,23 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userId }) => {
         </div>
       </div>
       <div className="meeting-list">
-        {/* {meetings.map((meeting) => (
+        {meetings.map((meeting) => (
           <MeetingList
             key={meeting.meetingId}
             meetingId={meeting.meetingId}
             meetingTitle={meeting.meetingTitle}
-            meetingCategory={meeting.meetingCategory}
+            meetingCategory={meeting.meetingCtgName}
             createdAt={meeting.createdAt}
             district={meeting.district}
             meetingLocation={meeting.meetingLocation}
-            meetingTime={formatDate(meeting.meetingTime)}
+            meetingTime={formatDetailDate(meeting.meetingTime)}
             nickname={meeting.nickname}
             capacity={meeting.capacity}
             totalCapacity={meeting.totalCapacity}
             meetingStatus={meeting.meetingStatus}
+            profileImg={userInfo?.profileImg || '/images/usericon.png'}
           />
-        ))} */}
+        ))}
       </div>
     </section>
   );

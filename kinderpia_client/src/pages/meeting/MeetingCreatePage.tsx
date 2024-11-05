@@ -17,11 +17,12 @@ import CalenderSelector from '../../components/common/CalanderSelector';
 import CommonButton1 from '../../components/common/CommonButton1';
 
 // api 요청 함수 호출
-import { meetingApi } from '../../api/meeting';
+// import { meetingApi } from '../../api/meeting';
 
 //style 호출
 import '../../styles/meeting/createpage/MeetingCreatePage.scss'
 import { extractUserIdFromCookie } from '../../utils/extractUserIdFromCookie';
+import { postMeeting } from '../../api/meeting';
 
 const MeetingCreatePage = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const MeetingCreatePage = () => {
     userId: 0,
     meetingCategoryId: 1,
     meetingTitle: '',
-    totalCapacity: 1,
+    totalCapacity: 99 ,
     district : '',
     limited: false,
     meetingLocation: '',
@@ -39,10 +40,12 @@ const MeetingCreatePage = () => {
     authType: false
   });
 
-  // 컴포넌트 마운트 시 userId 설정
+
   useEffect(() => {
     const setUserId = async () => {
       const userId = await extractUserIdFromCookie() || '11123';
+      console.log('userId',userId);
+      
       setFormData(prev => ({
         ...prev,
         userId: parseInt(userId)
@@ -61,7 +64,7 @@ const MeetingCreatePage = () => {
   const handleParticipantsLimitChange = (hasLimit: boolean) => {
     setFormData(prev => ({
       ...prev,
-      isLimited: hasLimit,
+      limited: hasLimit,
       totalCapacity: hasLimit ? 1 : 0
     }));
   };
@@ -102,7 +105,9 @@ const MeetingCreatePage = () => {
       const data: CreateMeetingFormData = {
         ...CreateMeetingFormData,
       };
-      const result = await meetingApi.postMeeting(data);
+      console.log(data);
+      
+      const result = await postMeeting(data);
 
       navigate(`/meeting/${result.data}`);
     } catch (error) {
@@ -131,7 +136,7 @@ const MeetingCreatePage = () => {
           hasLimit={CreateMeetingFormData.limited}
           onLimitChange={handleParticipantsLimitChange}
           min={1}
-          max={10}
+          max={20}
         />
         <MapSelector 
           location={CreateMeetingFormData.meetingLocation}

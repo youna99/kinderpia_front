@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-// 데이터 호출 - 더미데이터, api
-import { dummyPlaceDetail } from '../../data/tempPlaceDetail';
-
 // 타입 호출
-import { PlaceData } from '../../types/place';
+import { PlaceData, ratingAndCategory } from '../../types/place';
 import ReviewInput from '../../components/review/ReviewInput';
 import ReviewList from '../../components/review/ReviewList';
 import PlaceInfoDetail from '../../components/place/PlaceInfoDetail';
@@ -13,18 +10,39 @@ import { getPlace } from '../../api/placelist';
 
 import '../../styles/place/PlaceDetailPage.scss';
 
-const PlaceDetailPage = () => {
+const PlaceDetailPage: React.FC = () => {
   const { placeId } = useParams<{ placeId: string }>();
   const [isLoading, setIsLoading] = useState(true);
   const [placeDetail, setPlaceDetail] = useState<PlaceData>();
+  const [ratingAndCategorys, setRatingAndCategorys] =
+    useState<ratingAndCategory>();
+  const [reviewcreate, setReviewcreate] = useState<boolean>(false); // 리뷰작성완료상태
+  const [reviewdelete, setReviewdelete] = useState<boolean>(false); // 리뷰삭제완료상태
+
   const navigate = useNavigate();
+
+  console.log('placeID>>', placeId);
+  console.log('placeIdtype>>>', typeof placeId);
+
+  const handleReviewSubmit = () => {
+    setReviewcreate((prev) => !prev); // 리뷰가 제출되면 상태를 변경
+  };
+
+  const handleReviewDelete = (reviewId: number) => {
+    setReviewdelete((prev) => !prev); // 리뷰가 삭제되면 상태를 변경
+  };
 
   // GET) 장소상세데이터 가져오기
   const getPlaceDetail = async () => {
     try {
       const data = await getPlace(placeId);
-      setPlaceDetail(data.data);
+      console.log('data.data.place >>>', data.data.place);
+      console.log('data.data >>>', data.data);
+
+      setPlaceDetail(data.data.place);
+      setRatingAndCategorys(data.data);
     } catch (error) {
+      navigate('/not-found', { replace: true });
       console.log('장소목록 가져오는 중 에러 발생!: ', error);
     }
   };
@@ -34,7 +52,6 @@ const PlaceDetailPage = () => {
     setIsLoading(true);
 
     try {
-      // setPlaceData(dummyPlaceDetail);
       getPlaceDetail();
     } catch (error) {
       console.error('Error fetching place data:', error);
@@ -52,32 +69,27 @@ const PlaceDetailPage = () => {
   }
 
   if (!placeDetail) {
-    // navigate('/not-found', { replace: true });
     return null;
   }
 
   return (
     <div className="place-detail-page">
       <div className="place-detail-info">
-        <PlaceInfoDetail
-          placeId={placeDetail.placeId}
-          placeName={placeDetail.placeName}
-          placeCategoryName={placeDetail.placeCategoryName}
-          location={placeDetail.location}
-          detailAddress={placeDetail.detailAddress}
-          latitude={placeDetail.latitude}
-          longitude={placeDetail.longitude}
-          paid={placeDetail.paid}
-          operatingDate={placeDetail.operatingDate}
-          homepageUrl={placeDetail.homepageUrl}
-          placeNum={placeDetail.placeNum}
-        />
+        {placeDetail && ratingAndCategorys ? (
+          <PlaceInfoDetail
+            data={placeDetail}
+            ratingAndCategory={ratingAndCategorys}
+          />
+        ) : (
+          <div>로딩중입니다...</div>
+        )}
       </div>
-      <ReviewInput 
-        placeId={placeId} 
-        />      
-      <ReviewList 
+      <ReviewInput placeId={placeId} onReviewSubmit={handleReviewSubmit} />
+      <ReviewList
         placeId={placeId}
+        reviewcreate={reviewcreate}
+        onDelete={handleReviewDelete}
+        reviewdelete={reviewdelete}
       />
     </div>
   );

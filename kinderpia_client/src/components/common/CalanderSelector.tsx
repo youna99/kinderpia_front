@@ -62,7 +62,7 @@ const CalanderSelector: React.FC<CalanderSelectorProps> = ({
   return (
     <div className="calander-selector-container">
       <div className='calander-selector-header'>
-        <label className="calander-selector-header-title">모임 일시<span> *</span></label>
+        <label className="calander-selector-header-title">모임 일시<span className='xi-check'> </span></label>
         <CheckMarker value={meetingTime} />
       </div>
       <hr/>

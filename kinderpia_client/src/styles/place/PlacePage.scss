@@ -1,14 +1,15 @@
 @import '../common/variables';
 
-.meeting{
-  &-page{
+.meeting {
+  &-page {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
     max-width: 600px;
     padding-bottom: 20px;
-    
-    hr{
+
+    hr {
       height: 1px;
       background-color: #000;
       border: none;
@@ -16,14 +17,14 @@
       margin: 0px auto;
     }
   }
-  &-map-container{
+  &-map-container {
     max-width: 500px;
   }
-  &-search{
+  &-search {
     margin: 0px auto;
     width: 100%;
   }
-  &-header{
+  &-header {
     margin-top: $headline;
     margin: $caption;
     width: 100%;
@@ -32,26 +33,25 @@
     align-items: center;
     justify-content: space-between;
 
-    &-title{
+    &-title {
       font-size: $title1;
-      span{
+      span {
         margin-left: $caption;
         font-size: $caption;
       }
     }
-    &-filter{
+    &-filter {
       font-size: $caption;
     }
   }
 
   &-list-item {
-
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     margin: $caption auto;
-    &-page{
+    &-page {
       max-width: 280px;
       margin: 0 auto;
       .place-section {
@@ -93,6 +93,9 @@
     font-size: 0.95rem;
   }
 }
+.meeting-list-item {
+  margin-bottom: 10rem;
+}
 
 @keyframes fadeIn {
   from {
@@ -106,8 +109,12 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .infinite-scroll-component {
@@ -118,7 +125,7 @@
   }
 }
 @media (max-width: 700px) {
-  .meeting-header-title{
+  .meeting-header-title {
     margin-left: 10px;
   }
 }
@@ -131,12 +138,12 @@
       }
     }
   }
-  .meeting-header-result{
+  .meeting-header-result {
     font-size: 0.9rem;
   }
-  .meeting-header-filter{
-    .dropdown{
-      &-toggle{
+  .meeting-header-filter {
+    .dropdown {
+      &-toggle {
         font-size: $footnote;
       }
     }

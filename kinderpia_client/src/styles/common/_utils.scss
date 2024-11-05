@@ -6,6 +6,7 @@ body {
 main {
   margin-top: 8rem;
   margin-bottom: 10rem;
+  height: auto;
 }
 
 .inner {
@@ -17,6 +18,18 @@ main {
 .logo {
   font-family: 'EF_jejudoldam';
   font-size: $title1;
+}
+
+.page-banner-txt {
+  font-family: 'Tenada';
+  font-size: 2.3rem;
+  padding: 2rem 0;
+}
+
+@media (max-width: 640px) {
+  .page-banner-txt {
+    font-size: 2rem;
+  }
 }
 
 @mixin active-button-style(

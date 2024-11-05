@@ -4,6 +4,7 @@
 #my-reviews {
   width: 100%;
   margin-top: 2rem;
+  margin-bottom: 10rem;
   h2 {
     font-size: $body;
     padding-bottom: 1rem;
@@ -11,5 +12,31 @@
   }
   .report-btn {
     display: none;
+  }
+  .no-reviews {
+    font-size: $body;
+    text-align: center;
+    margin-top: 5rem;
+  }
+  .has-more {
+    font-size: $body;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  .place-title {
+    cursor: pointer;
+    &:hover {
+      background: rgb(216, 239, 255);
+    }
+  }
+  .review-wrap {
+    padding: 0 0 1rem 0;
+    h3 {
+      padding: 1rem 0;
+      cursor: pointer;
+      &:hover {
+        background: rgb(216, 239, 255);
+      }
+    }
   }
 }
