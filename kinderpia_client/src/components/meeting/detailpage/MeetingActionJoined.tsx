@@ -65,7 +65,6 @@ const MeetingActionJoined:React.FC<MeetingActionJoinedProp> = ({
 
   const editMeeting = async (): Promise<void> => {
     try {
-      const confirmed = window.confirm('정말로 모임을 떠나시겠습니까?' + meetingId)
       navigate(`/meeting/${meetingId}/edit`);
     } catch (error) {
       console.error('모임 삭제 중 오류 발생:', error)
