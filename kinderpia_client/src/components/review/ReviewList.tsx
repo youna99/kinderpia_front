@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ReviewData, ReviewsResponse } from '../../types/reiew';
+import { ReviewData, ReviewsResponse } from '../../types/review';
 import { getReviewList } from '../../api/review';
 import '../../styles/review/ReviewList.scss';
 // import ReviewItem from './ReviewItem';
