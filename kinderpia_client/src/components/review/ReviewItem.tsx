@@ -12,12 +12,18 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ data }) => {
   const { review, nickname, profileImg, likeCount } = data;
   const [showReportModal, setShowReportModal] = useState(false);
 
-  const handleReport = (reason: string, message: string) => {
-    console.log('신고 사유:', reason);
-    console.log('상세 내용:', message);
-    console.log('리뷰 ID:', review.reviewId);
-    setShowReportModal(false);
-  };
+  const handleReport = async (reason: number, message: string): Promise<void> => {
+    try {
+        console.log('신고 사유:', reason);
+        console.log('상세 내용:', message);
+        console.log('리뷰 ID:', review.reviewId);
+        
+        setShowReportModal(false);
+    } catch (error) {
+        console.error('신고 처리 중 오류 발생:', error);
+        alert('신고 처리 중 오류가 발생했습니다.');
+    }
+};
 
   const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
     return (

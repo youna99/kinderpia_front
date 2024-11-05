@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 // 데이터 호출 - 더미데이터, api
-import { dummyMeetingUser1, dummyMeetingUser2, dummyMeetingUser3 } from '../../data/tempMeetingDetailUserData';
 
 //스타일 호출
 import '../../styles/meeting/detailpage/MeetingDetailPage.scss';
@@ -75,7 +74,7 @@ function MeetingDetailPage() {
 
   useEffect(()=>{
     const fetchUserData = async () => {
-    const userId = Number( extractUserIdFromCookie() );
+    const userId = Number(extractUserIdFromCookie());
     console.log('userId >>>> ',userId);
       try {
         const userResponse = await getMeetingUser({
@@ -83,27 +82,15 @@ function MeetingDetailPage() {
           meetingId : Number(meetingId)
         });
 
-        // const isJoined : boolean;
-        // const ispermitted : boolean;
-        // const isReport : boolean;
-        
-        // if(!userResponse.data){
-        //   const 
-        // }
-        
-        // const meetingUser:MeetingUserData={
-        //   userId :userId,
-        //   isJoined : isJoined,
-        //   ispermitted: , 
-        //   isReport :
-        // }
+        const formattedUserData: MeetingUserData = {
+          userId: userResponse.data.userId,
+          joined: userResponse.data.joined,
+          accepted: userResponse.data.accepted,
+          reported: userResponse.data.reported,
+        };
 
-
-
-        setUserData(dummyMeetingUser2);
-        console.log(userResponse);
-      
-
+        setUserData(formattedUserData);
+        console.log(formattedUserData);
       } catch (error) {
         console.error('Error fetching meeting data:', error);
       } finally {

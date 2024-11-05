@@ -3,7 +3,7 @@ import '../../styles/common/ReportBox.scss';
 
 interface ReportBoxProps {
   onClose: () => void;
-  onSubmit: (reason: string, message: string) => void;
+  onSubmit: (reportReasonId: number, reportMessageContent: string) => Promise<void>;  // Promise 타입 추가 및 string -> number
   targetId: number;
 }
 
@@ -16,11 +16,6 @@ const ReportBox: React.FC<ReportBoxProps> = ({
   const [reportReason, setReportReason] = useState<number>(0);
   const [reportMessage, setReportMessage] = useState<string>('');
 
-  // 타입 정의를 명확히 하기 위해 인터페이스 추가
-  interface ReportReason {
-    id: number;
-    text: string;
-  }
   // 배경 클릭 시 모달 닫기
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -64,9 +59,7 @@ const ReportBox: React.FC<ReportBoxProps> = ({
       alert('신고 내용을 입력해주세요.');
       return;
     }
-    // 선택된 신고 사유의 텍스트를 찾아서 전달
-    const selectedReason = reportReasons.find(reason => reason.id === reportReason);
-    onSubmit(selectedReason?.text || '', reportMessage);
+    onSubmit(reportReason, reportMessage); // 숫자 그대로 전달
   };
 
   // ESC 키로 모달 닫기

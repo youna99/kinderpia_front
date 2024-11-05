@@ -49,9 +49,9 @@ export interface MeetingData{
 
 export interface MeetingUserData{
   userId: number,
-  isJoined : boolean,  
-  ispermitted : boolean,
-  isReport: boolean,
+  joined : boolean,  
+  accepted : boolean,
+  reported: boolean,
 }
 export interface MeetingUserResponse{
   data: any,

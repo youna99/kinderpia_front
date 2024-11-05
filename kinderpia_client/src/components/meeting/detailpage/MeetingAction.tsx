@@ -31,15 +31,15 @@ const MeetingAction: React.FC<MeetingActionProps> = ({
   }
   return (
     <div className='meeting-action-container'>
-      {!user?.isJoined && 
+      {!user?.joined && 
       <MeetingActionJoin
         data={data}
         onSubmit={meetingActionJoinReq}
       />}
-      {user?.isJoined && !user?.ispermitted && <MeetingActionWait 
+      {user?.joined && !user?.accepted && <MeetingActionWait 
       
       />}
-      {user?.isJoined && user?.ispermitted && <MeetingActionJoined 
+      {user?.joined && user?.accepted && <MeetingActionJoined 
       
       />}
     </div>
