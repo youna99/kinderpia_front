@@ -1,40 +1,38 @@
 export interface ChatRoomListInfo {
-    chatroomId : number;
-    meetingId : number;
-    meetingTitle : string;
-    lastMessage : string;
-    meetingCategory : string;
-    meetingHeader : number;
-    totalCapacity : number;
-    isActive : boolean;
+  chatroomId: number;
+  meetingId: number;
+  meetingTitle: string;
+  meetingHeader: number;
+  lastMessage: string;
+  active: boolean;
+  meetingCategoryName: string;
+  capacity: number;
 }
 
 export interface ChatRoomMemberInfo {
-    userId : number;
-    nickname : string;
-    profileImg : string;
+  userId: number;
+  nickname: string;
+  profileImg: string;
 }
 
-export interface ChatRoomInfo {
-    chatroomId : number;
-    meetingId : number;
-    meetingTitle : string;
-    meetingHeader : number;
-    lastMessage : string;
-    active : boolean;
-    capacity : number;
-    lastMessageCreatedAt : Date;
-    meetingCategoryName : string;
-    users : ChatRoomMemberInfo[];
+export interface ChatRoomInfo extends ChatRoomListInfo {
+  lastMessageCreatedAt: Date;
+  users: ChatRoomMemberInfo[];
 }
 
 export interface ChatMessageInfo {
-    chatmsgId?: number;
-    chatroomId: number;
-    senderId?: number;
-    senderNickname?: string;
-    senderProfileImg?: string;
-    chatmsgContent: string;
-    createdAt: string;
-    messageType?: string;
+  chatmsgId?: number;
+  chatroomId: number;
+  senderId?: number;
+  senderNickname?: string;
+  senderProfileImg?: string;
+  chatmsgContent: string;
+  createdAt: string;
+  messageType?: string;
+}
+
+export interface ChatPageInfo {
+  page: number;
+  totalElements: number;
+  totalPages: number;
 }

@@ -52,7 +52,7 @@ export default function LoginPage() {
         }
       );
       if (response.status === 200) {
-        // console.log('로그인 완료:', response)
+        console.log('로그인 완료:', response)
 
         // 일단 세션에 저장
         // const token = response.headers['authorization'];
