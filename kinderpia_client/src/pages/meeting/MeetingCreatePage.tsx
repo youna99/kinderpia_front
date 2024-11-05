@@ -147,7 +147,7 @@ const MeetingCreatePage = () => {
   return (
     <div className="meeting-create-page">
       <span className="meeting-create-page-notice">
-        * 표시는 필수 입력사항 입니다.
+        <span className='xi-check'></span> 표시는 필수 입력사항 입니다.
       </span>
       <FakerComponent
         text={`더미 모임 만들어버리기~ `}
