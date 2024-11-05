@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-// import defaultIcon from '../../assets/images/tempIcon1.png';
-// import '../../styles/review/ReviewItem.scss';
-// import ReportBox from '../common/ReportBox';
-// import { Review } from '../../types/reiew';
+import defaultIcon from '../../assets/images/tempIcon1.png';
+import '../../styles/review/ReviewItem.scss';
+import ReportBox from '../common/ReportBox';
+import { ReviewData } from '../../types/review';
 
-// interface ReviewItemProps {
-//   data: Review;
-// }
+interface ReviewItemProps {
+  data: ReviewData;
+}
 
-// const ReviewItem: React.FC<ReviewItemProps> = ({ data }) => {
-//   const { review, nickname, profileImg, likeCount } = data;
-//   const [showReportModal, setShowReportModal] = useState(false);
+const ReviewItem: React.FC<ReviewItemProps> = ({ data }) => {
+  const { review, nickname, profileImg, likeCount } = data;
+  const [showReportModal, setShowReportModal] = useState(false);
 
   const handleReport = async (reason: number, message: string): Promise<void> => {
     try {
@@ -25,31 +25,31 @@ import React, { useState, useEffect } from 'react';
     }
 };
 
-//   const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
-//     return (
-//       <div className='review-item-header-info-wrapper-item-star'>
-//         {[...Array(5)].map((_, index) => (
-//           <span
-//             key={index}
-//             className={index < rating ? 'xi-star' : 'xi-star-o'}
-//           />
-//         ))}
-//       </div>
-//     );
-//   };
+  const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
+    return (
+      <div className='review-item-header-info-wrapper-item-star'>
+        {[...Array(5)].map((_, index) => (
+          <span
+            key={index}
+            className={index < rating ? 'xi-star' : 'xi-star-o'}
+          />
+        ))}
+      </div>
+    );
+  };
 
-//   useEffect(() => {
-//     console.log('Review Data:', data);
-//   }, [data]);
+  useEffect(() => {
+    console.log('Review Data:', data);
+  }, [data]);
 
-//   const formatDate = (dateString: string) => {
-//     const date = new Date(dateString);
-//     return date.toLocaleDateString('ko-KR', {
-//       year: 'numeric',
-//       month: 'long',
-//       day: 'numeric'
-//     });
-//   };
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
 
   return (
     <div className='review-item-container'>
@@ -106,4 +106,4 @@ import React, { useState, useEffect } from 'react';
 };
 
 
-// export default ReviewItem;
+export default ReviewItem;
