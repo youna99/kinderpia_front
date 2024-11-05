@@ -13,16 +13,13 @@ interface MeetingInfoProps {
   user?: MeetingUserData;
 }
 
-const MeetingInfo: React.FC<MeetingInfoProps> = ({
-  data,
-  user
-}) => {
+const MeetingInfo: React.FC<MeetingInfoProps> = ({ data, user }) => {
   if (!data) {
     return <div>데이터를 불러오는 중입니다...</div>;
   }
 
   return (
-    <div className='meeting-info-container'>
+    <div className="meeting-info-container">
       <MeetingInfoDetail
         meetingCategory={data.meetingCategory}
         meetingTitle={data.meetingTitle}

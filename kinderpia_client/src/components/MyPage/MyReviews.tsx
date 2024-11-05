@@ -40,14 +40,30 @@ const MyReviews: React.FC<MyInfoProps> = ({ userId, userInfo }) => {
           );
           console.log(response);
           if (response.data.status === 200) {
-            const newReviews = response.data.data.dataList;
+            const newReviews: ReviewProps[] = response.data.data.dataList;
+            const totalPages = response.data.data.pageInfo.totalPages; // totalPages 가져오기
+
             if (newReviews.length === 0 && pageNumber === 1) {
-              setNoReviews(true); // 첫 페이지에서 리뷰가 없으면 상태 업데이트
+              setNoReviews(true);
+            } else {
+              setReviews((prevReviews) => {
+                const existingReviewIds = new Set(
+                  prevReviews.map((review) => review.reviewId)
+                );
+                const filteredNewReviews = newReviews.filter(
+                  (review: ReviewProps) =>
+                    !existingReviewIds.has(review.reviewId)
+                );
+                return [...prevReviews, ...filteredNewReviews];
+              });
             }
-            setReviews((prevReviews) => [...prevReviews, ...newReviews]);
-            setHasMore(newReviews.length > 0); // 새로운 데이터가 없으면 더 이상 불러오지 않음
+
+            // 현재 페이지가 totalPages에 도달했는지 확인
+            if (pageNumber >= totalPages) {
+              setHasMore(false); // 더 이상 불러올 데이터가 없다고 설정
+            }
           } else {
-            setNoReviews(true); // 다른 상태 코드일 경우에도 리뷰가 없다고 처리
+            setNoReviews(true);
           }
         } catch (error) {
           console.error('리뷰 목록 가져오기 실패:', error);
@@ -85,8 +101,13 @@ const MyReviews: React.FC<MyInfoProps> = ({ userId, userInfo }) => {
       console.error(
         `장소 정보를 가져오는 데 실패했습니다. PlaceId: ${placeId}`
       );
-      // 추가적인 에러 처리 로직을 여기에 추가할 수 있습니다.
     }
+  };
+
+  const handleDeleteReview = (reviewId: number) => {
+    setReviews((prevReviews) =>
+      prevReviews.filter((review) => review.reviewId !== reviewId)
+    );
   };
 
   return (
@@ -108,6 +129,7 @@ const MyReviews: React.FC<MyInfoProps> = ({ userId, userInfo }) => {
               profileImg={userInfo?.profileImg || '/images/usericon.png'}
               nickname={userInfo?.nickname}
               onClick={() => handleReviewClick(review.placeId)}
+              onDelete={handleDeleteReview}
             />
           ))}
         </ul>

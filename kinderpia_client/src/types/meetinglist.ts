@@ -1,6 +1,6 @@
 export interface MettingListInfo {
   capacity: number;
-  createdAt:string;
+  createdAt: string;
   district: string;
   meetingCategory: string;
   meetingId: number;
@@ -10,4 +10,5 @@ export interface MettingListInfo {
   meetingTitle: string;
   nickname: string;
   totalCapacity: number;
+  profileImg?: string;
 }

@@ -13,6 +13,7 @@ import { MettingListInfo } from '../../types/meetinglist';
 import '../../styles/meeting/MeetingPage.scss';
 import { meetingApi } from '../../api/meeting';
 import { getMeetingListOpen, getMeetingList } from '../../api/meetinglist';
+import { formatDetailDate } from '../../utils/formatDate';
 
 // 서버 응답 타입 정의
 interface SearchResponse {
@@ -155,7 +156,7 @@ const MeetingPage: React.FC = () => {
               meetingLocation={meeting.meetingLocation}
               createdAt={meeting.createdAt}
               district={meeting.district}
-              meetingTime={meeting.meetingTime}
+              meetingTime={formatDetailDate(meeting.meetingTime)}
               nickname={meeting.nickname}
               capacity={meeting.capacity}
               totalCapacity={meeting.totalCapacity}
