@@ -37,7 +37,9 @@
     flex-direction: column;
     gap: 12px;
     width: 100%;
-    max-width: 400px; // 너비 제한
+    margin: 0 auto;
+    max-width: 80% ;
+    margin-bottom: 30px;
 
     .option-item {
       width: 100%;
