@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { CommonButtonProps } from '../../types/common';
-import '../../styles/common/CommonButton1.scss';
+import '../../styles/common/CommonButton2.scss';
 
 interface ExtendedCommonButtonProps extends CommonButtonProps {
   type?: 'button' | 'submit' | 'reset';
   preventDefault?: boolean;
 }
 
-const FakeSignInComponent: React.FC<ExtendedCommonButtonProps> = ({
+const FakerComponent: React.FC<ExtendedCommonButtonProps> = ({
   text,
   onClick,
   disabled = false,
@@ -35,7 +35,7 @@ const FakeSignInComponent: React.FC<ExtendedCommonButtonProps> = ({
 
   return (
     <button
-      className='common-btn'
+      className='faker-btn'
       onClick={handleClick}
       disabled={disabled || isLoading}
       type={type}
@@ -45,4 +45,4 @@ const FakeSignInComponent: React.FC<ExtendedCommonButtonProps> = ({
   );
 };
 
-export default FakeSignInComponent;
+export default FakerComponent;
