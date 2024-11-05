@@ -26,6 +26,7 @@ const PlaceDetailPage = () => {
 
       setPlaceDetail(data.data.place);
     } catch (error) {
+      navigate('/not-found', { replace: true });
       console.log('장소목록 가져오는 중 에러 발생!: ', error);
     }
   };
@@ -52,7 +53,6 @@ const PlaceDetailPage = () => {
   }
 
   if (!placeDetail) {
-    // navigate('/not-found', { replace: true });
     return null;
   }
 

@@ -15,12 +15,13 @@ interface MeetingInfoDescProps{
 
 const MeetingInfoDesc:React.FC<MeetingInfoDescProps> = ({
   meetingId,
-  createdAt,
+  createdAt = ' 미정 ',
   description,
   user
 }) => {
   const [showReportModal, setShowReportModal] = useState(false);
   const [reportToggle, setReportToggle] = useState(true);
+  const [meetingDate, setMeetingData] = useState('');
   
   useEffect(()=>{
     if(!user?.reported){
@@ -30,12 +31,23 @@ const MeetingInfoDesc:React.FC<MeetingInfoDescProps> = ({
     setReportToggle(user?.reported);
   },[reportToggle])
 
+  useEffect(()=>{
+      const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        
+        return `${year}-${month}-${day} ${hours}:${minutes}`;
+    }
+    setMeetingData(formatDate(createdAt));
+  },[])
+
   const handleReport = async (reportReasonId: number, reportMessageContent: string) => {
     try {
-      // API 호출 로직
-      console.log('신고 사유:', reportReasonId);
-      console.log('상세 내용:', reportMessageContent);
-      console.log('모임 ID:', meetingId);
       const userId = user?.userId
   
       if(!userId){
@@ -82,7 +94,7 @@ const MeetingInfoDesc:React.FC<MeetingInfoDescProps> = ({
       </div>
       <hr/>
       <div className='meeting-info-desc-body'>
-        <div className='meeting-info-desc-body-createdAt'>{createdAt}</div>
+        <div className='meeting-info-desc-body-createdAt'>{meetingDate}</div>
         <div className='meeting-info-desc-body-content'>{description}</div>
       </div>
 
