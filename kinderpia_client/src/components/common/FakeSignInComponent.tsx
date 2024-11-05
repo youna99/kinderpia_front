@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CommonButtonProps } from '../../types/common';
-import '../../styles/common/CommonButton1.scss';
+import '../../styles/common/CommonButton2.scss';
 
 interface ExtendedCommonButtonProps extends CommonButtonProps {
   type?: 'button' | 'submit' | 'reset';
@@ -35,7 +35,7 @@ const FakeSignInComponent: React.FC<ExtendedCommonButtonProps> = ({
 
   return (
     <button
-      className='common-btn'
+      className='faker-btn'
       onClick={handleClick}
       disabled={disabled || isLoading}
       type={type}
