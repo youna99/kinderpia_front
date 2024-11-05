@@ -39,14 +39,12 @@ const MeetingCreatePage = () => {
     authType: false
   });
 
-  useEffect(()=>{
-    console.log(CreateMeetingFormData);
-    
-  },[CreateMeetingFormData])
 
   useEffect(() => {
     const setUserId = async () => {
       const userId = await extractUserIdFromCookie() || '11123';
+      console.log('userId',userId);
+      
       setFormData(prev => ({
         ...prev,
         userId: parseInt(userId)
@@ -56,8 +54,6 @@ const MeetingCreatePage = () => {
   }, []);
 
   const handleParticipantsChange = (value: number) => {
-    console.log(1);
-    
     setFormData(prev => ({
       ...prev,
       totalCapacity: value
@@ -65,7 +61,6 @@ const MeetingCreatePage = () => {
   };
 
   const handleParticipantsLimitChange = (hasLimit: boolean) => {
-    console.log(22);
     setFormData(prev => ({
       ...prev,
       limited: hasLimit,
@@ -105,10 +100,13 @@ const MeetingCreatePage = () => {
         alert('로그인이 필요한 서비스입니다.');
         return;
       }
+
   
       const data: CreateMeetingFormData = {
         ...CreateMeetingFormData,
       };
+      console.log(data);
+      
       const result = await meetingApi.postMeeting(data);
 
       navigate(`/meeting/${result.data}`);

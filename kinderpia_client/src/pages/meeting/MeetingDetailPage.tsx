@@ -38,9 +38,6 @@ function MeetingDetailPage() {
           meetingId : Number(meetingId)
         });
 
-        console.log(userResponse);
-        
-
         if (response) {
           const result = response;
           
@@ -58,6 +55,7 @@ function MeetingDetailPage() {
             authType: result.authType,
             meetingStatus: result.meetingStatus,
             createdAt: result.createdAt,
+            userId : result.userId,
           };
           setMeetingData(formattedResults);
         }
@@ -75,7 +73,6 @@ function MeetingDetailPage() {
   useEffect(()=>{
     const fetchUserData = async () => {
     const userId = Number(extractUserIdFromCookie());
-    console.log('userId >>>> ',userId);
       try {
         const userResponse = await getMeetingUser({
           userId,
@@ -90,7 +87,6 @@ function MeetingDetailPage() {
         };
 
         setUserData(formattedUserData);
-        console.log(formattedUserData);
       } catch (error) {
         console.error('Error fetching meeting data:', error);
       } finally {

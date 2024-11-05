@@ -67,7 +67,7 @@ const MeetingInfoDesc:React.FC<MeetingInfoDescProps> = ({
       <div className='meeting-info-desc-header'>
         <label className='meeting-info-desc-header-title'>모임 내용</label>
         <div className='meeting-info-desc-header-report'>
-          { reportToggle 
+          { !reportToggle 
             ? <div className="reported-text">신고된 게시물입니다.</div> 
             : <div 
                 className="report-button"
