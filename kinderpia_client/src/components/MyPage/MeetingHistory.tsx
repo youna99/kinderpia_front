@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import MeetingList from '../common/MeetingList';
 import '../../styles/mypage/MeetingHistory.scss';
-import { formatDate, formatDetailDate } from '../../utils/formatDate';
+import { formatDetailDate } from '../../utils/formatDate';
 interface MeetingHistoryProps {
   userId: string | null;
   userInfo: {
@@ -71,11 +71,8 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({
           };
           console.log('모집중인 모임데이터', response.data);
         }
-
         if (response) {
-          if (response.status === 200) {
-            setMeetings(response.data.data.dataList);
-          }
+          setMeetings(response.data.data.dataList);
         }
       } catch (error) {
         console.error('모임 목록 로드 중 오류 발생:', error);
