@@ -48,12 +48,12 @@ const Review: React.FC<ReviewItemProps> = ({
 
   return (
     <div className="review-wrap" key={reviewId}>
-    {showPlaceName && (
-      <h3>
-        <span className="xi-maker"></span>
-        {placeName}
-      </h3>
-    )}
+      {showPlaceName && (
+        <h3 onClick={onClick}>
+          <span className="xi-maker"></span>
+          {placeName}
+        </h3>
+      )}
       <button className="delete-btn" onClick={handleDeleteReview}>
         삭제
       </button>
