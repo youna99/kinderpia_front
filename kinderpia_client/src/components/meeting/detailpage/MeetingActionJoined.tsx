@@ -59,19 +59,28 @@ const MeetingActionJoined:React.FC<MeetingActionJoinedProp> = ({
         isLoading={false}
       />
       {
-      whoAmI
-      ?<CommonButton1
-        text='모임 삭제하기'
-        onClick={leaveMeeting}
-        disabled={false}
-        isLoading={false}
-      />
+        whoAmI
+      ?
+      <>
+        <CommonButton1
+          text='모임 삭제하기'
+          onClick={leaveMeeting}
+          disabled={false}
+          isLoading={false}
+        />
+        <CommonButton1
+          text='모임글 수정하기'
+          onClick={leaveMeeting}
+          disabled={false}
+          isLoading={false}
+        />
+      </>
       :<CommonButton1
-        text='모임 떠나기'
-        onClick={leaveMeeting}
-        disabled={false}
-        isLoading={false}
-      />
+          text='모임 떠나기'
+          onClick={leaveMeeting}
+          disabled={false}
+          isLoading={false}
+        />
       }
       
     </div>

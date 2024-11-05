@@ -29,7 +29,7 @@ const MeetingCreatePage = () => {
     userId: 0,
     meetingCategoryId: 1,
     meetingTitle: '',
-    totalCapacity: 1,
+    totalCapacity: 99 ,
     district : '',
     limited: false,
     meetingLocation: '',
@@ -100,7 +100,6 @@ const MeetingCreatePage = () => {
         alert('로그인이 필요한 서비스입니다.');
         return;
       }
-
   
       const data: CreateMeetingFormData = {
         ...CreateMeetingFormData,

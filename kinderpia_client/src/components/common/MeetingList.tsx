@@ -39,7 +39,10 @@ const MeetingList: React.FC<MettingListInfo> = ({
             <span className="meetWriter">{nickname}</span>
             <span className="xi-group meeting-icon"></span>
             <span className="meetParticipants">
-              {capacity}/{totalCapacity}
+              { totalCapacity ===99
+                ? '제한 없음'
+                : `${capacity} / ${totalCapacity}`
+              }
             </span>
           </div>
         </div>
