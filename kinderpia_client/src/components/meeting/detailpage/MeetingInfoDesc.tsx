@@ -3,6 +3,8 @@ import { MeetingUserData } from '../../../types/meeting';
 import ReportBox from '../../common/ReportBox';
 
 import '../../../styles/meeting/detailpage/MeetingInfoDesc.scss';
+import { postReportBadContent } from '../../../api/report';
+import { simpleAlert } from '../../../utils/alert';
 
 interface MeetingInfoDescProps{
   meetingId? : number;
@@ -25,9 +27,21 @@ const MeetingInfoDesc:React.FC<MeetingInfoDescProps> = ({
       console.log('신고 사유:', reason);
       console.log('상세 내용:', message);
       console.log('모임 ID:', meetingId);
+      if(!user?.userId){
+        simpleAlert('info', '로그인을 먼저 해주세요!', 'center');
+        return;
+      }
+
+      const result = postReportBadContent( 
+        user?.userId,
+        reason,
+        message
+      );
+
+      console.log(result);
       
       // API 호출 성공 후
-      alert('신고가 접수되었습니다.');
+      // alert('신고가 접수되었습니다.');
       setShowReportModal(false);
     } catch (error) {
       console.error('신고 처리 중 오류 발생:', error);
@@ -67,7 +81,7 @@ const MeetingInfoDesc:React.FC<MeetingInfoDescProps> = ({
         <ReportBox
           onClose={() => setShowReportModal(false)}
           onSubmit={handleReport}
-          targetId={String(meetingId)}
+          targetId={Number(meetingId)}
         />
       )}
     </div>

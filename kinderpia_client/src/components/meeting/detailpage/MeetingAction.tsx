@@ -36,8 +36,12 @@ const MeetingAction: React.FC<MeetingActionProps> = ({
         data={data}
         onSubmit={meetingActionJoinReq}
       />}
-      {user?.isJoined && !user?.ispermitted && <MeetingActionWait />}
-      {user?.isJoined && user?.ispermitted && <MeetingActionJoined />}
+      {user?.isJoined && !user?.ispermitted && <MeetingActionWait 
+      
+      />}
+      {user?.isJoined && user?.ispermitted && <MeetingActionJoined 
+      
+      />}
     </div>
   )
 }

@@ -92,7 +92,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ data }) => {
         <ReportBox
           onClose={() => setShowReportModal(false)}
           onSubmit={handleReport}
-          targetId={String(review.reviewId)}
+          targetId={(review.reviewId)}
         />
       )}
     </div>

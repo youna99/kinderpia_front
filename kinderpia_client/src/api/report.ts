@@ -6,7 +6,10 @@ export const postReport = (id:number) => {
 };
 
 // 신고하기!
-export const postReports = async ( id:number, reportReasonId: string, reportMessageContent: string) => {
+export const postReportBadContent = async ( 
+    id:number, 
+    reportReasonId: string, 
+    reportMessageContent: string) => {
     
     const result = await requestHeader.post(`/api/report`, {id, reportReasonId, reportMessageContent}, {withCredentials:true});
 

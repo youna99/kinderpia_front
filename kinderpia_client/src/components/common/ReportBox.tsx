@@ -1,44 +1,59 @@
 import React, { useState, useEffect } from 'react'
 import '../../styles/common/ReportBox.scss';
 
-interface ReportBoxProps{
+interface ReportBoxProps {
   onClose: () => void;
   onSubmit: (reason: string, message: string) => void;
-  targetId : string;
+  targetId: number;
 }
 
-const ReportBox:React.FC<ReportBoxProps> = ({
-  onClose, 
+const ReportBox: React.FC<ReportBoxProps> = ({
+  onClose,
   onSubmit,
   targetId
 }) => {
-  const [reportReason, setReportReason] = useState<string>('');
+  // reportReason을 number 타입으로 변경
+  const [reportReason, setReportReason] = useState<number>(0);
   const [reportMessage, setReportMessage] = useState<string>('');
-  
-  const reportReasons = [
-    '욕설, 비방, 차별, 혐오',
-    '불법정보',
-    '음란, 청소년 유해',
-    '도배, 스팸',
-    '기타'
-  ];
 
-  // 모달이 열릴 때 body 스크롤 방지
-  useEffect(() => {
-    document.body.classList.add('modal-open');
-    
-    // 컴포넌트가 언마운트될 때 클래스 제거
-    return () => {
-      document.body.classList.remove('modal-open');
-    };
-  }, []);
-
+  // 타입 정의를 명확히 하기 위해 인터페이스 추가
+  interface ReportReason {
+    id: number;
+    text: string;
+  }
   // 배경 클릭 시 모달 닫기
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
   };
+
+  const reportReasons = [
+    { 
+      id: 1, 
+      text: '스팸/광고/홍보', 
+    },
+    { 
+      id: 2, 
+      text: '욕설/혐오/비하',
+    },
+    { 
+      id: 3, 
+      text: '사기/허위정보',
+    },
+    { 
+      id: 4, 
+      text: '개인정보 노출',
+    },
+    { 
+      id: 5, 
+      text: '음란물/유해 컨텐츠',
+    },
+    { 
+      id: 6, 
+      text: '기타',
+    }
+  ];
 
   const handleSubmit = () => {
     if (!reportReason) {
@@ -49,7 +64,9 @@ const ReportBox:React.FC<ReportBoxProps> = ({
       alert('신고 내용을 입력해주세요.');
       return;
     }
-    onSubmit(reportReason, reportMessage);
+    // 선택된 신고 사유의 텍스트를 찾아서 전달
+    const selectedReason = reportReasons.find(reason => reason.id === reportReason);
+    onSubmit(selectedReason?.text || '', reportMessage);
   };
 
   // ESC 키로 모달 닫기
@@ -77,15 +94,15 @@ const ReportBox:React.FC<ReportBoxProps> = ({
 
         <div className='report-modal-content'>
           {reportReasons.map((reason) => (
-            <label key={reason} className='report-radio'>
+            <label key={reason.id} className='report-radio'>
               <input
                 type='radio'
                 name='reportReason'
-                value={reason}
-                checked={reportReason === reason}
-                onChange={(e) => setReportReason(e.target.value)}
+                value={reason.id}
+                checked={reportReason === reason.id}
+                onChange={(e) => setReportReason(Number(e.target.value))}
               />
-              <span className='radio-label'>{reason}</span>
+              <span className='radio-label'>{reason.text}</span>
             </label>
           ))}
         </div>
@@ -110,7 +127,7 @@ const ReportBox:React.FC<ReportBoxProps> = ({
             className='confirm-btn'
             onClick={handleSubmit}
           >
-            확인
+            신고
           </button>
           <button 
             className='cancel-btn'
