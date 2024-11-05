@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import '../styles/common/SeoulMap.scss'
+import '../styles/common/SeoulMap.scss';
 
 interface SeoulMapProps {
   onDistrictClick?: (district: string) => void;
@@ -366,7 +366,13 @@ const SeoulMap: React.FC<SeoulMapProps> = ({
         />
         {/* 지울거면 이거 밑에꺼 지우면댐~낄낄 */}
         {(hoveredDistrict || selectedDistrict) && (
-          <text x="10" y="20" fill="black" fontSize="14">
+          <text
+            x="10"
+            y="20"
+            fill="black"
+            fontSize="14"
+            className="district-name"
+          >
             {hoveredDistrict || selectedDistrict}
           </text>
         )}

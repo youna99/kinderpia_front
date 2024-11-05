@@ -1,7 +1,6 @@
 @import '../../common/variables';
 
-.meeting-create-page{
-  
+.meeting-create-page {
   padding: 2rem 0;
   margin: 0 auto;
   display: flex;
@@ -11,10 +10,10 @@
 
   &-form{
     width: 100%;
-    margin-bottom: 100px;
+    margin-bottom: 10rem;
   }
-  &-notice{
+  &-notice {
     font-size: $footnote;
-    color:#ff0044;
+    color: #ff0044;
   }
 }
