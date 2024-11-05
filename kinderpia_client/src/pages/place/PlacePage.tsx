@@ -172,6 +172,9 @@ const PlacePage: React.FC = () => {
 
   return (
     <div className="meeting-page">
+      <strong className="page-banner-txt">
+        서울 이곳저곳의 핫플레이스를 찾아보세요!
+      </strong>
       <div className="meeting-map-container">
         <SeoulMap
           onDistrictClick={handleDistrictClick}

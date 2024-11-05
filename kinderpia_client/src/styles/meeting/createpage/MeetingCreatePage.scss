@@ -1,18 +1,19 @@
 @import '../../common/variables';
 
-.meeting-create-page{
-  
+.meeting-create-page {
   padding: 2rem 0;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 100px;
+  max-width: 600px;
 
   &-form{
-    width: 80%;
+    width: 100%;
+    margin-bottom: 10rem;
   }
-  &-notice{
+  &-notice {
     font-size: $footnote;
-    color:#ff0044;
+    color: #ff0044;
   }
 }

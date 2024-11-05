@@ -17,6 +17,8 @@
 
   .meetingInfo-container {
     margin: 1rem;
+    width: calc(100% - 8rem); // 상태 표시 원형을 위한 여백 확보
+
     .category {
       background-color: white;
       border-radius: 1rem;
@@ -27,7 +29,14 @@
     .meeting-title {
       font-size: $title3;
       margin-top: 0.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      display: block;
+      max-width: 20ch;
     }
+
     .meetingInfo {
       display: flex;
       align-items: flex-end;
@@ -35,6 +44,13 @@
       gap: 0.5rem;
       color: #7c7c7c;
       margin: 0.5rem 0;
+
+      .meetLocation {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 20ch;
+      }
     }
 
     .meeting-writer-participants {
@@ -63,6 +79,7 @@
     align-items: center;
     justify-content: center;
     margin: 1rem;
+    flex-shrink: 0; // 상태 표시 영역이 줄어들지 않도록 설정
 
     .meetStatus {
       display: flex;

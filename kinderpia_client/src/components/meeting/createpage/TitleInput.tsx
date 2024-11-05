@@ -20,7 +20,7 @@ const TitleInput: React.FC<TitleInputProps> = ({
     <div className="title-input-container">
       <div className='title-input-header'>
         <label className="title-input-header-title">
-          모임 명<span> *</span>
+          모임 명<span className='xi-check'></span>
         </label>
         <CheckMarker
           value={value}
