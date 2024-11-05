@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // 컴포넌트 호출
 import CommonButton1 from '../../common/CommonButton1'
@@ -14,6 +14,7 @@ const MeetingActionJoined:React.FC<MeetingActionJoinedProp> = ({
   user,
   data,
 }) => {
+  const navigate = useNavigate();
 
   const [ whoAmI, setWhoAmI ]= useState(true);
   const { meetingId } = useParams<{ meetingId: string }>();
@@ -50,6 +51,27 @@ const MeetingActionJoined:React.FC<MeetingActionJoinedProp> = ({
     }
   }
 
+  const deleteMeeting = async (): Promise<void> => {
+    try {
+      const confirmed = window.confirm('정말로 모임을 떠나시겠습니까?' + meetingId)
+      if (confirmed) {
+        // 실제로는 여기에 모임 탈퇴 관련 API 호출 등이 들어갈 것 같습니다
+        await new Promise(resolve => setTimeout(resolve, 1000)) // 예시용 딜레이
+      }
+    } catch (error) {
+      console.error('모임 삭제 중 오류 발생:', error)
+    }
+  }
+
+  const editMeeting = async (): Promise<void> => {
+    try {
+      const confirmed = window.confirm('정말로 모임을 떠나시겠습니까?' + meetingId)
+      navigate(`/meeting/${meetingId}/edit`);
+    } catch (error) {
+      console.error('모임 삭제 중 오류 발생:', error)
+    }
+  }
+
   return (
     <div className='meeting-action-joined-container'>
       <CommonButton1
@@ -62,13 +84,13 @@ const MeetingActionJoined:React.FC<MeetingActionJoinedProp> = ({
       ?<>
         <CommonButton1
           text='모임 삭제하기'
-          onClick={leaveMeeting}
+          onClick={deleteMeeting}
           disabled={false}
           isLoading={false}
         />
         <CommonButton1
           text='모임글 수정하기'
-          onClick={leaveMeeting}
+          onClick={editMeeting}
           disabled={false}
           isLoading={false}
         />

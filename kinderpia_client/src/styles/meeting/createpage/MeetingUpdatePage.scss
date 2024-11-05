@@ -1,6 +1,8 @@
 @import '../../common/variables';
 
 .meeting-update-page {
+  max-width: 600px;
+  margin: 0 auto;
   &-notice {
     font-size: $footnote;
     color: #ff0044;
@@ -8,7 +10,8 @@
   &-form {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 100%;
+    margin-bottom: 500px;
   }
   .location,
   .Date-Time {

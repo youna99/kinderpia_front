@@ -71,8 +71,8 @@ export interface CategoryResponse {
 export interface UpdateMeetingFormData {
   meetingTitle: string;
   totalCapacity: number;
-  hasParticipantsLimit: boolean;
-  description: string;
+  limited: boolean;
+  meetingContent: string;
 }
 
 export interface MeetingJoinData{

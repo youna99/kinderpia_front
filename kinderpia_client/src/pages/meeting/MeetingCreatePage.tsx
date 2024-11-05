@@ -135,7 +135,7 @@ const MeetingCreatePage = () => {
           hasLimit={CreateMeetingFormData.limited}
           onLimitChange={handleParticipantsLimitChange}
           min={1}
-          max={10}
+          max={20}
         />
         <MapSelector 
           location={CreateMeetingFormData.meetingLocation}

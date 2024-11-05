@@ -98,7 +98,7 @@ const MapSelector: React.FC<MapSelectorProps> = ({
   return (
     <div className="map-selector-container">
       <div className='map-selector-header'>
-        <label className="map-selector-header-title">모임 장소<span> *</span></label>
+        <label className="map-selector-header-title">모임 장소<span className='xi-check'></span></label>
         <CheckMarker value={location} />
       </div>
       <hr/>
