@@ -3,6 +3,7 @@ import React from 'react';
 import '../../styles/review/Review.scss';
 import { formatDate } from '../../utils/formatDate';
 import { confirmAlert, simpleAlert } from '../../utils/alert';
+import { deleteReview } from '../../api/review';
 
 interface ReviewItemProps {
   reviewId: number;
@@ -34,8 +35,12 @@ const Review: React.FC<ReviewItemProps> = ({
       '삭제한 리뷰는 복구할 수 없습니다.'
     );
     if (confirmed) {
-      // 삭제로직짜기
-      simpleAlert('success', '삭제되었습니다.');
+      try {
+        await deleteReview(reviewId); // 아직 서버코드 고치는 중이라 삭제 안된다고 합니다~
+        simpleAlert('success', '삭제되었습니다.');
+      } catch (error) {
+        simpleAlert('error', '삭제에 실패했습니다. 다시 시도하세요.');
+      }
     }
   };
 
