@@ -1,18 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ChatMessageInfo, ChatRoomInfo } from "../types/chat";
+import { ChatMessageInfo, ChatPageInfo, ChatRoomInfo } from "../types/chat";
 
 interface ChatState {
   chatroom: ChatRoomInfo | null;
   error: boolean;
   loading: boolean;
   messages: ChatMessageInfo[];
+  msgPages : ChatPageInfo;
 }
 
 const initialState:ChatState = {
   chatroom: null,
   error: false,
   loading: true,
-  messages: []
+  messages: [],
+  msgPages: {
+    page :1,
+    totalElements:1,
+    totalPages:1
+  }
 };
 
 const chatSlice = createSlice({
@@ -30,9 +36,13 @@ const chatSlice = createSlice({
     },
     setMessages: (state, action: PayloadAction<ChatMessageInfo[]>) => {
       state.messages = action.payload;      
-    }
+    },
+    setMsgPages: (state, action: PayloadAction<ChatPageInfo>) => {
+      state.msgPages = action.payload;      
+    },
+    
   },
 });
 
-export const {setChatInfo, setError, setLoading, setMessages} = chatSlice.actions;
+export const {setChatInfo, setError, setLoading, setMessages, setMsgPages} = chatSlice.actions;
 export default chatSlice.reducer;

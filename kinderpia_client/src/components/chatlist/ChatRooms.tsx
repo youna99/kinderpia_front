@@ -2,7 +2,7 @@ import ChatRoom from "./ChatRoom";
 import { RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { getChatMessages, getChatRoom } from "../../api/chat";
-import { setChatInfo, setMessages } from "../../store/chatSlice";
+import { setChatInfo, setMessages, setMsgPages } from "../../store/chatSlice";
 import React, {
   useCallback,
   useEffect,
@@ -13,7 +13,6 @@ import React, {
 import { getJwtFromCookies } from "../../utils/extractUserIdFromCookie";
 import { setSelected } from "../../store/chatRoomsSlice";
 import { ChatRoomInfo } from "../../types/chat";
-import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 
 interface ChatRoomsProps {
   fetchChatList: (token: string | null, page: number) => Promise<void>;
@@ -65,7 +64,6 @@ export default function ChatRooms({
         chatPages.page < chatPages.totalPages &&
         !isLoading
       ) {
-        console.log("gdgd");
         setCurrentPage((prevPage) => prevPage + 1);
       }
     });
@@ -93,8 +91,11 @@ export default function ChatRooms({
           dispatch(setChatInfo(chatInfo));
           // 채팅방의 메세지 조회
           const res2 = await getChatMessages(jwt, chatroomId, msgPage);
+          console.log(res2);
+          
           const chatMsgList = [...res2.data.data.chatmsgList].reverse();
           dispatch(setMessages(chatMsgList));
+          dispatch(setMsgPages(res2.data.pageInfo))
           dispatch(setSelected(true));
         }
       } catch (error) {
@@ -151,7 +152,7 @@ export default function ChatRooms({
       >
         {rooms.length > 0 && chatRoomItems}
       </ul>
-      {chatPages.totalPages > 1 && chatPages.page < chatPages.totalPages && (
+      {chatPages.totalPages > 1 && currentPage < chatPages.totalPages && (
         <div ref={observerRef}>더보기....</div>
       )}
     </section>

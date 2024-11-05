@@ -18,6 +18,7 @@ import {
 import { getChatList } from "../api/chat";
 import { getJwtFromCookies } from "../utils/extractUserIdFromCookie";
 import { ChatRoomListInfo } from "../types/chat";
+import useWebSocket from "../hooks/useWebSocket";
 
 export default function ChatlistPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,7 +27,10 @@ export default function ChatlistPage() {
   const { rooms, isEmpty, isSelected, chatPages } = useSelector(
     (state: RootState) => state.chatRooms
   );
-  const { chatroom, messages } = useSelector((state: RootState) => state.chat);
+  const { messages, chatroom } = useSelector((state: RootState) => state.chat);
+
+  const chatroomIds = rooms.map((room) => room.chatroomId);
+  const { sendMessage } = useWebSocket(chatroomIds, chatroom?.chatroomId);
 
   useEffect(() => {
     const upBtn = document.querySelector(".up-btn") as HTMLButtonElement | null;
@@ -62,6 +66,11 @@ export default function ChatlistPage() {
       setCurrentPage(1);
     };
   }, []);
+
+  useEffect(() => {
+    const lastMessages = rooms.map((room) => room.lastMessage);
+    console.log(lastMessages);
+  }, [messages]);
 
   // 채팅방 목록 조회 함수
   const fetchChatList = async (token: string | null, page: number) => {
@@ -99,7 +108,7 @@ export default function ChatlistPage() {
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
           />
-          {isSelected ? <SelectedChatRoom /> : <UnSelectedChatRoom />}
+          {isSelected ? <SelectedChatRoom sendMessage={sendMessage}/> : <UnSelectedChatRoom />}
         </div>
       )}
     </section>

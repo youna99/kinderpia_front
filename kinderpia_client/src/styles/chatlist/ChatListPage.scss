@@ -67,6 +67,7 @@
       .chatroom-wrapper {
         border-bottom: 1px solid #ccc;
         overflow-y: hidden;
+        display: flex;
         h2 {
           display: none;
         }

@@ -33,6 +33,12 @@ const chatRoomSlice = createSlice({
     addChatRooms: (state, action: PayloadAction<ChatRoomListInfo[]>) => {
       state.rooms.push(...action.payload);
     },
+    updateLastmessage:(state, action: PayloadAction<{chatroomId: number; lastMessage: string}>) => {
+      const room = state.rooms.find(room => room.chatroomId === action.payload.chatroomId);
+      if(room){
+        room.lastMessage = action.payload.lastMessage;
+      }
+    },
     setPages: (state, action: PayloadAction<ChatPageInfo>) => {
       state.chatPages = action.payload;
     },
@@ -59,5 +65,6 @@ export const {
   setEmpty,
   setSelected,
   setPages,
+  updateLastmessage
 } = chatRoomSlice.actions;
 export default chatRoomSlice.reducer;
