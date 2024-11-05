@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/common/Header.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { extractUserIdFromCookie } from '../utils/extractUserIdFromCookie';
 import { confirmAlert, simpleAlert } from '../utils/alert';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userIdFromCookie, setUserIdFromCookie] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -45,7 +46,8 @@ export default function Header() {
     if (confirmed) {
       // 쿠키삭제
       document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      simpleAlert('success', '로그아웃 되었습니다.', 'top-end');
+      await simpleAlert('success', '로그아웃 되었습니다.', 'top-end');
+      navigate('/');
     }
     return;
   };
