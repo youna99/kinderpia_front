@@ -16,6 +16,7 @@ interface ReviewItemProps {
   nickname?: string;
   showPlaceName?: boolean; // 장소상세페이지에서 placeName 안보이기
   onClick?: () => void; // onClick 프로퍼티 추가(선택)
+  onDelete?: (reviewId: number) => void; // onDelete 프로퍼티 추가
 }
 
 const Review: React.FC<ReviewItemProps> = ({
@@ -29,6 +30,7 @@ const Review: React.FC<ReviewItemProps> = ({
   nickname = '닉네임',
   showPlaceName = true, // 마이페이지에서는 기본값으로 설정
   onClick, // onClick 프로퍼티 받기
+  onDelete,
 }) => {
   const handleDeleteReview = async () => {
     const confirmed = await confirmAlert(
@@ -38,8 +40,12 @@ const Review: React.FC<ReviewItemProps> = ({
     );
     if (confirmed) {
       try {
-        await deleteReview(reviewId); // 아직 서버코드 고치는 중이라 삭제 안된다고 합니다~
+        await deleteReview(reviewId);
         simpleAlert('success', '삭제되었습니다.');
+        // 부모 컴포넌트의 삭제 함수 호출
+        if (onDelete) {
+          onDelete(reviewId);
+        }
       } catch (error) {
         simpleAlert('error', '삭제에 실패했습니다. 다시 시도하세요.');
       }
