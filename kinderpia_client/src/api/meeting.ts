@@ -1,19 +1,38 @@
+import { response } from 'express';
 import {
   CreateMeetingFormData,
   CategoryResponse,
   UpdateMeetingFormData,
   MeetingJoinData,
   MeetingDetailData,
+  MeetingUserData,
+  MeetingUserStatusData,
+  MeetingUserResponse,
 } from '../types/meeting';
 import { requestHeader } from './requestHeader';
 
-export const getMeeting = async (meetingId: number): Promise<MeetingDetailData> => {
+export const getMeeting = async ( 
+  meetingId: number
+): Promise<MeetingDetailData> => {
   const response = await requestHeader.get(
     `/api/meeting/${meetingId}`
   );
   
   return response.data.data;
 };
+
+export const getMeetingUser = async( 
+  data : MeetingUserStatusData
+): Promise<MeetingUserResponse>=>{
+  const response = await requestHeader.post(
+    `/api/user/meeting/status`,
+    data
+  );
+
+  return response.data;
+}
+
+
 
 export const postMeeting = async (
   data: CreateMeetingFormData
