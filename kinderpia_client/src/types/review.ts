@@ -24,7 +24,8 @@ export interface ReviewData {
   profileImg: string | null;
   likeCount: number;
   blacklist: boolean;
-  userId: string;
+  writer: string;
+  likedByUser: boolean;
 }
 
 // API 응답 구조

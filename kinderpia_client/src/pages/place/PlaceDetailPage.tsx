@@ -21,9 +21,6 @@ const PlaceDetailPage: React.FC = () => {
 
   const navigate = useNavigate();
 
-  console.log('placeID>>', placeId);
-  console.log('placeIdtype>>>', typeof placeId);
-
   const handleReviewSubmit = () => {
     setReviewcreate((prev) => !prev); // 리뷰가 제출되면 상태를 변경
   };
@@ -36,10 +33,9 @@ const PlaceDetailPage: React.FC = () => {
   const getPlaceDetail = async () => {
     try {
       const data = await getPlace(placeId);
-      console.log('data.data.place >>>', data.data.place);
       console.log('data.data >>>', data.data);
 
-      setPlaceDetail(data.data.place);
+      setPlaceDetail(data.data);
       setRatingAndCategorys(data.data);
     } catch (error) {
       navigate('/not-found', { replace: true });
@@ -58,7 +54,7 @@ const PlaceDetailPage: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [placeId]);
+  }, [placeId, reviewcreate, reviewdelete]);
 
   if (!placeId) {
     return <div>낫 타당한 접근방법! </div>;

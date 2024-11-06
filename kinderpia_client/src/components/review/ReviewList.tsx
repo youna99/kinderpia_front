@@ -79,8 +79,9 @@ const ReviewList: React.FC<ReviewListProps> = ({
           profileImg={reviewData.profileImg || '/images/usericon.png'}
           nickname={reviewData.nickname}
           showPlaceName={false}
-          isOwner={currentUserId === String(reviewData.userId)}
+          isOwner={currentUserId === String(reviewData.writer)}
           onDelete={onDelete}
+          likedByUser={reviewData.likedByUser}
         />
       ))}
     </div>
