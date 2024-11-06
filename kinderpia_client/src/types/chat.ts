@@ -7,6 +7,7 @@ export interface ChatRoomListInfo {
   active: boolean;
   meetingCategoryName: string;
   capacity: number;
+  lastMessageCreatedAt: string;
 }
 
 export interface ChatRoomMemberInfo {
@@ -16,7 +17,6 @@ export interface ChatRoomMemberInfo {
 }
 
 export interface ChatRoomInfo extends ChatRoomListInfo {
-  lastMessageCreatedAt: Date;
   users: ChatRoomMemberInfo[];
 }
 

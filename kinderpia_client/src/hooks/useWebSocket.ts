@@ -17,12 +17,13 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const url = process.env.REACT_APP_API_URL || 'http://localhost:8080';
     const jwt = getJwtFromCookies();
     if(!jwt) return;
 
     // 클라이언트 초기화
     clientRef.current = new Client({
-      webSocketFactory: () => new SockJS(`http://localhost:8080/ws`),
+      webSocketFactory: () => new SockJS(`${url}/ws`),
       reconnectDelay: 5000,
       heartbeatIncoming: 10000,
       heartbeatOutgoing: 10000,

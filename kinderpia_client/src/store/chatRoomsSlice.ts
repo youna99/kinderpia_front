@@ -8,6 +8,7 @@ interface ChatRoomsState {
   loading: boolean;
   isEmpty: boolean;
   isSelected: boolean;
+  badge : boolean;
 }
 
 const initialState: ChatRoomsState = {
@@ -21,6 +22,7 @@ const initialState: ChatRoomsState = {
   loading: true,
   isEmpty: true,
   isSelected: false,
+  badge : false,
 };
 
 const chatRoomSlice = createSlice({
@@ -54,6 +56,9 @@ const chatRoomSlice = createSlice({
     setSelected: (state, action: PayloadAction<boolean>) => {
       state.isSelected = action.payload;
     },
+    setBadge: (state, action:PayloadAction<boolean>) => {
+      state.badge = action.payload;
+    }
   },
 });
 
@@ -65,6 +70,7 @@ export const {
   setEmpty,
   setSelected,
   setPages,
-  updateLastmessage
+  updateLastmessage,
+  setBadge
 } = chatRoomSlice.actions;
 export default chatRoomSlice.reducer;

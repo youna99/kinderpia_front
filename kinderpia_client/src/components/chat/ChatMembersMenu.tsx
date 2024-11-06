@@ -7,20 +7,14 @@ import { deleteLeaveMeeting } from "../../api/meeting";
 import { setChatRooms, setEmpty, setSelected } from "../../store/chatRoomsSlice";
 import { confirmAlert, showAlert, simpleAlert } from "../../utils/alert";
 import { extractUserIdFromCookie, getJwtFromCookies } from "../../utils/extractUserIdFromCookie";
-import { useNavigate } from "react-router-dom";
 import { getChatList } from "../../api/chat";
-
-interface ChatMenuProps {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  open: boolean;
-}
+import { setOpen } from "../../store/chatSlice";
 
 // 채팅 참여 멤버 컴포넌트(설정과비슷?)
-export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
-  const navigate = useNavigate();
+export default function ChatMembersMenu() {
   const dispatch = useDispatch();
 
-  const { chatroom } = useSelector((state: RootState) => state.chat);
+  const { chatroom, open } = useSelector((state: RootState) => state.chat);
   const token = getJwtFromCookies();
   const userId = Number(extractUserIdFromCookie());
 
@@ -43,10 +37,10 @@ export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
 
   if (!chatroom) return <div>멤버 정보 불러오는중...</div>;
 
-  const { meetingId, capacity, users } = chatroom;
+  const { meetingId, users } = chatroom;
 
   const closeMenu = () => {
-    setOpen(false);
+    dispatch(setOpen(false));
   };
 
   const handleeLeaveMeeting = async (meetingId: number) => {

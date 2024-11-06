@@ -2,7 +2,7 @@ import ChatRoom from "./ChatRoom";
 import { RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { getChatMessages, getChatRoom } from "../../api/chat";
-import { markMessagesAsRead, setChatInfo, setMessages, setMsgPages } from "../../store/chatSlice";
+import { markMessagesAsRead, setChatInfo, setMessages, setMsgPages, setOpen } from "../../store/chatSlice";
 import React, {
   useCallback,
   useEffect,
@@ -90,20 +90,17 @@ export default function ChatRooms({
       try {
         // 단일 채팅방 조회
         const res = await getChatRoom(jwt, chatroomId);
-        console.log(res);
-        
         if (res?.status === 200) {
           const chatInfo: ChatRoomInfo = res.data;
           dispatch(setChatInfo(chatInfo));
           // 채팅방의 메세지 조회
           const res2 = await getChatMessages(jwt, chatroomId, msgPage);
-          console.log(res2);
-          
           const chatMsgList = [...res2.data.data.chatmsgList].reverse();
           dispatch(setMessages(chatMsgList));
           dispatch(setMsgPages(res2.data.pageInfo))
           dispatch(setSelected(true));
           dispatch(markMessagesAsRead(chatroomId));
+          dispatch(setOpen(false));
         }
       } catch (error) {
         console.error(error);
