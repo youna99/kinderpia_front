@@ -157,6 +157,10 @@ const Review: React.FC<ReviewItemProps> = ({
             <p className="nolike">도움이 돼요</p>
           )}
         </div>
+        <p className="cannotclick-like">
+          <span className="xi-check"></span>
+          <span>도움됨</span>
+        </p>
         <p>{currentLikeCount}명에게 도움이 되었습니다</p>
       </div>
 
