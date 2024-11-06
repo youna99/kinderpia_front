@@ -1,8 +1,12 @@
 import { requestHeader } from './requestHeader';
-import { ReviewsResponse, ReviewFormDTO } from '../types/review';
+import { ReviewFormDTO } from '../types/review';
 
-export const getReviewList = async (placeId: number) => {
-  const response = await requestHeader.get(`/api/review/${placeId}`);
+export const getReviewList = async (params: {
+  placeId: number;
+  page: number;
+  size: number;
+}) => {
+  const response = await requestHeader.get(`/api/review`, { params });
   return response.data;
 };
 

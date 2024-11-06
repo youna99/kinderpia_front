@@ -6,8 +6,8 @@
     align-items: center;
     flex-direction: column;
     gap: $caption;
-    width: 88%;
-    max-width: 600px;
+    width: 100%;
+    max-width: 53rem;
     margin-bottom: 10rem;
 
     hr {
@@ -16,6 +16,10 @@
       border: none;
       width: 100%;
       margin: 0px auto;
+    }
+
+    .review-item {
+      width: 100%;
     }
   }
   &-404 {

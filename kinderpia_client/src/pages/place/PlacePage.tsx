@@ -174,33 +174,33 @@ const PlacePage: React.FC = () => {
   };
 
   return (
-    <div className="meeting-page">
+    <div className="place-page">
       <strong className="page-banner-txt">
         서울 이곳저곳의 핫플레이스를 찾아보세요!
       </strong>
-      <div className="meeting-map-container">
+      <div className="place-map-container">
         <SeoulMap
           onDistrictClick={handleDistrictClick}
           selectedDistrict={selectedDistrict}
         />
       </div>
-      <div className="meeting-search">
+      <div className="place-search">
         <SearchInput
           placeholder="장소 검색하기"
           onSearch={(searchTerm) => handleSearch(searchTerm, 'title', sortBy)}
           isLoading={isSearching}
         />
       </div>
-      <div className="meeting-header" ref={headerTitleRef}>
-        <div className="meeting-header-title">
+      <div className="place-header" ref={headerTitleRef}>
+        <div className="place-header-title">
           장소 검색
           {currentSearchTerm && (
-            <span className="meeting-header-result">
+            <span className="place-header-result">
               '{currentSearchTerm}' 에 대한 검색 결과
             </span>
           )}
         </div>
-        <div className="meeting-header-filter">
+        <div className="place-header-filter">
           <div className="dropdown">
             <button
               className="dropdown-toggle"
@@ -223,12 +223,12 @@ const PlacePage: React.FC = () => {
       </div>
       <hr />
       {isSearching ? (
-        <div className="meeting-search-status">검색 중...</div>
+        <div className="place-search-status">검색 중...</div>
       ) : places.length > 0 ? (
-        <div className="meeting-list-item">
+        <div className="place-list-item">
           {places.map((place, index) => (
             <div
-              className="meeting-list-item-page"
+              className="place-list-item-page"
               key={place.placeId}
               ref={index === places.length - 1 ? lastPlaceRef : null}
             >
@@ -242,10 +242,10 @@ const PlacePage: React.FC = () => {
               />
             </div>
           ))}
-          {isLoading && <div className="meeting-search-status">로딩 중...</div>}
+          {isLoading && <div className="place-search-status">로딩 중...</div>}
         </div>
       ) : (
-        <div className="meeting-list-404">
+        <div className="place-list-404">
           {currentSearchTerm
             ? `'${currentSearchTerm}' 에 대한 검색 결과가 없습니다.`
             : '검색 결과가 없습니다.'}
