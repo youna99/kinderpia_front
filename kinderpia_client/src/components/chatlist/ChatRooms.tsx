@@ -13,15 +13,16 @@ import React, {
 import { getJwtFromCookies } from "../../utils/extractUserIdFromCookie";
 import { setSelected } from "../../store/chatRoomsSlice";
 import { ChatRoomInfo } from "../../types/chat";
+import { useChatListFetch } from "../../hooks/useChatListFetch";
 
 interface ChatRoomsProps {
-  fetchChatList: (token: string | null, page: number) => Promise<void>;
+  // fetchChatList: (token: string, page: number) => Promise<void>;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   currentPage: number;
 }
 
 export default function ChatRooms({
-  fetchChatList,
+  // fetchChatList,
   setCurrentPage,
   currentPage,
 }: ChatRoomsProps) {
@@ -41,9 +42,12 @@ export default function ChatRooms({
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
 
+  const { fetchChatList } = useChatListFetch(currentPage);
+
   // 무한 스크롤
   const fetchMoreData = async () => {
     const jwt = getJwtFromCookies();
+    if(!jwt) return;
     if (pageParams.includes(currentPage) || isLoading) return;
     setIsLoading(true);
     setPageParams((prev) => [...prev, currentPage]);
