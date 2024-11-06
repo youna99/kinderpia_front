@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { postReports } from "../../api/report";
 import { confirmAlert, simpleAlert } from "../../utils/alert";
 
 interface ChatReportProps {
@@ -26,11 +25,11 @@ export default function ChatReport({
     );
     if (msgId && confirmed) {
       try {
-        const res = await postReports(msgId, "1", msgContent);
-        if (res?.status === 200) {
-          simpleAlert("success", "신고 완료");
-          setOpen(false);
-        }
+        // const res = await postReports(msgId, "1", msgContent);
+        // if (res?.status === 200) {
+        //   simpleAlert("success", "신고 완료");
+        //   setOpen(false);
+        // }
       } catch (error) {
         console.error(error);
       }
