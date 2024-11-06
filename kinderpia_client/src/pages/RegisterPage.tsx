@@ -10,6 +10,7 @@ import { fakeSignInLogIn } from '../api/meetinglist';
 import FakerComponent from '../components/common/FakerComponent';
 import generateFourDigitNumber from '../utils/fakeNumber';
 import { RegisterFormInputs } from '../types/user';
+import { checkDuplicate } from '../api/user';
 
 export default function RegisterPage() {
   const {
@@ -68,11 +69,7 @@ export default function RegisterPage() {
     }
 
     try {
-      const response = await axios.post(
-        `http://localhost:8080/api/user/check/${field}`,
-        { [field]: value },
-        { withCredentials: true }
-      );
+      const response = await checkDuplicate(field, value);
 
       if (response.data.data === false) {
         simpleAlert('success', `${response.data.message}`);

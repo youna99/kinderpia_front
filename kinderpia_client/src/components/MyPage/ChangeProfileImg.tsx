@@ -4,12 +4,10 @@ import Swal from 'sweetalert2';
 
 interface ChangeProfileImgProps {
   profileImg: string;
-  userId: string | null;
 }
 
 export const ChangeProfileImg: React.FC<ChangeProfileImgProps> = ({
   profileImg,
-  userId,
 }) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(
     profileImg || null
@@ -24,12 +22,23 @@ export const ChangeProfileImg: React.FC<ChangeProfileImgProps> = ({
       title: '사진을 선택해주세요.',
       input: 'file',
       inputAttributes: {
-        accept: 'image/*',
+        accept: 'image/jpeg, image/png',
         'aria-label': 'Upload your profile picture',
       },
     });
 
     if (file) {
+      // 파일 크기 제한 (예: 2MB)
+      const maxSize = 2 * 1024 * 1024; // 2MB
+      if (file.size > maxSize) {
+        Swal.fire({
+          icon: 'error',
+          title: '파일 크기가 너무 큽니다.',
+          text: '2MB 이하의 이미지를 선택해주세요.',
+        });
+        return;
+      }
+
       const reader = new FileReader();
       reader.onload = async (e) => {
         const imageUrl = e.target?.result;
@@ -46,15 +55,16 @@ export const ChangeProfileImg: React.FC<ChangeProfileImgProps> = ({
 
           // 파일 업로드
           const formData = new FormData();
-          formData.append('file', file);
+          formData.append('image', file);
 
           try {
-            const response = await axios.post(
-              `http://localhost:8080/api/user/${userId}`,
+            const response = await axios.put(
+              `http://localhost:8080/api/user/profileImg`,
               formData,
               {
                 headers: {
                   'Content-Type': 'multipart/form-data',
+                  Accept: 'application/json',
                 },
                 withCredentials: true,
               }

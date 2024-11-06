@@ -21,6 +21,7 @@ interface ReviewItemProps {
   onClick?: () => void; // onClick 프로퍼티 추가(선택)
   isOwner?: boolean; // 현재 사용자와 리뷰 글쓴이가 같은지
   onDelete?: (reviewId: number) => void; // 삭제가 되었는지 (삭제하면 목록 바로 업데이트 되게 할려고 추가)
+  onReviewClick?: () => void;
   likedByUser?: boolean; // 내가 도움됨을 눌렀는지
 }
 
@@ -37,6 +38,7 @@ const Review: React.FC<ReviewItemProps> = ({
   onClick, // onClick 프로퍼티 받기
   isOwner = true, // 마이페이지에서는 기본값 true
   onDelete,
+  onReviewClick,
   likedByUser = true, // 마이페이지에서는 기본값 true
 }) => {
   const [currentLikeCount, setCurrentLikeCount] = useState(likeCount); // like 총 수
@@ -109,7 +111,7 @@ const Review: React.FC<ReviewItemProps> = ({
   return (
     <div className="review-wrap" key={reviewId}>
       {showPlaceName && (
-        <h3>
+        <h3 onClick={onReviewClick}>
           <span className="xi-maker"></span>
           {placeName}
         </h3>

@@ -2,54 +2,48 @@ import React, { useState, useEffect } from 'react';
 import Calendar, { CalendarProps } from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../../styles/mypage/ScheduleCalender.scss';
-import axios from 'axios';
+import { getUserMeetingScheduleList } from '../../api/user';
 
 type Meeting = {
-  id: string | null;
-  title: string;
-  meeting_time: string;
+  meetingId: string | null;
+  meetingTitle: string;
+  meetingTime: string;
 };
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-interface ScheduleCalenderProps {
-  userId: string | null;
-}
-
-const ScheduleCalender: React.FC<ScheduleCalenderProps> = ({ userId }) => {
+const ScheduleCalender: React.FC = () => {
   const [value, onChange] = useState<Value>(new Date());
   const [meetings, setMeetings] = useState<Meeting[]>([]);
   const [selectedMeetings, setSelectedMeetings] = useState<Meeting[]>([]);
 
-  // /api/user/meetingTime/list/{userId}
   const fetchMeetings = async () => {
-    // try {
-    //   const response = await axios.get(
-    //     `http://localhost:8080/api/user/meetingTime/list/${userId}?page=1&size=10`,
-    //     { withCredentials: true }
-    //   );
-    //   const fetchedMeetings: Meeting[] = response.data.data; // API에서 받은 데이터
-    //   setMeetings(fetchedMeetings);
-    //   const today = new Date();
-    //   const todayMeetings = fetchedMeetings.filter(
-    //     (meeting) =>
-    //       new Date(meeting.meeting_time).toDateString() === today.toDateString()
-    //   );
-    //   setSelectedMeetings(todayMeetings);
-    // } catch (error) {
-    //   console.error('모임 목록을 가져오는 중 오류 발생:', error);
-    // }
+    try {
+      const response = await getUserMeetingScheduleList();
+      console.log(response);
+      const fetchedMeetings: Meeting[] = response.data.data; // API에서 받은 데이터
+      setMeetings(fetchedMeetings);
+
+      const today = new Date();
+      const todayMeetings = fetchedMeetings.filter(
+        (meeting) =>
+          new Date(meeting.meetingTime).toDateString() === today.toDateString()
+      );
+      setSelectedMeetings(todayMeetings);
+    } catch (error) {
+      console.error('모임 목록을 가져오는 중 오류 발생:', error);
+    }
   };
 
   useEffect(() => {
     fetchMeetings();
-  }, [userId]);
+  }, []);
 
   const tileContent = ({ date, view }: { date: Date; view: string }) => {
     if (view === 'month') {
       const meetingDates = meetings.map((meeting) =>
-        new Date(meeting.meeting_time).toDateString()
+        new Date(meeting.meetingTime).toDateString()
       );
       return meetingDates.includes(date.toDateString()) ? (
         <div className="meeting-dot" />
@@ -62,7 +56,7 @@ const ScheduleCalender: React.FC<ScheduleCalenderProps> = ({ userId }) => {
     const selectedDate = Array.isArray(date) ? date[0] : date;
     const meetingsForDate = meetings.filter(
       (meeting) =>
-        new Date(meeting.meeting_time).toDateString() ===
+        new Date(meeting.meetingTime).toDateString() ===
         selectedDate?.toDateString()
     );
     setSelectedMeetings(meetingsForDate);
@@ -96,12 +90,19 @@ const ScheduleCalender: React.FC<ScheduleCalenderProps> = ({ userId }) => {
           {selectedMeetings.length > 0 ? (
             <ul>
               {selectedMeetings.map((meeting) => (
-                <li key={meeting.id}>
-                  {meeting.title} -{' '}
-                  {new Date(meeting.meeting_time).toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
+                <li key={meeting.meetingId}>
+                  <span>
+                    {meeting.meetingTitle}
+                    <span></span>{' '}
+                  </span>
+                  -
+                  <span>
+                    <span className="xi-alarm"></span>
+                    {new Date(meeting.meetingTime).toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}{' '}
+                  </span>
                 </li>
               ))}
             </ul>
