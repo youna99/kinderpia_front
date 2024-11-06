@@ -42,13 +42,6 @@ export default function LoginPage() {
 
     try {
       const response = await postUserLogin(data);
-      // const response = await axios.post(
-      //   'http://localhost:8080/api/user/login',
-      //   data,
-      //   {
-      //     withCredentials: true,
-      //   }
-      // );
       if (response.status === 200) {
         console.log('로그인 완료:', response);
         await simpleAlert('success', '로그인 성공!');
