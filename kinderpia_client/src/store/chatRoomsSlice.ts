@@ -1,20 +1,26 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ChatRoomListInfo } from "../types/chat";
+import { ChatPageInfo, ChatRoomListInfo } from "../types/chat";
 
 interface ChatRoomsState {
   rooms: ChatRoomListInfo[];
+  chatPages: ChatPageInfo;
   error: boolean;
   loading: boolean;
   isEmpty: boolean;
-  isSelected : boolean;
+  isSelected: boolean;
 }
 
 const initialState: ChatRoomsState = {
   rooms: [],
+  chatPages: {
+    page: 1,
+    totalElements: 1,
+    totalPages: 1,
+  },
   error: false,
   loading: true,
   isEmpty: true,
-  isSelected : false,
+  isSelected: false,
 };
 
 const chatRoomSlice = createSlice({
@@ -23,6 +29,18 @@ const chatRoomSlice = createSlice({
   reducers: {
     setChatRooms: (state, action: PayloadAction<ChatRoomListInfo[]>) => {
       state.rooms = action.payload;
+    },
+    addChatRooms: (state, action: PayloadAction<ChatRoomListInfo[]>) => {
+      state.rooms.push(...action.payload);
+    },
+    updateLastmessage:(state, action: PayloadAction<{chatroomId: number; lastMessage: string}>) => {
+      const room = state.rooms.find(room => room.chatroomId === action.payload.chatroomId);
+      if(room){
+        room.lastMessage = action.payload.lastMessage;
+      }
+    },
+    setPages: (state, action: PayloadAction<ChatPageInfo>) => {
+      state.chatPages = action.payload;
     },
     setError: (state, action: PayloadAction<boolean>) => {
       state.error = action.payload;
@@ -35,10 +53,18 @@ const chatRoomSlice = createSlice({
     },
     setSelected: (state, action: PayloadAction<boolean>) => {
       state.isSelected = action.payload;
-    }
+    },
   },
 });
 
-export const { setChatRooms, setError, setLoading, setEmpty, setSelected } =
-  chatRoomSlice.actions;
+export const {
+  setChatRooms,
+  addChatRooms,
+  setError,
+  setLoading,
+  setEmpty,
+  setSelected,
+  setPages,
+  updateLastmessage
+} = chatRoomSlice.actions;
 export default chatRoomSlice.reducer;

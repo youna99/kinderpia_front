@@ -6,30 +6,29 @@ import CommonButton1 from '../../common/CommonButton1'
 import { MeetingData, MeetingUserData } from '../../../types/meeting';
 import { deleteLeaveMeeting, putEndMeeting } from '../../../api/meeting';
 import { simpleAlert } from '../../../utils/alert';
+import MeetingWaitListModal from './MeetingWaitListModal';
 
 interface MeetingActionJoinedProp{
   user?: MeetingUserData;
   data?: MeetingData;
 }
 
-const MeetingActionJoined:React.FC<MeetingActionJoinedProp> = ({
+const MeetingActionJoined: React.FC<MeetingActionJoinedProp> = ({
   user,
   data,
 }) => {
   const navigate = useNavigate();
-
-  const [ whoAmI, setWhoAmI ]= useState(false);
+  const [whoAmI, setWhoAmI] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { meetingId } = useParams<{ meetingId: string }>();
-  
-  useEffect(()=>{
-    if(!user)
-      return;
-    if(!data)
-      return;
-    if(user.userId === data.userId){
+
+  useEffect(() => {
+    if (!user) return;
+    if (!data) return;
+    if (user.userId === data.userId) {
       setWhoAmI(true);
     }
-  },[whoAmI])
+  }, [whoAmI]);
 
   const moveToChatRoom = async (): Promise<void> => {
     try {
@@ -74,6 +73,9 @@ const MeetingActionJoined:React.FC<MeetingActionJoinedProp> = ({
       console.error('모임 수정 중 오류 발생:', error)
     }
   }
+  const openWaitingList = async (): Promise<void> => {
+    setIsModalOpen(true);
+  };
 
   return (
     <div className='meeting-action-joined-container'>
@@ -83,30 +85,30 @@ const MeetingActionJoined:React.FC<MeetingActionJoinedProp> = ({
         disabled={false}
         isLoading={false}
       />
-      { whoAmI
-      ?<>
-        <CommonButton1
-          text='모임 종료하기'
-          onClick={deleteMeeting}
-          disabled={false}
-          isLoading={false}
-        />
-        <CommonButton1
-          text='모임글 수정하기'
-          onClick={editMeeting}
-          disabled={false}
-          isLoading={false}
-        />
-        { data?.authType &&
+      {whoAmI
+        ? <>
           <CommonButton1
-            text='모임신청 대기자 목록'
-            onClick={leaveMeeting}
+            text='모임 종료하기'
+            onClick={deleteMeeting}
             disabled={false}
             isLoading={false}
           />
-        }
-      </>
-      :<CommonButton1
+          <CommonButton1
+            text='모임글 수정하기'
+            onClick={editMeeting}
+            disabled={false}
+            isLoading={false}
+          />
+          {data?.authType &&
+            <CommonButton1
+              text='모임신청 대기자 목록'
+              onClick={openWaitingList}
+              disabled={false}
+              isLoading={false}
+            />
+          }
+        </>
+        : <CommonButton1
           text='모임 떠나기'
           onClick={leaveMeeting}
           disabled={false}
@@ -114,8 +116,13 @@ const MeetingActionJoined:React.FC<MeetingActionJoinedProp> = ({
         />
       }
       
+      <MeetingWaitListModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        meetingId={Number(meetingId)}
+      />
     </div>
-  )
-}
+  );
+};
 
 export default MeetingActionJoined

@@ -16,7 +16,6 @@ export const postReportBadContent = async (data :RepostData) => {
       },
       withCredentials:true
     });
-
     return result;
 };
 

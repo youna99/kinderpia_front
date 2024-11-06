@@ -5,6 +5,7 @@ import { extractUserIdFromCookie } from "../../utils/extractUserIdFromCookie";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { ReactComponent as Crown } from "../../assets/crown.svg";
+import ChatReport from "./ChatReport";
 
 interface MessageInfoProps {
   messageInfo: ChatMessageInfo;
@@ -20,6 +21,7 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
     chatmsgContent,
     createdAt,
     messageType,
+    chatmsgId,
   } = messageInfo;
   const { chatroom } = useSelector((state: RootState) => state.chat);
 
@@ -32,12 +34,16 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
   // 우클릭
   const handleContextMenu = (e: React.MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
-    setIsModalOpen(true);
+    if (senderId !== Number(userId)) {
+      setIsModalOpen(true);
+    }
   };
 
   const handleTouchStart = (e: React.TouchEvent<HTMLSpanElement>) => {
     const timer = setTimeout(() => {
-      setIsModalOpen(true);
+      if (senderId !== Number(userId)) {
+        setIsModalOpen(true);
+      }
     }, 1000);
 
     return () => clearTimeout(timer);
@@ -92,6 +98,15 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
                 {chatmsgContent}
               </span>
               <span className="message-time">{formatDateTime(createdAt)}</span>
+              {isModalOpen ? (
+                <ChatReport
+                  setOpen={setIsModalOpen}
+                  meetingHeader={chatroom?.meetingHeader}
+                  user={Number(userId)}
+                  msgId={chatmsgId}
+                  msgContent={chatmsgContent}
+                />
+              ) : null}
             </div>
           </div>
         </div>

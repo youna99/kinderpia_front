@@ -1,0 +1,16 @@
+@import '../common/variables';
+
+.faker-btn {
+  width: 100%;
+  background-color: $main-color;
+  margin: 1rem auto;
+  border-radius: 5px;
+  font-size: $button;
+  color: #ffffff;
+  margin-top: 3rem;
+  min-height: $title1+$title1;
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+}

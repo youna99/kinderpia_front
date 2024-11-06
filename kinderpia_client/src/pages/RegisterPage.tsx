@@ -6,6 +6,9 @@ import termsAndConditions from '../data/termsAndConditions';
 import axios from 'axios';
 import { showAlert, simpleAlert } from '../utils/alert';
 import { useNavigate } from 'react-router-dom';
+import { fakeSignInLogIn } from '../api/meetinglist';
+import FakerComponent from '../components/common/FakerComponent';
+import generateFourDigitNumber from '../utils/fakeNumber';
 
 interface RegisterFormInputs {
   loginId: string;
@@ -17,6 +20,7 @@ interface RegisterFormInputs {
   agreeTerms: boolean;
   agreePrivacy: boolean;
 }
+
 
 export default function RegisterPage() {
   const {
@@ -36,6 +40,7 @@ export default function RegisterPage() {
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
   const [isEmailChecked, setIsEmailChecked] = useState(false);
   const [isPhoneNumChecked, setIsPhoneNumChecked] = useState(false);
+  const [dummyNumber, setDummyNumber] = useState(generateFourDigitNumber());
   const navigate = useNavigate();
 
   // 비밀번호 보이기/안보이기 아이콘 토글
@@ -139,6 +144,8 @@ export default function RegisterPage() {
     }
 
     try {
+      console.log(data);
+      
       await axios.post('http://localhost:8080/api/user/register', data, {
         withCredentials: true,
       });
@@ -149,10 +156,29 @@ export default function RegisterPage() {
     }
   };
 
+  const fakeSignIn = async ()=>{
+    // setIsEmailChecked(true);
+    // setIsNicknameChecked(true);
+    // setIsEmailChecked(true);
+    // setIsEmailChecked(true);
+    // setIsPhoneNumChecked(true);
+    const faker = await fakeSignInLogIn(dummyNumber);
+    if(faker){
+      await simpleAlert('success', '로그인 성공!','center');
+      navigate('/');
+    }else{
+      await simpleAlert('error', '무작위 계정 생성에 실패했습니다.', 'center');
+    }
+  }
+
   return (
     <section id="register">
       <h2 className="title">회원가입</h2>
       <p>킨더피아 멤버가 되어보세요.</p>
+      <FakerComponent
+        text={`더미 회원가입 해버리기~  LoginId : test${dummyNumber}, password : test1234`}
+        onClick={fakeSignIn}
+      />
       <form action="#" id="register-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="input-box">
           <RegisterInput

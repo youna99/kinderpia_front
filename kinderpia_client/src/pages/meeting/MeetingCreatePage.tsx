@@ -17,11 +17,14 @@ import CalenderSelector from '../../components/common/CalanderSelector';
 import CommonButton1 from '../../components/common/CommonButton1';
 
 // api 요청 함수 호출
-import { meetingApi } from '../../api/meeting';
+// import { meetingApi } from '../../api/meeting';
+import generateFourDigitNumber from '../../utils/fakeNumber';
 
 //style 호출
 import '../../styles/meeting/createpage/MeetingCreatePage.scss'
 import { extractUserIdFromCookie } from '../../utils/extractUserIdFromCookie';
+import { postMeeting } from '../../api/meeting';
+import FakerComponent from '../../components/common/FakerComponent';
 
 const MeetingCreatePage = () => {
   const navigate = useNavigate();
@@ -39,11 +42,14 @@ const MeetingCreatePage = () => {
     authType: false
   });
 
+  const [fakeNumber, setFakeNumber] = useState<number>(generateFourDigitNumber());
 
   useEffect(() => {
     const setUserId = async () => {
-      const userId = await extractUserIdFromCookie() || '11123';
-      console.log('userId',userId);
+      const userId = await extractUserIdFromCookie();
+      if(!userId){
+        return;
+      }
       
       setFormData(prev => ({
         ...prev,
@@ -106,7 +112,7 @@ const MeetingCreatePage = () => {
       };
       console.log(data);
       
-      const result = await meetingApi.postMeeting(data);
+      const result = await postMeeting(data);
 
       navigate(`/meeting/${result.data}`);
     } catch (error) {
@@ -115,11 +121,38 @@ const MeetingCreatePage = () => {
     }
   };
 
+  const fakeCreateMeeting = async () => {      
+    const userId = await extractUserIdFromCookie();
+    if(!userId){
+      return;
+    }
+    const data = {
+      authType: false,
+      detailAddress : "서울특별시 영등포구 문래동6가 57 106동 청년취업사관학교 영등포캠퍼스",
+      district : "영등포구",
+      limited : true,
+      meetingCategoryId : 2,
+      meetingContent : "안녕하세요! 더미 모임입니다. 더미 모임입니다. 더미 모임입니다. 더미 모임입니다. 더미 모임입니다.",
+      meetingLocation : "청년취업사관학교 영등포캠퍼스",
+      meetingTime : "2024-11-18 12:00:00",
+      meetingTitle : `더미 모임입니다 ${fakeNumber}`,
+      totalCapacity : 10,
+      userId : Number(userId)
+    }
+    const result = await postMeeting(data);
+
+    navigate(`/meeting/${result.data}`);
+  } 
+
   return (
     <div className="meeting-create-page">
       <span className="meeting-create-page-notice">
-        * 표시는 필수 입력사항 입니다.
+        <span className='xi-check'></span> 표시는 필수 입력사항 입니다.
       </span>
+      <FakerComponent
+        text={`더미 모임 만들어버리기~ `}
+        onClick={fakeCreateMeeting}
+      />
       <form className="meeting-create-page-form">
         <CategoryInput
           value={CreateMeetingFormData.meetingCategoryId}
