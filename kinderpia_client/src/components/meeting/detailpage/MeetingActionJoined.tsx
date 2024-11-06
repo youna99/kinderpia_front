@@ -33,6 +33,7 @@ const MeetingActionJoined: React.FC<MeetingActionJoinedProp> = ({
   const moveToChatRoom = async (): Promise<void> => {
     try {
       alert('채팅방으로 이동합니다')
+      navigate('/chatroom/list')
     } catch (error) {
       console.error('채팅방 이동 중 오류 발생:', error)
     }

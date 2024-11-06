@@ -3,16 +3,20 @@ import CommonButton1 from '../../common/CommonButton1'
 
 import '../../../styles/meeting/detailpage/MeetingActionJoin.scss';
 import { MeetingData, MeetingJoinData } from '../../../types/meeting';
+import { useNavigate } from 'react-router-dom';
 
 interface MeetingActionJoinProps {
   data?: MeetingData,
-  onSubmit: (count: number, data:MeetingJoinData) => void
+  onSubmit: (count: number, data:MeetingJoinData) => void;
+  observer : (p: number, add:number ) => void;
 }
 
 const MeetingActionJoin: React.FC<MeetingActionJoinProps> = ({ 
   data,
-  onSubmit 
+  onSubmit,
+  observer,
 }) => {
+  const navigate = useNavigate();
   const [count, setCount] = useState<number>(1)
   const [maxCount, setMaxCount] = useState(1);
 
@@ -45,6 +49,12 @@ const MeetingActionJoin: React.FC<MeetingActionJoinProps> = ({
   const handleSubmit = async (): Promise<void> => {
     const capacity = count;
     const meetingId = data?.meetingId || 0;
+    
+    if(!data){
+      return;
+    }
+    
+    observer( data.participants ,capacity)
     onSubmit(meetingId, {capacity})
   }
 

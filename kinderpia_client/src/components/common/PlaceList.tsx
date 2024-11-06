@@ -7,7 +7,7 @@ import { getIcon } from '../../utils/getIcon';
 const PlaceList: React.FC<PlaceListInfo> = ({
   placeId,
   placeName,
-  placeCategoryName,
+  placeCtgName,
   averageStar,
   paid,
   placeImg,
@@ -19,7 +19,7 @@ const PlaceList: React.FC<PlaceListInfo> = ({
   };
 
   // 카테고리별 아이콘이미지 가져오기
-  const categoryIconImg = placeCategoryName ? getIcon(placeCategoryName) : null;
+  const categoryIconImg = placeCtgName ? getIcon(placeCtgName) : null;
 
   return (
     <section
@@ -35,7 +35,7 @@ const PlaceList: React.FC<PlaceListInfo> = ({
           ) : (
             <img src={placeImg} alt={placeName} />
           )}
-          <span className="place-category">{placeCategoryName}</span>
+          <span className="place-category">{placeCtgName}</span>
         </div>
         <div className="place-content">
           <h3 className="title">{placeName}</h3>

@@ -7,6 +7,7 @@ interface ChatState {
   loading: boolean;
   messages: ChatMessageInfo[];
   msgPages: ChatPageInfo;
+  unreadMessages : ChatMessageInfo[];
   unreadCounts: { [key: number]: number };
 }
 
@@ -20,6 +21,7 @@ const initialState: ChatState = {
     totalElements: 1,
     totalPages: 1,
   },
+  unreadMessages : [],
   unreadCounts: {},
 };
 
@@ -46,7 +48,7 @@ const chatSlice = createSlice({
       state.unreadCounts[action.payload] = 0; // 특정 채팅방의 읽지 않은 메시지 수 초기화
     },
     addUnreadMessages: (state, action: PayloadAction<ChatMessageInfo>) => {
-      state.messages.push(action.payload);
+      state.unreadMessages.push(action.payload);
       state.unreadCounts[action.payload.chatroomId] =
         (state.unreadCounts[action.payload.chatroomId] || 0) + 1;
     },

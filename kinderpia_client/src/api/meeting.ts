@@ -61,12 +61,6 @@ export const putMeeting = async (
 };
 
 // 모임 떠나기
-export const postLeaveMeeting = async (meetingid : number) => {
-  const response = await requestHeader.post(`/api/userMeeting/leave`, meetingid, {withCredentials : true})
-  return response;
-}
-
-// 모임 떠나기
 export const deleteLeaveMeeting = async (meetingId : number) => {
   try{
     const response = await requestHeader.delete(`/api/userMeeting/exit/${meetingId}`);
@@ -130,5 +124,12 @@ export const deleteUserMeetingReject = async (
   joinUserId: number
 ) => {
   const response = await requestHeader.delete(`/api/userMeeting/${meetingId}/reject/${joinUserId}`);
+  return response.data;
+};
+
+export const getCheckMeetingStatus = async (
+  meetingId: number,
+) => {
+  const response = await requestHeader.put(`/api/meeting/${meetingId}/meetingStatus`);
   return response.data;
 };

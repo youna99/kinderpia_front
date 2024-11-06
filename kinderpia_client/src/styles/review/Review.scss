@@ -15,7 +15,8 @@
       color: $main-color;
     }
   }
-  .report-btn {
+  .report-btn,
+  .reported-text {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
@@ -81,11 +82,27 @@
     gap: 1rem;
     align-items: center;
     .like-pin {
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      background: $main-color;
-      color: #fff;
+      // padding: 0.5rem 1rem;
+      // border-radius: 0.5rem;
+      // background: $main-color;
+      // color: #fff;
       cursor: pointer;
+
+      .like {
+        display: flex;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        background: $main-color;
+        color: #fff;
+      }
+
+      .nolike {
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        border: 2px solid $main-color;
+        background: white;
+        color: $main-color;
+      }
     }
     .xi-check {
       vertical-align: middle;

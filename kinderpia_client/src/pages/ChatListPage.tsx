@@ -19,6 +19,8 @@ import { getChatList } from "../api/chat";
 import { getJwtFromCookies } from "../utils/extractUserIdFromCookie";
 import { ChatRoomListInfo } from "../types/chat";
 import useWebSocket from "../hooks/useWebSocket";
+import { markMessagesAsRead } from "../store/chatSlice";
+import { useChatListFetch } from "../hooks/useChatListFetch";
 
 export default function ChatlistPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,7 +31,8 @@ export default function ChatlistPage() {
   );
   const { messages, chatroom } = useSelector((state: RootState) => state.chat);
 
-  const chatroomIds = rooms.map((room) => room.chatroomId);
+  const chatroomIds = rooms?.map((room) => room.chatroomId);
+  const { fetchChatList } = useChatListFetch(currentPage);
   const { sendMessage } = useWebSocket(chatroomIds, chatroom?.chatroomId);
 
   useEffect(() => {
@@ -52,16 +55,16 @@ export default function ChatlistPage() {
     };
   }, []);
 
-  // 비동기 요청
-  useEffect(() => {
-    const jwt = getJwtFromCookies();
-    fetchChatList(jwt, currentPage);
-  }, [dispatch, isEmpty]);
+  // // 비동기 요청
+  // useEffect(() => {
+  //   const jwt = getJwtFromCookies();
+  //   fetchChatList(jwt, currentPage);
+  // }, [dispatch, isEmpty]);
 
   useEffect(() => {
     return () => {
       // 언마운트 시 상태 초기화
-      dispatch(setChatRooms([]));
+      // dispatch(setChatRooms([]));
       dispatch(setSelected(false));
       setCurrentPage(1);
     };
@@ -69,34 +72,46 @@ export default function ChatlistPage() {
 
   useEffect(() => {
     const lastMessages = rooms.map((room) => room.lastMessage);
-    console.log(lastMessages);
+    chatroomIds.forEach((chatroomId) => {
+      // dispatch(markMessagesAsRead(chatroomId))
+    })
+  
   }, [messages]);
 
-  // 채팅방 목록 조회 함수
-  const fetchChatList = async (token: string | null, page: number) => {
-    try {
-      const res = await getChatList(token, page);
-      if (res?.status === 200) {
-        const chatroomList: ChatRoomListInfo[] = res.data.data.chatroomList;
-        console.log(res);
-
-        if (currentPage === 1) {
-          dispatch(setChatRooms(chatroomList));
-        } else {
-          dispatch(addChatRooms(chatroomList));
-        }
-        dispatch(setPages(res.data.pageInfo));
-        dispatch(setEmpty(chatroomList.length === 0));
-        dispatch(setError(false));
-        dispatch(setLoading(false));
-      }
-    } catch (error) {
-      console.error(error);
-      dispatch(setError(true));
-      dispatch(setLoading(false));
-      throw error;
+  useEffect(() => {
+    
+  
+    return () => {
+      
     }
-  };
+  }, [isSelected, rooms])
+  
+
+  // 채팅방 목록 조회 함수
+  // const fetchChatList = async (token: string | null, page: number) => {
+  //   try {
+  //     const res = await getChatList(token, page);
+  //     console.log(res);
+      
+  //     if (res?.status === 200) {
+  //       const chatroomList: ChatRoomListInfo[] = res.data.data.chatroomList;
+  //       if (currentPage === 1) {
+  //         dispatch(setChatRooms(chatroomList));
+  //       } else {
+  //         dispatch(addChatRooms(chatroomList));
+  //       }
+  //       dispatch(setPages(res.data.pageInfo));
+  //       dispatch(setEmpty(chatroomList.length === 0));
+  //       dispatch(setError(false));
+  //       dispatch(setLoading(false));
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     dispatch(setError(true));
+  //     dispatch(setLoading(false));
+  //     throw error;
+  //   }
+  // };
   return (
     <section className="chatlist">
       {isEmpty ? (
@@ -104,7 +119,7 @@ export default function ChatlistPage() {
       ) : (
         <div className="chatlist-wrapper">
           <ChatRooms
-            fetchChatList={fetchChatList}
+            // fetchChatList={fetchChatList}
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
           />

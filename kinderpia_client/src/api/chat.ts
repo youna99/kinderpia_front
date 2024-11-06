@@ -48,16 +48,13 @@ interface ChatMessageResponse {
 // 채팅방 목록 조회
 export const getChatList = async (
   token: string | null,
-  page: number,
+  page: number
 ): Promise<ChatListResponse> => {
   const response = await requestHeader.post(
     `/api/chatroom/list`,
     {},
     {
-      params: { page, size:15 },
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      params: { page, size: 15 },
       withCredentials: true,
     }
   );
@@ -70,9 +67,6 @@ export const getChatRoom = async (
   chatroomId: number
 ): Promise<ChatRoomResponse> => {
   const response = await requestHeader.post(`/api/chatroom`, chatroomId, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
     withCredentials: true,
   });
   return response.data;
@@ -80,18 +74,15 @@ export const getChatRoom = async (
 
 // 채팅 메시지 조회(목록)
 export const getChatMessages = async (
-  token:string|null,
+  token: string | null,
   chatroomId: number,
-  page: number,
+  page: number
 ): Promise<ChatMessageResponse> => {
   const response = await requestHeader.post(
     `/api/chatroom/chatmsg`,
     chatroomId,
     {
       params: { page },
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
       withCredentials: true,
     }
   );

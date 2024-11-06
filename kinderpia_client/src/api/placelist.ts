@@ -2,7 +2,7 @@ import { requestHeader } from './requestHeader';
 import { defaultPostReq } from '../types/place';
 
 export const getPlaces = async (params: {
-  sort: string;
+  // sort: string;
   page: number;
   size: number;
   category?: string;
@@ -13,7 +13,7 @@ export const getPlaces = async (params: {
 };
 
 export const getDefaultPlaceList = async (
-  page: number = 1,
+  page: number = 0,
   size: number = 6
 ) => {
   const response = await requestHeader.get('/api/place', {
@@ -35,6 +35,7 @@ export const getSearchPlaceList = async (data: defaultPostReq) => {
         keyword: data.keyword,
         page: data.page,
         size: data.size,
+        sort: data.sort,
       },
     }
   );
