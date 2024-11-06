@@ -1,14 +1,11 @@
 import React from 'react';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-import axios, { AxiosError } from 'axios';
-
-interface EditMyInfoBtnProps {
-  userId: string | null;
-}
+import { AxiosError } from 'axios';
+import { checkDuplicate } from '../../api/user';
 
 //200 확인, 에러: 401 비밀번호 불일치, 400 유효성검사
-export const EditMyInfoBtn: React.FC<EditMyInfoBtnProps> = ({ userId }) => {
+export const EditMyInfoBtn: React.FC = () => {
   const navigate = useNavigate();
 
   const handleEditClick = async () => {
@@ -38,14 +35,7 @@ export const EditMyInfoBtn: React.FC<EditMyInfoBtnProps> = ({ userId }) => {
         } else {
           // 비밀번호 확인 API 호출
           try {
-            const response = await axios.post(
-              'http://localhost:8080/api/user/check/userpw',
-              {
-                userId: userId,
-                userPw: password,
-              },
-              { withCredentials: true }
-            );
+            const response = await checkDuplicate('userPw', password);
 
             // 응답 상태 코드에 따라 처리
             if (response.data.status === 200) {

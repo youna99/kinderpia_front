@@ -4,12 +4,10 @@ import Swal from 'sweetalert2';
 
 interface ChangeProfileImgProps {
   profileImg: string;
-  userId: string | null;
 }
 
 export const ChangeProfileImg: React.FC<ChangeProfileImgProps> = ({
   profileImg,
-  userId,
 }) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(
     profileImg || null

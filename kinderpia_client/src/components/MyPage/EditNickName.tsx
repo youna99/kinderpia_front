@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import { checkDuplicate, updateUser } from '../../api/user';
 
 interface EditNickNameProps {
   nickname: string;
-  userId: string | null;
 }
 
-export const EditNickName: React.FC<EditNickNameProps> = ({
-  nickname,
-  userId,
-}) => {
+export const EditNickName: React.FC<EditNickNameProps> = ({ nickname }) => {
   const [newNickname, setNewNickname] = useState(nickname);
   const nicknameRegex = /^[가-힣a-zA-Z0-9]{2,15}$/;
 
@@ -44,14 +41,7 @@ export const EditNickName: React.FC<EditNickNameProps> = ({
         } else {
           // 닉네임 중복 체크
           try {
-            const response = await axios.post(
-              'http://localhost:8080/api/user/check/nickname',
-              {
-                nickname: nickname,
-              },
-              { withCredentials: true }
-            );
-
+            const response = await checkDuplicate('nickname', nickname);
             if (response.data.exists) {
               Swal.showValidationMessage('해당 닉네임이 이미 있습니다.');
               return false; // 중복일 경우 false 반환
@@ -85,15 +75,7 @@ export const EditNickName: React.FC<EditNickNameProps> = ({
   // 닉네임 수정
   const updateNickname = async (nickname: string) => {
     try {
-      const response = await axios.put(
-        `http://localhost:8080/api/user/${userId}`,
-        {
-          nickname: nickname,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await updateUser({ nickname: nickname });
       if (response.status === 200) {
         Swal.fire('닉네임이 수정되었습니다.');
       }

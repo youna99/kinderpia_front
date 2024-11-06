@@ -10,7 +10,7 @@ import { fakeSignInLogIn } from '../api/meetinglist';
 import FakerComponent from '../components/common/FakerComponent';
 import generateFourDigitNumber from '../utils/fakeNumber';
 import { RegisterFormInputs } from '../types/user';
-import { postRegister } from '../api/user';
+import { checkDuplicate } from '../api/user';
 
 export default function RegisterPage() {
   const {
@@ -69,7 +69,7 @@ export default function RegisterPage() {
     }
 
     try {
-      const response = await postRegister(field, value);
+      const response = await checkDuplicate(field, value);
 
       if (response.data.data === false) {
         simpleAlert('success', `${response.data.message}`);

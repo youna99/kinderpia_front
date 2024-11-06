@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Calendar, { CalendarProps } from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../../styles/mypage/ScheduleCalender.scss';
-import { requestHeader } from '../../api/requestHeader';
+import { getUserMeetingScheduleList } from '../../api/user';
 
 type Meeting = {
-  id: string | null;
+  meetingId: string | null;
   meetingTitle: string;
   meetingTime: string;
 };
@@ -13,22 +13,17 @@ type Meeting = {
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-interface ScheduleCalenderProps {
-  userId: string | null;
-}
-
-const ScheduleCalender: React.FC<ScheduleCalenderProps> = ({ userId }) => {
+const ScheduleCalender: React.FC = () => {
   const [value, onChange] = useState<Value>(new Date());
   const [meetings, setMeetings] = useState<Meeting[]>([]);
   const [selectedMeetings, setSelectedMeetings] = useState<Meeting[]>([]);
 
   const fetchMeetings = async () => {
     try {
-      const response = await requestHeader.get(`/api/user/meetingTime/list`);
+      const response = await getUserMeetingScheduleList();
       console.log(response);
       const fetchedMeetings: Meeting[] = response.data.data; // API에서 받은 데이터
       setMeetings(fetchedMeetings);
-      console.log(meetings);
 
       const today = new Date();
       const todayMeetings = fetchedMeetings.filter(
@@ -43,7 +38,7 @@ const ScheduleCalender: React.FC<ScheduleCalenderProps> = ({ userId }) => {
 
   useEffect(() => {
     fetchMeetings();
-  }, [userId]);
+  }, []);
 
   const tileContent = ({ date, view }: { date: Date; view: string }) => {
     if (view === 'month') {
@@ -95,7 +90,7 @@ const ScheduleCalender: React.FC<ScheduleCalenderProps> = ({ userId }) => {
           {selectedMeetings.length > 0 ? (
             <ul>
               {selectedMeetings.map((meeting) => (
-                <li key={meeting.id}>
+                <li key={meeting.meetingId}>
                   <span>
                     {meeting.meetingTitle}
                     <span></span>{' '}
