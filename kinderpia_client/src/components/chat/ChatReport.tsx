@@ -27,6 +27,11 @@ export default function ChatReport({
     if (msgId && confirmed) {
       try {
         const res = await postReports(msgId, "1", msgContent);
+
+        if(!res){
+          return;
+        }
+        
         if (res?.status === 200) {
           simpleAlert("success", "신고 완료");
           setOpen(false);
