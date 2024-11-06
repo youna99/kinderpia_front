@@ -37,9 +37,9 @@ const MyPage: React.FC = () => {
       case '내 정보':
         return <MyInfo userInfo={userInfo} />;
       case '모임 내역':
-      // return <MeetingHistory userId={userId} userInfo={userInfo} />;
+        return <MeetingHistory userInfo={userInfo} />;
       case '나의 리뷰':
-      // return <MyReviews userId={userId} userInfo={userInfo} />;
+        return <MyReviews userInfo={userInfo} />;
       default:
         return null;
     }

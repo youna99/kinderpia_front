@@ -1,9 +1,9 @@
-import axios from 'axios';
 import React, { useEffect, useState, useCallback } from 'react';
 import '../../styles/mypage/MyReviews.scss';
 import Review from '../review/Review';
 import { useNavigate } from 'react-router-dom';
 import { getPlace } from '../../api/placelist';
+import { requestHeader } from '../../api/requestHeader';
 
 interface ReviewProps {
   reviewId: number;
@@ -16,14 +16,14 @@ interface ReviewProps {
 }
 
 interface MyInfoProps {
-  userId: string | null;
   userInfo: {
+    userId: string | null;
     profileImg?: string;
     nickname?: string;
   } | null;
 }
 
-const MyReviews: React.FC<MyInfoProps> = ({ userId, userInfo }) => {
+const MyReviews: React.FC<MyInfoProps> = ({ userInfo }) => {
   const [reviews, setReviews] = useState<ReviewProps[]>([]);
   const [page, setPage] = useState(1); // 현재 페이지 상태
   const [hasMore, setHasMore] = useState(true); // 더 많은 데이터가 있는지 여부
@@ -32,10 +32,10 @@ const MyReviews: React.FC<MyInfoProps> = ({ userId, userInfo }) => {
 
   const getUserReviewList = useCallback(
     async (pageNumber: number) => {
-      if (userId && hasMore) {
+      if (userInfo && hasMore) {
         try {
-          const response = await axios.get(
-            `http://localhost:8080/api/user/review/list/${userId}?page=${pageNumber}&size=10`,
+          const response = await requestHeader.get(
+            `http://localhost:8080/api/user/review/list?page=${pageNumber}&size=10`,
             { withCredentials: true }
           );
           console.log(response);
@@ -70,7 +70,7 @@ const MyReviews: React.FC<MyInfoProps> = ({ userId, userInfo }) => {
         }
       }
     },
-    [userId, hasMore]
+    [userInfo, hasMore]
   );
 
   useEffect(() => {
@@ -96,7 +96,8 @@ const MyReviews: React.FC<MyInfoProps> = ({ userId, userInfo }) => {
   const handleReviewClick = async (placeId: number) => {
     try {
       const placeData = await getPlace(placeId); // 장소 데이터 가져오기
-      navigate(`/place/${placeId}`, { state: { placeData } }); // 장소 데이터와 함께 이동
+      console.log(placeData.data.placeId);
+      navigate(`/place/${placeData.data.placeId}`, { state: { placeData } }); // 장소 데이터와 함께 이동
     } catch (error) {
       console.error(
         `장소 정보를 가져오는 데 실패했습니다. PlaceId: ${placeId}`
@@ -128,7 +129,7 @@ const MyReviews: React.FC<MyInfoProps> = ({ userId, userInfo }) => {
               placeName={review.placeName}
               profileImg={userInfo?.profileImg || '/images/usericon.png'}
               nickname={userInfo?.nickname}
-              onClick={() => handleReviewClick(review.placeId)}
+              onReviewClick={() => handleReviewClick(review.placeId)}
               onDelete={handleDeleteReview}
             />
           ))}

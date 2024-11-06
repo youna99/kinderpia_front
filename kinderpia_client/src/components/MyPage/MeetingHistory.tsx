@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import MeetingList from '../common/MeetingList';
 import '../../styles/mypage/MeetingHistory.scss';
 import { formatDetailDate } from '../../utils/formatDate';
 import { requestHeader } from '../../api/requestHeader';
 interface MeetingHistoryProps {
-  userId: string | null;
   userInfo: {
+    userId: string | null;
     profileImg?: string;
     nickname?: string;
   } | null;
@@ -27,38 +26,29 @@ export interface MettingListInfo {
   profileImg: string;
 }
 
-const MeetingHistory: React.FC<MeetingHistoryProps> = ({
-  userId,
-  userInfo,
-}) => {
+const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userInfo }) => {
   const [meetings, setMeetings] = useState<MettingListInfo[]>([]);
   const [filter, setFilter] = useState<string>('all');
 
   useEffect(() => {
     const fetchMeetings = async () => {
       try {
-        if (!userId) return;
+        if (!userInfo) return;
 
         let response;
         if (filter === 'all') {
           response = await requestHeader.get(
-            `/api/user/meeting/list/?page=1&size=10`
+            `/api/user/meeting/list?page=1&size=10`
           );
-          // response = await axios.get(
-          //   `http://localhost:8080/api/user/meeting/list/?page=1&size=10`,
-          //   { withCredentials: true }
-          // );
           console.log('전체모임데이터', response.data);
         } else if (filter === 'created') {
-          response = await axios.get(
-            `http://localhost:8080/api/user/meeting/leader/list/?page=1&size=10`,
-            { withCredentials: true }
+          response = await requestHeader.get(
+            `/api/user/meeting/leader/list?page=1&size=10`
           );
           console.log('내가만든 모임데이터', response.data);
         } else if (filter === 'ongoing') {
-          const allMeetings = await axios.get(
-            `http://localhost:8080/api/user/meeting/list/?page=1&size=10`,
-            { withCredentials: true }
+          const allMeetings = await requestHeader.get(
+            `/api/user/meeting/list?page=1&size=10`
           );
 
           const ongoingMeetings = allMeetings.data.data.dataList.filter(
@@ -84,7 +74,7 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({
     };
 
     fetchMeetings();
-  }, [userId, filter]);
+  }, [userInfo, filter]);
 
   console.log(meetings);
 
