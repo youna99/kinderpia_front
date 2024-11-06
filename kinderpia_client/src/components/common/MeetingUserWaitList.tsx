@@ -4,7 +4,7 @@ import React from 'react'
 //스타일 호출
 import '../../styles/common/MeetingUserWaitList.scss';
 import { simpleAlert } from '../../utils/alert';
-import { putUserMeetingApprove, putUserMeetingReject } from '../../api/meeting';
+import { putUserMeetingApprove, deleteUserMeetingReject } from '../../api/meeting';
 
 //통신 함수 호출
 
@@ -28,7 +28,7 @@ const MeetingUserWaitList: React.FC<MeetingUserWaitListProps> = ({
       const result = await putUserMeetingApprove(meetingId, userId);
       if (result) {
         simpleAlert('success', `${nickname} 님을 모임에 초대하였습니다!`, 'center');
-        await onComplete(); // 승인 후 목록 새로고침
+        await onComplete();
       }
     } catch (error) {
       console.error('승인 처리 중 에러 발생:', error);
@@ -38,10 +38,10 @@ const MeetingUserWaitList: React.FC<MeetingUserWaitListProps> = ({
 
   const rejectAction = async () => {
     try {
-      const result = await putUserMeetingReject(meetingId, userId);
+      const result = await deleteUserMeetingReject(meetingId, userId);
       if (result) {
         simpleAlert('success', `${nickname} 님은 당신과 함께하지 않습니다.`, 'center');
-        await onComplete(); // 거절 후 목록 새로고침
+        await onComplete();
       }
     } catch (error) {
       console.error('거절 처리 중 에러 발생:', error);

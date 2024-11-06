@@ -62,21 +62,37 @@ export const putMeeting = async (
 
 // 모임 떠나기
 export const deleteLeaveMeeting = async (meetingId : number) => {
-  const response = await requestHeader.delete(`/api/userMeeting/exit/${meetingId}`);
-  return response;
+  try{
+    const response = await requestHeader.delete(`/api/userMeeting/exit/${meetingId}`);
+    return response;
+  }catch(err){
+    console.log(err);
+  }
 }
 
 // 모임 가입하기
 export const postJoinMeeting = async (
   data: MeetingJoinData,
-  meetingId : number
+  meetingId: number
 ) => {
-  console.log(data, meetingId);
-  
-  const response = await requestHeader.post(`/api/userMeeting/join/${meetingId}`, data );
-  return response.data;
+  try {
+    console.log(data, meetingId);
+    
+    const response = await requestHeader.post(`/api/userMeeting/join/${meetingId}`, data);
+    return response.data;
+    
+  } catch (error: any) {
+    if (error.response?.status === 409) {
+      // 409 Conflict 에러 처리
+      throw {
+        status: 409,
+        message: '이미 가입된 모임입니다.'
+      };
+    }
+    // 다른 에러는 그대로 전달
+    throw error;
+  }
 };
-
 // 모임 종료하기
 export const putEndMeeting = async(
   meetingId : number
@@ -90,23 +106,23 @@ export const putEndMeeting = async(
 export const getMeetingUserWaitList = async(
   meetingId:number, 
 )=>{
-  const response = await requestHeader.get(`/api/meeting/meeting/${meetingId}/pending-approvals`);
+  const response = await requestHeader.get(`/api/user/meeting/${meetingId}/pending-approvals`);
 
   return response.data;
 }
 
 export const putUserMeetingApprove = async (
   meetingId: number,
-  userId: number
+  joinUserId: number
 ) => {
-  const response = await requestHeader.put(`/api/userMeeting/${meetingId}/accept/${userId}`);
+  const response = await requestHeader.put(`/api/userMeeting/${meetingId}/accept/${joinUserId}`);
   return response;
 };
 
-export const putUserMeetingReject = async (
+export const deleteUserMeetingReject = async (
   meetingId: number,
-  userId: number
+  joinUserId: number
 ) => {
-  const response = await requestHeader.put(`/api/userMeeting/${meetingId}/reject/${userId}`);
+  const response = await requestHeader.delete(`/api/userMeeting/${meetingId}/reject/${joinUserId}`);
   return response.data;
 };

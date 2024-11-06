@@ -20,16 +20,15 @@ const MeetingInfoDesc:React.FC<MeetingInfoDescProps> = ({
   user
 }) => {
   const [showReportModal, setShowReportModal] = useState(false);
-  const [reportToggle, setReportToggle] = useState(true);
+  const [reportToggle, setReportToggle] = useState(false);
   const [meetingDate, setMeetingData] = useState('');
   
   useEffect(()=>{
     if(!user?.reported){
       return ;
     }
-
     setReportToggle(user?.reported);
-  },[reportToggle])
+  },[])
 
   useEffect(()=>{
       const formatDate = (dateString: string) => {
@@ -44,26 +43,28 @@ const MeetingInfoDesc:React.FC<MeetingInfoDescProps> = ({
         return `${year}-${month}-${day} ${hours}:${minutes}`;
     }
     setMeetingData(formatDate(createdAt));
-  },[])
+  },[createdAt])
 
   const handleReport = async (reportReasonId: number, reportMessageContent: string) => {
     try {
-      const userId = user?.userId
+      const userId = user?.userId;
   
       if(!userId){
         simpleAlert('info', '로그인을 먼저 해주세요!', 'center');
         return;
       }
   
-      const result = postReportBadContent({
+      const result = await postReportBadContent({
         meetingId,
         reportReasonId,
         reportMessageContent
       });
-  
+      
       console.log(result);
       
       setShowReportModal(false);
+      // 신고 처리 후 reportToggle 상태 업데이트
+      setReportToggle(true);
     } catch (error) {
       console.error('신고 처리 중 오류 발생:', error);
       alert('신고 처리 중 오류가 발생했습니다.');
@@ -79,7 +80,7 @@ const MeetingInfoDesc:React.FC<MeetingInfoDescProps> = ({
       <div className='meeting-info-desc-header'>
         <label className='meeting-info-desc-header-title'>모임 내용</label>
         <div className='meeting-info-desc-header-report'>
-          { !reportToggle 
+          { reportToggle 
             ? <div className="reported-text">신고된 게시물입니다.</div> 
             : <div 
                 className="report-button"

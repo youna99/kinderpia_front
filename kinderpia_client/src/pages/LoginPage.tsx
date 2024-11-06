@@ -5,11 +5,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import LoginInput from '../components/FormInput';
 import axios from 'axios';
 import { simpleAlert } from '../utils/alert';
-
-interface LoginFormInputs {
-  loginId: string;
-  userPw: string;
-}
+import { LoginFormInputs } from '../types/user';
+import { postUserLogin } from '../api/user';
 
 export default function LoginPage() {
   const {
@@ -44,20 +41,9 @@ export default function LoginPage() {
     console.log(data);
 
     try {
-      const response = await axios.post(
-        'http://localhost:8080/api/user/login',
-        data,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await postUserLogin(data);
       if (response.status === 200) {
-        console.log('로그인 완료:', response)
-
-        // 일단 세션에 저장
-        // const token = response.headers['authorization'];
-        // sessionStorage.setItem('token', token);
-
+        console.log('로그인 완료:', response);
         await simpleAlert('success', '로그인 성공!');
         navigate('/');
       }

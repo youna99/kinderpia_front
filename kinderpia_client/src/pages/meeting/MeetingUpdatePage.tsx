@@ -12,7 +12,6 @@ import CategoryInput from '../../components/meeting/createpage/CategoryInput';
 import TitleInput from '../../components/meeting/createpage/TitleInput';
 import ParticipateInput from '../../components/meeting/createpage/ParticipateInput';
 import DescInput from '../../components/meeting/createpage/DescInput';
-import JoinMethodInput from '../../components/meeting/createpage/JoinMethodInput';
 import CommonButton1 from '../../components/common/CommonButton1';
 
 // api요청 함수 호출
@@ -62,7 +61,7 @@ useEffect(() => {
       setUpdateFormData({
         meetingTitle: result.meetingTitle,
         totalCapacity: result.totalCapacity,
-        limited: result.totalCapacity > 0,
+        isLimited: result.totalCapacity > 0,
         meetingContent: result.meetingContent
       });
 
@@ -85,7 +84,7 @@ useEffect(() => {
   const handleLimitChange = (hasLimit: boolean) => {
     setUpdateFormData(prev => ({
       ...prev!,
-      limited: hasLimit,
+      isLimited: hasLimit,
       totalCapacity: hasLimit ? 1 : 99
     }));
   };
@@ -152,7 +151,7 @@ useEffect(() => {
         <ParticipateInput
           value={updateFormData.totalCapacity}
           onChange={handleParticipantsChange}
-          hasLimit={updateFormData.limited}
+          hasLimit={updateFormData.isLimited}
           onLimitChange={handleLimitChange}
           min={1}
           max={20}
