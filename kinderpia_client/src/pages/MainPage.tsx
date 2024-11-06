@@ -12,6 +12,7 @@ import { getPlaces } from '../api/placelist';
 import { getMeetingListOpen } from '../api/meetinglist';
 import '../styles/MainPage.scss';
 import { MainBanner } from '../components/MainBanner';
+import { formatDetailDate } from '../utils/formatDate';
 
 function MainPage() {
   const [placeList, setPlaceList] = useState<PlaceListInfo[]>([]); // 장소 목록 관리
@@ -22,9 +23,8 @@ function MainPage() {
     try {
       const data = await getPlaces({
         // sort: 'star',
-        sort: 'date',
-        page: 1,
-        size: 5,
+        page: 0,
+        size: 8,
       });
       console.log(`place data>>>>`, data.data.content);
 
@@ -54,26 +54,6 @@ function MainPage() {
     getPlaceList();
     getMeetingList();
   }, []);
-
-  // 날짜, 시간 형태 변경
-  const formatDate = (dateString: string): string => {
-    const date = new Date(dateString);
-
-    // 날짜 부분 포맷 (예: "2024년 11월 1일")
-    const datePart = date.toLocaleDateString('ko-KR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-
-    // 시간 부분 포맷 (예: "오후 2:00")
-    const timePart = date.toLocaleTimeString('ko-KR', {
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-
-    return `${datePart} ${timePart}`;
-  };
 
   return (
     <section id="main">
@@ -107,8 +87,8 @@ function MainPage() {
                 key={place.placeId}
                 placeId={place.placeId}
                 placeName={place.placeName}
-                placeCategoryName={place.placeCategoryName}
-                // rating={place.rating}
+                placeCtgName={place.placeCtgName}
+                averageStar={place.averageStar}
                 paid={place.paid}
                 placeImg={place.placeImg}
               />
@@ -143,7 +123,7 @@ function MainPage() {
                   createdAt={meeting.createdAt}
                   district={meeting.district}
                   meetingLocation={meeting.meetingLocation}
-                  meetingTime={formatDate(meeting.meetingTime)}
+                  meetingTime={formatDetailDate(meeting.meetingTime)}
                   nickname={meeting.nickname}
                   capacity={meeting.capacity}
                   totalCapacity={meeting.totalCapacity}

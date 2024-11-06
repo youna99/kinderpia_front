@@ -25,6 +25,6 @@ export const deleteReview = async (reviewId: number) => {
 };
 
 export const postLike = async (reviewId: number) => {
-  const response = await requestHeader.post(`/api/review/like/${reviewId}`);
+  const response = await requestHeader.post(`/api/review/likes/${reviewId}`);
   return response.data;
 };

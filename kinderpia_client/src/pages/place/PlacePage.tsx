@@ -21,7 +21,7 @@ import { defaultPostReq } from '../../types/place';
 //   total: number;
 // }
 
-type SortType = 'rating' | 'time' | null;
+type SortType = 'star' | 'default' | undefined;
 
 const PlacePage: React.FC = () => {
   const [places, setPlaces] = useState<PlaceListInfo[]>([]);
@@ -29,7 +29,7 @@ const PlacePage: React.FC = () => {
   const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
   const [currentSearchTerm, setCurrentSearchTerm] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [sortBy, setSortBy] = useState<SortType>(null);
+  const [sortBy, setSortBy] = useState<SortType>();
 
   // 무한 스크롤을 위한 상태 추가
   const [page, setPage] = useState(1);
@@ -64,7 +64,7 @@ const PlacePage: React.FC = () => {
     const fetchDefaultPlaces = async () => {
       try {
         setIsLoading(true);
-        const result = await getDefaultPlaceList(1, 6);
+        const result = await getDefaultPlaceList(0, 6);
         if (result) {
           setPlaces(result.data.content);
           console.log('result.data.content >>>', result.data.content);
@@ -121,16 +121,18 @@ const PlacePage: React.FC = () => {
   const handleSearch = async (
     searchTerm: string,
     category: string,
-    sort?: SortType
+    sortBy?: SortType
   ) => {
     setIsSearching(true);
     setCurrentSearchTerm(searchTerm);
-    setPage(1); // 검색 시 페이지 초기화
+    setSortBy(sortBy);
+    setPage(0); // 검색 시 페이지 초기화
 
     try {
       const reqData: defaultPostReq = {
         category: category,
         keyword: searchTerm,
+        sort: sortBy,
       };
 
       console.log('reqData>>>', reqData);
@@ -165,6 +167,7 @@ const PlacePage: React.FC = () => {
 
   // 정렬 핸들러
   const handleSort = (type: SortType) => {
+    console.log('type>>>', type);
     setSortBy(type);
     setIsDropdownOpen(false);
     handleSearch(currentSearchTerm, 'title', type);
@@ -203,16 +206,16 @@ const PlacePage: React.FC = () => {
               className="dropdown-toggle"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-              {sortBy === 'rating'
+              {sortBy === 'star'
                 ? '평점순'
-                : sortBy === 'time'
-                ? '시간순'
+                : sortBy === 'default'
+                ? '기본순'
                 : '필터보기'}
             </button>
             {isDropdownOpen && (
               <div className="dropdown-menu">
-                <button onClick={() => handleSort('rating')}>평점순</button>
-                <button onClick={() => handleSort('time')}>시간순</button>
+                <button onClick={() => handleSort('star')}>평점순</button>
+                <button onClick={() => handleSort('default')}>기본순</button>
               </div>
             )}
           </div>
@@ -232,10 +235,8 @@ const PlacePage: React.FC = () => {
               <PlaceList
                 placeId={place.placeId}
                 placeName={place.placeName}
-                placeCategoryName={
-                  place.placeCategoryName || place.placeCtgName
-                }
-                averageStar={place.averageStar || 5}
+                placeCtgName={place.placeCtgName}
+                averageStar={place.averageStar}
                 paid={place.paid}
                 placeImg={place.placeImg}
               />

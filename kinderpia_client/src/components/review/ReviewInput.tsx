@@ -63,7 +63,6 @@ const ReviewInput: React.FC<ReviewInputProps> = ({
     try {
       const reviewData = {
         placeId: pagePlaceId,
-        // userId,
         star,
         reviewContent: content.trim(),
       };
