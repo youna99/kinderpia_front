@@ -6,9 +6,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // 커스텀 색상이 필요하다면 여기에 추가
         primary: '#1e2532',  // 사이드바 배경색
-      }
+      },
+      fontFamily: {
+        'jeju': ['EF_jejudoldam', 'sans-serif'],
+        'gmarket': ['GmarketSansMedium', 'sans-serif'],
+        'tenada': ['Tenada', 'sans-serif'],
+      },
     },
   },
   plugins: [],

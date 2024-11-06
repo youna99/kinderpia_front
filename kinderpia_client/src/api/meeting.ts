@@ -132,3 +132,10 @@ export const deleteUserMeetingReject = async (
   const response = await requestHeader.delete(`/api/userMeeting/${meetingId}/reject/${joinUserId}`);
   return response.data;
 };
+
+export const getCheckMeetingStatus = async (
+  meetingId: number,
+) => {
+  const response = await requestHeader.put(`/api/meeting/${meetingId}/meetingStatus`);
+  return response.data;
+};
