@@ -1,11 +1,9 @@
 import { ApiResponse, StatisticsResponse } from '../types/types';
 import { requestHeader } from './requestHeader';
 
-  export const fetchTotalUsers = async (): Promise<number> => {
+  export const fetchTotalUsers = async ()  => {
     try {
-      const response = await requestHeader.get('/api/admin/total/userCnt');
-      console.log('fetchTotalUsers >>>>',response);
-      
+      const response = await requestHeader.get('/api/manager/total/userCnt');
       return response.data.data;
     } catch (error) {
       console.error('전체 사용자 수 조회 실패:', error);
@@ -15,7 +13,7 @@ import { requestHeader } from './requestHeader';
   
   export const fetchMonthlyStats = async (year: number): Promise<StatisticsResponse | null> => {
     try {
-      const response = await requestHeader.get<ApiResponse<StatisticsResponse>>(`/api/admin/total/userCnt/monthly?year=${year}`);
+      const response = await requestHeader.get<ApiResponse<StatisticsResponse>>(`/api/manager/total/userCnt/monthly?year=${year}`);
       return response.data.data;
     } catch (error) {
       console.error('월별 통계 조회 실패:', error);
@@ -25,7 +23,7 @@ import { requestHeader } from './requestHeader';
   
   export const fetchDailyStats = async (yearMonth: string): Promise<StatisticsResponse | null> => {
     try {
-      const response = await requestHeader.get<ApiResponse<StatisticsResponse>>(`/api/admin/total/userCnt/daily?month=${yearMonth}`);
+      const response = await requestHeader.get<ApiResponse<StatisticsResponse>>(`/api/manager/total/userCnt/daily?month=${yearMonth}`);
       return response.data.data;
     } catch (error) {
       console.error('일별 통계 조회 실패:', error);
