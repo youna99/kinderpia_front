@@ -205,7 +205,7 @@ useEffect(() => {
           </div>
           <hr />
           <div className="join-method-options">
-          {initialMeetingData.authType ?
+          {!initialMeetingData.authType ?
             <div className="option-item">
               <label>
                 <input
