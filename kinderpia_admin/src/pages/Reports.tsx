@@ -1,155 +1,138 @@
 import React, { useState, useEffect } from 'react';
+import { ReportTabs } from '../components/report/ReportTabs';
+import { ReportFilters } from '../components/report/ReportFilters';
+import { ReportTable } from '../components/report/ReportTable';
+import { Pagination } from '../components/report/Pagination';
 import { reportApi } from '../api/reports';
-import type { ReportItem, PaginationResponse, PaginationParams } from '../types/types';
+import { ReportData, ReportReason } from '../types/report';
 
-const ReportList: React.FC = () => {
-  const [reports, setReports] = useState<ReportItem[]>([]);
-  const [loading, setLoading] = useState(false);
+const Reports: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'chatmsg' | 'review' | 'meeting'>('chatmsg');
+  const [reports, setReports] = useState<ReportData[]>([]);  // 빈 배열로 초기화
+  const [reportReasons, setReportReasons] = useState<ReportReason[]>([]); // 빈 배열로 초기화
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [sortDirection, setSortDirection] = useState<'ASC' | 'DESC'>('DESC');
+  const [sortProperty, setSortProperty] = useState('createdAt');
+  const [selectedReason, setSelectedReason] = useState('all');
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [paginationInfo, setPaginationInfo] = useState<Omit<PaginationResponse<ReportItem>, 'content'> | null>(null);
-  const [params, setParams] = useState<PaginationParams>({
-    page: 1,
-    size: 10,
-    direction: 'DESC',
-    property: 'createdAt'
-  });
+
+  useEffect(() => {
+    const fetchReportReasons = async () => {
+      try {
+        const reasons = await reportApi.getReportReasons();
+        setReportReasons(reasons || []); // 결과가 없으면 빈 배열 사용
+        setError(null);
+      } catch (error) {
+        console.error('Failed to fetch report reasons:', error);
+        setReportReasons([]);
+        setError('신고 사유 목록을 불러오는데 실패했습니다.');
+      }
+    };
+
+    fetchReportReasons();
+  }, []);
 
   useEffect(() => {
     const fetchReports = async () => {
       setLoading(true);
+      setError(null);
+      
       try {
-        const response = await reportApi.getChatReports(params);
-        if (response) {
-          const { content, ...paginationData } = response;
-          setReports(content);
-          setPaginationInfo(paginationData);
-        }
-      } catch (err) {
-        setError('데이터를 불러오는데 실패했습니다.');
+        const result = await reportApi.getReports({
+          tab: activeTab,
+          page: currentPage,
+          direction: sortDirection,
+          property: sortProperty,
+          reportRsId: selectedReason
+        });
+        
+        setReports(result?.content || []); // 결과가 없으면 빈 배열 사용
+        setTotalPages(result?.totalPages || 1);
+      } catch (error) {
+        console.error('Failed to fetch reports:', error);
+        setReports([]);
+        setTotalPages(1);
+        setError('신고 목록을 불러오는데 실패했습니다.');
       } finally {
         setLoading(false);
       }
     };
 
     fetchReports();
-  }, [params]);
+  }, [activeTab, currentPage, sortDirection, sortProperty, selectedReason]);
 
-  const handlePageChange = (newPage: number) => {
-    setParams(prev => ({ ...prev, page: newPage }));
+  // Event handlers
+  const handleTabChange = (tab: 'chatmsg' | 'review' | 'meeting') => {
+    setActiveTab(tab);
+    setCurrentPage(1);
   };
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[400px]">
-        <div className="text-gray-600">로딩 중...</div>
-      </div>
-    );
-  }
+  const handleReasonChange = (value: string) => {
+    setSelectedReason(value);
+    setCurrentPage(1);
+  };
+
+  const handleSortPropertyChange = (value: string) => {
+    setSortProperty(value);
+    setCurrentPage(1);
+  };
+
+  const handleSortDirectionChange = () => {
+    setSortDirection(prev => prev === 'ASC' ? 'DESC' : 'ASC');
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   if (error) {
     return (
-      <div className="flex justify-center items-center min-h-[400px]">
-        <div className="text-red-600">{error}</div>
+      <div className="p-6">
+        <h1 className="text-2xl font-bold mb-6">신고 관리</h1>
+        <div className="bg-red-50 border border-red-200 rounded-md p-4 text-red-600">
+          {error}
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">신고된 채팅 목록</h2>
-      
-      {/* 테이블 헤더 */}
-      <div className="overflow-x-auto shadow-md rounded-lg">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                ID
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                신고자 ID
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                신고 사유
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                상태
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                신고일
-              </th>
-            </tr>
-          </thead>
-          
-          {/* 테이블 본문 */}
-          <tbody className="bg-white divide-y divide-gray-200">
-            {reports.length === 0 ? (
-              <tr>
-                <td colSpan={5} className="px-6 py-4 text-center text-gray-500">
-                  데이터가 없습니다
-                </td>
-              </tr>
-            ) : (
-              reports.map((report) => (
-                <tr key={report.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {report.id}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {report.reporterId}
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-900">
-                    {report.reason}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium
-                      ${report.status === 'PENDING' ? 'bg-yellow-100 text-yellow-800' : 
-                        report.status === 'RESOLVED' ? 'bg-green-100 text-green-800' : 
-                        'bg-red-100 text-red-800'}`}>
-                      {report.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {report.createdAt}
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
-      
-      {/* 페이지네이션 */}
-      {paginationInfo && (
-        <div className="mt-4 flex justify-center items-center space-x-2">
-          <button
-            className="px-4 py-2 border rounded-md disabled:opacity-50 disabled:cursor-not-allowed
-              hover:bg-gray-50 transition-colors duration-200"
-            disabled={paginationInfo.first}
-            onClick={() => handlePageChange(params.page - 1)}
-          >
-            이전
-          </button>
-          
-          <span className="px-4 py-2 text-sm text-gray-700">
-            {params.page} / {paginationInfo.totalPages}
-            <span className="ml-2 text-gray-500">
-              (총 {paginationInfo.totalElements}건)
-            </span>
-          </span>
-          
-          <button
-            className="px-4 py-2 border rounded-md disabled:opacity-50 disabled:cursor-not-allowed
-              hover:bg-gray-50 transition-colors duration-200"
-            disabled={paginationInfo.last}
-            onClick={() => handlePageChange(params.page + 1)}
-          >
-            다음
-          </button>
-        </div>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-6">신고 관리</h1>
+
+      <ReportTabs 
+        activeTab={activeTab} 
+        onTabChange={handleTabChange} 
+      />
+
+      <ReportFilters
+        selectedReason={selectedReason}
+        onReasonChange={handleReasonChange}
+        sortProperty={sortProperty}
+        onSortPropertyChange={handleSortPropertyChange}
+        sortDirection={sortDirection}
+        onSortDirectionChange={handleSortDirectionChange}
+        reportReasons={reportReasons}
+      />
+
+      <ReportTable
+        reports={reports || []}  // 값이 없으면 빈 배열 전달
+        loading={loading}
+        reportReasons={reportReasons || []}  // 값이 없으면 빈 배열 전달
+      />
+
+      {!loading && reports.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       )}
     </div>
   );
 };
 
-export default ReportList;
+export default Reports;

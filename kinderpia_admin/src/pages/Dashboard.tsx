@@ -105,14 +105,15 @@ const Dashboard = () => {
             title="총 회원수" 
             value={totalUsers} 
             icon={<Users className="text-blue-500" size={24} />}
-            trend="up"
+            // trend="up"
+            // trendValue="5.3%"
           />
           <StatCard 
             title="신규 가입" 
             value="128" 
             icon={<UserPlus className="text-green-500" size={24} />}
-            trend="up"
-            trendValue="5.3%"
+            // trend="up"
+            // trendValue="5.3%"
           />
           <StatCard 
             title="활성 모임" 
@@ -123,15 +124,14 @@ const Dashboard = () => {
             title="신고 접수" 
             value="23" 
             icon={<AlertTriangle className="text-red-500" size={24} />}
-            trend="down"
-            trendValue="12.5%"
+            // trend="down"
+            // trendValue="12.5%"
           />
         </div>
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <RecentActivities />
-        <ActiveGroups />
+
       </div>
     </div>
   );

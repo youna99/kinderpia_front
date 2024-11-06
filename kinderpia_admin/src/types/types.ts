@@ -42,3 +42,13 @@ export interface ApiResponse<T> {
   message: string;
   data: T;
 }
+
+export interface PlaceListInfo {
+  placeId: number;
+  placeName: string;
+  placeCategoryName?: string;
+  placeCtgName?: string;
+  averageStar?: number;
+  paid: string;
+  placeImg: string;
+}
