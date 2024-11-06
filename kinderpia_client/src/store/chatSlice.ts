@@ -9,6 +9,7 @@ interface ChatState {
   msgPages: ChatPageInfo;
   unreadMessages : ChatMessageInfo[];
   unreadCounts: { [key: number]: number };
+  open: boolean;
 }
 
 const initialState: ChatState = {
@@ -23,6 +24,7 @@ const initialState: ChatState = {
   },
   unreadMessages : [],
   unreadCounts: {},
+  open:false
 };
 
 const chatSlice = createSlice({
@@ -52,6 +54,9 @@ const chatSlice = createSlice({
       state.unreadCounts[action.payload.chatroomId] =
         (state.unreadCounts[action.payload.chatroomId] || 0) + 1;
     },
+    setOpen: (state, action:PayloadAction<boolean>) => {
+      state.open = action.payload;
+    }
   },
 });
 
@@ -62,6 +67,7 @@ export const {
   setMessages,
   setMsgPages,
   markMessagesAsRead,
-  addUnreadMessages
+  addUnreadMessages,
+  setOpen
 } = chatSlice.actions;
 export default chatSlice.reducer;

@@ -1,24 +1,26 @@
 import "../styles/common/NavBar.scss";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { useEffect, useState } from "react";
 import { getJwtFromCookies } from "../utils/extractUserIdFromCookie";
+import { setBadge } from "../store/chatRoomsSlice";
 
 export default function NavBar() {
-  const [badge, setBadge] = useState(false);
   const { unreadCounts } = useSelector((state: RootState) => state.chat);
-  const { rooms } = useSelector((state: RootState) => state.chatRooms);
+  const { rooms, badge } = useSelector((state: RootState) => state.chatRooms);
 
-  let jwt = getJwtFromCookies();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!jwt) setBadge(false);
     const hasUnreadMessages = rooms.some(
       (room) => unreadCounts[room.chatroomId] > 0
     );
-    setBadge(hasUnreadMessages);
-  }, [unreadCounts, rooms, jwt]);
+    dispatch(setBadge(hasUnreadMessages));
+  }, [unreadCounts, rooms]);
+
+  console.log('dotdot',badge);
+  
 
   return (
     <nav className="navigation">
@@ -38,7 +40,7 @@ export default function NavBar() {
         <li className="nav-list">
           <Link to={"/chatroom/list"}>
             <span className="xi-message-o nav-icon"></span>
-            {/* {badge ? <span className="chat-badge"></span> : null} */}
+            {badge ? <span className="chat-badge"></span> : null}
             <span>채팅</span>
           </Link>
         </li>
