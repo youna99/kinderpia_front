@@ -4,7 +4,7 @@ export interface CreateMeetingFormData {
   meetingTitle :string;
   totalCapacity: number;
   district:string;
-  limited: boolean;
+  isLimited: boolean;
   meetingLocation: string;
   meetingTime: string;
   meetingContent: string;
@@ -71,7 +71,7 @@ export interface CategoryResponse {
 export interface UpdateMeetingFormData {
   meetingTitle: string;
   totalCapacity: number;
-  limited: boolean;
+  isLimited: boolean;
   meetingContent: string;
 }
 

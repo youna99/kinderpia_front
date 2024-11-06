@@ -34,7 +34,7 @@ const MeetingCreatePage = () => {
     meetingTitle: '',
     totalCapacity: 99 ,
     district : '',
-    limited: false,
+    isLimited: false,
     meetingLocation: '',
     meetingTime: '',
     meetingContent: '',
@@ -69,7 +69,7 @@ const MeetingCreatePage = () => {
   const handleParticipantsLimitChange = (hasLimit: boolean) => {
     setFormData(prev => ({
       ...prev,
-      limited: hasLimit,
+      isLimited: hasLimit,
       totalCapacity: hasLimit ? 1 : 0
     }));
   };
@@ -130,7 +130,7 @@ const MeetingCreatePage = () => {
       authType: false,
       detailAddress : "서울특별시 영등포구 문래동6가 57 106동 청년취업사관학교 영등포캠퍼스",
       district : "영등포구",
-      limited : true,
+      isLimited : true,
       meetingCategoryId : 2,
       meetingContent : "안녕하세요! 더미 모임입니다. 더미 모임입니다. 더미 모임입니다. 더미 모임입니다. 더미 모임입니다.",
       meetingLocation : "청년취업사관학교 영등포캠퍼스",
@@ -165,7 +165,7 @@ const MeetingCreatePage = () => {
         <ParticipateInput 
           value={CreateMeetingFormData.totalCapacity}
           onChange={handleParticipantsChange}
-          hasLimit={CreateMeetingFormData.limited}
+          hasLimit={CreateMeetingFormData.isLimited}
           onLimitChange={handleParticipantsLimitChange}
           min={1}
           max={20}
