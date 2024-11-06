@@ -23,9 +23,7 @@ interface SearchResponse {
 const MeetingPage: React.FC = () => {
   // 빈 배열로 초기화하여 undefined 방지
   const [meetings, setMeetings] = useState<MettingListInfo[]>([]);
-  const [filteredMeetings, setFilteredMeetings] = useState<MettingListInfo[]>(
-    []
-  );
+  const [filteredMeetings, setFilteredMeetings] = useState<MettingListInfo[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [filter, setFilter] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -84,7 +82,7 @@ const MeetingPage: React.FC = () => {
 
     filterMeetings();
   }, [meetings, searchTerm, filter]);
-  // 검색 핸들러
+
   const handleSearch = async (term: string) => {
     setIsSearching(true);
     setSearchTerm(term);

@@ -19,12 +19,14 @@ interface MeetingActionProps {
   user?: MeetingUserData;
   data?: MeetingData;
   onActionComplete?: () => Promise<void>;
+  observer : (p: number, add:number ) => void;
 }
 
 const MeetingAction: React.FC<MeetingActionProps> = ({
   user,
   data,
-  onActionComplete
+  onActionComplete,
+  observer
 }) => {
   const navigate = useNavigate();
   
@@ -36,6 +38,7 @@ const MeetingAction: React.FC<MeetingActionProps> = ({
         // 가입 요청 성공 후 상태 갱신
         await onActionComplete?.();
       }
+      navigate(`/meeting/${meetingId}`);
     } catch (err) {
       console.log(err);
     }
@@ -47,6 +50,7 @@ const MeetingAction: React.FC<MeetingActionProps> = ({
       <MeetingActionJoin
         data={data}
         onSubmit={meetingActionJoinReq}
+        observer={observer}
       />}
       {user?.joined && !user?.accepted && <MeetingActionWait/>}
       {user?.joined && user?.accepted && <MeetingActionJoined  
