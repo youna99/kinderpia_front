@@ -1,6 +1,7 @@
 // src/pages/Dashboard.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BarChart, Users, UserPlus, AlertTriangle } from 'lucide-react';
+import { fetchTotalUsers } from '../api/statistics';
 
 interface StatCardProps {
   title: string;
@@ -86,6 +87,15 @@ const ActiveGroups = () => {
 };
 
 const Dashboard = () => {
+  const [totalUsers, setTotalUsers] = useState<number>(0);
+
+  useEffect(() => {
+    const loadTotalUsers = async () => {
+      const count = await fetchTotalUsers();
+      setTotalUsers(count);
+    };
+    loadTotalUsers();
+  }, []);
   return (
     <div className="space-y-6">
       <div>
@@ -93,10 +103,9 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <StatCard 
             title="총 회원수" 
-            value="12,345" 
+            value={totalUsers} 
             icon={<Users className="text-blue-500" size={24} />}
             trend="up"
-            trendValue="2.1%"
           />
           <StatCard 
             title="신규 가입" 
