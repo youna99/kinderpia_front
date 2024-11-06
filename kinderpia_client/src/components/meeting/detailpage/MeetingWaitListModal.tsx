@@ -33,9 +33,8 @@ const MeetingWaitListModal: React.FC<MeetingWaitListModalProps> = ({
   // 대기자 목록을 새로 불러오는 함수
   const refreshWaitList = async () => {
     try {
-      // const result = await getMeetingUserWaitList(meetingId);
-      // setUserLists(result.data);
-      setUserLists(dummyWaitList);
+      const result = await getMeetingUserWaitList(meetingId);
+      setUserLists(result.data);
     } catch (error) {
       console.error('대기자 목록 조회 중 에러 발생:', error);
     }

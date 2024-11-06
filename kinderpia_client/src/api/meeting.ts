@@ -112,23 +112,23 @@ export const putEndMeeting = async(
 export const getMeetingUserWaitList = async(
   meetingId:number, 
 )=>{
-  const response = await requestHeader.get(`/api/meeting/meeting/${meetingId}/pending-approvals`);
+  const response = await requestHeader.get(`/api/user/meeting/${meetingId}/pending-approvals`);
 
   return response.data;
 }
 
 export const putUserMeetingApprove = async (
   meetingId: number,
-  userId: number
+  joinUserId: number
 ) => {
-  const response = await requestHeader.put(`/api/userMeeting/${meetingId}/accept/${userId}`);
+  const response = await requestHeader.put(`/api/userMeeting/${meetingId}/accept/${joinUserId}`);
   return response;
 };
 
-export const putUserMeetingReject = async (
+export const deleteUserMeetingReject = async (
   meetingId: number,
-  userId: number
+  joinUserId: number
 ) => {
-  const response = await requestHeader.put(`/api/userMeeting/${meetingId}/reject/${userId}`);
+  const response = await requestHeader.delete(`/api/userMeeting/${meetingId}/reject/${joinUserId}`);
   return response.data;
 };
