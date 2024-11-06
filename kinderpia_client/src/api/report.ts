@@ -11,13 +11,17 @@ export const postReports = (id:number , data : any, msgContent: any) => {
 
 // 신고하기! 
 export const postReportBadContent = async (data :RepostData) => {
-    const token = getJwtFromCookies();
-    const result = await requestHeader.post(`/api/report`, data, {    
-        //     headers: {
-        //     Authorization: `Bearer ${token}`,
-        //   },
-      withCredentials:true
-    });
-    return result;
+    try{
+        const token = getJwtFromCookies();
+        const result = await requestHeader.post(`/api/report`, data, {    
+            //     headers: {
+            //     Authorization: `Bearer ${token}`,
+            //   },
+          withCredentials:true
+        });
+        return result;
+    }catch(err){
+        console.log(err);
+    }
 };
 

@@ -59,7 +59,7 @@ const MeetingInfoDesc:React.FC<MeetingInfoDescProps> = ({
         reportReasonId,
         reportMessageContent
       });
-  
+      
       console.log(result);
       
       setShowReportModal(false);
