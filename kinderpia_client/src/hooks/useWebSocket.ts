@@ -18,6 +18,7 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
 
   useEffect(() => {
     const jwt = getJwtFromCookies();
+    if(!jwt) return;
 
     // 클라이언트 초기화
     clientRef.current = new Client({

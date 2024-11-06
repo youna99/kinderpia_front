@@ -19,6 +19,7 @@ import { getChatList } from "../api/chat";
 import { getJwtFromCookies } from "../utils/extractUserIdFromCookie";
 import { ChatRoomListInfo } from "../types/chat";
 import useWebSocket from "../hooks/useWebSocket";
+import { markMessagesAsRead } from "../store/chatSlice";
 
 export default function ChatlistPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -69,7 +70,10 @@ export default function ChatlistPage() {
 
   useEffect(() => {
     const lastMessages = rooms.map((room) => room.lastMessage);
-    console.log(lastMessages);
+    chatroomIds.forEach((chatroomId) => {
+      dispatch(markMessagesAsRead(chatroomId))
+    })
+  
   }, [messages]);
 
   useEffect(() => {
