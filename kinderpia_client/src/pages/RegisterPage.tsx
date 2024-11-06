@@ -9,18 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { fakeSignInLogIn } from '../api/meetinglist';
 import FakerComponent from '../components/common/FakerComponent';
 import generateFourDigitNumber from '../utils/fakeNumber';
-
-interface RegisterFormInputs {
-  loginId: string;
-  userPw: string;
-  pwCheck: string;
-  nickname: string;
-  email: string;
-  phoneNum: string;
-  agreeTerms: boolean;
-  agreePrivacy: boolean;
-}
-
+import { RegisterFormInputs } from '../types/user';
 
 export default function RegisterPage() {
   const {
@@ -145,7 +134,7 @@ export default function RegisterPage() {
 
     try {
       console.log(data);
-      
+
       await axios.post('http://localhost:8080/api/user/register', data, {
         withCredentials: true,
       });
@@ -156,20 +145,20 @@ export default function RegisterPage() {
     }
   };
 
-  const fakeSignIn = async ()=>{
+  const fakeSignIn = async () => {
     // setIsEmailChecked(true);
     // setIsNicknameChecked(true);
     // setIsEmailChecked(true);
     // setIsEmailChecked(true);
     // setIsPhoneNumChecked(true);
     const faker = await fakeSignInLogIn(dummyNumber);
-    if(faker){
-      await simpleAlert('success', '로그인 성공!','center');
+    if (faker) {
+      await simpleAlert('success', '로그인 성공!', 'center');
       navigate('/');
-    }else{
+    } else {
       await simpleAlert('error', '무작위 계정 생성에 실패했습니다.', 'center');
     }
-  }
+  };
 
   return (
     <section id="register">
