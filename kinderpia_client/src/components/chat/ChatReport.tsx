@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
-import { postReports } from "../../api/report";
+import { useEffect, useRef, useState } from "react";
 import { confirmAlert, simpleAlert } from "../../utils/alert";
+import ReportBox from "../common/ReportBox";
+import { postReportBadContent } from "../../api/report";
 
 interface ChatReportProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,27 +19,28 @@ export default function ChatReport({
   msgId,
   msgContent,
 }: ChatReportProps) {
+  const chatMessageId = msgId;
   const reportRef = useRef<HTMLDivElement>(null);
-  const handleReport = async () => {
-    const confirmed = await confirmAlert(
-      "warning",
-      "이 유저를 신고하시겠습니까?"
-    );
-    if (msgId && confirmed) {
-      try {
-        const res = await postReports(msgId, "1", msgContent);
+  const [showReportModal, setShowReportModal] = useState(false);
 
-        if(!res){
-          return;
-        }
-        
-        if (res?.status === 200) {
-          simpleAlert("success", "신고 완료");
-          setOpen(false);
-        }
-      } catch (error) {
-        console.error(error);
-      }
+  const handleReport = async (
+    reportReasonId: number,
+    reportMessageContent: string
+  ) => {
+    try {
+      const result = await postReportBadContent({
+        chatMessageId,
+        reportReasonId,
+        reportMessageContent,
+      });
+
+      setShowReportModal(false);
+      setOpen(false);
+    } catch (error) {
+      // console.error('신고 처리 중 오류 발생:');
+      alert("이미 신고한 메시지입니다.");
+      setShowReportModal(false);
+      setOpen(false);
     }
   };
 
@@ -63,10 +65,17 @@ export default function ChatReport({
   return (
     <div className="chat-report" ref={reportRef}>
       <ul>
-        <li>차단</li>
-        <li onClick={handleReport}>신고</li>
-        {meetingHeader === user ? <li>내보내기</li> : null}
+        {/* <li>차단</li> */}
+        <li onClick={() => setShowReportModal(true)}>신고</li>
+        {/* {meetingHeader === user ? <li>내보내기</li> : null} */}
       </ul>
+      {showReportModal && (
+        <ReportBox
+          onClose={() => setShowReportModal(false)}
+          onSubmit={handleReport}
+          targetId={Number(chatMessageId)}
+        />
+      )}
     </div>
   );
 }

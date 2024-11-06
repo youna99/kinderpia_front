@@ -1,12 +1,14 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import ChatMember from "./ChatMember";
 import "../../styles/chat/ChatMembersMenu.scss";
 import { useEffect } from "react";
 import { deleteLeaveMeeting } from "../../api/meeting";
-import { setSelected } from "../../store/chatRoomsSlice";
+import { setChatRooms, setEmpty, setSelected } from "../../store/chatRoomsSlice";
 import { confirmAlert, showAlert, simpleAlert } from "../../utils/alert";
-import { extractUserIdFromCookie } from "../../utils/extractUserIdFromCookie";
+import { extractUserIdFromCookie, getJwtFromCookies } from "../../utils/extractUserIdFromCookie";
+import { useNavigate } from "react-router-dom";
+import { getChatList } from "../../api/chat";
 
 interface ChatMenuProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,9 +17,12 @@ interface ChatMenuProps {
 
 // 채팅 참여 멤버 컴포넌트(설정과비슷?)
 export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { chatroom } = useSelector((state: RootState) => state.chat);
+  const token = getJwtFromCookies();
   const userId = Number(extractUserIdFromCookie());
-  console.log(chatroom);
 
   useEffect(() => {
     // 멤버 컴포넌트 열리면 채팅방 대화창 스크롤 막기
@@ -61,7 +66,13 @@ export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
         if (res?.status === 200) {
           // 요청 후 해당되는 대화방을 떠나고(목록에서 삭제), 대화방을 선택해 달라고 하는 UI 보여줘야함
           simpleAlert("success", "모임을 떠났습니다.");
-          setSelected(false);
+          dispatch(setSelected(false))
+          const res2 = await getChatList(token, 1)
+          if(res2.status === 200) {
+            const chatroomlist = res.data.data.chatroomList;
+            dispatch(setChatRooms(chatroomlist));
+            dispatch(setEmpty(chatroomlist?.length === 0 || chatroomlist))
+          }
         }
       } catch (error) {
         console.error(error);
@@ -75,7 +86,7 @@ export default function ChatMembersMenu({ setOpen, open }: ChatMenuProps) {
         <div className="chatmenu-info">
           <span>멤버 보기</span>
           <span className="xi-group"></span>
-          <span>{capacity}명 참여중</span>
+          <span>{users.length}명 참여중</span>
         </div>
         <div className="chatmenu-headerbtn">
           <button onClick={closeMenu}>

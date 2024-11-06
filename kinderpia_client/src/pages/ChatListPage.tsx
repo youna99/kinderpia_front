@@ -19,6 +19,7 @@ import { getChatList } from "../api/chat";
 import { getJwtFromCookies } from "../utils/extractUserIdFromCookie";
 import { ChatRoomListInfo } from "../types/chat";
 import useWebSocket from "../hooks/useWebSocket";
+import { markMessagesAsRead } from "../store/chatSlice";
 
 export default function ChatlistPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,7 +30,7 @@ export default function ChatlistPage() {
   );
   const { messages, chatroom } = useSelector((state: RootState) => state.chat);
 
-  const chatroomIds = rooms.map((room) => room.chatroomId);
+  const chatroomIds = rooms?.map((room) => room.chatroomId);
   const { sendMessage } = useWebSocket(chatroomIds, chatroom?.chatroomId);
 
   useEffect(() => {
@@ -69,17 +70,29 @@ export default function ChatlistPage() {
 
   useEffect(() => {
     const lastMessages = rooms.map((room) => room.lastMessage);
-    console.log(lastMessages);
+    chatroomIds.forEach((chatroomId) => {
+      dispatch(markMessagesAsRead(chatroomId))
+    })
+  
   }, [messages]);
+
+  useEffect(() => {
+    
+  
+    return () => {
+      
+    }
+  }, [isSelected, rooms])
+  
 
   // 채팅방 목록 조회 함수
   const fetchChatList = async (token: string | null, page: number) => {
     try {
       const res = await getChatList(token, page);
+      console.log(res);
+      
       if (res?.status === 200) {
         const chatroomList: ChatRoomListInfo[] = res.data.data.chatroomList;
-        console.log(res);
-
         if (currentPage === 1) {
           dispatch(setChatRooms(chatroomList));
         } else {
