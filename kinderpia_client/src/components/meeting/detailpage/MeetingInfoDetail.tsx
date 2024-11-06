@@ -25,6 +25,13 @@ const MeetingInfoDetail: React.FC<MeetingInfoDetailProps> = ({
   const [hashText, setHashText] = useState<string>('');
   const [hashText2, setHashText2] = useState<string>('');
   
+  useEffect(()=>{
+    switch(people/totalCapacity){
+      case 1 : setHashText2('모집 마감'); break;
+      default  : setHashText2('모집중'); break;
+    }
+  },[people])
+
   useEffect(() => {
     setHashText(authType ? '승인 후 참가 가능' : '누구나 참가 가능');
     switch(meetingStatus){
