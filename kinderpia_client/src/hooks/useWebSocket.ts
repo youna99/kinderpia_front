@@ -108,12 +108,13 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
         },
         body: JSON.stringify(messageObj),
       });
-      dispatch(setMessages([...messages, messageObj])); dispatch(
+      dispatch(setMessages([...messages, messageObj]));
+      dispatch(
         updateLastmessage({
           chatroomId,
           lastMessage: message,
         })
-      )
+      );
     }
   };
   return { sendMessage };
