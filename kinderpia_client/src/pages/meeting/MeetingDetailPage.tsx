@@ -24,9 +24,10 @@ function MeetingDetailPage() {
   const { meetingId } = useParams<{ meetingId: string }>();
 
   // 초기 상태를 null로 설정하여 데이터 로딩 상태를 명확히 함
-  const [meetingData, setMeetingData] = useState<MeetingData>();
-  const [userData, setUserData] = useState<MeetingUserData>();
-  const [isLoading, setIsLoading] = useState(true);
+  const [ meetingData, setMeetingData ] = useState<MeetingData>();
+  const [ userData, setUserData ] = useState<MeetingUserData>();
+  const [ isLoading, setIsLoading ] = useState(true);
+  const [ partStatus, setParticipate ] = useState(0);
 
   useEffect(() => {
     if (!meetingId) return;
@@ -59,6 +60,7 @@ function MeetingDetailPage() {
             createdAt: response.createdAt,
             userId: response.userId,
           };
+          setParticipate(formattedResults.participants);
           setMeetingData(formattedResults);
         }
         if (userResponse) {
@@ -114,6 +116,11 @@ function MeetingDetailPage() {
     }
   };
 
+  const participateObserver = ( p : number, add:number ) => {
+    setParticipate( p + add );
+  }
+
+
   if (!meetingId) {
     return <div>낫 타당한 접근방법! </div>;
   }
@@ -123,18 +130,23 @@ function MeetingDetailPage() {
   }
 
   if (!meetingId) {
-    // navigate('/not-found', { replace: true });
-    return null;
+    return <span className='xi-spinner-1'></span>;
   }
 
   return (
     <div className="meeting-detail-page">
-      <MeetingInfo user={userData} data={meetingData} />
+      <MeetingInfo 
+        user={userData} 
+        data={meetingData}
+        people={partStatus}
+        observer={participateObserver}
+      />
       <hr />
       <MeetingAction
         user={userData}
         data={meetingData}
-        onActionComplete={refreshUserData} // 새로운 prop 추가
+        onActionComplete={refreshUserData}
+        observer={participateObserver}
       />
     </div>
   );

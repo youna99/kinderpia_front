@@ -7,8 +7,9 @@ interface MeetingInfoDetailProps {
   nickname: string;     
   participants: number;   
   totalCapacity: number;  
-  authType: boolean;       
+  authType: boolean;    
   meetingStatus: string;
+  people:number;
 }
 
 const MeetingInfoDetail: React.FC<MeetingInfoDetailProps> = ({
@@ -19,10 +20,18 @@ const MeetingInfoDetail: React.FC<MeetingInfoDetailProps> = ({
   totalCapacity,
   authType,
   meetingStatus,
+  people
 }) => {
   const [hashText, setHashText] = useState<string>('');
   const [hashText2, setHashText2] = useState<string>('');
   
+  useEffect(()=>{
+    switch(people/totalCapacity){
+      case 1 : setHashText2('모집 마감'); break;
+      default  : setHashText2('모집중'); break;
+    }
+  },[people])
+
   useEffect(() => {
     setHashText(authType ? '승인 후 참가 가능' : '누구나 참가 가능');
     switch(meetingStatus){
@@ -32,7 +41,6 @@ const MeetingInfoDetail: React.FC<MeetingInfoDetailProps> = ({
       case 'DELETED' : setHashText2('모임 삭제'); break;
       default : setHashText2('오류입니다!'); break;
     }
-
   }, [authType, meetingCategory, meetingTitle]);
 
   if (!meetingTitle || !nickname) {
@@ -60,7 +68,7 @@ const MeetingInfoDetail: React.FC<MeetingInfoDetailProps> = ({
           </div>
           <div className='meeting-info-detail-wrapper-human-participants'>
             <span className="xi-users meeting-info-detail-wrapper-human-participants-icon"></span>
-            { totalCapacity === 99? '제한 없음': `${participants}/${totalCapacity}`}
+            { totalCapacity === 99? '제한 없음': `${people}/${totalCapacity}`}
           </div>
         </div>
         <div className='meeting-info-detail-wrapper-hash'>

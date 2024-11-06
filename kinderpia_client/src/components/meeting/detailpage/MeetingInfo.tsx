@@ -11,9 +11,11 @@ import '../../../styles/meeting/detailpage/MeetingInfo.scss';
 interface MeetingInfoProps {
   data?: MeetingData;
   user?: MeetingUserData;
+  people:number;
+  observer : (p: number, add:number ) => void;
 }
 
-const MeetingInfo: React.FC<MeetingInfoProps> = ({ data, user }) => {
+const MeetingInfo: React.FC<MeetingInfoProps> = ({ data, user, people,observer }) => {
   if (!data) {
     return <div>데이터를 불러오는 중입니다...</div>;
   }
@@ -27,6 +29,7 @@ const MeetingInfo: React.FC<MeetingInfoProps> = ({ data, user }) => {
         participants={data.participants}
         totalCapacity={data.totalCapacity}
         authType={data.authType}
+        people={people}
         meetingStatus={data.meetingStatus}
       />
       <MeetingInfoDesc
