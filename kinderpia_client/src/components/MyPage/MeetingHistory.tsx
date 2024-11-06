@@ -3,6 +3,7 @@ import axios from 'axios';
 import MeetingList from '../common/MeetingList';
 import '../../styles/mypage/MeetingHistory.scss';
 import { formatDetailDate } from '../../utils/formatDate';
+import { requestHeader } from '../../api/requestHeader';
 interface MeetingHistoryProps {
   userId: string | null;
   userInfo: {
@@ -40,20 +41,23 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({
 
         let response;
         if (filter === 'all') {
-          response = await axios.get(
-            `http://localhost:8080/api/user/meeting/list/${userId}?page=1&size=10`,
-            { withCredentials: true }
+          response = await requestHeader.get(
+            `/api/user/meeting/list/?page=1&size=10`
           );
+          // response = await axios.get(
+          //   `http://localhost:8080/api/user/meeting/list/?page=1&size=10`,
+          //   { withCredentials: true }
+          // );
           console.log('전체모임데이터', response.data);
         } else if (filter === 'created') {
           response = await axios.get(
-            `http://localhost:8080/api/user/meeting/leader/list/${userId}?page=1&size=10`,
+            `http://localhost:8080/api/user/meeting/leader/list/?page=1&size=10`,
             { withCredentials: true }
           );
           console.log('내가만든 모임데이터', response.data);
         } else if (filter === 'ongoing') {
           const allMeetings = await axios.get(
-            `http://localhost:8080/api/user/meeting/list/${userId}?page=1&size=10`,
+            `http://localhost:8080/api/user/meeting/list/?page=1&size=10`,
             { withCredentials: true }
           );
 

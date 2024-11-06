@@ -7,6 +7,7 @@ import Tab from '../components/MyPage/Tab';
 import '../styles/mypage/MyPage.scss';
 import axios from 'axios';
 import { extractUserIdFromCookie } from '../utils/extractUserIdFromCookie';
+import { requestHeader } from '../api/requestHeader';
 
 const MyPage: React.FC = () => {
   const tabs = ['내 정보', '모임 내역', '나의 리뷰'];
@@ -27,12 +28,8 @@ const MyPage: React.FC = () => {
   // 사용자 조회 api
   const fetchUserInfo = async (userId: string) => {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/api/user/${userId}`,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await requestHeader.get(`/api/user`);
+      console.log(response);
       setUserInfo(response.data.data); // 응답 데이터를 상태로 설정
     } catch (error) {
       console.error('유저 정보를 불러오는 중 오류 발생:', error);
