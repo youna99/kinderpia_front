@@ -32,7 +32,7 @@ export default function ChatlistPage() {
   const { messages, chatroom } = useSelector((state: RootState) => state.chat);
 
   const chatroomIds = rooms?.map((room) => room.chatroomId);
-  // const { fetchChatList } = useChatListFetch(currentPage);
+  const { fetchChatList } = useChatListFetch(currentPage);
   const { sendMessage } = useWebSocket(chatroomIds, chatroom?.chatroomId);
 
   useEffect(() => {
