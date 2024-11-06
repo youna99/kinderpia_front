@@ -6,7 +6,6 @@ import { confirmAlert, simpleAlert } from '../../utils/alert';
 import { deleteReview, postLike } from '../../api/review';
 import { postReportBadContent } from '../../api/report';
 import ReportBox from '../common/ReportBox';
-import { AxiosError } from 'axios';
 
 interface ReviewItemProps {
   reviewId: number;
@@ -97,14 +96,17 @@ const Review: React.FC<ReviewItemProps> = ({
         reportReasonId,
         reportMessageContent,
       });
-    } catch (error) {
-      console.error('리뷰 신고 처리 중 오류 발생:', error);
-      if ((error as AxiosError).response?.status === 409) {
+      console.log('response >>>', response?.data);
+      if (response?.data.status === 201) {
+        simpleAlert('success', '리뷰가 신고되었습니다.');
+        setShowReportModal(false);
+      }
+      if (response?.data === undefined) {
         simpleAlert('error', '이미 신고한 리뷰입니다.');
         setShowReportModal(false);
-      } else {
-        simpleAlert('error', '신고처리에 실패했습니다. 다시 시도해주세요.');
       }
+    } catch (error) {
+      console.error('신고 에러>>', error);
     }
   };
 
@@ -116,17 +118,6 @@ const Review: React.FC<ReviewItemProps> = ({
           {placeName}
         </h3>
       )}
-      {/* {isOwner ? (
-        <button className="delete-btn" onClick={handleDeleteReview}>
-          삭제
-        </button>
-      ) : !reportToggle ? (
-        <div className="reported-text">신고된 리뷰입니다.</div>
-      ) : (
-        <button className="report-btn" onClick={handleReportReview}>
-          🚨 신고
-        </button>
-      )} */}
       {isOwner ? (
         <button className="delete-btn" onClick={handleDeleteReview}>
           삭제
