@@ -19,6 +19,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ data }) => {
         console.log('리뷰 ID:', review.reviewId);
         
         setShowReportModal(false);
+          
     } catch (error) {
         console.error('신고 처리 중 오류 발생:', error);
         alert('신고 처리 중 오류가 발생했습니다.');
