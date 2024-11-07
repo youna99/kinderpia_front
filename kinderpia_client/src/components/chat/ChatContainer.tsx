@@ -20,7 +20,7 @@ export default function ChatContainer() {
 
   useEffect(() => {
     endMessageRef.current?.scrollIntoView({ behavior: "auto" });
-  }, [messages]);
+  }, [messages[messages.length - 1]]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {

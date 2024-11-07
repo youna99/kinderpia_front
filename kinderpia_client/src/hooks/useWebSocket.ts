@@ -9,6 +9,7 @@ import {
   getJwtFromCookies,
 } from "../utils/extractUserIdFromCookie";
 import { RootState } from "../store";
+import { simpleAlert } from "../utils/alert";
 
 const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
   const { messages } = useSelector((state: RootState) => state.chat);
@@ -85,6 +86,7 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
     };
   }, [chatroomIds, currentChatroomId, dispatch]);
 
+  let lastMessageTime: number | null = null;
   // 메세지 전송 함수
   const sendMessage = (chatroomId: number, message: string) => {
     const jwt = getJwtFromCookies();
@@ -92,6 +94,15 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
     const now = new Date();
     const koreaTime = new Date(now.getTime() + 9 * 60 * 60 * 1000);
     const koreaTimeString = koreaTime.toISOString();
+    
+    const nowTime = now.getTime();
+    if(lastMessageTime && nowTime - lastMessageTime < 2000){
+      simpleAlert('warning', '메시지를 너무 빨리 보낼 수 없습니다.')
+      return;
+    }
+
+
+    lastMessageTime = nowTime;
 
     if (!chatroomId) return;
     const chatSend = `/app/${chatroomId}/chatmsg`;
@@ -110,13 +121,18 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
         },
         body: JSON.stringify(messageObj),
       });
-      dispatch(setMessages([...messages, messageObj]));
-      dispatch(
-        updateLastmessage({
-          chatroomId,
-          lastMessage: message,
-        })
-      );
+
+      const lastMessage = messages[messages.length - 1]
+      if(lastMessage?.chatmsgContent !== messageObj.chatmsgContent){
+        dispatch(setMessages([...messages, messageObj]));
+        dispatch(
+          updateLastmessage({
+            chatroomId,
+            lastMessage: message,
+          })
+        );
+      }
+
     }
   };
   return { sendMessage };
