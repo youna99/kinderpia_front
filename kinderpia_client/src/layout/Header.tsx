@@ -64,10 +64,10 @@ export default function Header() {
           <h1>
             <Link to={'/'}>KINDERPIA</Link>
           </h1>
-          <button
+          <i
             className={`nav-icon ${isMenuOpen ? 'xi-close' : 'xi-bars'}`}
             onClick={toggleMenu}
-          ></button>
+          ></i>
           <nav className={`menu ${isMenuOpen ? 'open' : ''}`}>
             <strong>MENU</strong>
             {isMenuOpen && (
@@ -118,7 +118,7 @@ export default function Header() {
                   href="https://github.com/SeSAC-3rd-Kinderpia"
                   title="킨더피아 깃허브로 이동"
                 >
-                  <span className="xi-github-alt"></span>
+                  <i className="xi-github-alt"></i>
                   <span className="footer-infotxt">github</span>
                 </a>
               </div>
