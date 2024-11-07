@@ -8,7 +8,7 @@ console.log('.env 는 노션 Kinderpia 메인 페이지 제~일 밑에');
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: process.env.REACT_APP_MAP_URL,
   methods: ['GET', 'POST'],
   credentials: true
 }));
@@ -17,7 +17,7 @@ app.use(express.json());
 
 let savedLocation = null;
 
-app.get('/api/search', async (req, res) => {
+app.get('/map/api/search', async (req, res) => {
   const { query } = req.query;
 
   if (!query) {
@@ -60,7 +60,7 @@ app.get('/api/search', async (req, res) => {
   }
 });
 
-app.get('/api/coordinate', async (req, res) => {
+app.get('/map/api/coordinate', async (req, res) => {
   const { query } = req.query;
 
   if (!query) {
