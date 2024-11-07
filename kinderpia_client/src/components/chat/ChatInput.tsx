@@ -17,10 +17,12 @@ export default function ChatInput({ onSendMessage }: ChatInputProps) {
 
     // 비활성화된 방에는 메시지 전송 불가
     if(!chatroom?.active) return;
-
+    
     // 입력된 메시지 전송
     if (inputRef.current) {
       const message = inputRef.current?.value.trim();
+      console.log('message', message);
+      
       if (message) {
         onSendMessage(message);
         inputRef.current.value = ""; // 입력창 비우기

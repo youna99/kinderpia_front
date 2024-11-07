@@ -34,7 +34,6 @@ export default function ChatlistPage() {
 
   const chatroomIds = rooms?.map((room) => room.chatroomId);
   const { fetchChatList } = useChatListFetch(currentPage);
-  // const { sendMessage } = useWebSocket(chatroomIds, chatroom?.chatroomId);
   const {sendMessage} = useWebSocketContext();
   const participatePeopleCounts = rooms?.map(room => room.capacity)
   
@@ -74,13 +73,13 @@ export default function ChatlistPage() {
     };
   }, []);
 
-  useEffect(() => {
-    const lastMessages = rooms.map((room) => room.lastMessage);
-    chatroomIds.forEach((chatroomId) => {
-      // dispatch(markMessagesAsRead(chatroomId))
-    })
+  // useEffect(() => {
+  //   const lastMessages = rooms.map((room) => room.lastMessage);
+  //   chatroomIds.forEach((chatroomId) => {
+  //     // dispatch(markMessagesAsRead(chatroomId))
+  //   })
   
-  }, [messages]);
+  // }, [messages]);
 
   useEffect(() => {
     
