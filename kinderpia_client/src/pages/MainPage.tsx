@@ -71,8 +71,7 @@ function MainPage() {
         <Swiper
           slidesPerView={2.5}
           spaceBetween={10}
-          modules={[Pagination, Navigation]}
-          navigation={true}
+          modules={[Pagination]}
           breakpoints={{
             640: {
               slidesPerView: 5,
