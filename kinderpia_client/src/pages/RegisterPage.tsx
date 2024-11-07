@@ -132,9 +132,13 @@ export default function RegisterPage() {
     try {
       console.log(data);
 
-      await axios.post('http://localhost:8080/api/user/register', data, {
-        withCredentials: true,
-      });
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/user/register`,
+        data,
+        {
+          withCredentials: true,
+        }
+      );
       showAlert('success', '회원가입에 성공했습니다!');
       navigate('/user/login');
     } catch (error) {

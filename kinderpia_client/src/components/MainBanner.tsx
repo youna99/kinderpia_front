@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { Pagination, Navigation, Autoplay } from 'swiper/modules';
+import { Pagination, Autoplay } from 'swiper/modules';
 import { Link } from 'react-router-dom';
 
 export const MainBanner = () => {
@@ -14,13 +14,13 @@ export const MainBanner = () => {
           clickable: true,
           type: 'fraction',
         }}
-        navigation={true}
+        // navigation={true}
         loop={true}
         autoplay={{
           delay: 3000,
           disableOnInteraction: false,
         }}
-        modules={[Pagination, Navigation, Autoplay]}
+        modules={[Pagination, Autoplay]}
         className="mySwiper"
       >
         <SwiperSlide>
