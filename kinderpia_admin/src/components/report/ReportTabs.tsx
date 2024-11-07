@@ -1,14 +1,14 @@
 // components/report/ReportTabs.tsx
 interface ReportTabsProps {
   activeTab: string;
-  onTabChange: (tab: 'chatmsg' | 'review' | 'meeting') => void;
+  onTabChange: (tab: 'chatMessageId' | 'reviewId' | 'meetingId') => void;
 }
 
 export const ReportTabs: React.FC<ReportTabsProps> = ({ activeTab, onTabChange }) => {
   const tabs = [
-    { id: 'chatmsg', label: '채팅 신고' },
-    { id: 'review', label: '리뷰 신고' },
-    { id: 'meeting', label: '모임 신고' },
+    { id: 'chatMessageId', label: '채팅 신고' },
+    { id: 'reviewId', label: '리뷰 신고' },
+    { id: 'meetingId', label: '모임 신고' },
   ];
 
   return (
@@ -21,7 +21,7 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({ activeTab, onTabChange }
               ? 'bg-blue-500 text-white'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
           }`}
-          onClick={() => onTabChange(tab.id as 'chatmsg' | 'review' | 'meeting')}
+          onClick={() => onTabChange(tab.id as 'chatMessageId' | 'reviewId' | 'meetingId')}
         >
           {tab.label}
         </button>

@@ -1,18 +1,18 @@
 export interface ReportData {
   reportId: number;
   createdAt: string;
-  reportmsgContent: string;
-  chatmsgId: number | null;
+  reportMessageContent: string;
+  chatMessageId: number | null;
   meetingId: number | null;
-  reportRsId: number;    
+  reportReasonId: number;    
   reportedId: number;    
   reporterId: number;    
   reviewId: number | null;
 }
 
 export interface ReportReason {
-  reportRsId: number;
-  reportRsName: string;
+  reportReasonId: number;
+  reportReasonName: string;
 }
 
 export interface PaginationResponse {

@@ -21,7 +21,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
       >
         <span className='font-gmarket text-base flex items-center'>
           {item.title}
-          <span className="ml-2 text-xs">(준비중)</span>
+          {/* <span className="ml-2 text-xs">(준비중)</span> */}
         </span>
       </div>
     );
@@ -43,7 +43,7 @@ const Sidebar: React.FC = () => {
   const menuItems: MenuItem[] = [
     { title: '회원', path: '/members', enabled: true },
     { title: '신고', path: '/reports', enabled: true },
-    { title: '모임', path: '/groups', enabled: false },
+    { title: '모임', path: '/groups', enabled: true },
     { title: '블랙리스트', path: '/blacklist', enabled: false },
   ];
 

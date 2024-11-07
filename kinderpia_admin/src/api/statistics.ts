@@ -10,6 +10,28 @@ import { requestHeader } from './requestHeader';
       return 0;
     }
   };
+
+  export const fetchTotalMeetings = async () => {
+    try{
+      const response = await requestHeader.get('/api/manager/total/meetingCnt');
+      return response.data.data;
+    } catch (error) {
+      console.error('전체 미팅 수 조회 실패:', error);
+      return 0;
+    }
+  }
+
+  export const fetchTotalReports = async () => {
+    try{
+      const response = await requestHeader.get('/api/manager/total/reportCnt');
+      return response.data.data;
+    } catch (error) {
+      console.error('전체 신고 수 조회 실패:', error);
+      return 0;
+    }
+  }
+
+
   
   export const fetchMonthlyStats = async (year: number): Promise<StatisticsResponse | null> => {
     try {
