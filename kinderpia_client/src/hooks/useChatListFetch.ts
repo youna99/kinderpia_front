@@ -20,13 +20,13 @@ export const useChatListFetch = (currentPage: number) => {
   useEffect(() => {
     const jwt = getJwtFromCookies();
     if (!jwt) return;
-    fetchChatList(jwt, currentPage);
+    fetchChatList(currentPage);
     return () => {};
   }, [dispatch, isEmpty]);
 
-  const fetchChatList = async (token: string, page: number) => {
+  const fetchChatList = async (page: number) => {
     try {
-      const res = await getChatList(token, page);
+      const res = await getChatList(page);
       if (res.status === 200) {
         const chatroomList: ChatRoomInfo[] = res.data.data.chatroomList;
         if (currentPage === 1) {

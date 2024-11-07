@@ -52,7 +52,7 @@ export default function ChatRooms({
     setIsLoading(true);
     setPageParams((prev) => [...prev, currentPage]);
     try {
-      await fetchChatList(jwt, currentPage);
+      await fetchChatList(currentPage);
     } catch (error) {
       console.error(error);
     } finally {
@@ -86,15 +86,14 @@ export default function ChatRooms({
   // 단일 채팅방 조회 함수
   const enterChatroom = useCallback(
     async (chatroomId: number) => {
-      const jwt = getJwtFromCookies();
       try {
         // 단일 채팅방 조회
-        const res = await getChatRoom(jwt, chatroomId);
+        const res = await getChatRoom(chatroomId);
         if (res?.status === 200) {
           const chatInfo: ChatRoomInfo = res.data;
           dispatch(setChatInfo(chatInfo));
           // 채팅방의 메세지 조회
-          const res2 = await getChatMessages(jwt, chatroomId, msgPage);
+          const res2 = await getChatMessages(chatroomId, msgPage);
           const chatMsgList = [...res2.data.data.chatmsgList].reverse();
           dispatch(setMessages(chatMsgList));
           dispatch(setMsgPages(res2.data.pageInfo))

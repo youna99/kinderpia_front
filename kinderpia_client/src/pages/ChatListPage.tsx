@@ -21,6 +21,7 @@ import { ChatRoomListInfo } from "../types/chat";
 import useWebSocket from "../hooks/useWebSocket";
 import { markMessagesAsRead } from "../store/chatSlice";
 import { useChatListFetch } from "../hooks/useChatListFetch";
+import { useWebSocketContext } from "../components/common/WebSocketProvider";
 
 export default function ChatlistPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,7 +34,10 @@ export default function ChatlistPage() {
 
   const chatroomIds = rooms?.map((room) => room.chatroomId);
   const { fetchChatList } = useChatListFetch(currentPage);
-  const { sendMessage } = useWebSocket(chatroomIds, chatroom?.chatroomId);
+  // const { sendMessage } = useWebSocket(chatroomIds, chatroom?.chatroomId);
+  const {sendMessage} = useWebSocketContext();
+  const participatePeopleCounts = rooms?.map(room => room.capacity)
+  
 
   useEffect(() => {
     const upBtn = document.querySelector(".up-btn") as HTMLButtonElement | null;
@@ -84,7 +88,7 @@ export default function ChatlistPage() {
     return () => {
       
     }
-  }, [isSelected, rooms])
+  }, [isSelected, rooms, participatePeopleCounts])
   
 
   // 채팅방 목록 조회 함수

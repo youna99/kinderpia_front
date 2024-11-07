@@ -42,12 +42,11 @@ function MeetingDetailPage() {
           userId,
           meetingId: Number(meetingId),
         });
-        console.log(response);
-        
 
         if (response) {
           const formattedResults: MeetingData = {
             meetingId: response.meetingId,
+            chatroomId : response.chatroomId,
             meetingTitle: response.meetingTitle,
             detailAddress: response.detailAddress,
             meetingCategory: response.meetingCategory,

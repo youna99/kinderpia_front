@@ -151,7 +151,7 @@ const MeetingPage: React.FC = () => {
       setError(null);
     } catch (error) {
       console.error('모임 검색 중 오류 발생:', error);
-      setError('모임 검색 결과가 없습니다.');
+      setError('검색 결과가 없습니다.');
       setMeetings([]);
     } finally {
       setIsSearching(false);

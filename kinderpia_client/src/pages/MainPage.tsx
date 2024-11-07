@@ -4,7 +4,7 @@ import MeetingList from '../components/common/MeetingList';
 import { PlaceListInfo } from '../types/placelist';
 import { MettingListInfo } from '../types/meetinglist';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Link } from 'react-router-dom';
@@ -71,7 +71,7 @@ function MainPage() {
         <Swiper
           slidesPerView={2.5}
           spaceBetween={10}
-          modules={[Pagination]}
+          modules={[Pagination, Navigation]}
           navigation={true}
           breakpoints={{
             640: {

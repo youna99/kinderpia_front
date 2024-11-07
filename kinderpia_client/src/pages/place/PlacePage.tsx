@@ -11,33 +11,29 @@ import { defaultPostReq } from '../../types/place';
 type SortType = 'star' | 'default' | undefined;
 
 const PlacePage: React.FC = () => {
-  const [places, setPlaces] = useState<PlaceListInfo[]>([]); // 장소 목록
-  const [isSearching, setIsSearching] = useState(false); // 검색 중인지 여부
-  const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null); // 지역값
-  const [currentSearchTerm, setCurrentSearchTerm] = useState<string>(''); // 검색어
-  const [category, setCategory] = useState<string>(''); // 카테고리
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // 필터 드롭다운
-  const [sortBy, setSortBy] = useState<SortType>(); // 평점순, 기본순
-
-  // 무한 스크롤을 위한 상태 추가
+  const [places, setPlaces] = useState<PlaceListInfo[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
+  const [currentSearchTerm, setCurrentSearchTerm] = useState<string>('');
+  const [category, setCategory] = useState<string>('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [sortBy, setSortBy] = useState<SortType>();
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const observer = useRef<IntersectionObserver>();
+  const isInitialMount = useRef(true);
 
-  // meeting-header-title 요소를 참조할 ref 생성
+  const observer = useRef<IntersectionObserver>();
   const headerTitleRef = useRef<HTMLDivElement>(null);
 
-  // 무한 스크롤 observer 설정
   const lastPlaceRef = useCallback(
     (node: HTMLDivElement) => {
       if (isLoading) return;
-
       if (observer.current) observer.current.disconnect();
 
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          setPage((prevPage) => prevPage + 1);
+          setPage((prev) => prev + 1);
         }
       });
 
@@ -46,119 +42,94 @@ const PlacePage: React.FC = () => {
     [isLoading, hasMore]
   );
 
-  // 초기 데이터 로딩
-  useEffect(() => {
-    const fetchDefaultPlaces = async () => {
+  // 데이터 페칭 로직
+  const fetchPlaces = useCallback(
+    async (
+      searchTerm: string,
+      searchCategory: string,
+      sortType: SortType,
+      pageNum: number,
+      isNewSearch: boolean
+    ) => {
       try {
         setIsLoading(true);
-        const result = await getDefaultPlaceList(0, 6);
-        if (result) {
-          setPlaces(result.data.content);
-          console.log('result.data.content >>>', result.data.content);
 
-          setHasMore(result.data.content.length === 6); // 6개 미만이면 더 이상 데이터가 없음
-        } else {
-          setPlaces(dummyPlaceList);
-          setHasMore(false);
-        }
-      } catch (error) {
-        console.error('장소 목록 로딩 중 에러:', error);
-        setPlaces(dummyPlaceList);
-        setHasMore(false);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchDefaultPlaces();
-  }, []);
-
-  // 페이지 변경시 추가 데이터 로딩
-  useEffect(() => {
-    if (page === 1) return; // 초기 로딩은 제외
-
-    const fetchMorePlaces = async () => {
-      try {
-        setIsLoading(true);
-        if (currentSearchTerm) {
+        if (searchTerm) {
           const reqData: defaultPostReq = {
-            keyword: currentSearchTerm,
-            category: category,
-            sort: sortBy,
+            keyword: searchTerm,
+            category: searchCategory,
+            sort: sortType,
           };
           const response = await getSearchPlaceList(reqData);
           const newPlaces = response.data.content;
 
-          setPlaces((prev) => [...prev, ...newPlaces]);
+          setPlaces((prev) =>
+            isNewSearch ? newPlaces : [...prev, ...newPlaces]
+          );
           setHasMore(newPlaces.length === 6);
         } else {
-          const result = await getDefaultPlaceList(page, 6);
+          const result = await getDefaultPlaceList(pageNum - 1, 6);
           const newPlaces = result.data.content;
 
-          setPlaces((prev) => [...prev, ...newPlaces]);
+          setPlaces((prev) =>
+            isNewSearch ? newPlaces : [...prev, ...newPlaces]
+          );
           setHasMore(newPlaces.length === 6);
         }
       } catch (error) {
-        console.error('추가 데이터 로딩 중 에러:', error);
+        console.error('데이터 로딩 중 에러:', error);
+        if (isNewSearch) setPlaces(dummyPlaceList);
       } finally {
         setIsLoading(false);
       }
-    };
+    },
+    []
+  );
 
-    fetchMorePlaces();
-  }, [page, currentSearchTerm, sortBy, category]);
+  // 초기 데이터 로딩
+  useEffect(() => {
+    if (isInitialMount.current) {
+      fetchPlaces('', '', undefined, 1, true);
+      isInitialMount.current = false;
+    }
+  }, [fetchPlaces]);
 
-  // 검색 함수
+  // 페이지 변경시 추가 데이터 로딩
+  useEffect(() => {
+    if (!isInitialMount.current && page > 1) {
+      fetchPlaces(currentSearchTerm, category, sortBy, page, false);
+    }
+  }, [page, currentSearchTerm, sortBy, category, fetchPlaces]);
+
   const handleSearch = async (
     searchTerm: string,
     searchCategory: string,
-    sortBy?: SortType
+    sortType?: SortType
   ) => {
     setIsSearching(true);
     setCurrentSearchTerm(searchTerm);
-    setSortBy(sortBy);
     setCategory(searchCategory);
-    setPage(0); // 검색 시 페이지 초기화
+    setSortBy(sortType);
 
-    try {
-      const reqData: defaultPostReq = {
-        category: searchCategory,
-        keyword: searchTerm,
-        sort: sortBy,
-      };
+    await fetchPlaces(searchTerm, searchCategory, sortType, 1, true);
+    setPage(1);
 
-      console.log('reqData>>>', reqData);
-
-      const response = await getSearchPlaceList(reqData);
-      console.log('response >>>', response.data.content);
-
-      setPlaces(response.data.content); // 검색 시 기존 데이터 초기화
-      setHasMore(response.data.content.length === 6);
-
-      // 검색 후 meeting-header-title 요소로 포커스 이동
-      if (headerTitleRef.current) {
-        headerTitleRef.current.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
-      }
-    } catch (error) {
-      console.error('검색 중 오류 발생:', error);
-    } finally {
-      setIsSearching(false);
+    if (headerTitleRef.current) {
+      headerTitleRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
     }
+
+    setIsSearching(false);
   };
 
-  // 지역 선택 핸들러
   const handleDistrictClick = (district: string) => {
     setSelectedDistrict(district);
     handleSearch(district, 'address', sortBy);
   };
 
-  // 정렬 핸들러
   const handleSort = (type: SortType) => {
-    console.log('type>>>', type);
-    setSortBy(type);
     setIsDropdownOpen(false);
     handleSearch(currentSearchTerm, category, type);
   };
