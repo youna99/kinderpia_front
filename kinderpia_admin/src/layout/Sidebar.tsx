@@ -41,16 +41,16 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
 
 const Sidebar: React.FC = () => {
   const menuItems: MenuItem[] = [
-    { title: '회원', path: '/admin/members', enabled: true },
-    { title: '신고', path: '/admin/reports', enabled: true },
-    { title: '모임', path: '/admin/groups', enabled: true },
-    { title: '블랙리스트', path: '/admin/blacklist', enabled: false },
+    { title: '회원', path: '/members', enabled: true },
+    { title: '신고', path: '/reports', enabled: true },
+    { title: '모임', path: '/groups', enabled: true },
+    { title: '블랙리스트', path: '/blacklist', enabled: false },
   ];
 
   return (
     <aside className="w-64 bg-[#1e2532] text-white">
       <div className="p-4">
-        <Link to="/admin" className="flex items-center space-x-2">
+        <Link to="/" className="flex items-center space-x-2">
           <Crown />
           <span className="h-2 font-jeju text-lg">Kinderpia</span>
           <span className='h-2 font-gmarket text-xs'> - admin</span>
