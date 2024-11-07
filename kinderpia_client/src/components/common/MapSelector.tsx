@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import DynamicMapView from './DynamicMapView';
+// import DynamicMapView from './DynamicMapView';
 import { searchLocation } from '../../api/map';
 import CheckMarker from '../common/CheckMarker';
 
 import '../../styles/meeting/createpage/MapSelector.scss';
+import StaticMapView from './StaticMapView';
 
 interface MapSelectorProps {
   location: string;
@@ -49,6 +50,8 @@ const MapSelector: React.FC<MapSelectorProps> = ({
     }
     try {
       const results = await searchLocation(searchInput);
+      console.log(results);
+      
       // 응답 데이터를 SearchResult[] 형식으로 변환
       const extractDistrict = (address: string | null | undefined): string => {
         // 주소가 없거나 빈 문자열인 경우 처리
@@ -133,15 +136,8 @@ const MapSelector: React.FC<MapSelectorProps> = ({
         </div>
 
         <div className="map-selector-view-container">
-          <DynamicMapView
-            center={{
-              lat: Number(selectedLocation?.latitude) || 37.5662952,
-              lng: Number(selectedLocation?.longitude) || 126.9779451,
-            }}
-            marker={{
-              lat: Number(selectedLocation?.latitude) || 37.5662952,
-              lng: Number(selectedLocation?.longitude) || 126.9779451,
-            }}
+          <StaticMapView
+            location={selectedLocation.detailAddress}
           />
         </div>
       </div>

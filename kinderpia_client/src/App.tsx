@@ -75,7 +75,6 @@ function App() {
                 {/* 메인 페이지 */}
                 <Route index element={<MainPage />} />
                 {/* 404 라우트를 마지막에 추가 */}
-                <Route path="not-found" element={<NotFoundPage />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Route>
             </Routes>

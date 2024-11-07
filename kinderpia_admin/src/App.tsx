@@ -13,15 +13,16 @@ import LoginPage from './pages/LoginPage';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename="/admin">  {/* basename 추가 */}
         <Routes>
-          <Route path="/admin" element={<AdminLayout />}>
+          <Route path="/" element={<AdminLayout />}>  {/* /admin 대신 / 사용 */}
             <Route index element={<Dashboard />} />
             <Route path="members" element={<Members />} />
             <Route path="groups" element={<Groups />} />
             <Route path="reports" element={<Reports />} />
             <Route path="blacklist" element={<BadPersons />} />
           </Route>
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </div>
