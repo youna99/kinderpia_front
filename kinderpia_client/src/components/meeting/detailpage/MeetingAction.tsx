@@ -41,6 +41,7 @@ const MeetingAction: React.FC<MeetingActionProps> = ({
       navigate(`/meeting/${meetingId}`);
     } catch (err) {
       console.log(err);
+      simpleAlert('warning', '로그인이 필요합니다.')
     }
   }
 
