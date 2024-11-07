@@ -50,11 +50,11 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userInfo }) => {
           const allMeetings = await requestHeader.get(
             `/api/user/meeting/list?page=1&size=10`
           );
+          console.log('모집중인 모임데이터', allMeetings.data.data.dataList);
 
           const ongoingMeetings = allMeetings.data.data.dataList.filter(
             (meeting: MettingListInfo) => meeting.meetingStatus === 'ONGOING'
           );
-
           response = {
             data: {
               data: {
@@ -63,7 +63,7 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userInfo }) => {
               },
             },
           };
-          console.log('모집중인 모임데이터', response.data);
+          console.log('모집중필터 모임데이터', response.data);
         }
         if (response) {
           setMeetings(response.data.data.dataList);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { simpleAlert } from '../../utils/alert';
 
 interface ChangeProfileImgProps {
   profileImg: string;
@@ -42,15 +43,7 @@ export const ChangeProfileImg: React.FC<ChangeProfileImgProps> = ({
       const reader = new FileReader();
       reader.onload = async (e) => {
         const imageUrl = e.target?.result;
-
         if (typeof imageUrl === 'string') {
-          Swal.fire({
-            icon: 'success',
-            showConfirmButton: false,
-            title: '프로필 변경 완료!',
-            timer: 1500,
-          });
-
           setSelectedImage(imageUrl);
 
           // 파일 업로드
@@ -70,10 +63,10 @@ export const ChangeProfileImg: React.FC<ChangeProfileImgProps> = ({
               }
             );
             console.log('이미지 업로드 성공:', response.data);
-            Swal.fire('프로필을 수정했습니다.');
+            simpleAlert('success', '프로필을 수정했습니다.');
           } catch (error) {
             console.error('이미지 업로드 실패:', error);
-            Swal.fire('이미지 업로드에 실패했습니다.');
+            simpleAlert('error', '이미지 업로드 중 오류가 생겼습니다.');
           }
         } else {
           Swal.fire('이미지 미리보기를 가져오는 데 실패했습니다.');
