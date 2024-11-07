@@ -52,13 +52,14 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
   // 시간 포맷팅 함수
   const formatDateTime = (time: string): string => {
     const date = new Date(time); // 입력된 시간을 Date 객체로 변환
-    const hours = date.getHours();
-    const minutes = date.getMinutes().toString().padStart(2, '0');
+
+    const localDate = new Date(date.toLocaleString('en-US', {timeZone : 'Asia/Seoul'}))
+
+    const hours = localDate.getHours();
+    const minutes =  localDate.getMinutes().toString().padStart(2, '0')
     const period = hours >= 12 ? '오후' : '오전';
     const formattedTime = `${period} ${hours % 12 || 12}:${minutes}`
-    
-    console.log('time',formattedTime);
-    
+
     return formattedTime;
   };
 

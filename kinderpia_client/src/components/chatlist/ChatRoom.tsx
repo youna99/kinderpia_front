@@ -17,25 +17,33 @@ export default function ChatRoom({ room, onClick }: ChatRoomProp) {
   const unreadCount = unreadCounts[room.chatroomId];
 
   const formatTime = (datestring: string): string | undefined => {
-    if(!datestring) return;
+    if (!datestring) return;
+  
     const date = new Date(datestring); // 입력된 시간을 Date 객체로 변환
+  
+    // 'Asia/Seoul' 시간대로 변환
+    const localDate = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+  
     const now = new Date(); // 현재 시간
-    const diffTime = now.getTime() - date.getTime(); // 시간 차이 계산
+    const localNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Seoul' })); // 현재 서울 시간
+  
+    const diffTime = localNow.getTime() - localDate.getTime(); // 시간 차이 계산
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); // 일 단위로 변환
-    const hours = date.getHours();
-    const minutes = date.getMinutes().toString().padStart(2, '0');
+  
+    const hours = localDate.getHours();
+    const minutes = localDate.getMinutes().toString().padStart(2, '0');
     const period = hours >= 12 ? '오후' : '오전';
-
+  
     if (diffDays === 0) {
       // 오늘인 경우 시간만 표시
-      return `${period} ${hours % 12 || 12}:${minutes}`
+      return `${period} ${hours % 12 || 12}:${minutes}`;
     } else if (diffDays === 1) {
       // 하루 전인 경우 '어제'로 표시
-      return "어제";
+      return '어제';
     } else {
       // 이틀 이상 차이 나는 경우 "00월 00일" 형식으로 표시
-      const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // UTC 기준 월
-      const day = String(date.getUTCDate()).padStart(2, "0"); // UTC 기준 일
+      const month = String(localDate.getMonth() + 1).padStart(2, '0'); // 서울 기준 월
+      const day = String(localDate.getDate()).padStart(2, '0'); // 서울 기준 일
       return `${month}월 ${day}일`;
     }
   };
