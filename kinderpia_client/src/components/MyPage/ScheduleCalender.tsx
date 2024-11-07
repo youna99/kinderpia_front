@@ -81,7 +81,7 @@ const ScheduleCalender: React.FC = () => {
         />
         <div className="meeting-list">
           <h4 className="today-title">
-            <span className="xi-calendar-check"></span>
+            <i className="xi-calendar-check"></i>
             {new Date(String(value)).toDateString() ===
             new Date().toDateString()
               ? '오늘의 모임 목록'
@@ -95,11 +95,11 @@ const ScheduleCalender: React.FC = () => {
               {selectedMeetings.map((meeting) => (
                 <li key={meeting.meetingId} className="today-meeting">
                   <span className="meeting-title">
-                    <span className="xi-label"></span>
+                    <i className="xi-label"></i>
                     {meeting.meetingTitle}
                   </span>{' '}
                   <span className="today-mettingtime">
-                    <span className="xi-time-o"></span>
+                    <i className="xi-time-o"></i>
                     {new Date(meeting.meetingTime).toLocaleTimeString([], {
                       hour: '2-digit',
                       minute: '2-digit',

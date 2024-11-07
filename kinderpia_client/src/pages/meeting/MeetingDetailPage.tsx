@@ -24,10 +24,10 @@ function MeetingDetailPage() {
   const { meetingId } = useParams<{ meetingId: string }>();
 
   // 초기 상태를 null로 설정하여 데이터 로딩 상태를 명확히 함
-  const [ meetingData, setMeetingData ] = useState<MeetingData>();
-  const [ userData, setUserData ] = useState<MeetingUserData>();
-  const [ isLoading, setIsLoading ] = useState(true);
-  const [ partStatus, setParticipate ] = useState(0);
+  const [meetingData, setMeetingData] = useState<MeetingData>();
+  const [userData, setUserData] = useState<MeetingUserData>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [partStatus, setParticipate] = useState(0);
 
   useEffect(() => {
     if (!meetingId) return;
@@ -46,7 +46,7 @@ function MeetingDetailPage() {
         if (response) {
           const formattedResults: MeetingData = {
             meetingId: response.meetingId,
-            chatroomId : response.chatroomId,
+            chatroomId: response.chatroomId,
             meetingTitle: response.meetingTitle,
             detailAddress: response.detailAddress,
             meetingCategory: response.meetingCategory,
@@ -60,7 +60,7 @@ function MeetingDetailPage() {
             meetingStatus: response.meetingStatus,
             createdAt: response.createdAt,
             userId: response.userId,
-            profileImg : response.profileImg,
+            profileImg: response.profileImg,
           };
           setParticipate(formattedResults.participants);
           setMeetingData(formattedResults);
@@ -118,10 +118,9 @@ function MeetingDetailPage() {
     }
   };
 
-  const participateObserver = ( p : number, add:number ) => {
-    setParticipate( p + add );
-  }
-
+  const participateObserver = (p: number, add: number) => {
+    setParticipate(p + add);
+  };
 
   if (!meetingId) {
     return <div>낫 타당한 접근방법! </div>;
@@ -132,13 +131,13 @@ function MeetingDetailPage() {
   }
 
   if (!meetingId) {
-    return <span className='xi-spinner-1'></span>;
+    return <i className="xi-spinner-1"></i>;
   }
 
   return (
     <div className="meeting-detail-page">
-      <MeetingInfo 
-        user={userData} 
+      <MeetingInfo
+        user={userData}
         data={meetingData}
         people={partStatus}
         observer={participateObserver}

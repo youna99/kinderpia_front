@@ -113,15 +113,15 @@ export default function LoginPage() {
             className="admin-link"
             aria-label="관리자 로그인 페이지로 이동"
           >
-            <span className="xi-crown admin-icon"></span>
+            <i className="xi-crown admin-icon"></i>
             <span>관리자 로그인</span>
           </a>
           <button>
-            <span className="xi-emoticon-smiley-o test-icon"></span>
+            <i className="xi-emoticon-smiley-o test-icon"></i>
             <span>테스트 계정 1</span>
           </button>
           <button>
-            <span className="xi-emoticon-smiley-o test-icon"></span>
+            <i className="xi-emoticon-smiley-o test-icon"></i>
             <span>테스트 계정 2</span>
           </button>
         </div>

@@ -90,7 +90,7 @@ export const ChangeProfileImg: React.FC<ChangeProfileImgProps> = ({
         onClick={handleImageChange}
         title="프로필 사진 변경하기"
       >
-        <span className="xi-camera change-img-btn"></span>
+        <i className="xi-camera change-img-btn"></i>
       </button>
     </form>
   );

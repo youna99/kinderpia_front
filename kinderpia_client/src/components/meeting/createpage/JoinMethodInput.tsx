@@ -17,7 +17,7 @@ const JoinMethodInput: React.FC<JoinMethodProps> = ({
     <div className="join-method-container">
       <div className="join-method-header">
         <label className="join-method-header-title">
-          신청 방식{isRequired && <span className='xi-check'></span>}
+          신청 방식{isRequired && <i className="xi-check"></i>}
         </label>
         <CheckMarker value={value} />
       </div>
