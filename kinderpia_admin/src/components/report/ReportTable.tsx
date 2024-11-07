@@ -8,12 +8,14 @@ interface ReportTableProps {
 }
 
 export const ReportTable: React.FC<ReportTableProps> = ({ reports, loading, reportReasons }) => {
+  
   const getReportTypeName = (report: ReportData): string => {
     if (report.chatmsgId) return '채팅';
     if (report.reviewId) return '리뷰';
     if (report.meetingId) return '모임';
     return '기타';
   };
+
   useEffect(()=>{
     if(!reports.length){
       console.log('>>>>>',reports);
@@ -32,7 +34,7 @@ export const ReportTable: React.FC<ReportTableProps> = ({ reports, loading, repo
     }
 
 
-    if (!reports) {
+    if (!reports.length) {
       return (
         <tr>
           <td colSpan={7} className="text-center py-4">

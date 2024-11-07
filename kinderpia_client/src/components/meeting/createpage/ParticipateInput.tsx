@@ -33,7 +33,7 @@ const ParticipateInput: React.FC<ParticipateInputProps> = ({
       const newHasLimit = e.target.value === 'limit';
       onLimitChange(newHasLimit);
       if (!newHasLimit) {
-        onChange && onChange(0);
+        onChange && onChange(99);
       } else {
         onChange && onChange(min);
       }
