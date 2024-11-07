@@ -20,14 +20,15 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
   useEffect(() => {
     const url = process.env.REACT_APP_API_URL || 'http://localhost:8080';
     const jwt = getJwtFromCookies();
+    const userId = Number(extractUserIdFromCookie());
     if(!jwt) return;
 
     // 클라이언트 초기화
     clientRef.current = new Client({
       webSocketFactory: () => new SockJS(`${url}/ws`),
       reconnectDelay: 5000,
-      heartbeatIncoming: 10000,
-      heartbeatOutgoing: 10000,
+      heartbeatIncoming: 20000,
+      heartbeatOutgoing: 20000,
       connectHeaders: {
         Authorization: `Bearer ${jwt}`,
       },
@@ -43,9 +44,10 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
                 const chatMessage = JSON.parse(message.body).body.data;
 
                 // 들어 있는 방 확인
-                if (chatMessage.chatroomId === currentChatroomId) {
+                if (chatMessage.chatroomId === currentChatroomId && chatMessage.senderId  !== userId) {
                   dispatch(setMessages([...messages, chatMessage]));
-                } else {
+
+                } else if(chatMessage.senderId !== userId){
                   // 안들어가있는 방 메시지 쌓인당
                   dispatch(addUnreadMessages(chatMessage));
                 }
@@ -84,7 +86,7 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
       ); // 모든 구독 해제
       subscriptionsRef.current.clear();
     };
-  }, [chatroomIds, currentChatroomId, dispatch]);
+  }, [chatroomIds, currentChatroomId]);
 
   let lastMessageTime: number | null = null;
   // 메세지 전송 함수
@@ -101,19 +103,20 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
       return;
     }
 
-
     lastMessageTime = nowTime;
 
     if (!chatroomId) return;
+    const messageObj = {
+      chatroomId,
+      senderId,
+      chatmsgContent: message,
+      createdAt: koreaTimeString,
+      messageType: "CHAT",
+    };
+    
     const chatSend = `/app/${chatroomId}/chatmsg`;
     if (clientRef.current?.connected) {
-      const messageObj = {
-        chatroomId,
-        senderId,
-        chatmsgContent: message,
-        createdAt: koreaTimeString,
-        messageType: "CHAT",
-      };
+      
       clientRef.current.publish({
         destination: chatSend,
         headers: {

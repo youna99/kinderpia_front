@@ -15,7 +15,6 @@ export default function ChatMembersMenu() {
   const dispatch = useDispatch();
 
   const { chatroom, open } = useSelector((state: RootState) => state.chat);
-  const token = getJwtFromCookies();
   const userId = Number(extractUserIdFromCookie());
 
   useEffect(() => {
