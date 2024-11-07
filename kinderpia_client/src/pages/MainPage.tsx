@@ -128,6 +128,7 @@ function MainPage() {
                   capacity={meeting.capacity}
                   totalCapacity={meeting.totalCapacity}
                   meetingStatus={meeting.meetingStatus}
+                  profileImg={meeting.profileImg}
                 />
               ))
           )}
