@@ -68,7 +68,7 @@ app.use((err, req, res, next) => {
 
 app.use(express.json());
 
-app.get('/map/api/search', async (req, res) => {
+app.get('/api/search', async (req, res) => {
   const { query } = req.query;
 
   if (!query) {
@@ -111,7 +111,7 @@ app.get('/map/api/search', async (req, res) => {
   }
 });
 
-app.get('/map/api/coordinate', async (req, res) => {
+app.get('/api/coordinate', async (req, res) => {
   const { query } = req.query;
 
   if (!query) {

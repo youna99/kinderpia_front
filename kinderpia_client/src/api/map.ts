@@ -2,12 +2,17 @@ import { requestHeader } from './requestHeader';
 import { SearchResultItem, LocationData } from '../types/map';
 import axios from 'axios';
 
-const API_BASE_URL= 'http://localhost:4000' // ||  process.env.REACT_APP_MAP_URL;
+// 개발/프로덕션 환경에 따른 기본 URL 설정
+const API_BASE_URL = process.env.NODE_ENV === 'development'
+  ? 'http://localhost:4000'
+  : '';
 
 export const searchLocation = async (query: string): Promise<SearchResultItem[]> => {
   try {
     const response = await axios.get(`${API_BASE_URL}/map/api/search`, {
-      params: { query }
+      params: { query },
+      // CORS 인증 정보 포함
+      withCredentials: true
     });
     console.log(response.data.places);
     return response.data.places;
@@ -17,10 +22,12 @@ export const searchLocation = async (query: string): Promise<SearchResultItem[]>
   }
 };
 
-export const getCoordinate = async(query :string) : Promise<LocationData> =>{
+export const getCoordinate = async(query: string): Promise<LocationData> => {
   try {
     const response = await axios.get(`${API_BASE_URL}/map/api/coordinate`, {
-      params: { query }
+      params: { query },
+      // CORS 인증 정보 포함
+      withCredentials: true
     });
     
     return response.data;

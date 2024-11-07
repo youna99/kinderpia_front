@@ -13,7 +13,6 @@ import LoginPage from './pages/LoginPage';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter basename="/admin">  {/* basename 추가 */}
         <Routes>
           <Route path="/" element={<AdminLayout />}>  {/* /admin 대신 / 사용 */}
             <Route index element={<Dashboard />} />
@@ -24,7 +23,6 @@ function App() {
           </Route>
           <Route path="/login" element={<LoginPage />} />
         </Routes>
-      </BrowserRouter>
     </div>
   );
 }
