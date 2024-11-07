@@ -5,6 +5,7 @@ import { MettingListInfo } from '../../types/meetinglist';
 import { getMeetingList, getMeetingListOpen, getMeetingListSearch } from '../../api/meetinglist';
 import { formatDetailDate } from '../../utils/formatDate';
 import '../../styles/meeting/MeetingPage.scss';
+import SeoulMap from '../../assets/seoulMap';
 
 const MeetingPage: React.FC = () => {
   const [meetings, setMeetings] = useState<MettingListInfo[]>([]);
@@ -16,6 +17,7 @@ const MeetingPage: React.FC = () => {
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
   
   const currentSearchTerm = useRef('');
   
@@ -45,7 +47,6 @@ const MeetingPage: React.FC = () => {
         size: 10,
         keyword: currentSearchTerm.current,
       });
-  
       if (!response) {
         if (isInitial) {
           setMeetings([]);
@@ -61,7 +62,7 @@ const MeetingPage: React.FC = () => {
       if (pageInfo?.page === pageInfo?.totalPages) {
         setHasMore(false);
       }
-  
+
       if (!newMeetings || newMeetings.length === 0) {
         if (isInitial) {
           setMeetings([]);
@@ -124,7 +125,7 @@ const MeetingPage: React.FC = () => {
     setIsInitialLoad(true);
     
     try {
-      const response = await getMeetingList({
+      const response = await getMeetingListSearch({
         keyword: searchTerm,
         page: 1,
         size: 10
@@ -175,11 +176,23 @@ const MeetingPage: React.FC = () => {
     return null;
   };
 
+  // 지역 선택 핸들러
+  const handleDistrictClick = (district: string) => {
+    setSelectedDistrict(district);
+    handleSearch(district);
+  };
+  
   return (
     <div className="meeting-page">
       <strong className="page-banner-txt">
         "함께하는 즐거움", 모임을 찾아보세요!
       </strong>
+      <div className="place-map-container">
+        <SeoulMap
+          onDistrictClick={handleDistrictClick}
+          selectedDistrict={selectedDistrict}
+        />
+      </div>
       <div className="meeting-search">
         <SearchInput
           placeholder="모임 검색하기"

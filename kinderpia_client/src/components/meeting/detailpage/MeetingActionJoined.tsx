@@ -4,8 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 // 컴포넌트 호출
 import CommonButton1 from '../../common/CommonButton1'
 import { MeetingData, MeetingUserData } from '../../../types/meeting';
-import { deleteLeaveMeeting, putEndMeeting } from '../../../api/meeting';
-import { simpleAlert } from '../../../utils/alert';
+import { deleteLeaveMeeting, putCompleteMeeting, putDeleteMeeting } from '../../../api/meeting';
+import { confirmAlert, simpleAlert } from '../../../utils/alert';
 import MeetingWaitListModal from './MeetingWaitListModal';
 
 interface MeetingActionJoinedProp{
@@ -41,7 +41,8 @@ const MeetingActionJoined: React.FC<MeetingActionJoinedProp> = ({
 
   const leaveMeeting = async (): Promise<void> => {
     try {
-      const confirmed = window.confirm('정말로 모임을 떠나시겠습니까?')
+      const confirmed = await confirmAlert('question','정말로 모임을 떠나시겠습니까?', '모임에서 당신을 기다리고 있어요');
+
       if (confirmed) {
         const result = await deleteLeaveMeeting(Number(meetingId));
         if (result) {
@@ -56,14 +57,16 @@ const MeetingActionJoined: React.FC<MeetingActionJoinedProp> = ({
 
   const deleteMeeting = async (): Promise<void> => {
     try {
-      const confirmed = window.confirm('정말로 모임을 종료하시겠습니까?')
+      const confirmed = await confirmAlert('question','정말로 모임을 삭제하시겠습니까?','모임에 모인 사람들이 흩어지게 될거에요')
       if (confirmed) {
-        const result = await putEndMeeting(Number(meetingId));
-        simpleAlert('success','모임을 종료했습니다! 다음에 봐요', 'center');
-        navigate(`/meeting`);
+        const result = await putDeleteMeeting(Number(meetingId));
+        if(result){
+          simpleAlert('success','모임을 삭제했습니다! 다음에 봐요', 'center');
+          navigate(`/meeting`);
+        }
       }
     } catch (error) {
-      console.error('모임 종료 중 오류 발생:', error)
+      console.error('모임 삭제 중 오류 발생:', error)
     }
   }
 
@@ -72,6 +75,21 @@ const MeetingActionJoined: React.FC<MeetingActionJoinedProp> = ({
       navigate(`/meeting/${meetingId}/edit`);
     } catch (error) {
       console.error('모임 수정 중 오류 발생:', error)
+    }
+  }
+
+  const endMeeting = async ():Promise<void> =>{
+    try{
+      const confirmed = await confirmAlert('question', '정말로 모임을 마감 하시겠습니까?', '더이상 사람들이 참여할 수 없게 됩니다.')        
+      if (confirmed) {
+        const result = await putCompleteMeeting(Number(meetingId));
+        if(result){
+          simpleAlert('success','모임을 종료했습니다! 다음에 봐요', 'center');
+          navigate(`/meeting`);
+        }
+      }
+    } catch (error) {
+      console.error('모임 종료 중 오류 발생:', error)
     }
   }
   const openWaitingList = async (): Promise<void> => {
@@ -90,6 +108,12 @@ const MeetingActionJoined: React.FC<MeetingActionJoinedProp> = ({
         ? <>
           <CommonButton1
             text='모임 종료하기'
+            onClick={endMeeting}
+            disabled={false}
+            isLoading={false}
+          />
+          <CommonButton1
+            text='모임 삭제하기'
             onClick={deleteMeeting}
             disabled={false}
             isLoading={false}
@@ -116,7 +140,6 @@ const MeetingActionJoined: React.FC<MeetingActionJoinedProp> = ({
           isLoading={false}
         />
       }
-      
       <MeetingWaitListModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

@@ -11,7 +11,7 @@ interface TitleInputProps {
 const TitleInput: React.FC<TitleInputProps> = ({
   value,
   onChange,
-  maxLength = 20,
+  maxLength = 80,
   placeholder = '모임 제목을 입력해주세요',
 }) => {
   const currentLength = value.length;

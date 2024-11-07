@@ -93,11 +93,21 @@ export const postJoinMeeting = async (
     throw error;
   }
 };
+
 // 모임 종료하기
-export const putEndMeeting = async(
+export const putDeleteMeeting = async(
   meetingId : number
 ) => {
-  const response = await requestHeader.put(`/api/meeting/${meetingId}/end`);
+  const response = await requestHeader.put(`/api/meeting/${meetingId}/deleted`);
+
+  return response.data;
+}
+
+// 모임 종료하기
+export const putCompleteMeeting = async(
+  meetingId : number
+) => {
+  const response = await requestHeader.put(`/api/meeting/${meetingId}/completed`);
 
   return response.data;
 }

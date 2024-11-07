@@ -13,7 +13,7 @@ export default function NavBar() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const hasUnreadMessages = rooms.some(
+    const hasUnreadMessages = rooms?.some(
       (room) => unreadCounts[room.chatroomId] > 0
     );
     dispatch(setBadge(hasUnreadMessages));
