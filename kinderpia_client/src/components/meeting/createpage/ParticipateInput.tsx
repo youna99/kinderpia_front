@@ -52,9 +52,9 @@ const ParticipateInput: React.FC<ParticipateInputProps> = ({
 
   return (
     <div className="participate-input-container">
-      <div className='participate-input-header'>
+      <div className="participate-input-header">
         <label className="participate-input-header-title">
-          참여 인원<span className='xi-check'></span>
+          참여 인원<i className="xi-check"></i>
         </label>
         <CheckMarker value={value} />
       </div>
@@ -71,7 +71,7 @@ const ParticipateInput: React.FC<ParticipateInputProps> = ({
             />
             제한 없음
           </label>
-          <label >
+          <label>
             <input
               type="radio"
               name="participateLimit"

@@ -147,7 +147,7 @@ const MeetingHistory: React.FC<MyInfoProps> = ({ userInfo }) => {
             <option value="created">내가 만든 모임</option>
             <option value="ongoing">모집중인 모임</option>
           </select>
-          <span className="xi-angle-down-thin dropdown-icon"></span>
+          <i className="xi-angle-down-thin dropdown-icon"></i>
         </div>
       </div>
       <div className="meeting-list">

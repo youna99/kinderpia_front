@@ -8,36 +8,36 @@ import '../../styles/meeting/createpage/MapSelector.scss';
 interface MapSelectorProps {
   location: string;
   district: string;
-  detailAddress:string;
+  detailAddress: string;
   onChangeL: (address: string) => void;
-  onChangeA: (detailAddress:string) =>void;
+  onChangeA: (detailAddress: string) => void;
   onChangeD: (district: string) => void;
 }
 
 interface SearchResult {
   address: string;
-  district : string;
-  detailAddress : string;
+  district: string;
+  detailAddress: string;
   latitude: number;
   longitude: number;
 }
 
-const MapSelector: React.FC<MapSelectorProps> = ({ 
+const MapSelector: React.FC<MapSelectorProps> = ({
   location,
   district,
   detailAddress,
   onChangeL,
   onChangeA,
-  onChangeD
+  onChangeD,
 }) => {
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<SearchResult>({
-    address: "",
+    address: '',
     district: '',
     detailAddress: '',
     latitude: 37.5662952,
-    longitude: 126.9779451
+    longitude: 126.9779451,
   });
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -53,19 +53,19 @@ const MapSelector: React.FC<MapSelectorProps> = ({
       const extractDistrict = (address: string | null | undefined): string => {
         // 주소가 없거나 빈 문자열인 경우 처리
         if (!address) return '';
-        
+
         // "구" 패턴 찾기 (서울특별시/경기도 등의 구)
         const districtMatch = address.match(/\s([^\s]+구)\s/);
-        
+
         // 매치된 결과가 있으면 구 이름 반환, 없으면 빈 문자열 반환
         return districtMatch ? districtMatch[1] : '';
       };
-      const formattedResults: SearchResult[] = results.map(item => ({
+      const formattedResults: SearchResult[] = results.map((item) => ({
         address: item.name,
-        district : extractDistrict(item.address),
+        district: extractDistrict(item.address),
         detailAddress: item.address || item.roadAddress,
         latitude: item.coordinates.lat,
-        longitude: item.coordinates.lng
+        longitude: item.coordinates.lng,
       }));
       setSearchResults(formattedResults);
       setIsDropdownOpen(true);
@@ -97,15 +97,17 @@ const MapSelector: React.FC<MapSelectorProps> = ({
 
   return (
     <div className="map-selector-container">
-      <div className='map-selector-header'>
-        <label className="map-selector-header-title">모임 장소<span className='xi-check'></span></label>
+      <div className="map-selector-header">
+        <label className="map-selector-header-title">
+          모임 장소<i className="xi-check"></i>
+        </label>
         <CheckMarker value={location} />
       </div>
-      <hr/>
+      <hr />
       <div className="map-selector-content">
         <div className="map-selector-search-box">
           <div className="map-selector-search-input-wrapper">
-            <input 
+            <input
               className="map-selector-search-input"
               placeholder="장소 검색하기 (Enter를 눌러 검색)"
               value={searchInput}
@@ -113,13 +115,12 @@ const MapSelector: React.FC<MapSelectorProps> = ({
               onKeyPress={handleKeyPress}
               // onBlur={handleSearchSubmit}
             />
-
           </div>
 
           {isDropdownOpen && searchResults.length > 0 && (
             <div className="map-selector-results-dropdown">
               {searchResults.map((result, index) => (
-                <div 
+                <div
                   key={index}
                   className="map-selector-result-item"
                   onClick={() => handleLocationSelect(result)}
@@ -135,11 +136,11 @@ const MapSelector: React.FC<MapSelectorProps> = ({
           <DynamicMapView
             center={{
               lat: Number(selectedLocation?.latitude) || 37.5662952,
-              lng: Number(selectedLocation?.longitude) || 126.9779451
+              lng: Number(selectedLocation?.longitude) || 126.9779451,
             }}
             marker={{
               lat: Number(selectedLocation?.latitude) || 37.5662952,
-              lng: Number(selectedLocation?.longitude) || 126.9779451
+              lng: Number(selectedLocation?.longitude) || 126.9779451,
             }}
           />
         </div>

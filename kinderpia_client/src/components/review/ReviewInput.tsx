@@ -119,9 +119,9 @@ const ReviewInput: React.FC<ReviewInputProps> = ({
             disabled={isSubmitting}
           >
             {rating <= star ? (
-              <span className="xi-star"></span>
+              <i className="xi-star"></i>
             ) : (
-              <span className="xi-star-o"></span>
+              <i className="xi-star-o"></i>
             )}
           </button>
         ))}

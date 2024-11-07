@@ -8,13 +8,11 @@ interface DescInputProps {
 const DescInput: React.FC<DescInputProps> = ({ value, onChange }) => {
   return (
     <div className="desc-input-container">
-      <div className='desc-input-header'>
+      <div className="desc-input-header">
         <label className="desc-input-header-title">
-          모임 소개<span className='xi-check'></span>
+          모임 소개<i className="xi-check"></i>
         </label>
-        <CheckMarker
-          value={value}
-        />
+        <CheckMarker value={value} />
       </div>
       <hr />
       <textarea

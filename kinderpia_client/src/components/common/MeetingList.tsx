@@ -20,7 +20,7 @@ const MeetingList: React.FC<MettingListInfo> = ({
 }) => {
   const [mtStatus, setMtStatus] = useState('ONGOING');
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     let isSubscribed = true;
     const fetchData = async () => {
@@ -35,9 +35,9 @@ const MeetingList: React.FC<MettingListInfo> = ({
         }
       }
     };
-  
+
     fetchData();
-  
+
     return () => {
       isSubscribed = false;
     };
@@ -67,7 +67,7 @@ const MeetingList: React.FC<MettingListInfo> = ({
               className="leader-img"
             />
             <span className="meetWriter">{nickname}</span>
-            <span className="xi-group meeting-icon"></span>
+            <i className="xi-group meeting-icon"></i>
             <span className="meetParticipants">
               {totalCapacity === 99
                 ? '제한 없음'

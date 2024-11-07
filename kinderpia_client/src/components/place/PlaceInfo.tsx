@@ -28,7 +28,7 @@ const PlaceInfo: React.FC<PlaceInfoProps> = ({ data, ratingAndCategory }) => {
         <div className="place-info-wrapper">
           <div className="place-info-wrapper-title">{data.placeName}</div>
           <div className="place-info-wrapper-star">
-            <span className="xi-star"></span> {ratingAndCategory.averageStar}
+            <i className="xi-star"></i> {ratingAndCategory.averageStar}
           </div>
           <div
             className="place-info-wrapper-btn"
