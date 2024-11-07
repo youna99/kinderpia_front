@@ -19,7 +19,6 @@ const PlaceDetailPage: React.FC = () => {
   const [reviewcreate, setReviewcreate] = useState<boolean>(false); // 리뷰작성완료상태
   const [reviewdelete, setReviewdelete] = useState<boolean>(false); // 리뷰삭제완료상태
 
-  const navigate = useNavigate();
 
   const handleReviewSubmit = () => {
     setReviewcreate((prev) => !prev); // 리뷰가 제출되면 상태를 변경
@@ -33,12 +32,14 @@ const PlaceDetailPage: React.FC = () => {
   const getPlaceDetail = async () => {
     try {
       const data = await getPlace(placeId);
-      console.log('data.data >>>', data.data);
-
+      if (!data) {
+        console.log(data);
+        return;
+      }
+      
       setPlaceDetail(data.data);
       setRatingAndCategorys(data.data);
     } catch (error) {
-      navigate('/not-found', { replace: true });
       console.log('장소목록 가져오는 중 에러 발생!: ', error);
     }
   };
@@ -46,7 +47,6 @@ const PlaceDetailPage: React.FC = () => {
   useEffect(() => {
     if (!placeId) return;
     setIsLoading(true);
-
     try {
       getPlaceDetail();
     } catch (error) {

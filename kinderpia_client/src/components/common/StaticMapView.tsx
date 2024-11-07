@@ -13,10 +13,9 @@ interface MapViewProps {
 }
 
 const StaticMapView: React.FC<MapViewProps> = ({
-  location = '',
+  location = '서울특별시 영등포구 문래동 선유로9길 30',
 }) => {
-  const [src, setSrc] = useState('');
-
+  const [src, setSrc] = useState('https://simg.pstatic.net/static.map/v2/map/staticmap.bin?crs=EPSG:4326&baselayer=bl_vc_bg&overlayers=ol_vc_an&scale=2&caller=mw_smart_booking&overlayers=ol_vc_an&center=126.8855805,37.5181672&markers=color:0xFF0000|type:c|size:small|label:a|pos:126.8855805%2037.5181672&level=14&w=335&h=170&lang=ko');
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
