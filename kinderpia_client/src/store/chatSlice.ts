@@ -42,6 +42,8 @@ const chatSlice = createSlice({
     },
     setMessages: (state, action: PayloadAction<ChatMessageInfo[]>) => {
       state.messages = action.payload;
+      console.log('헤이 메시지',action.payload);
+      
     },
     setMsgPages: (state, action: PayloadAction<ChatPageInfo>) => {
       state.msgPages = action.payload;
