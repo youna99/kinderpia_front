@@ -38,7 +38,7 @@ const MeetingInfoDetail: React.FC<MeetingInfoDetailProps> = ({
     setHashText(authType ? '승인 후 참가 가능' : '누구나 참가 가능');
     switch(meetingStatus){
       case 'ONGOING' : setHashText2('모집중'); break;
-      case 'COMPLETED' : setHashText2('인원 마감'); break;
+      case 'COMPLETED' : setHashText2('모집 완료'); break;
       case 'END' : setHashText2('모임 종료'); break;
       case 'DELETED' : setHashText2('모임 삭제'); break;
       default : setHashText2('오류입니다!'); break;
