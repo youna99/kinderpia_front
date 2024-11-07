@@ -34,10 +34,15 @@ export const getMeetingListSearch = async (params :{
   page? : number,
   size? : number,
 }) => {
-  const response = await requestHeader.get('/api/meeting/list/search', {
-    params,
-  });
-  return response.data;
+  try {
+    const response = await requestHeader.get('/api/meeting/list/search', {
+      params,
+    });
+    return response.data;
+  } catch (error) {
+    // console.log(error);
+    return;
+  }
 };
 
 
