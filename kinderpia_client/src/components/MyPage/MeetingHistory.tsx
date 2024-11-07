@@ -3,14 +3,7 @@ import MeetingList from '../common/MeetingList';
 import '../../styles/mypage/MeetingHistory.scss';
 import { formatDetailDate } from '../../utils/formatDate';
 import { requestHeader } from '../../api/requestHeader';
-interface MeetingHistoryProps {
-  userInfo: {
-    userId: string | null;
-    profileImg?: string;
-    nickname?: string;
-  } | null;
-}
-
+import { MyInfoProps } from '../../types/user';
 export interface MettingListInfo {
   capacity: number;
   createdAt: string;
@@ -26,7 +19,7 @@ export interface MettingListInfo {
   profileImg: string;
 }
 
-const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userInfo }) => {
+const MeetingHistory: React.FC<MyInfoProps> = ({ userInfo }) => {
   const [meetings, setMeetings] = useState<MettingListInfo[]>([]);
   const [filter, setFilter] = useState<string>('all');
   const [page, setPage] = useState(1); // 현재 페이지 상태
@@ -34,44 +27,26 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userInfo }) => {
 
   useEffect(() => {
     const fetchMeetings = async () => {
+      if (!userInfo) return;
+
       try {
-        if (!userInfo) return;
-
         let response;
-        if (filter === 'all') {
-          response = await requestHeader.get(
-            `/api/user/meeting/list?page=1&size=10`
-          );
-          console.log('전체모임데이터', response.data);
-          console.log('전체모임데이터', response.data.data.pageInfo.page);
-          console.log('전체모임데이터', response.data.data.pageInfo.totalPages);
-        } else if (filter === 'created') {
-          response = await requestHeader.get(
-            `/api/user/meeting/leader/list?page=1&size=10`
-          );
-          console.log('내가만든 모임데이터', response.data);
-        } else if (filter === 'ongoing') {
-          const allMeetings = await requestHeader.get(
-            `/api/user/meeting/list?page=1&size=10`
-          );
-          console.log('모집중인 모임데이터', allMeetings.data);
-
-          const ongoingMeetings = allMeetings.data.data.dataList.filter(
-            (meeting: MettingListInfo) => meeting.meetingStatus === 'ONGOING'
-          );
-          response = {
-            data: {
-              status: allMeetings.data.status,
-              data: {
-                dataList: ongoingMeetings,
-                pageInfo: allMeetings.data.data.pageInfo,
-              },
-            },
-          };
-          console.log('모집중필터 모임데이터', response.data);
+        switch (filter) {
+          case 'all':
+            response = await fetchAllMeetings(page);
+            break;
+          case 'created':
+            response = await fetchCreatedMeetings(page);
+            break;
+          case 'ongoing':
+            response = await fetchOngoingMeetings(page);
+            break;
+          default:
+            break;
         }
+
         if (response) {
-          setMeetings(response.data.data.dataList);
+          setMeetings(response);
         }
       } catch (error) {
         console.error('모임 목록 로드 중 오류 발생:', error);
@@ -79,7 +54,31 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userInfo }) => {
     };
 
     fetchMeetings();
-  }, [userInfo, filter]);
+  }, [userInfo, filter, page]);
+
+  const fetchAllMeetings = async (page: number) => {
+    const response = await requestHeader.get(
+      `/api/user/meeting/list?page=${page}&size=10`
+    );
+    console.log('전체모임데이터', response.data.data.dataList);
+    return response.data.data.dataList;
+  };
+
+  const fetchOngoingMeetings = async (page: number) => {
+    const allMeetings = await fetchAllMeetings(page);
+    const filteredOngoingMeetings = await allMeetings.data.data.dataList.filter(
+      (meeting: MettingListInfo) => meeting.meetingStatus === 'ONGOING'
+    );
+    console.log(filteredOngoingMeetings);
+  };
+
+  const fetchCreatedMeetings = async (page: number) => {
+    const response = await requestHeader.get(
+      `/api/user/meeting/leader/list?page=${page}&size=10`
+    );
+    console.log('내가만든 모임데이터', response.data.data.dataList);
+    return response.data.data.dataList;
+  };
 
   return (
     <section id="mymeeting">
