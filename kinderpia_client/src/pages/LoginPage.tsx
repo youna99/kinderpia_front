@@ -31,6 +31,47 @@ export default function LoginPage() {
       return newShowPassword;
     });
   };
+  interface LoginData {
+    loginId: string;
+    userPw: string;
+  }
+  
+  const simpleDummyLogin = async (id: number) => {
+    let data: LoginData = {
+      loginId: '',
+      userPw: ''
+    };
+    
+    switch (id) {
+      case 1:
+        data = {
+          loginId: 'test1234',
+          userPw: 'test1234'
+        };
+        break;
+      case 2:
+        data = {
+          loginId: 'test1234',
+          userPw: 'test1234'
+        };
+        break;
+      default:
+        break;
+    }
+    
+    try {
+      const result = await postUserLogin(data);
+
+      if (!result) {
+        return null;
+      }
+
+      navigate('/');
+    } catch (error) {
+      console.error('Login error:', error);
+      return null;
+    }
+  };
 
   // 해당 필드를 빈 문자열로 설정
   const clearInput = (field: 'loginId' | 'userPw') => {
@@ -108,19 +149,21 @@ export default function LoginPage() {
           >
             회원가입
           </Link>
-          <a
-            href="https://www.naver.com"
-            className="admin-link"
-            aria-label="관리자 로그인 페이지로 이동"
+          <Link
+            to={'/admin'}
+            aria-label="관리자 로그인"
           >
             <i className="xi-crown admin-icon"></i>
-            <span>관리자 로그인</span>
-          </a>
-          <button>
+          </Link>
+          <button
+            // onClick={()=>{simpleDummyLogin(1)}}
+          >
             <i className="xi-emoticon-smiley-o test-icon"></i>
             <span>테스트 계정 1</span>
           </button>
-          <button>
+          <button
+            // onClick={()=>{simpleDummyLogin(2)}}
+          >
             <i className="xi-emoticon-smiley-o test-icon"></i>
             <span>테스트 계정 2</span>
           </button>

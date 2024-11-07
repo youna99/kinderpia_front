@@ -8,11 +8,11 @@ import Members from './pages/Members';
 import Groups from './pages/Meetings';
 import Reports from './pages/Reports';
 import BadPersons from './pages/BadPersons';
-import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
     <div className="App">
+      <BrowserRouter basename="/admin">  {/* basename 추가 */}
         <Routes>
           <Route path="/" element={<AdminLayout />}>  {/* /admin 대신 / 사용 */}
             <Route index element={<Dashboard />} />
@@ -21,8 +21,8 @@ function App() {
             <Route path="reports" element={<Reports />} />
             <Route path="blacklist" element={<BadPersons />} />
           </Route>
-          <Route path="/login" element={<LoginPage />} />
         </Routes>
+      </BrowserRouter>
     </div>
   );
 }
