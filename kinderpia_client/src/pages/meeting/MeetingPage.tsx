@@ -47,7 +47,6 @@ const MeetingPage: React.FC = () => {
         size: 10,
         keyword: currentSearchTerm.current,
       });
-  
       if (!response) {
         if (isInitial) {
           setMeetings([]);

@@ -23,7 +23,6 @@ const MeetingList: React.FC<MettingListInfo> = ({
   
   useEffect(() => {
     let isSubscribed = true;
-  
     const fetchData = async () => {
       try {
         const data = await getCheckMeetingStatus(meetingId);
