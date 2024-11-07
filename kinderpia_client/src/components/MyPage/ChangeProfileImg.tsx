@@ -52,7 +52,7 @@ export const ChangeProfileImg: React.FC<ChangeProfileImgProps> = ({
 
           try {
             const response = await axios.put(
-              `http://localhost:8080/api/user/profileImg`,
+              `${process.env.REACT_APP_API_URL}/api/user/profileImg`,
               formData,
               {
                 headers: {
