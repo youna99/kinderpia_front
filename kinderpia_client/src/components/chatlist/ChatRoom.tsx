@@ -22,16 +22,13 @@ export default function ChatRoom({ room, onClick }: ChatRoomProp) {
     const now = new Date(); // 현재 시간
     const diffTime = now.getTime() - date.getTime(); // 시간 차이 계산
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); // 일 단위로 변환
+    const hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const period = hours >= 12 ? '오후' : '오전';
 
     if (diffDays === 0) {
       // 오늘인 경우 시간만 표시
-      const options: Intl.DateTimeFormatOptions = {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-        timeZone: "Asia/Seoul",
-      };
-      return new Intl.DateTimeFormat("ko-KR", options).format(date);
+      return `${period} ${hours % 12 || 12}:${minutes}`
     } else if (diffDays === 1) {
       // 하루 전인 경우 '어제'로 표시
       return "어제";
