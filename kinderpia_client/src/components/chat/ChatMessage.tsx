@@ -49,18 +49,44 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
     return () => clearTimeout(timer);
   };
 
-  // 시간 포맷팅 함수
-  const formatDateTime = (time: string): string => {
-    const date = new Date(time); // 입력된 시간을 Date 객체로 변환
-
-    const localDate = new Date(date.toLocaleString('en-US', {timeZone : 'Asia/Seoul'}))
-
-    const hours = localDate.getHours();
-    const minutes =  localDate.getMinutes().toString().padStart(2, '0')
+  const formatTime = (datestring: string): string | undefined => {
+    if (!datestring) return;
+  
+    // 입력된 날짜 문자열을 "YYYY-MM-DD HH:MM:SS" 형식으로 파싱
+    const [datePart, timePart] = datestring.split(' '); // '2024-11-08'과 '01:22:29' 분리
+    const [hours, minutes] = timePart.split(':').map(Number); // 시간과 분 분리
+  
+    // 서울 시간 기준으로 변환
+    const now = new Date();
+    
+    // 서울 시간을 직접 계산하는 방식
+    const localNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+    
+    // 입력된 시간과 현재 시간의 차이 계산
+    const inputDate = new Date(`${datePart}T${timePart}`);
+    const localInputDate = new Date(inputDate.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+  
+    const diffTime = localNow.getTime() - localInputDate.getTime(); // 시간 차이 계산
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); // 일 단위로 변환
+  
+    // 오전/오후 계산
     const period = hours >= 12 ? '오후' : '오전';
-    const formattedTime = `${period} ${hours % 12 || 12}:${minutes}`
-
-    return formattedTime;
+  
+    // 12시간제로 포맷팅
+    const displayHours = hours % 12 || 12;
+    const formattedMinutes = minutes.toString().padStart(2, '0');
+  
+    // 오늘 기준으로 표시
+    if (diffDays === 0) {
+      return `${period} ${displayHours}:${formattedMinutes}`;
+    } else if (diffDays === 1) {
+      // 하루 전인 경우 '어제'로 표시
+      return '어제';
+    } else {
+      // 이틀 이상 차이 나는 경우 "00월 00일" 형식으로 표시
+      const [year, month, day] = datePart.split('-');
+      return `${month}월 ${day}일`;
+    }
   };
 
   // senderId 로 확인해서 자신인지 아닌지 확인
@@ -95,7 +121,7 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
               >
                 {chatmsgContent}
               </span>
-              <span className="message-time">{formatDateTime(createdAt)}</span>
+              <span className="message-time">{formatTime(createdAt)}</span>
               {isModalOpen ? (
                 <ChatReport
                   setOpen={setIsModalOpen}
