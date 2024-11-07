@@ -10,6 +10,7 @@ interface MeetingInfoDetailProps {
   authType: boolean;    
   meetingStatus: string;
   people:number;
+  profileImg:string;
 }
 
 const MeetingInfoDetail: React.FC<MeetingInfoDetailProps> = ({
@@ -20,7 +21,8 @@ const MeetingInfoDetail: React.FC<MeetingInfoDetailProps> = ({
   totalCapacity,
   authType,
   meetingStatus,
-  people
+  people,
+  profileImg
 }) => {
   const [hashText, setHashText] = useState<string>('');
   const [hashText2, setHashText2] = useState<string>('');
@@ -60,8 +62,11 @@ const MeetingInfoDetail: React.FC<MeetingInfoDetailProps> = ({
         </div>
         <div className='meeting-info-detail-wrapper-human'>
           <div className='meeting-info-detail-wrapper-human-writer'>
-            <div className='meeting-info-detail-wrapper-human-writer-profileImage'>
-            </div>
+            <img
+              src={profileImg || '/images/usericon.png'}
+              alt=""
+              className='meeting-info-detail-wrapper-human-writer-profileImage'
+            />
             <div className='meeting-info-detail-wrapper-human-writer-name'>
               {nickname}
             </div>

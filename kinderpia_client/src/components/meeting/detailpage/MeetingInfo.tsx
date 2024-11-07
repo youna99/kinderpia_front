@@ -31,6 +31,7 @@ const MeetingInfo: React.FC<MeetingInfoProps> = ({ data, user, people,observer }
         authType={data.authType}
         people={people}
         meetingStatus={data.meetingStatus}
+        profileImg={data.profileImg}
       />
       <MeetingInfoDesc
         createdAt={data.createdAt}

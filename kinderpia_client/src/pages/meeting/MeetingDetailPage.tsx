@@ -42,6 +42,8 @@ function MeetingDetailPage() {
           userId,
           meetingId: Number(meetingId),
         });
+        console.log(response);
+        
 
         if (response) {
           const formattedResults: MeetingData = {
@@ -59,6 +61,7 @@ function MeetingDetailPage() {
             meetingStatus: response.meetingStatus,
             createdAt: response.createdAt,
             userId: response.userId,
+            profileImg : response.profileImg,
           };
           setParticipate(formattedResults.participants);
           setMeetingData(formattedResults);

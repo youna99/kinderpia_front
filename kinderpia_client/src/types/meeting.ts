@@ -30,6 +30,7 @@ export interface MeetingDetailData {
   meetingStatus: 'ONGOING' | 'COMPLETED' | 'CANCELLED';  // 가능한 상태값들을 명시적으로 정의
   createdAt: string;      // ISO 8601 형식의 날짜 문자열
   authType: boolean;
+  profileImg : string;
  }
 export interface MeetingData{
   meetingId : number;
@@ -46,6 +47,7 @@ export interface MeetingData{
   meetingStatus : string;
   createdAt :string;
   userId :number;
+  profileImg:string;
 }
 
 export interface MeetingUserData{
