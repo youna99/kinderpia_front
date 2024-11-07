@@ -1,10 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { confirmAlert } from '../../utils/alert';
+import { checkDuplicate, deleteUser } from '../../api/user';
 
-export const ResignBtn = ({ userId }: { userId: string | null }) => {
+export const ResignBtn = () => {
   const navigate = useNavigate();
 
   const handleResignClick = async () => {
@@ -39,14 +40,7 @@ export const ResignBtn = ({ userId }: { userId: string | null }) => {
           } else {
             // 비밀번호 확인 API 호출
             try {
-              const response = await axios.post(
-                'http://localhost:8080/api/user/check/userpw',
-                {
-                  userId: userId,
-                  userPw: password,
-                },
-                { withCredentials: true }
-              );
+              const response = await checkDuplicate('userPw', password);
               if (response.data.status === 200) {
                 return password; // 비밀번호가 일치하면 password 반환
               }
@@ -76,12 +70,12 @@ export const ResignBtn = ({ userId }: { userId: string | null }) => {
       if (password) {
         // 비밀번호가 확인되면 탈퇴 API 호출
         try {
-          const response = await axios.patch(
-            `http://localhost:8080/api/user/logical/${userId}`,
-            { withCredentials: true }
-          );
+          const response = await deleteUser();
           if (response.status === 200) {
             Swal.fire('탈퇴가 완료되었습니다.', '감사합니다.', 'success');
+            // 로그아웃처리 : 쿠키삭제
+            document.cookie =
+              'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
             navigate('/'); // 탈퇴 후 홈으로 이동
           }
         } catch (error) {

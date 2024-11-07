@@ -21,10 +21,9 @@ const ScheduleCalender: React.FC = () => {
   const fetchMeetings = async () => {
     try {
       const response = await getUserMeetingScheduleList();
-      console.log(response);
-      const fetchedMeetings: Meeting[] = response.data.data; // API에서 받은 데이터
+      // console.log('사용자 모임 일정 목록 조회', response);
+      const fetchedMeetings: Meeting[] = response.data.data;
       setMeetings(fetchedMeetings);
-
       const today = new Date();
       const todayMeetings = fetchedMeetings.filter(
         (meeting) =>
@@ -82,26 +81,29 @@ const ScheduleCalender: React.FC = () => {
         />
         <div className="meeting-list">
           <h4 className="today-title">
+            <span className="xi-calendar-check"></span>
             {new Date(String(value)).toDateString() ===
             new Date().toDateString()
               ? '오늘의 모임 목록'
-              : '선택한 날짜의 모임 목록'}
+              : `${new Date(String(value)).toLocaleDateString('ko-KR', {
+                  month: 'long',
+                  day: 'numeric',
+                })} 모임 목록`}
           </h4>
           {selectedMeetings.length > 0 ? (
             <ul>
               {selectedMeetings.map((meeting) => (
-                <li key={meeting.meetingId}>
-                  <span>
+                <li key={meeting.meetingId} className="today-meeting">
+                  <span className="meeting-title">
+                    <span className="xi-label"></span>
                     {meeting.meetingTitle}
-                    <span></span>{' '}
-                  </span>
-                  -
-                  <span>
-                    <span className="xi-alarm"></span>
+                  </span>{' '}
+                  <span className="today-mettingtime">
+                    <span className="xi-time-o"></span>
                     {new Date(meeting.meetingTime).toLocaleTimeString([], {
                       hour: '2-digit',
                       minute: '2-digit',
-                    })}{' '}
+                    })}
                   </span>
                 </li>
               ))}

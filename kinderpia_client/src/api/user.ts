@@ -23,13 +23,20 @@ export const getUser = async () => {
   return response;
 };
 
-// 회원정보수정
+// 회원정보수정 개별
 export const updateUser = async (data: { [key: string]: any }) => {
   const response = await requestHeader.put('/api/user', data);
   return response;
 };
 
+// 사용자 모임 일정 목록 조회
 export const getUserMeetingScheduleList = async () => {
   const response = await requestHeader.get(`/api/user/meetingTime/list`);
+  return response;
+};
+
+// 회원 탈퇴
+export const deleteUser = async () => {
+  const response = await requestHeader.patch('/api/user/logical');
   return response;
 };

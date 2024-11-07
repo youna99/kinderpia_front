@@ -1,22 +1,17 @@
 import React, { useState } from 'react';
 import RegisterInput from '../../components/FormInput';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import axios from 'axios';
 import { simpleAlert } from '../../utils/alert';
 import { useNavigate } from 'react-router-dom';
-
-interface EditUserFormProps {
-  userPw?: string;
-  pwCheck?: string;
-  phoneNum?: string;
-}
+import { checkDuplicate } from '../../api/user';
+import { requestHeader } from '../../api/requestHeader';
+import { EditUserFormProps } from '../../types/user';
 
 interface EditUserInfoProps {
-  userId: string | null;
-  onUpdate: () => void; // onUpdate prop 추가
+  onUpdate: () => void;
 }
 
-export const EditUserInfo = ({ userId, onUpdate }: EditUserInfoProps) => {
+export const EditUserInfo = ({ onUpdate }: EditUserInfoProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [eyeIconClass, setEyeIconClass] = useState('xi-eye');
   const [isPhoneNumChecked, setIsPhoneNumChecked] = useState(false);
@@ -39,7 +34,6 @@ export const EditUserInfo = ({ userId, onUpdate }: EditUserInfoProps) => {
     },
   });
 
-  // 비밀번호 보이기/안보이기 아이콘 토글
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => {
       const newShowPassword = !prev;
@@ -48,7 +42,6 @@ export const EditUserInfo = ({ userId, onUpdate }: EditUserInfoProps) => {
     });
   };
 
-  // 인풋창 지우기 함수
   const clearInput = (field: 'userPw' | 'pwCheck' | 'phoneNum') => {
     setValue(field, '');
   };
@@ -56,14 +49,7 @@ export const EditUserInfo = ({ userId, onUpdate }: EditUserInfoProps) => {
   // 전화번호 중복확인
   const checkDuplicatePhoneNum = async (phoneNum: string) => {
     try {
-      const response = await axios.post(
-        'http://localhost:8080/api/user/check/phoneNum',
-        {
-          phoneNum,
-        },
-        { withCredentials: true }
-      );
-
+      const response = await checkDuplicate('phoneNum', phoneNum);
       if (response.data.data === false) {
         setError('phoneNum', {
           type: 'manual',
@@ -108,10 +94,7 @@ export const EditUserInfo = ({ userId, onUpdate }: EditUserInfoProps) => {
     if (userPw) updateData.userPw = userPw;
 
     try {
-      const response = await axios.put(
-        `http://localhost:8080/api/user/${userId}`,
-        updateData
-      );
+      const response = await requestHeader.put('/api/user', updateData);
       if (response.status === 200) {
         simpleAlert('success', '정보가 수정되었습니다.');
         reset();

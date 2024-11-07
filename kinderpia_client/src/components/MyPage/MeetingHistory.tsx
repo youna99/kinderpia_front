@@ -29,6 +29,8 @@ export interface MettingListInfo {
 const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userInfo }) => {
   const [meetings, setMeetings] = useState<MettingListInfo[]>([]);
   const [filter, setFilter] = useState<string>('all');
+  const [page, setPage] = useState(1); // 현재 페이지 상태
+  const [totalPages, setTotalPages] = useState(1); // 총 페이지 수 상태
 
   useEffect(() => {
     const fetchMeetings = async () => {
@@ -41,6 +43,8 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userInfo }) => {
             `/api/user/meeting/list?page=1&size=10`
           );
           console.log('전체모임데이터', response.data);
+          console.log('전체모임데이터', response.data.data.pageInfo.page);
+          console.log('전체모임데이터', response.data.data.pageInfo.totalPages);
         } else if (filter === 'created') {
           response = await requestHeader.get(
             `/api/user/meeting/leader/list?page=1&size=10`
@@ -50,20 +54,21 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userInfo }) => {
           const allMeetings = await requestHeader.get(
             `/api/user/meeting/list?page=1&size=10`
           );
+          console.log('모집중인 모임데이터', allMeetings.data);
 
           const ongoingMeetings = allMeetings.data.data.dataList.filter(
             (meeting: MettingListInfo) => meeting.meetingStatus === 'ONGOING'
           );
-
           response = {
             data: {
+              status: allMeetings.data.status,
               data: {
                 dataList: ongoingMeetings,
                 pageInfo: allMeetings.data.data.pageInfo,
               },
             },
           };
-          console.log('모집중인 모임데이터', response.data);
+          console.log('모집중필터 모임데이터', response.data);
         }
         if (response) {
           setMeetings(response.data.data.dataList);
@@ -75,8 +80,6 @@ const MeetingHistory: React.FC<MeetingHistoryProps> = ({ userInfo }) => {
 
     fetchMeetings();
   }, [userInfo, filter]);
-
-  console.log(meetings);
 
   return (
     <section id="mymeeting">

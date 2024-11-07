@@ -31,12 +31,23 @@
   }
   .review-wrap {
     padding: 0 0 1rem 0;
+
     h3 {
       padding: 1rem 0;
       cursor: pointer;
       &:hover {
         background: rgb(216, 239, 255);
       }
+    }
+    .like-pin {
+      display: none;
+    }
+    .cannotclick-like {
+      display: flex;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      background: $main-color;
+      color: #fff;
     }
   }
 }
