@@ -1,42 +1,29 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-
-// 컴포넌트 호출
 import SearchInput from '../../components/common/SearchInput';
 import PlaceList from '../../components/common/PlaceList';
 import SeoulMap from '../../assets/seoulMap';
-
-// 타입 호출
 import { PlaceListInfo } from '../../types/placelist';
-
-// 데이터 호출 - 더미데이터 , API 호출
 import { dummyPlaceList } from '../../data/tempPlaceListdata';
-
-// 스타일 scss 호출
 import '../../styles/place/PlacePage.scss';
 import { getDefaultPlaceList, getSearchPlaceList } from '../../api/placelist';
 import { defaultPostReq } from '../../types/place';
 
-// interface SearchResponse {
-//   places: PlaceListInfo[];
-//   total: number;
-// }
-
 type SortType = 'star' | 'default' | undefined;
 
 const PlacePage: React.FC = () => {
-  const [places, setPlaces] = useState<PlaceListInfo[]>([]);
-  const [isSearching, setIsSearching] = useState(false);
-  const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
-  const [currentSearchTerm, setCurrentSearchTerm] = useState<string>('');
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [sortBy, setSortBy] = useState<SortType>();
+  const [places, setPlaces] = useState<PlaceListInfo[]>([]); // 장소 목록
+  const [isSearching, setIsSearching] = useState(false); // 검색 중인지 여부
+  const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null); // 지역값
+  const [currentSearchTerm, setCurrentSearchTerm] = useState<string>(''); // 검색어
+  const [category, setCategory] = useState<string>(''); // 카테고리
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // 필터 드롭다운
+  const [sortBy, setSortBy] = useState<SortType>(); // 평점순, 기본순
 
   // 무한 스크롤을 위한 상태 추가
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const observer = useRef<IntersectionObserver>();
-  // const lastPlaceElementRef = useRef<HTMLDivElement>(null);
 
   // meeting-header-title 요소를 참조할 ref 생성
   const headerTitleRef = useRef<HTMLDivElement>(null);
@@ -96,14 +83,18 @@ const PlacePage: React.FC = () => {
         if (currentSearchTerm) {
           const reqData: defaultPostReq = {
             keyword: currentSearchTerm,
+            category: category,
+            sort: sortBy,
           };
           const response = await getSearchPlaceList(reqData);
           const newPlaces = response.data.content;
+
           setPlaces((prev) => [...prev, ...newPlaces]);
           setHasMore(newPlaces.length === 6);
         } else {
           const result = await getDefaultPlaceList(page, 6);
           const newPlaces = result.data.content;
+
           setPlaces((prev) => [...prev, ...newPlaces]);
           setHasMore(newPlaces.length === 6);
         }
@@ -115,22 +106,23 @@ const PlacePage: React.FC = () => {
     };
 
     fetchMorePlaces();
-  }, [page, currentSearchTerm, sortBy]);
+  }, [page, currentSearchTerm, sortBy, category]);
 
   // 검색 함수
   const handleSearch = async (
     searchTerm: string,
-    category: string,
+    searchCategory: string,
     sortBy?: SortType
   ) => {
     setIsSearching(true);
     setCurrentSearchTerm(searchTerm);
     setSortBy(sortBy);
+    setCategory(searchCategory);
     setPage(0); // 검색 시 페이지 초기화
 
     try {
       const reqData: defaultPostReq = {
-        category: category,
+        category: searchCategory,
         keyword: searchTerm,
         sort: sortBy,
       };
@@ -142,8 +134,6 @@ const PlacePage: React.FC = () => {
 
       setPlaces(response.data.content); // 검색 시 기존 데이터 초기화
       setHasMore(response.data.content.length === 6);
-
-      console.log('headerTitleRef.current', headerTitleRef.current);
 
       // 검색 후 meeting-header-title 요소로 포커스 이동
       if (headerTitleRef.current) {
@@ -170,7 +160,7 @@ const PlacePage: React.FC = () => {
     console.log('type>>>', type);
     setSortBy(type);
     setIsDropdownOpen(false);
-    handleSearch(currentSearchTerm, 'title', type);
+    handleSearch(currentSearchTerm, category, type);
   };
 
   return (
