@@ -21,7 +21,7 @@ export default function ChatRoom({ room, onClick }: ChatRoomProp) {
   
     // 입력된 날짜 문자열을 "YYYY-MM-DD HH:MM:SS" 형식으로 파싱
     const [datePart, timePart] = datestring.split(' '); // '2024-11-08'과 '01:22:29' 분리
-    const [hours, minutes] = timePart.split(':').map(Number); // 시간과 분 분리
+    const [hours, minutes, seconds] = timePart.split(':').map(Number); // 시간과 분 분리
   
     // 서울 시간 기준으로 변환
     const now = new Date();
