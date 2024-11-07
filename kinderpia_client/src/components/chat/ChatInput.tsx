@@ -43,7 +43,7 @@ export default function ChatInput({ onSendMessage }: ChatInputProps) {
           disabled={!chatroom?.active}
         />
         <button className="chatsend-btn" type="submit">
-          <span className="xi-arrow-up"></span>
+          <i className="xi-arrow-up"></i>
         </button>
       </div>
     </form>

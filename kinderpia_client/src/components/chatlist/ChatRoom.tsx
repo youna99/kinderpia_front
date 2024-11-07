@@ -58,7 +58,7 @@ export default function ChatRoom({ room, onClick }: ChatRoomProp) {
             </div>
             <div className="room-title">{room.meetingTitle}</div>
             <div className="capacity">
-              <span className="xi-group"></span>
+              <i className="xi-group"></i>
               <span className="room-capacity">{room.capacity}</span>
             </div>
           </h4>

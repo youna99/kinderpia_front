@@ -82,12 +82,12 @@ export default function ChatMembersMenu() {
       <div className="chatmenu-header">
         <div className="chatmenu-info">
           <span>멤버 보기</span>
-          <span className="xi-group"></span>
+          <i className="xi-group"></i>
           <span>{users.length}명 참여중</span>
         </div>
         <div className="chatmenu-headerbtn">
           <button onClick={closeMenu}>
-            <span className="xi-close"></span>
+            <i className="xi-close"></i>
           </button>
         </div>
       </div>
@@ -99,7 +99,7 @@ export default function ChatMembersMenu() {
       <div className="chatmenu-footer">
         {userId === chatroom?.meetingHeader ? null : (
           <button onClick={() => handleeLeaveMeeting(meetingId)}>
-            <span className="xi-log-out"></span>
+            <i className="xi-log-out"></i>
             <span>모임 나가기</span>
           </button>
         )}

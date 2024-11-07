@@ -95,7 +95,7 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
     const senderId = Number(extractUserIdFromCookie());
     const now = new Date();
     const koreaTime = new Date(now.getTime() + 9 * 60 * 60 * 1000);
-    const koreaTimeString = koreaTime.toISOString();
+    const koreaTimeString = now.toISOString();
     
     const nowTime = now.getTime();
     if(lastMessageTime && nowTime - lastMessageTime < 2000){
