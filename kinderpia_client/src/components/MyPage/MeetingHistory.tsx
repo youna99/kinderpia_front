@@ -39,8 +39,10 @@ const MeetingHistory: React.FC<MyInfoProps> = ({ userInfo }) => {
   const [loading, setLoading] = useState(false); // 로딩 상태
 
   useEffect(() => {
-    fetchMeetings();
-  }, [filter]);
+    if (userInfo) {
+      fetchMeetings(); // userInfo가 있을 때만 호출
+    }
+  }, [userInfo, filter]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -72,7 +74,7 @@ const MeetingHistory: React.FC<MyInfoProps> = ({ userInfo }) => {
           response = await fetchCreatedMeetings(page);
           break;
         case 'ongoing':
-          response = await fetchAllMeetings(page);
+          response = await fetchOngoingMeetings(page);
           break;
         default:
           return;
@@ -107,6 +109,32 @@ const MeetingHistory: React.FC<MyInfoProps> = ({ userInfo }) => {
       `/api/user/meeting/leader/list?page=${page}&size=10`
     );
     return response.data;
+  };
+
+  // 모집 중인 모임 데이터 가져오기
+  const fetchOngoingMeetings = async (page: number) => {
+    const response = await requestHeader.get(
+      `/api/user/meeting/list?page=${page}&size=10`
+    );
+    console.log(response.data.data.dataList);
+
+    // dataList가 존재할 경우에만 필터링
+    const filteredDataList = response.data.data.dataList
+      ? response.data.data.dataList.filter(
+          (meeting: MettingListInfo) => meeting.meetingStatus !== 'END'
+        )
+      : [];
+
+    console.log(filteredDataList);
+
+    // 기존 구조를 유지하면서 dataList만 변경하여 반환
+    return {
+      ...response.data,
+      data: {
+        ...response.data.data,
+        dataList: filteredDataList, // 필터링된 데이터로 변경
+      },
+    };
   };
 
   return (
