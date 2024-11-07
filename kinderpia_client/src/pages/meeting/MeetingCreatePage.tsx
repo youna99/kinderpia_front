@@ -70,7 +70,7 @@ const MeetingCreatePage = () => {
     setFormData(prev => ({
       ...prev,
       isLimited: hasLimit,
-      totalCapacity: hasLimit ? 1 : 0
+      totalCapacity: hasLimit ? 1 : 99
     }));
   };
 
