@@ -94,7 +94,7 @@ export const postJoinMeeting = async (
   }
 };
 
-// 모임 종료하기
+// 모임 삭제하기
 export const putDeleteMeeting = async(
   meetingId : number
 ) => {
