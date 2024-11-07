@@ -42,6 +42,8 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
               chatTopic,
               (message) => {
                 const chatMessage = JSON.parse(message.body).body.data;
+                console.log(chatMessage);
+                
 
                 // 들어 있는 방 확인
                 if (chatMessage.chatroomId === currentChatroomId && chatMessage.senderId  !== userId) {
@@ -57,6 +59,7 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
                   updateLastmessage({
                     chatroomId,
                     lastMessage: chatMessage.chatmsgContent,
+                    lastMessageCreatedAt: chatMessage.createdAt
                   })
                 );
               }
@@ -132,6 +135,7 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
           updateLastmessage({
             chatroomId,
             lastMessage: message,
+            lastMessageCreatedAt: koreaTimeString
           })
         );
       }
