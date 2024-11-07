@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import '../../styles/chat/ChatMessage.scss';
-import { ChatMessageInfo } from '../../types/chat';
-import { extractUserIdFromCookie } from '../../utils/extractUserIdFromCookie';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { ReactComponent as Crown } from '../../assets/crown.svg';
-import ChatReport from './ChatReport';
+import React, { useState } from "react";
+import "../../styles/chat/ChatMessage.scss";
+import { ChatMessageInfo } from "../../types/chat";
+import { extractUserIdFromCookie } from "../../utils/extractUserIdFromCookie";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { ReactComponent as Crown } from "../../assets/crown.svg";
+import ChatReport from "./ChatReport";
 
 interface MessageInfoProps {
   messageInfo: ChatMessageInfo;
@@ -51,27 +51,27 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
 
   // 시간 포맷팅 함수
   const formatDateTime = (time: string): string => {
-    const [datePart, timePart] = time.split('T');
-    let [hourString, minutes] = timePart.split(':');
+    const date = new Date(time); // 입력된 시간을 Date 객체로 변환
+    const options: Intl.DateTimeFormatOptions = {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true, // 오전/오후 사용
+      timeZone: "Asia/Seoul", // 한국 시간대
+    };
 
-    let hours = Number(hourString);
-    const ampm = hours >= 12 ? '오후' : '오전'; // 오전/오후 결정
-    hours = hours % 12; // 12시간제로 변환
-    hours = hours ? hours : 12; // 0시를 12로 변환
-
-    // hours를 두 자리 문자열로 포맷
-    const formattedHours = String(hours).padStart(2, '0');
-
-    return `${ampm} ${formattedHours}:${minutes}`;
+    const formattedTime = new Intl.DateTimeFormat("ko-KR", options).format(
+      date
+    );
+    return formattedTime;
   };
 
   // senderId 로 확인해서 자신인지 아닌지 확인
   return (
     <>
-      {messageType === 'CHAT' && senderId ? (
+      {messageType === "CHAT" && senderId ? (
         <div
           className={`message message-${
-            senderId === Number(userId) ? 'own' : 'other'
+            senderId === Number(userId) ? "own" : "other"
           }`}
         >
           {senderId !== Number(userId) ? (
