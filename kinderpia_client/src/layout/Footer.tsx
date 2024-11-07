@@ -10,7 +10,7 @@ export default function Footer() {
             href="https://github.com/SeSAC-3rd-Kinderpia"
             title="킨더피아 깃허브로 이동"
           >
-            <span className="xi-github-alt"></span>
+            <i className="xi-github-alt"></i>
             <span className="footer-infotxt">Github</span>
           </a>
         </div>
