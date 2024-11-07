@@ -58,9 +58,9 @@ const PlaceInfoDetail: React.FC<PlaceInfoProps> = ({
           <p>운영 일자: {data.operatingDate}</p>
           <p>요금 정보: {data.paid ? '유료' : '무료'}</p>
           <p>전화번호: {data.placeNum}</p>
-          <Link to={data.homepageUrl}>
+          <a href={data.homepageUrl} target="_blank" rel="noopener noreferrer">
             <p className="url">홈페이지로 이동하기 (click!)</p>
-          </Link>
+          </a>
         </div>
       </section>
       <section className="placeInfo-map">
