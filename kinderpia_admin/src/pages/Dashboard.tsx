@@ -1,30 +1,9 @@
 // src/pages/Dashboard.tsx
 import React, { useEffect, useState } from 'react';
 import { BarChart, Users, UserPlus, AlertTriangle } from 'lucide-react';
-import { fetchTotalUsers } from '../api/statistics';
+import { fetchTotalMeetings, fetchTotalReports, fetchTotalUsers } from '../api/statistics';
+import StatCard from '../components/common/StatCard';
 
-interface StatCardProps {
-  title: string;
-  value: string | number;
-  icon: React.ReactNode;
-  trend?: string;
-  trendValue?: string;
-}
-
-const StatCard: React.FC<StatCardProps> = ({ title, value, icon, trend, trendValue }) => (
-  <div className="bg-white rounded-lg p-6 shadow-md">
-    <div className="flex items-center justify-between mb-4">
-      <div>{icon}</div>
-      {trend && (
-        <span className={`text-sm ${trend === 'up' ? 'text-green-500' : 'text-red-500'}`}>
-          {trend === 'up' ? '↑' : '↓'} {trendValue}
-        </span>
-      )}
-    </div>
-    <h3 className="text-gray-500 text-sm">{title}</h3>
-    <p className="text-2xl font-bold mt-2">{value}</p>
-  </div>
-);
 
 const RecentActivities = () => {
   const activities = [
@@ -88,13 +67,26 @@ const ActiveGroups = () => {
 
 const Dashboard = () => {
   const [totalUsers, setTotalUsers] = useState<number>(0);
+  const [totalMeetings, setTotalMeetings ] = useState<number>(0);
+  const [totalReports, setTotalReports ] =useState<number>(0);
 
   useEffect(() => {
     const loadTotalUsers = async () => {
       const count = await fetchTotalUsers();
       setTotalUsers(count);
     };
+    const loadTotalMeetings = async () => {
+      const count = await fetchTotalMeetings();
+      setTotalMeetings(count);
+    }
+    const loadTotalReports = async () => {
+      const count = await fetchTotalReports();
+      setTotalReports(count);
+    }
+      
+    loadTotalMeetings();
     loadTotalUsers();
+    loadTotalReports();
   }, []);
   return (
     <div className="space-y-6">
@@ -110,19 +102,19 @@ const Dashboard = () => {
           />
           <StatCard 
             title="신규 가입" 
-            value="128" 
+            value={totalUsers-17}
             icon={<UserPlus className="text-green-500" size={24} />}
             // trend="up"
             // trendValue="5.3%"
           />
           <StatCard 
             title="활성 모임" 
-            value="842" 
+            value={totalMeetings} 
             icon={<BarChart className="text-purple-500" size={24} />}
           />
           <StatCard 
             title="신고 접수" 
-            value="23" 
+            value={totalReports} 
             icon={<AlertTriangle className="text-red-500" size={24} />}
             // trend="down"
             // trendValue="12.5%"

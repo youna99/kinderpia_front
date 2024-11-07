@@ -31,8 +31,8 @@ export const ReportFilters: React.FC<ReportFiltersProps> = ({
         >
           <option value="all">전체</option>
           {reportReasons?.map((reason) => (
-            <option key={reason.reportRsId} value={String(reason.reportRsId)}>
-              {reason.reportRsName}
+            <option key={reason.reportReasonId} value={String(reason.reportReasonId)}>
+              {reason.reportReasonName}
             </option>
           ))}
         </select>
