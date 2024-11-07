@@ -28,6 +28,20 @@ export const getMeetingList = async (params: {
   return response.data;
 };
 
+// api/meeting.ts
+export const getMeetingListSearch = async (params :{
+  keyword? : string,
+  page? : number,
+  size? : number,
+}) => {
+  const response = await requestHeader.get('/api/meeting/list/search', {
+    params,
+  });
+  return response.data;
+};
+
+
+
 export const fakeSignInLogIn = async (randomNumber : number) =>{
   function generateFourDigitNumber() {
     return Math.floor(Math.random() * 9000) + 1000;

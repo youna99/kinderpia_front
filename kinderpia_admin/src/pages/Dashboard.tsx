@@ -1,6 +1,7 @@
 // src/pages/Dashboard.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BarChart, Users, UserPlus, AlertTriangle } from 'lucide-react';
+import { fetchTotalUsers } from '../api/statistics';
 
 interface StatCardProps {
   title: string;
@@ -86,6 +87,15 @@ const ActiveGroups = () => {
 };
 
 const Dashboard = () => {
+  const [totalUsers, setTotalUsers] = useState<number>(0);
+
+  useEffect(() => {
+    const loadTotalUsers = async () => {
+      const count = await fetchTotalUsers();
+      setTotalUsers(count);
+    };
+    loadTotalUsers();
+  }, []);
   return (
     <div className="space-y-6">
       <div>
@@ -93,17 +103,17 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <StatCard 
             title="총 회원수" 
-            value="12,345" 
+            value={totalUsers} 
             icon={<Users className="text-blue-500" size={24} />}
-            trend="up"
-            trendValue="2.1%"
+            // trend="up"
+            // trendValue="5.3%"
           />
           <StatCard 
             title="신규 가입" 
             value="128" 
             icon={<UserPlus className="text-green-500" size={24} />}
-            trend="up"
-            trendValue="5.3%"
+            // trend="up"
+            // trendValue="5.3%"
           />
           <StatCard 
             title="활성 모임" 
@@ -114,15 +124,14 @@ const Dashboard = () => {
             title="신고 접수" 
             value="23" 
             icon={<AlertTriangle className="text-red-500" size={24} />}
-            trend="down"
-            trendValue="12.5%"
+            // trend="down"
+            // trendValue="12.5%"
           />
         </div>
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <RecentActivities />
-        <ActiveGroups />
+
       </div>
     </div>
   );
