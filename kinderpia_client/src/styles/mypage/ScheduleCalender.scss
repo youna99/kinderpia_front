@@ -30,6 +30,7 @@
       margin-bottom: 0.5rem;
       .meeting-title {
         display: flex;
+        align-items: center;
         gap: 1rem;
         .xi-label {
           color: $main-color;

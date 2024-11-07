@@ -76,7 +76,7 @@ const FormInput: React.FC<InputFieldProps> = ({
       />
       {isPassword && (
         <>
-          <span
+          <i
             className={`${eyeIconClass} eye-icon`}
             onClick={showPasswordToggle}
             tabIndex={0}
@@ -91,7 +91,7 @@ const FormInput: React.FC<InputFieldProps> = ({
                 }
               }
             }}
-          ></span>
+          ></i>
         </>
       )}
       <i
