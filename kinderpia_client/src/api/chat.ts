@@ -47,7 +47,6 @@ interface ChatMessageResponse {
 
 // 채팅방 목록 조회
 export const getChatList = async (
-  token: string | null,
   page: number
 ): Promise<ChatListResponse> => {
   const response = await requestHeader.post(
@@ -63,7 +62,6 @@ export const getChatList = async (
 
 // 단일 채팅방 조회
 export const getChatRoom = async (
-  token: string | null,
   chatroomId: number
 ): Promise<ChatRoomResponse> => {
   const response = await requestHeader.post(`/api/chatroom`, chatroomId, {
@@ -74,7 +72,6 @@ export const getChatRoom = async (
 
 // 채팅 메시지 조회(목록)
 export const getChatMessages = async (
-  token: string | null,
   chatroomId: number,
   page: number
 ): Promise<ChatMessageResponse> => {
