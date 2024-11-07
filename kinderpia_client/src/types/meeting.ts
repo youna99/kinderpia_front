@@ -31,6 +31,7 @@ export interface MeetingDetailData {
   createdAt: string;      // ISO 8601 형식의 날짜 문자열
   authType: boolean;
   profileImg : string;
+  chatroomId : number;
  }
 export interface MeetingData{
   meetingId : number;
@@ -48,6 +49,7 @@ export interface MeetingData{
   createdAt :string;
   userId :number;
   profileImg:string;
+  chatroomId : number;
 }
 
 export interface MeetingUserData{

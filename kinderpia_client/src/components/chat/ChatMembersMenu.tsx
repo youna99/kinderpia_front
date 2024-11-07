@@ -61,7 +61,7 @@ export default function ChatMembersMenu() {
           // 요청 후 해당되는 대화방을 떠나고(목록에서 삭제), 대화방을 선택해 달라고 하는 UI 보여줘야함
           simpleAlert("success", "모임을 떠났습니다.");
           dispatch(setSelected(false))
-          const res2 = await getChatList(token, 1)
+          const res2 = await getChatList(1)
           if(res2.status === 200) {
             const chatroomlist = res.data.data.chatroomList;
             dispatch(setChatRooms(chatroomlist));
