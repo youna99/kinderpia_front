@@ -30,7 +30,7 @@ export default function ChatHeader() {
         {/* 채팅방 정보 보기 버튼 */}
         <div className="chat-header__column">
           <button onClick={openMenu}>
-            <span className="xi-info-o"></span>
+            <i className="xi-info-o"></i>
           </button>
         </div>
       </div>
