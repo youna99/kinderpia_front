@@ -2,7 +2,7 @@ import { requestHeader } from './requestHeader';
 import { SearchResultItem, LocationData } from '../types/map';
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:4000';
+const API_BASE_URL = process.env.REACT_APP_MAP_URL || 'http://localhost:8080';
 
 export const searchLocation = async (query: string): Promise<SearchResultItem[]> => {
   try {

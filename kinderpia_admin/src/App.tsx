@@ -8,13 +8,14 @@ import Members from './pages/Members';
 import Groups from './pages/Meetings';
 import Reports from './pages/Reports';
 import BadPersons from './pages/BadPersons';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<AdminLayout />}>
+          <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="members" element={<Members />} />
             <Route path="groups" element={<Groups />} />
