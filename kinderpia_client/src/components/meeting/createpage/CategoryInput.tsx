@@ -20,9 +20,9 @@ const CategoryInput: React.FC<CategoryInputProps> = ({
 
   return (
     <div className="category-input-container">
-      <div className="category-input-header">      
+      <div className="category-input-header">
         <label className="category-input-header-title">
-          모임 유형{isRequired && <span className='xi-check'></span>}
+          모임 유형{isRequired && <i className="xi-check"></i>}
         </label>
         <CheckMarker value={value} />
       </div>

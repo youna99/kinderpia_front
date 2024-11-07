@@ -26,7 +26,6 @@ const allowedOrigins = [
   'http://www.kinderpia.com',
   'https://www.kinderpia.com'
 ];
-
 const corsOptions = {
   origin: function(origin, callback) {
     // development 환경에서의 API 테스트 도구 허용 (Postman 등)

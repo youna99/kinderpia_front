@@ -5,6 +5,7 @@ import '../../styles/review/ReviewInput.scss';
 import { simpleAlert } from '../../utils/alert';
 import { postReview } from '../../api/review';
 import { extractUserIdFromCookie } from '../../utils/extractUserIdFromCookie';
+import { AxiosError } from 'axios';
 
 interface ReviewInputProps {
   placeId: string;
@@ -75,12 +76,18 @@ const ReviewInput: React.FC<ReviewInputProps> = ({
       setContent('');
       simpleAlert('success', '리뷰가 등록되었습니다.');
     } catch (error) {
-      console.error('리뷰 등록 중 오류 발생:', error);
-      simpleAlert(
-        'warning',
-        '리뷰 등록에 실패했습니다. 다시 시도해주세요.',
-        'center'
-      );
+      const axiosError = error as AxiosError; // AxiosError로 타입 단언
+      if (axiosError.response) {
+        if (axiosError.response.status === 409) {
+          simpleAlert('error', '해당 장소에 대한 리뷰는 이미 작성하였습니다.');
+        } else {
+          console.error('다른 오류 발생:', error);
+        }
+      } else {
+        console.error('Axios가 아닌 다른 오류 발생:', error);
+      }
+      setStar(0);
+      setContent('');
     } finally {
       setIsSubmitting(false);
     }
@@ -112,9 +119,9 @@ const ReviewInput: React.FC<ReviewInputProps> = ({
             disabled={isSubmitting}
           >
             {rating <= star ? (
-              <span className="xi-star"></span>
+              <i className="xi-star"></i>
             ) : (
-              <span className="xi-star-o"></span>
+              <i className="xi-star-o"></i>
             )}
           </button>
         ))}

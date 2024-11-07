@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/common/Header.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import { extractUserIdFromCookie } from '../utils/extractUserIdFromCookie';
+import { getJwtFromCookies } from '../utils/extractUserIdFromCookie';
 import { confirmAlert, simpleAlert } from '../utils/alert';
 import { useDispatch } from 'react-redux';
 import { setBadge } from '../store/chatRoomsSlice';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [userIdFromCookie, setUserIdFromCookie] = useState<string | null>(null);
+  const [jwtExists, setJwtExists] = useState<string | null>(null);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -36,8 +37,8 @@ export default function Header() {
   };
 
   useEffect(() => {
-    const userIdFromCookie = extractUserIdFromCookie();
-    setUserIdFromCookie(userIdFromCookie);
+    const hasJwt = getJwtFromCookies();
+    setJwtExists(hasJwt);
     document.addEventListener('click', handleOutsideClick);
     return () => {
       document.removeEventListener('click', handleOutsideClick);
@@ -63,10 +64,10 @@ export default function Header() {
           <h1>
             <Link to={'/'}>KINDERPIA</Link>
           </h1>
-          <button
+          <i
             className={`nav-icon ${isMenuOpen ? 'xi-close' : 'xi-bars'}`}
             onClick={toggleMenu}
-          ></button>
+          ></i>
           <nav className={`menu ${isMenuOpen ? 'open' : ''}`}>
             <strong>MENU</strong>
             {isMenuOpen && (
@@ -81,7 +82,7 @@ export default function Header() {
                     장소 찾기
                   </Link>
                 </li>
-                {userIdFromCookie ? (
+                {jwtExists ? (
                   <li className="header-list">
                     <button className="logout-btn" onClick={handleLogout}>
                       LOGOUT
@@ -117,7 +118,7 @@ export default function Header() {
                   href="https://github.com/SeSAC-3rd-Kinderpia"
                   title="킨더피아 깃허브로 이동"
                 >
-                  <span className="xi-github-alt"></span>
+                  <i className="xi-github-alt"></i>
                   <span className="footer-infotxt">github</span>
                 </a>
               </div>

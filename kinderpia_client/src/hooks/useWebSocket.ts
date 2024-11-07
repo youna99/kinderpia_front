@@ -9,6 +9,7 @@ import {
   getJwtFromCookies,
 } from "../utils/extractUserIdFromCookie";
 import { RootState } from "../store";
+import { simpleAlert } from "../utils/alert";
 
 const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
   const { messages } = useSelector((state: RootState) => state.chat);
@@ -19,14 +20,15 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
   useEffect(() => {
     const url = process.env.REACT_APP_API_URL || 'http://localhost:8080';
     const jwt = getJwtFromCookies();
+    const userId = Number(extractUserIdFromCookie());
     if(!jwt) return;
 
     // 클라이언트 초기화
     clientRef.current = new Client({
       webSocketFactory: () => new SockJS(`${url}/ws`),
       reconnectDelay: 5000,
-      heartbeatIncoming: 10000,
-      heartbeatOutgoing: 10000,
+      heartbeatIncoming: 20000,
+      heartbeatOutgoing: 20000,
       connectHeaders: {
         Authorization: `Bearer ${jwt}`,
       },
@@ -40,11 +42,14 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
               chatTopic,
               (message) => {
                 const chatMessage = JSON.parse(message.body).body.data;
+                console.log(chatMessage);
+                
 
                 // 들어 있는 방 확인
-                if (chatMessage.chatroomId === currentChatroomId) {
+                if (chatMessage.chatroomId === currentChatroomId && chatMessage.senderId  !== userId) {
                   dispatch(setMessages([...messages, chatMessage]));
-                } else {
+
+                } else if(chatMessage.senderId !== userId){
                   // 안들어가있는 방 메시지 쌓인당
                   dispatch(addUnreadMessages(chatMessage));
                 }
@@ -54,6 +59,7 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
                   updateLastmessage({
                     chatroomId,
                     lastMessage: chatMessage.chatmsgContent,
+                    lastMessageCreatedAt: chatMessage.createdAt
                   })
                 );
               }
@@ -83,26 +89,37 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
       ); // 모든 구독 해제
       subscriptionsRef.current.clear();
     };
-  }, [chatroomIds, currentChatroomId, dispatch]);
+  }, [chatroomIds, currentChatroomId]);
 
+  let lastMessageTime: number | null = null;
   // 메세지 전송 함수
   const sendMessage = (chatroomId: number, message: string) => {
     const jwt = getJwtFromCookies();
     const senderId = Number(extractUserIdFromCookie());
     const now = new Date();
     const koreaTime = new Date(now.getTime() + 9 * 60 * 60 * 1000);
-    const koreaTimeString = koreaTime.toISOString();
+    const koreaTimeString = now.toISOString();
+    
+    const nowTime = now.getTime();
+    if(lastMessageTime && nowTime - lastMessageTime < 2000){
+      simpleAlert('warning', '메시지를 너무 빨리 보낼 수 없습니다.')
+      return;
+    }
+
+    lastMessageTime = nowTime;
 
     if (!chatroomId) return;
+    const messageObj = {
+      chatroomId,
+      senderId,
+      chatmsgContent: message,
+      createdAt: koreaTimeString,
+      messageType: "CHAT",
+    };
+    
     const chatSend = `/app/${chatroomId}/chatmsg`;
     if (clientRef.current?.connected) {
-      const messageObj = {
-        chatroomId,
-        senderId,
-        chatmsgContent: message,
-        createdAt: koreaTimeString,
-        messageType: "CHAT",
-      };
+      
       clientRef.current.publish({
         destination: chatSend,
         headers: {
@@ -110,13 +127,19 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
         },
         body: JSON.stringify(messageObj),
       });
-      dispatch(setMessages([...messages, messageObj]));
-      dispatch(
-        updateLastmessage({
-          chatroomId,
-          lastMessage: message,
-        })
-      );
+
+      const lastMessage = messages[messages.length - 1]
+      if(lastMessage?.chatmsgContent !== messageObj.chatmsgContent){
+        dispatch(setMessages([...messages, messageObj]));
+        dispatch(
+          updateLastmessage({
+            chatroomId,
+            lastMessage: message,
+            lastMessageCreatedAt: koreaTimeString
+          })
+        );
+      }
+
     }
   };
   return { sendMessage };

@@ -4,24 +4,7 @@ import Review from '../review/Review';
 import { useNavigate } from 'react-router-dom';
 import { getPlace } from '../../api/placelist';
 import { requestHeader } from '../../api/requestHeader';
-
-interface ReviewProps {
-  reviewId: number;
-  reviewContent: string;
-  star: number;
-  createdAt: string;
-  likeCount: number;
-  placeId: number;
-  placeName: string;
-}
-
-interface MyInfoProps {
-  userInfo: {
-    userId: string | null;
-    profileImg?: string;
-    nickname?: string;
-  } | null;
-}
+import { MyInfoProps, ReviewProps } from '../../types/user';
 
 const MyReviews: React.FC<MyInfoProps> = ({ userInfo }) => {
   const [reviews, setReviews] = useState<ReviewProps[]>([]);
@@ -35,10 +18,9 @@ const MyReviews: React.FC<MyInfoProps> = ({ userInfo }) => {
       if (userInfo && hasMore) {
         try {
           const response = await requestHeader.get(
-            `http://localhost:8080/api/user/review/list?page=${pageNumber}&size=10`,
-            { withCredentials: true }
+            `/api/user/review/list?page=${pageNumber}&size=10`
           );
-          console.log(response);
+          console.log('사용자리뷰목록', response);
           if (response.data.status === 200) {
             const newReviews: ReviewProps[] = response.data.data.dataList;
             const totalPages = response.data.data.pageInfo.totalPages; // totalPages 가져오기
@@ -96,8 +78,7 @@ const MyReviews: React.FC<MyInfoProps> = ({ userInfo }) => {
   const handleReviewClick = async (placeId: number) => {
     try {
       const placeData = await getPlace(placeId); // 장소 데이터 가져오기
-      console.log(placeData.data.placeId);
-      navigate(`/place/${placeData.data.placeId}`, { state: { placeData } }); // 장소 데이터와 함께 이동
+      navigate(`/place/${placeData.data.placeId}`, { state: { placeData } });
     } catch (error) {
       console.error(
         `장소 정보를 가져오는 데 실패했습니다. PlaceId: ${placeId}`
@@ -115,7 +96,7 @@ const MyReviews: React.FC<MyInfoProps> = ({ userInfo }) => {
     <section id="my-reviews">
       <h2>내가 쓴 리뷰</h2>
       {noReviews ? (
-        <p className="no-reviews">작성한 리뷰가 없습니다.</p> // 리뷰가 없을 때 메시지 표시
+        <p className="no-reviews">아직 리뷰가 없습니다.</p> // 메시지 변경
       ) : (
         <ul>
           {reviews.map((review) => (
@@ -137,8 +118,7 @@ const MyReviews: React.FC<MyInfoProps> = ({ userInfo }) => {
       )}
       {!hasMore && !noReviews && (
         <p className="has-more">더 이상 리뷰가 없습니다.</p>
-      )}{' '}
-      {/* 더 이상 리뷰가 없을 때 메시지 표시 */}
+      )}
     </section>
   );
 };

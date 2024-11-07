@@ -20,7 +20,7 @@ export default function ChatContainer() {
 
   useEffect(() => {
     endMessageRef.current?.scrollIntoView({ behavior: "auto" });
-  }, [messages]);
+  }, [messages[messages.length - 1]]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -41,15 +41,15 @@ export default function ChatContainer() {
   useEffect(() => {
      if(currentPage > 1 && chatroom){
       const jwt = getJwtFromCookies()
-      fetchMoreData(jwt, chatroom.chatroomId)
+      fetchMoreData(chatroom.chatroomId)
      }   
   }, [currentPage])
   
-  const fetchMoreData = async (jwt:string|null, chatroomId:number) => {
+  const fetchMoreData = async (chatroomId:number) => {
     if(pageParams.includes(currentPage)) return;
     setPageParams((prev) => [...prev, currentPage]);
     try {
-      const res = await getChatMessages(jwt, chatroomId, currentPage)
+      const res = await getChatMessages(chatroomId, currentPage)
       const chatMsgList = res.data.data.chatmsgList.reverse();
       dispatch(setMessages([...chatMsgList, ...messages]))
     } catch (error) {

@@ -76,7 +76,7 @@ const FormInput: React.FC<InputFieldProps> = ({
       />
       {isPassword && (
         <>
-          <span
+          <i
             className={`${eyeIconClass} eye-icon`}
             onClick={showPasswordToggle}
             tabIndex={0}
@@ -91,10 +91,10 @@ const FormInput: React.FC<InputFieldProps> = ({
                 }
               }
             }}
-          ></span>
+          ></i>
         </>
       )}
-      <span
+      <i
         className="xi-close-circle eraser-icon"
         onClick={clearInput}
         tabIndex={0}
@@ -105,7 +105,7 @@ const FormInput: React.FC<InputFieldProps> = ({
             clearInput(); // Enter키로 지우기
           }
         }}
-      ></span>
+      ></i>
       {error && (
         <div className="errmsg-box" id={`${id}-error`} role="alert">
           <span className="err-msg">{error}</span>

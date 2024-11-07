@@ -2,14 +2,20 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import SearchInput from '../../components/common/SearchInput';
 import MeetingList from '../../components/common/MeetingList';
 import { MettingListInfo } from '../../types/meetinglist';
-import { getMeetingList, getMeetingListOpen, getMeetingListSearch } from '../../api/meetinglist';
+import {
+  getMeetingList,
+  getMeetingListOpen,
+  getMeetingListSearch,
+} from '../../api/meetinglist';
 import { formatDetailDate } from '../../utils/formatDate';
 import '../../styles/meeting/MeetingPage.scss';
 import SeoulMap from '../../assets/seoulMap';
 
 const MeetingPage: React.FC = () => {
   const [meetings, setMeetings] = useState<MettingListInfo[]>([]);
-  const [filteredMeetings, setFilteredMeetings] = useState<MettingListInfo[]>([]);
+  const [filteredMeetings, setFilteredMeetings] = useState<MettingListInfo[]>(
+    []
+  );
   const [isSearching, setIsSearching] = useState(false);
   const [filter, setFilter] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -18,22 +24,22 @@ const MeetingPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
-  
+
   const currentSearchTerm = useRef('');
-  
+
   const observer = useRef<IntersectionObserver>();
   const lastMeetingElementRef = useCallback(
     (node: HTMLDivElement | null) => {
       if (isLoading) return;
-      
+
       if (observer.current) observer.current.disconnect();
-      
-      observer.current = new IntersectionObserver(entries => {
+
+      observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          setPage(prevPage => prevPage + 1);
+          setPage((prevPage) => prevPage + 1);
         }
       });
-      
+
       if (node) observer.current.observe(node);
     },
     [isLoading, hasMore]
@@ -54,10 +60,10 @@ const MeetingPage: React.FC = () => {
         setHasMore(false);
         return;
       }
-  
+
       const newMeetings = response.data.dataList;
       const pageInfo = response.data.pageInfo;
-      
+
       // 현재 페이지가 마지막 페이지인지 체크
       if (pageInfo?.page === pageInfo?.totalPages) {
         setHasMore(false);
@@ -70,8 +76,8 @@ const MeetingPage: React.FC = () => {
         setHasMore(false);
         return;
       }
-  
-      setMeetings(prev => 
+
+      setMeetings((prev) =>
         isInitial ? newMeetings : [...prev, ...newMeetings]
       );
       setError(null);
@@ -106,9 +112,7 @@ const MeetingPage: React.FC = () => {
     let result = [...meetings];
 
     if (filter) {
-      result = result.filter(
-        (meeting) => meeting.meetingStatus === 'ONGOING'
-      );
+      result = result.filter((meeting) => meeting.meetingStatus === 'ONGOING');
     }
 
     setFilteredMeetings(result);
@@ -117,32 +121,32 @@ const MeetingPage: React.FC = () => {
   const handleSearch = async (searchTerm: string) => {
     setIsSearching(true);
     currentSearchTerm.current = searchTerm;
-    
+
     // 검색 시작 시 상태 초기화
-    setMeetings([]); 
+    setMeetings([]);
     setPage(1);
     setHasMore(true);
     setIsInitialLoad(true);
-    
+
     try {
       const response = await getMeetingListSearch({
         keyword: searchTerm,
         page: 1,
-        size: 10
+        size: 10,
       });
-  
+
       if (!response) {
         setHasMore(false);
         return;
       }
-  
+
       const newMeetings = response.data.dataList;
       const pageInfo = response.data.pageInfo;
-      
+
       if (pageInfo?.totalPages === 1) {
         setHasMore(false);
       }
-  
+
       setMeetings(newMeetings);
       setError(null);
     } catch (error) {
@@ -162,17 +166,17 @@ const MeetingPage: React.FC = () => {
   const getNoResultsMessage = () => {
     // 로딩 중이거나 초기 로딩 중에는 메시지를 표시하지 않음
     if (isLoading || isInitialLoad) return null;
-    
+
     // 검색어가 있고 데이터가 없는 경우에만 메시지 표시
     if (currentSearchTerm.current && !meetings.length) {
       return '검색 결과가 없습니다.';
     }
-    
+
     // 검색어가 없고 데이터가 없는 경우
     if (!currentSearchTerm.current && !meetings.length) {
       return '등록된 모임이 없습니다.';
     }
-    
+
     return null;
   };
 
@@ -181,7 +185,7 @@ const MeetingPage: React.FC = () => {
     setSelectedDistrict(district);
     handleSearch(district);
   };
-  
+
   return (
     <div className="meeting-page">
       <strong className="page-banner-txt">
@@ -209,7 +213,11 @@ const MeetingPage: React.FC = () => {
               checked={filter}
               onChange={handleFilterChange}
             />
-            {filter?<span>모집중인 모임만 보기</span>:<span>모든 모임 보기</span>}
+            {filter ? (
+              <span>모집중인 모임만 보기</span>
+            ) : (
+              <span>모든 모임 보기</span>
+            )}
           </label>
         </div>
       </div>
@@ -248,9 +256,7 @@ const MeetingPage: React.FC = () => {
             <div className="loading-indicator">데이터를 불러오는 중...</div>
           )}
           {!isLoading && getNoResultsMessage() && (
-            <div className="meeting-404">
-              {getNoResultsMessage()}
-            </div>
+            <div className="meeting-404">{getNoResultsMessage()}</div>
           )}
         </div>
       )}

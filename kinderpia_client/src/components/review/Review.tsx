@@ -114,7 +114,7 @@ const Review: React.FC<ReviewItemProps> = ({
     <div className="review-wrap" key={reviewId}>
       {showPlaceName && (
         <h3 onClick={onReviewClick}>
-          <span className="xi-maker"></span>
+          <i className="xi-maker"></i>
           {placeName}
         </h3>
       )}
@@ -130,7 +130,7 @@ const Review: React.FC<ReviewItemProps> = ({
       <div className="star-wrap">
         <div>
           {[...Array(star)].map((_, index) => (
-            <span key={index} className="xi-star"></span>
+            <i key={index} className="xi-star"></i>
           ))}
         </div>
         <span>{star}</span>
@@ -144,18 +144,22 @@ const Review: React.FC<ReviewItemProps> = ({
         <span className="createdAt">{formatDate(createdAt)}</span>
       </div>
       <div className="like-count-wrap">
-        <p
+        <div
           className={`like-pin ${isLiked ? 'liked' : ''}`}
           onClick={handleLike}
         >
           {isLiked ? (
-            <div className="like">
-              <span className="xi-check"></span>
-              <div>도움됨</div>
-            </div>
+            <p className="like">
+              <i className="xi-check"></i>
+              <span>도움됨</span>
+            </p>
           ) : (
-            <span className="nolike">도움이 돼요</span>
+            <p className="nolike">도움이 돼요</p>
           )}
+        </div>
+        <p className="cannotclick-like">
+          <i className="xi-check"></i>
+          <span>도움됨</span>
         </p>
         <p>{currentLikeCount}명에게 도움이 되었습니다</p>
       </div>

@@ -2,7 +2,7 @@
 
 .place-page {
   .page-banner-txt {
-    font-size: 1.8rem;
+    font-size: 2.3rem;
   }
   display: flex;
   flex-direction: column;
@@ -103,8 +103,12 @@
       }
     }
   }
-
-  @media (max-width: 768px) {
+}
+@media (max-width: $md) {
+  .place-page {
+    .page-banner-txt {
+      font-size: 2rem;
+    }
     .place-list-item {
       grid-template-columns: 1fr;
     }

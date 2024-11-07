@@ -90,10 +90,12 @@ export const EditNickName: React.FC<EditNickNameProps> = ({ nickname }) => {
       <strong className="nickname">{newNickname}</strong>
       <button
         type="button"
-        className="xi-pen nickname-edit-icon"
         onClick={handleEditClick}
         title="닉네임 변경하기"
-      ></button>
+        className="nickname-edit-icon"
+      >
+        <i className="xi-pen"></i>
+      </button>
     </form>
   );
 };

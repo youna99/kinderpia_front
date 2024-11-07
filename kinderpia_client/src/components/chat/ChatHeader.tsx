@@ -1,9 +1,8 @@
-import "../../styles/chat/ChatHeader.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { useState } from "react";
-import ChatMembersMenu from "./ChatMembersMenu";
-import { setOpen } from "../../store/chatSlice";
+import '../../styles/chat/ChatHeader.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import ChatMembersMenu from './ChatMembersMenu';
+import { setOpen } from '../../store/chatSlice';
 
 // 채팅방 헤더 컴포넌트 - 뒤로가기, 채팅방 제목, 채팅방 멤버보기
 export default function ChatHeader() {
@@ -31,7 +30,7 @@ export default function ChatHeader() {
         {/* 채팅방 정보 보기 버튼 */}
         <div className="chat-header__column">
           <button onClick={openMenu}>
-            <span className="xi-info-o"></span>
+            <i className="xi-info-o"></i>
           </button>
         </div>
       </div>

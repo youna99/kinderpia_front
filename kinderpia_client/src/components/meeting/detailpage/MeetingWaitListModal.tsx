@@ -8,7 +8,6 @@ import MeetingUserWaitList from '../../common/MeetingUserWaitList';
 
 // 데이터 호출
 import { getMeetingUserWaitList } from '../../../api/meeting';
-import { dummyWaitList } from '../../../data/tempUserWaitList';
 
 interface MeetingWaitListModalProps {
   isOpen: boolean;
@@ -16,17 +15,17 @@ interface MeetingWaitListModalProps {
   meetingId: number;
 }
 
-interface UserLists{
-  userId : number;
-  profile_img : string;
-  nickname : string;
+interface UserLists {
+  userId: number;
+  profile_img: string;
+  nickname: string;
 }
 
 // MeetingWaitListModal.tsx
 const MeetingWaitListModal: React.FC<MeetingWaitListModalProps> = ({
   isOpen,
   onClose,
-  meetingId
+  meetingId,
 }) => {
   const [userLists, setUserLists] = useState<UserLists[]>([]);
 
@@ -51,10 +50,12 @@ const MeetingWaitListModal: React.FC<MeetingWaitListModalProps> = ({
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>대기자 목록</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
         <div className="modal-body">
           {userLists.map((item) => (
@@ -72,6 +73,5 @@ const MeetingWaitListModal: React.FC<MeetingWaitListModalProps> = ({
     </div>
   );
 };
-
 
 export default MeetingWaitListModal;
