@@ -44,9 +44,7 @@ export const getSearchPlaceList = async (data: defaultPostReq) => {
 
 export const getPlace = async (placeId: any) => {
   try {
-    const response = await requestHeader.get(`/api/place/${placeId}`, {
-      withCredentials: true,
-    });
+    const response = await requestHeader.get(`/api/place/${placeId}`);
     return response.data;
   } catch (error: any) {
     if (error.response?.status === 404) {
