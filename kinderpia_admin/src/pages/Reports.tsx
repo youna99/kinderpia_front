@@ -4,12 +4,38 @@ import { ReportFilters } from '../components/report/ReportFilters';
 import { ReportTable } from '../components/report/ReportTable';
 import { Pagination } from '../components/report/Pagination';
 import { reportApi } from '../api/reports';
-import { ReportData, ReportReason } from '../types/report';
+import { ReportData } from '../types/report';
+
+const reportReasons = [
+  { 
+    reportRsId: 1, 
+    reportRsName: '스팸/광고/홍보', 
+  },
+  { 
+    reportRsId: 2, 
+    reportRsName: '욕설/혐오/비하',
+  },
+  { 
+    reportRsId: 3, 
+    reportRsName: '사기/허위정보',
+  },
+  { 
+    reportRsId: 4, 
+    reportRsName: '개인정보 노출',
+  },
+  { 
+    reportRsId: 5, 
+    reportRsName: '음란물/유해 컨텐츠',
+  },
+  { 
+    reportRsId: 6, 
+    reportRsName: '기타',
+  }
+];
 
 const Reports: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'chatmsg' | 'review' | 'meeting'>('chatmsg');
   const [reports, setReports] = useState<ReportData[]>([]);  // 빈 배열로 초기화
-  const [reportReasons, setReportReasons] = useState<ReportReason[]>([]); // 빈 배열로 초기화
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [sortDirection, setSortDirection] = useState<'ASC' | 'DESC'>('DESC');
@@ -18,21 +44,6 @@ const Reports: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchReportReasons = async () => {
-      try {
-        const reasons = await reportApi.getReportReasons();
-        setReportReasons(reasons || []); // 결과가 없으면 빈 배열 사용
-        setError(null);
-      } catch (error) {
-        console.error('Failed to fetch report reasons:', error);
-        setReportReasons([]);
-        setError('신고 사유 목록을 불러오는데 실패했습니다.');
-      }
-    };
-
-    fetchReportReasons();
-  }, []);
 
   useEffect(() => {
     const fetchReports = async () => {
@@ -40,16 +51,16 @@ const Reports: React.FC = () => {
       setError(null);
       
       try {
-        const result = await reportApi.getReports({
-          tab: activeTab,
+        const result = await reportApi.getChatMessageReports({
           page: currentPage,
           direction: sortDirection,
           property: sortProperty,
-          reportRsId: selectedReason
         });
         
-        setReports(result?.content || []); // 결과가 없으면 빈 배열 사용
-        setTotalPages(result?.totalPages || 1);
+        console.log(result);
+        
+        // setReports(result?.c || []); // 결과가 없으면 빈 배열 사용
+        // setTotalPages(result?.totalPages || 1);
       } catch (error) {
         console.error('Failed to fetch reports:', error);
         setReports([]);
@@ -108,20 +119,19 @@ const Reports: React.FC = () => {
         onTabChange={handleTabChange} 
       />
 
-      <ReportFilters
+      {/* <ReportFilters
         selectedReason={selectedReason}
         onReasonChange={handleReasonChange}
         sortProperty={sortProperty}
         onSortPropertyChange={handleSortPropertyChange}
         sortDirection={sortDirection}
         onSortDirectionChange={handleSortDirectionChange}
-        reportReasons={reportReasons}
-      />
+      /> */}
 
       <ReportTable
         reports={reports || []}  // 값이 없으면 빈 배열 전달
         loading={loading}
-        reportReasons={reportReasons || []}  // 값이 없으면 빈 배열 전달
+        reportReasons={reportReasons}  // 값이 없으면 빈 배열 전달
       />
 
       {!loading && reports.length > 0 && (
