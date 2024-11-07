@@ -4,6 +4,7 @@ import '../../styles/mypage/MeetingHistory.scss';
 import { formatDetailDate } from '../../utils/formatDate';
 import { requestHeader } from '../../api/requestHeader';
 import { MyInfoProps } from '../../types/user';
+import { getUserLeaderMeetingList, getUserMeetingList } from '../../api/user';
 
 export interface MettingListInfo {
   capacity: number;
@@ -96,36 +97,28 @@ const MeetingHistory: React.FC<MyInfoProps> = ({ userInfo }) => {
   };
 
   const fetchAllMeetings = async (page: number): Promise<MeetingResponse> => {
-    const response = await requestHeader.get(
-      `/api/user/meeting/list?page=${page}&size=10`
-    );
+    const response = await getUserMeetingList(page);
     return response.data;
   };
 
   const fetchCreatedMeetings = async (
     page: number
   ): Promise<MeetingResponse> => {
-    const response = await requestHeader.get(
-      `/api/user/meeting/leader/list?page=${page}&size=10`
-    );
+    const response = await getUserLeaderMeetingList(page);
     return response.data;
   };
 
   // 모집 중인 모임 데이터 가져오기
   const fetchOngoingMeetings = async (page: number) => {
-    const response = await requestHeader.get(
-      `/api/user/meeting/list?page=${page}&size=10`
-    );
-    console.log(response.data.data.dataList);
+    const response = await getUserMeetingList(page);
+    console.log(response);
 
     // dataList가 존재할 경우에만 필터링
     const filteredDataList = response.data.data.dataList
       ? response.data.data.dataList.filter(
-          (meeting: MettingListInfo) => meeting.meetingStatus !== 'END'
+          (meeting: MettingListInfo) => meeting.meetingStatus === 'ONGOING'
         )
       : [];
-
-    console.log(filteredDataList);
 
     // 기존 구조를 유지하면서 dataList만 변경하여 반환
     return {
@@ -158,23 +151,27 @@ const MeetingHistory: React.FC<MyInfoProps> = ({ userInfo }) => {
         </div>
       </div>
       <div className="meeting-list">
-        {meetings.map((meeting) => (
-          <MeetingList
-            key={meeting.meetingId}
-            meetingId={meeting.meetingId}
-            meetingTitle={meeting.meetingTitle}
-            meetingCategory={meeting.meetingCtgName}
-            createdAt={meeting.createdAt}
-            district={meeting.district}
-            meetingLocation={meeting.meetingLocation}
-            meetingTime={formatDetailDate(meeting.meetingTime)}
-            nickname={meeting.nickname}
-            capacity={meeting.capacity}
-            totalCapacity={meeting.totalCapacity}
-            meetingStatus={meeting.meetingStatus}
-            profileImg={userInfo?.profileImg || '/images/usericon.png'}
-          />
-        ))}
+        {meetings.length > 0 ? (
+          meetings.map((meeting) => (
+            <MeetingList
+              key={meeting.meetingId}
+              meetingId={meeting.meetingId}
+              meetingTitle={meeting.meetingTitle}
+              meetingCategory={meeting.meetingCtgName}
+              createdAt={meeting.createdAt}
+              district={meeting.district}
+              meetingLocation={meeting.meetingLocation}
+              meetingTime={formatDetailDate(meeting.meetingTime)}
+              nickname={meeting.nickname}
+              capacity={meeting.capacity}
+              totalCapacity={meeting.totalCapacity}
+              meetingStatus={meeting.meetingStatus}
+              profileImg={userInfo?.profileImg || '/images/usericon.png'}
+            />
+          ))
+        ) : (
+          <div className="no-meetings">아직 활동하는 모임이 없습니다.</div> // 데이터가 없을 때 메시지
+        )}
       </div>
       {loading && <div className="loading">로딩 중...</div>}{' '}
       {/* 로딩 메시지 추가 */}
