@@ -56,10 +56,9 @@ const Reports: React.FC = () => {
           direction: sortDirection,
           property: sortProperty,
         });
-        
-        console.log(result.data.reportList);
         setReports(result || []); // 결과가 없으면 빈 배열 사용
-        setTotalPages(result.data.pageInfo.totalPages || 1);
+        
+        setTotalPages(result.pageInfo.totalPages || 1);
       } catch (error) {
         console.error('Failed to fetch reports:', error);
         setReports([]);

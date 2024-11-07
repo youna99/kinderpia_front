@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { ReportData, ReportReason } from "../../types/report";
 
 interface ReportTableProps {
@@ -13,6 +14,11 @@ export const ReportTable: React.FC<ReportTableProps> = ({ reports, loading, repo
     if (report.meetingId) return '모임';
     return '기타';
   };
+  useEffect(()=>{
+    if(!reports.length){
+      console.log('>>>>>',reports);
+    }
+  },[reports])
 
   const renderTableBody = () => {
     if (loading) {
@@ -24,6 +30,7 @@ export const ReportTable: React.FC<ReportTableProps> = ({ reports, loading, repo
         </tr>
       );
     }
+
 
     if (!reports) {
       return (
