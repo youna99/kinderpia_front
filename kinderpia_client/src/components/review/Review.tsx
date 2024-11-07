@@ -6,6 +6,7 @@ import { confirmAlert, simpleAlert } from '../../utils/alert';
 import { deleteReview, postLike } from '../../api/review';
 import { postReportBadContent } from '../../api/report';
 import ReportBox from '../common/ReportBox';
+import { getJwtFromCookies } from '../../utils/extractUserIdFromCookie';
 
 interface ReviewItemProps {
   reviewId: number;
@@ -78,7 +79,13 @@ const Review: React.FC<ReviewItemProps> = ({
   };
 
   // 신고사유선택 모달
-  const handleReportReview = async () => {
+  const handleReportReview = () => {
+    const jwtToken = getJwtFromCookies();
+    if (!jwtToken) {
+      simpleAlert('error', '로그인 후 다시 시도해주세요.');
+      return;
+    }
+
     setShowReportModal(true);
   };
 
