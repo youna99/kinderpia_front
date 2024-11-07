@@ -56,7 +56,7 @@ const MeetingActionJoined: React.FC<MeetingActionJoinedProp> = ({
 
   const deleteMeeting = async (): Promise<void> => {
     try {
-      const confirmed = window.confirm('정말로 모임을 종료하시겠습니까?')
+      const confirmed = window.confirm('정말로 모임을 삭제하시겠습니까?')
       if (confirmed) {
         const result = await putEndMeeting(Number(meetingId));
         simpleAlert('success','모임을 종료했습니다! 다음에 봐요', 'center');
@@ -72,6 +72,18 @@ const MeetingActionJoined: React.FC<MeetingActionJoinedProp> = ({
       navigate(`/meeting/${meetingId}/edit`);
     } catch (error) {
       console.error('모임 수정 중 오류 발생:', error)
+    }
+  }
+  const endMeeting = async ():Promise<void> =>{
+    try{
+      const confirmed = window.confirm('정말로 모임을 종료하시겠습니까?')        
+      if (confirmed) {
+        const result = await putEndMeeting(Number(meetingId));
+        simpleAlert('success','모임을 종료했습니다! 다음에 봐요', 'center');
+        navigate(`/meeting`);
+      }
+    } catch (error) {
+      console.error('모임 종료 중 오류 발생:', error)
     }
   }
   const openWaitingList = async (): Promise<void> => {
@@ -90,6 +102,12 @@ const MeetingActionJoined: React.FC<MeetingActionJoinedProp> = ({
         ? <>
           <CommonButton1
             text='모임 종료하기'
+            onClick={deleteMeeting}
+            disabled={false}
+            isLoading={false}
+          />
+          <CommonButton1
+            text='모임 삭제하기'
             onClick={deleteMeeting}
             disabled={false}
             isLoading={false}
