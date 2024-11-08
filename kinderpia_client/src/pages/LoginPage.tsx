@@ -51,8 +51,8 @@ export default function LoginPage() {
         break;
       case 2:
         data = {
-          loginId: 'test1234',
-          userPw: 'test1234'
+          loginId: 'test2345',
+          userPw: 'test2345'
         };
         break;
       default:
@@ -65,7 +65,7 @@ export default function LoginPage() {
       if (!result) {
         return null;
       }
-
+      simpleAlert('success', `환영합니다. 테스트계정${id} 로 로그인 하셨습니다.`, 'center')
       navigate('/');
     } catch (error) {
       console.error('Login error:', error);
@@ -149,23 +149,23 @@ export default function LoginPage() {
           >
             회원가입
           </Link>
-          <Link
-            to={'/admin'}
+          <a 
+            href={`${process.env.REACT_APP_API_URL}/admin/`}
             aria-label="관리자 로그인"
           >
             <i className="xi-crown admin-icon"></i>
-          </Link>
+          </a>
           <button
-            // onClick={()=>{simpleDummyLogin(1)}}
+            onClick={()=>{simpleDummyLogin(1)}}
           >
             <i className="xi-emoticon-smiley-o test-icon"></i>
-            <span>테스트 계정 1</span>
+            <span>테스트 계정 1 <br/>- 모임 생성자</span>
           </button>
           <button
-            // onClick={()=>{simpleDummyLogin(2)}}
+            onClick={()=>{simpleDummyLogin(2)}}
           >
             <i className="xi-emoticon-smiley-o test-icon"></i>
-            <span>테스트 계정 2</span>
+            <span>테스트 계정 2 <br/>- 모임 가입자</span>
           </button>
         </div>
       </div>
