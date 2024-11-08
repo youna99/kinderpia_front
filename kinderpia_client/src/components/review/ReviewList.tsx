@@ -15,16 +15,16 @@ interface ReviewListProps {
 const ReviewList: React.FC<ReviewListProps> = ({
   placeId,
   reviewcreate,
-  onDelete,
   reviewdelete,
+  onDelete,
 }) => {
   const [reviews, setReviews] = useState<ReviewData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver>();
+  const isInitialMount = useRef(true);
 
   const fetchReviews = useCallback(async () => {
     if (!hasMore) return;
@@ -42,8 +42,13 @@ const ReviewList: React.FC<ReviewListProps> = ({
       console.log('reviewData >>>', reviewData);
 
       if (reviewData.reviews.length > 0) {
-        setReviews((prevReviews) => [...prevReviews, ...reviewData.reviews]);
-        setHasMore(reviewData.reviews.length > 0);
+        setReviews((prevReviews) => {
+          // 페이지가 0이면 새로운 데이터로 교체, 아니면 추가
+          return page === 0
+            ? reviewData.reviews
+            : [...prevReviews, ...reviewData.reviews];
+        });
+        setHasMore(reviewData.reviews.length === 4); // size가 4이므로 4개가 아니면 마지막 페이지
       } else {
         setHasMore(false);
       }
@@ -57,12 +62,19 @@ const ReviewList: React.FC<ReviewListProps> = ({
     }
   }, [page, placeId, hasMore]);
 
+  // 초기화 처리를 위한 useEffect
   useEffect(() => {
-    setPage(0);
-    setReviews([]);
-    setHasMore(true);
+    if (!isInitialMount.current) {
+      // 초기 마운트가 아닐 때만 실행
+      setPage(0);
+      setHasMore(true);
+      // reviews는 fetchReviews에서 초기화될 것이므로 여기서는 초기화하지 않음
+    } else {
+      isInitialMount.current = false;
+    }
   }, [placeId, reviewcreate, reviewdelete]);
 
+  // 데이터 fetch를 위한 useEffect
   useEffect(() => {
     fetchReviews();
   }, [page, fetchReviews]);
@@ -84,6 +96,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
   );
 
   if (isLoading && reviews.length === 0) return <div>로딩 중...</div>;
+  if (error) return <div>에러: {error}</div>;
   if (reviews.length === 0)
     return <div className="review-list-404">작성된 리뷰가 없습니다.</div>;
 
