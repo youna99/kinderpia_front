@@ -94,6 +94,7 @@ export default function RegisterPage() {
         type: 'manual',
         message: '아이디 중복 검사를 완료해주세요.',
       });
+      simpleAlert('warning', '아이디 중복 검사를 완료해주세요.');
       return;
     }
 
@@ -102,6 +103,7 @@ export default function RegisterPage() {
         type: 'manual',
         message: '비밀번호가 일치하지 않습니다.',
       });
+      simpleAlert('warning', '비밀번호가 일치하지 않습니다.');
       return;
     }
 
@@ -110,6 +112,7 @@ export default function RegisterPage() {
         type: 'manual',
         message: '닉네임 중복 검사를 완료해주세요.',
       });
+      simpleAlert('warning', '닉네임 중복 검사를 완료해주세요.');
       return;
     }
 
