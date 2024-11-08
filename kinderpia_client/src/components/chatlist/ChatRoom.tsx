@@ -44,16 +44,16 @@ export default function ChatRoom({ room, onClick }: ChatRoomProp) {
     const formattedMinutes = minutes.toString().padStart(2, '0');
   
     // 오늘 기준으로 표시
-    if (diffDays === 0) {
-      return `${period} ${displayHours}:${formattedMinutes}`;
-    } else if (diffDays === 1) {
-      // 하루 전인 경우 '어제'로 표시
-      return '어제';
-    } else {
-      // 이틀 이상 차이 나는 경우 "00월 00일" 형식으로 표시
-      const [year, month, day] = datePart.split('-');
-      return `${month}월 ${day}일`;
-    }
+    return `${period} ${displayHours}:${formattedMinutes}`;
+    // if (diffDays === 0) {
+    // } else if (diffDays === 1) {
+    //   // 하루 전인 경우 '어제'로 표시
+    //   return '어제';
+    // } else {
+    //   // 이틀 이상 차이 나는 경우 "00월 00일" 형식으로 표시
+    //   const [year, month, day] = datePart.split('-');
+    //   return `${month}월 ${day}일`;
+    // }
   };
 
   return (

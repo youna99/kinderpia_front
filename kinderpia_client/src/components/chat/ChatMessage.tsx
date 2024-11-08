@@ -76,17 +76,17 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
     const displayHours = hours % 12 || 12;
     const formattedMinutes = minutes.toString().padStart(2, '0');
   
+    return `${period} ${displayHours}:${formattedMinutes}`;
     // 오늘 기준으로 표시
-    if (diffDays === 0) {
-      return `${period} ${displayHours}:${formattedMinutes}`;
-    } else if (diffDays === 1) {
-      // 하루 전인 경우 '어제'로 표시
-      return '어제';
-    } else {
-      // 이틀 이상 차이 나는 경우 "00월 00일" 형식으로 표시
-      const [year, month, day] = datePart.split('-');
-      return `${month}월 ${day}일`;
-    }
+    // if (diffDays === 0) {
+    // } else if (diffDays === 1) {
+    //   // 하루 전인 경우 '어제'로 표시
+    //   return '어제';
+    // } else {
+    //   // 이틀 이상 차이 나는 경우 "00월 00일" 형식으로 표시
+    //   const [year, month, day] = datePart.split('-');
+    //   return `${month}월 ${day}일`;
+    // }
   };
 
   // senderId 로 확인해서 자신인지 아닌지 확인
