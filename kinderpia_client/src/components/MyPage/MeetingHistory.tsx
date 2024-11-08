@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import MeetingList from '../common/MeetingList';
 import '../../styles/mypage/MeetingHistory.scss';
 import { formatDetailDate } from '../../utils/formatDate';
-import { requestHeader } from '../../api/requestHeader';
 import { MyInfoProps } from '../../types/user';
 import { getUserLeaderMeetingList, getUserMeetingList } from '../../api/user';
 

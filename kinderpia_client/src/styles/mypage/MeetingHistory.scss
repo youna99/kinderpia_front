@@ -7,6 +7,7 @@
   justify-content: space-between;
   h3 {
     font-size: $body;
+    padding-bottom: 1rem;
   }
   .filter {
     position: relative;
@@ -40,5 +41,12 @@
   margin-bottom: 10rem;
   .meeting-container {
     min-width: 100%;
+  }
+  .meeting-list {
+    .no-meetings {
+      font-size: $caption;
+      text-align: center;
+      margin-top: 5rem;
+    }
   }
 }
