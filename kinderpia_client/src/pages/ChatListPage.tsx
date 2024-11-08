@@ -58,28 +58,13 @@ export default function ChatlistPage() {
     };
   }, []);
 
-  // // 비동기 요청
-  // useEffect(() => {
-  //   const jwt = getJwtFromCookies();
-  //   fetchChatList(jwt, currentPage);
-  // }, [dispatch, isEmpty]);
-
   useEffect(() => {
     return () => {
       // 언마운트 시 상태 초기화
-      // dispatch(setChatRooms([]));
       dispatch(setSelected(false));
       setCurrentPage(1);
     };
   }, []);
-
-  // useEffect(() => {
-  //   const lastMessages = rooms.map((room) => room.lastMessage);
-  //   chatroomIds.forEach((chatroomId) => {
-  //     // dispatch(markMessagesAsRead(chatroomId))
-  //   })
-  
-  // }, [messages]);
 
   useEffect(() => {
     
@@ -89,32 +74,6 @@ export default function ChatlistPage() {
     }
   }, [isSelected, rooms, participatePeopleCounts])
   
-
-  // 채팅방 목록 조회 함수
-  // const fetchChatList = async (token: string | null, page: number) => {
-  //   try {
-  //     const res = await getChatList(token, page);
-  //     console.log(res);
-      
-  //     if (res?.status === 200) {
-  //       const chatroomList: ChatRoomListInfo[] = res.data.data.chatroomList;
-  //       if (currentPage === 1) {
-  //         dispatch(setChatRooms(chatroomList));
-  //       } else {
-  //         dispatch(addChatRooms(chatroomList));
-  //       }
-  //       dispatch(setPages(res.data.pageInfo));
-  //       dispatch(setEmpty(chatroomList.length === 0));
-  //       dispatch(setError(false));
-  //       dispatch(setLoading(false));
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     dispatch(setError(true));
-  //     dispatch(setLoading(false));
-  //     throw error;
-  //   }
-  // };
   return (
     <section className="chatlist">
       {isEmpty ? (

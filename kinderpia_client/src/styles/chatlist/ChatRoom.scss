@@ -246,6 +246,7 @@
 @media (max-width: $md) {
   .chatroom-list {
     flex-direction: row;
+    width: 100%;
     padding: 0;
     .chatlist-column {
       &:first-child {
