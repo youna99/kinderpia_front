@@ -154,6 +154,7 @@ export default function LoginPage() {
             aria-label="관리자 로그인"
           >
             <i className="xi-crown admin-icon"></i>
+            관리자 로그인
           </a>
           <button
             onClick={()=>{simpleDummyLogin(1)}}
