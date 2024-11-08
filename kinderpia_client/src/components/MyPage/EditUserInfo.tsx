@@ -78,6 +78,7 @@ export const EditUserInfo = ({ onUpdate }: EditUserInfoProps) => {
         type: 'manual',
         message: '전화번호 중복 검사를 완료해주세요.',
       });
+      simpleAlert('warning', '전화번호 중복 검사를 완료해주세요.');
       return;
     }
 
@@ -86,6 +87,7 @@ export const EditUserInfo = ({ onUpdate }: EditUserInfoProps) => {
         type: 'manual',
         message: '비밀번호가 일치하지 않습니다.',
       });
+      simpleAlert('warning', '비밀번호가 일치하지 않습니다.');
       return;
     }
 
