@@ -3,6 +3,7 @@ import Calendar, { CalendarProps } from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../../styles/mypage/ScheduleCalender.scss';
 import { getUserMeetingScheduleList } from '../../api/user';
+import { Link } from 'react-router-dom';
 
 type Meeting = {
   meetingId: string | null;
@@ -21,7 +22,7 @@ const ScheduleCalender: React.FC = () => {
   const fetchMeetings = async () => {
     try {
       const response = await getUserMeetingScheduleList();
-      // console.log('사용자 모임 일정 목록 조회', response);
+      console.log('사용자 모임 일정 목록 조회', response);
       const fetchedMeetings: Meeting[] = response.data.data;
       setMeetings(fetchedMeetings);
       const today = new Date();
@@ -60,6 +61,7 @@ const ScheduleCalender: React.FC = () => {
     );
     setSelectedMeetings(meetingsForDate);
   };
+  // <Route path="meeting/:meetingId" element={<MeetingDetail />} />
 
   return (
     <div id="calender">
@@ -93,18 +95,23 @@ const ScheduleCalender: React.FC = () => {
           {selectedMeetings.length > 0 ? (
             <ul>
               {selectedMeetings.map((meeting) => (
-                <li key={meeting.meetingId} className="today-meeting">
-                  <span className="meeting-title">
-                    <i className="xi-label"></i>
-                    {meeting.meetingTitle}
-                  </span>{' '}
-                  <span className="today-mettingtime">
-                    <i className="xi-time-o"></i>
-                    {new Date(meeting.meetingTime).toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </span>
+                <li key={meeting.meetingId}>
+                  <Link
+                    to={`/meeting/${meeting.meetingId}`}
+                    className="today-meeting"
+                  >
+                    <span className="meeting-title">
+                      <i className="xi-label"></i>
+                      {meeting.meetingTitle}
+                    </span>{' '}
+                    <span className="today-mettingtime">
+                      <i className="xi-time-o"></i>
+                      {new Date(meeting.meetingTime).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </span>
+                  </Link>
                 </li>
               ))}
             </ul>
