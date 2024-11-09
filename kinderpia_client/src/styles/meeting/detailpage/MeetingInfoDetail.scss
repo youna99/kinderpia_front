@@ -32,7 +32,9 @@
     opacity: 0.5;
     width: 100%;
     height: 90%;
-    background-image: url('../../../assets/images/tempImage1.jpg');
+    object-fit: cover;  // 비율 유지하며 영역 채우기
+    // object-fit: contain;  // 비율 유지하며 영역 내부에 맞추기
+    object-position: top;  // 이미지 위치 조정
   }
 
   &-wrapper {

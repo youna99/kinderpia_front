@@ -67,7 +67,11 @@ const MeetingInfoDetail: React.FC<MeetingInfoDetailProps> = ({
 
   return (
     <div className="meeting-info-detail-container">
-      <div className="meeting-info-detail-coverImage"></div>
+      <img 
+        className="meeting-info-detail-coverImage"
+        src={`/images/tempImage${meetingCategory}.jpg`}
+        alt=""
+      />
       <span className="meeting-info-detail-category">{meetingCategory}</span>
       <div className="meeting-info-detail-wrapper">
         <div className="meeting-info-detail-wrapper-title">{meetingTitle}</div>
