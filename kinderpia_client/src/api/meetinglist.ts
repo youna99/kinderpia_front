@@ -7,11 +7,15 @@ export const getMeetingListOpen = async (params: {
   category?: string;
   keyword?: string;
 }) => {
-  const response = await requestHeader.get('/api/meeting/list/open', {
-    params,
-    withCredentials: true,
-  });
-  return response.data;
+  try{
+    const response = await requestHeader.get('/api/meeting/list/open', {
+      params,
+      withCredentials: true,
+    });
+    return response.data;
+  }catch(err){
+    return;
+  }
 };
 
 export const getMeetingList = async (params: {
@@ -21,11 +25,16 @@ export const getMeetingList = async (params: {
   category?: string;
   keyword?: string;
 }) => {
-  const response = await requestHeader.get('/api/meeting/list', {
-    params,
-    withCredentials: true,
-  });
-  return response.data;
+  try{
+    const response = await requestHeader.get('/api/meeting/list', {
+      params,
+      withCredentials: true,
+    });
+    return response.data;
+  }catch (error) {
+    // console.log(error);
+    return;
+  }
 };
 
 // api/meeting.ts
@@ -65,12 +74,12 @@ export const fakeSignInLogIn = async (randomNumber: number) => {
   };
   try {
     const fakeUp = await requestHeader.post(
-      `${process.env.REACT_APP_API_URL}/api/user/register`,
+      `/api/user/register`,
       data
     );
     if (fakeUp) {
       const fakeIn = await requestHeader.post(
-        `${process.env.REACT_APP_API_URL}/api/user/login`,
+        `/api/user/login`,
         data2
       );
     }
