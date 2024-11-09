@@ -18,13 +18,15 @@
   &-header{
     display: flex;
     flex-direction: row;
+
+    &-profile{
+      background-color: #ffffff;
+    }
     
     &-info{
       display: flex;
       flex-direction: column;
       width: 100%;
-      &-nickname{
-      }
       &-wrapper{
         display: flex;
         flex-direction: row;

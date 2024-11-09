@@ -32,9 +32,9 @@ const KoreaMap: React.FC<KoreaMapProps> = ({
       return '#59a4d6'; // 선택된 지역 색상
     }
     if (hoveredRegion === regionName) {
-      return '#c4dFdF'; // 호버 시 색상
+      return '#85bce4'; // 호버 시 색상
     }
-    return '#e3f4f4'; // 기본 색상
+    return '#b7ddf6'; // 기본 색상
   };
 
   return (
@@ -50,12 +50,12 @@ const KoreaMap: React.FC<KoreaMapProps> = ({
         <path
           d="M 102.59775,8.7866972 100.14916,34.860487 71.603516,33.759574 60.990729,9.8316367 Z"
           style={{
-            fill: getRegionColor('강원도'),
+            fill: getRegionColor('강원특별자치도'),
             cursor: 'pointer',
             transition: 'fill 0.2s ease',
           }}
-          onClick={() => onRegionClick?.('강원도')}
-          onMouseEnter={() => handleRegionHover('강원도')}
+          onClick={() => onRegionClick?.('강원특별자치도')}
+          onMouseEnter={() => handleRegionHover('강원특별자치도')}
           onMouseLeave={() => handleRegionHover(null)}
         />
         {/* 경기도 */}
@@ -86,12 +86,12 @@ const KoreaMap: React.FC<KoreaMapProps> = ({
         <path
           d="m 42.423544,18.818414 3.571795,13.895951 -13.565597,2.348158 1.010204,-14.860947 z"
           style={{
-            fill: getRegionColor('인천'),
+            fill: getRegionColor('인천광역시'),
             cursor: 'pointer',
             transition: 'fill 0.2s ease',
           }}
-          onClick={() => onRegionClick?.('인천')}
-          onMouseEnter={() => handleRegionHover('인천')}
+          onClick={() => onRegionClick?.('인천광역시')}
+          onMouseEnter={() => handleRegionHover('인천광역시')}
           onMouseLeave={() => handleRegionHover(null)}
         />
         {/* 충청남도 */}
@@ -122,24 +122,24 @@ const KoreaMap: React.FC<KoreaMapProps> = ({
         <path
           d="m 51.443223,45.098487 2.291,5.74173 12.483236,-1.929993 -2.146683,-5.999062 z"
           style={{
-            fill: getRegionColor('세종'),
+            fill: getRegionColor('세종특별자치시'),
             cursor: 'pointer',
             transition: 'fill 0.2s ease',
           }}
-          onClick={() => onRegionClick?.('세종')}
-          onMouseEnter={() => handleRegionHover('세종')}
+          onClick={() => onRegionClick?.('세종특별자치시')}
+          onMouseEnter={() => handleRegionHover('세종특별자치시')}
           onMouseLeave={() => handleRegionHover(null)}
         />
         {/* 대전 */}
         <path
           d="m 53.914617,51.210133 2.074526,6.015144 12.735788,-1.543993 -2.327077,-6.288562 z"
           style={{
-            fill: getRegionColor('대전'),
+            fill: getRegionColor('대전광역시'),
             cursor: 'pointer',
             transition: 'fill 0.2s ease',
           }}
-          onClick={() => onRegionClick?.('대전')}
-          onMouseEnter={() => handleRegionHover('대전')}
+          onClick={() => onRegionClick?.('대전광역시')}
+          onMouseEnter={() => handleRegionHover('대전광역시')}
           onMouseLeave={() => handleRegionHover(null)}
         />
         {/* 전라북도 */}
@@ -158,12 +158,12 @@ const KoreaMap: React.FC<KoreaMapProps> = ({
         <path
           d="m 81.808118,61.599683 9.898463,-0.727846 1.71108,10.676915 -10.632412,-1.687324 z"
           style={{
-            fill: getRegionColor('대구'),
+            fill: getRegionColor('대구광역시'),
             cursor: 'pointer',
             transition: 'fill 0.2s ease',
           }}
-          onClick={() => onRegionClick?.('대구')}
-          onMouseEnter={() => handleRegionHover('대구')}
+          onClick={() => onRegionClick?.('대구광역시')}
+          onMouseEnter={() => handleRegionHover('대구광역시')}
           onMouseLeave={() => handleRegionHover(null)}
         />
         {/* 경상남도 */}
@@ -194,48 +194,48 @@ const KoreaMap: React.FC<KoreaMapProps> = ({
         <path
           d="m 39.212539,79.870529 -0.07216,4.696319 12.591476,0.0965 v -4.921486 z"
           style={{
-            fill: getRegionColor('광주'),
+            fill: getRegionColor('광주광역시'),
             cursor: 'pointer',
             transition: 'fill 0.2s ease',
           }}
-          onClick={() => onRegionClick?.('광주')}
-          onMouseEnter={() => handleRegionHover('광주')}
+          onClick={() => onRegionClick?.('광주광역시')}
+          onMouseEnter={() => handleRegionHover('광주광역시')}
           onMouseLeave={() => handleRegionHover(null)}
         />
         {/* 제주도 */}
         <path
           d="m 28.336003,108.45476 -0.306137,8.00631 18.266238,-0.81883 -0.51023,-8.0063 z"
           style={{
-            fill: getRegionColor('제주도'),
+            fill: getRegionColor('제주특별자치도'),
             cursor: 'pointer',
             transition: 'fill 0.2s ease',
           }}
-          onClick={() => onRegionClick?.('제주도')}
-          onMouseEnter={() => handleRegionHover('제주도')}
+          onClick={() => onRegionClick?.('제주특별자치도')}
+          onMouseEnter={() => handleRegionHover('제주특별자치도')}
           onMouseLeave={() => handleRegionHover(null)}
         />
         {/* 울산 */}
         <path
           d="m 100.91624,68.104807 0.33165,7.642382 6.6585,1.546674 3.44405,-9.552979 z"
           style={{
-            fill: getRegionColor('울산'),
+            fill: getRegionColor('울산광역시'),
             cursor: 'pointer',
             transition: 'fill 0.2s ease',
           }}
-          onClick={() => onRegionClick?.('울산')}
-          onMouseEnter={() => handleRegionHover('울산')}
+          onClick={() => onRegionClick?.('울산광역시')}
+          onMouseEnter={() => handleRegionHover('울산광역시')}
           onMouseLeave={() => handleRegionHover(null)}
         />
         {/* 부산 */}
         <path
           d="m 101.14585,76.520526 -7.398348,4.844726 0.02552,4.617273 13.980308,-8.211013 z"
           style={{
-            fill: getRegionColor('부산'),
+            fill: getRegionColor('부산광역시'),
             cursor: 'pointer',
             transition: 'fill 0.2s ease',
           }}
-          onClick={() => onRegionClick?.('부산')}
-          onMouseEnter={() => handleRegionHover('부산')}
+          onClick={() => onRegionClick?.('부산광역시')}
+          onMouseEnter={() => handleRegionHover('부산광역시')}
           onMouseLeave={() => handleRegionHover(null)}
         />
         {/* 경상북도 */}

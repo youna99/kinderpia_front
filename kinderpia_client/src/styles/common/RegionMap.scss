@@ -1,5 +1,9 @@
 @import '../common/variables';
 
+.region-map{
+  background-color: #ffffff;
+  border-radius: 10%;
+}
 .map-toggle {
   display: flex;
   gap: 0.5rem; // gap-2

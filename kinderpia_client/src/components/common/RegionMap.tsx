@@ -17,7 +17,7 @@ const RegionMap:React.FC<RegionMapProps> = ({
   const [mapToggle, setMapToggle]=useState(true);
 
   return (
-    <>
+    <div className='region-map'>
       <div className="map-toggle">
         <button 
           className={mapToggle ? 'active' : ''}
@@ -46,7 +46,7 @@ const RegionMap:React.FC<RegionMapProps> = ({
             selectedDistrict={selectedDistrict}
           />
         }
-    </>
+    </div>
   )
 }
 
