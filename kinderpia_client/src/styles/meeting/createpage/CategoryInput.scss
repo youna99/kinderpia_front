@@ -1,0 +1,54 @@
+@import '../../common/variables';
+
+.category-input{
+
+  &-container{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    
+    hr{
+      height: 1px;
+      background-color: #000;
+      border: none;
+      width: 100%;
+      margin: 0px auto;
+    }
+  }
+  &-header {
+    margin-top: $title1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    &-title {
+      font-weight: 500;
+      font-size: $headline;
+      span {
+        color: #ff0044;
+      }
+    }
+  }
+
+  &-select{
+    position: relative;
+    font-weight: 500;
+    font-family: inherit;
+    height: 6rem;
+    padding: 12px 16px;
+    font-size: 1.8rem;
+    border: 1px solid #ddd;
+    border-radius: 0.6rem;
+    background-color: white;
+    cursor: pointer;
+    
+    background-image: url("https://img.icons8.com/ios-filled/50/sort-down.png");  
+    background-repeat: no-repeat;  
+    background-position: 98% center;  
+    background-size: $title1;
+
+    &:focus {
+      border: 2px solid $main-color;
+    }
+  }
+}

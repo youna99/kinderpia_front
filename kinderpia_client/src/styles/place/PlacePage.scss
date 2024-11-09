@@ -1,0 +1,124 @@
+@import '../common/variables';
+
+.place-page {
+  .page-banner-txt {
+    font-size: 2.3rem;
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px auto;
+  padding: 2rem;
+
+  .place-search {
+    margin: 0px auto;
+    width: 100%;
+  }
+
+  .place-header {
+    margin-top: $headline;
+    margin: $caption;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    &-title {
+      font-size: $title2;
+      span {
+        margin-left: $caption;
+        font-size: $caption;
+      }
+    }
+
+    &-filter {
+      font-size: $caption;
+
+      .dropdown {
+        position: relative;
+
+        &-toggle {
+          background: none;
+          border: none;
+          padding: 8px 12px;
+          cursor: pointer;
+          font-size: $caption;
+          color: #666;
+
+          &:hover {
+            background-color: #f5f5f5;
+            border-radius: 4px;
+          }
+        }
+
+        &-menu {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          background-color: white;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          z-index: 1000;
+          min-width: 120px;
+
+          button {
+            display: block;
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            background: none;
+            text-align: left;
+            cursor: pointer;
+            font-size: $caption;
+            color: #666;
+
+            &:hover {
+              background-color: #f5f5f5;
+            }
+
+            &:not(:last-child) {
+              border-bottom: 1px solid #eee;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .place-list-item {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+
+    .place-list-item-page {
+      background-color: #fff;
+      max-width: 280px;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+    }
+  }
+}
+@media (max-width: $md) {
+  .place-page {
+    .page-banner-txt {
+      font-size: 2rem;
+    }
+    .place-list-item {
+      grid-template-columns: 1fr;
+    }
+
+    .place-header {
+      &-title {
+        span {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}

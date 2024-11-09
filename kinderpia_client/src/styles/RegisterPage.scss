@@ -1,0 +1,276 @@
+@import './common/variables';
+@import './common/utils';
+
+#register {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 2rem;
+  margin: auto;
+  .title {
+    text-align: center;
+    font-family: 'EF_jejudoldam';
+    font-size: $title2;
+    margin: 3rem auto 2rem;
+    & + p {
+      font-size: $body;
+      text-align: center;
+    }
+  }
+}
+
+// 회원가입 폼
+#register-form {
+  position: relative;
+  width: 100%;
+  margin: 5rem auto 0;
+  font-size: $body;
+  text-align: center;
+  .input-box {
+    position: relative;
+    text-align: left;
+    width: 70%;
+    margin: auto;
+    .double-check {
+      position: absolute;
+      right: -7.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      height: 4.5rem;
+      box-sizing: border-box;
+      border: 1px solid $main-color;
+      border-radius: 0.5rem;
+      background: $btn-color;
+      color: #fff;
+    }
+    // 인풋 컴포넌트
+    .input-wrap {
+      position: relative;
+      margin: 0 auto 5.5rem;
+      .label {
+        position: absolute;
+        top: -1.5rem;
+        left: 0;
+        transform: translateY(-50%);
+        .required-icon {
+          color: blue;
+        }
+      }
+      input {
+        width: 100%;
+        height: 5rem;
+        padding: 2rem;
+        box-sizing: border-box;
+        background: $bg-color;
+        border: none;
+        &:focus {
+          border: 2px solid $main-color;
+        }
+      }
+      // input type number 화살표 제거하기
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type='number'] {
+        -moz-appearance: textfield;
+      }
+    }
+  }
+  // 눈, x 아이콘
+  .eraser-icon {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: gray;
+    cursor: pointer;
+  }
+  .eye-icon {
+    position: absolute;
+    right: 3.5rem;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.2rem;
+    color: gray;
+    cursor: pointer;
+  }
+  // 에러메세지
+  .errmsg-box {
+    position: absolute;
+    text-align: left;
+    font-size: 1.2rem;
+    text-indent: 0.5rem;
+    .err-msg {
+      margin-top: 0.3rem;
+      display: block;
+      color: red;
+    }
+  }
+  //회원가입 버튼
+  .register-btn {
+    width: 70%;
+    height: 5rem;
+    font-size: 1.8rem;
+    border-radius: 1rem;
+    margin: 3rem auto;
+    background-color: $btn-color;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  // 약관동의
+
+  #agree {
+    width: 70%;
+    margin: auto;
+    text-align-last: left;
+    position: relative;
+    .label {
+      position: absolute;
+      top: -1.5rem;
+      left: 0;
+      transform: translateY(-50%);
+    }
+  }
+  .agree-wrap {
+    .agree-box {
+      display: flex;
+      label {
+        font-size: 1.4rem;
+        margin-left: 1rem;
+        span {
+          color: $main-color;
+        }
+      }
+    }
+    .agreePrivacy-box {
+      margin-top: 3rem;
+    }
+
+    .agree-txt {
+      border: 1px solid $border-color;
+      padding: 1rem 2rem;
+      height: 6rem;
+      overflow-y: scroll;
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+// 미디어쿼리
+@media (max-width: $md) {
+  #register-form {
+    .input-box {
+      .double-check {
+        right: -6.5rem;
+        font-size: 1.2rem;
+      }
+      // 인풋 컴포넌트
+      .input-wrap {
+        margin: 0 auto 6.5rem;
+        .label {
+          top: -1.3rem;
+        }
+        input {
+          padding: 1rem;
+        }
+      }
+    }
+    // 눈, x 아이콘
+    .eraser-icon {
+      font-size: 1.5rem;
+    }
+    .eye-icon {
+      right: 2.5rem;
+      font-size: 1.7rem;
+    }
+    // 에러메세지
+    .errmsg-box {
+      font-size: 1.1rem;
+    }
+    //회원가입 버튼
+    .register-btn {
+      height: 4rem;
+      font-size: 1.6rem;
+    }
+    // 약관동의
+    #agree {
+      .label {
+        top: -1.3rem;
+      }
+    }
+    .agree-wrap {
+      .agree-box {
+        display: flex;
+        label {
+          font-size: 1.3rem;
+          margin-left: 1rem;
+        }
+      }
+      .agree-txt {
+        padding: 1rem 1rem;
+        height: 5rem;
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  #register {
+    padding: 1rem;
+    .title {
+      font-family: 'EF_jejudoldam';
+      font-size: $title3;
+      margin: 2rem auto 2rem;
+      & + p {
+        display: none;
+      }
+    }
+  }
+  #register-form {
+    .input-box {
+      width: 90%;
+      .double-check {
+        right: 0rem;
+        height: 5rem;
+        font-size: 1.2rem;
+        border-radius: 0;
+      }
+      // 인풋 컴포넌트
+      .input-wrap {
+        margin: 0 auto 6.5rem;
+        .label {
+          font-size: 1.5rem;
+          top: -1.3rem;
+        }
+        input {
+          padding: 1rem;
+        }
+      }
+    }
+    // 눈, x 아이콘
+    .eraser-icon {
+      display: none;
+    }
+    .eye-icon {
+      right: 1rem;
+    }
+    //회원가입 버튼
+    .register-btn {
+      width: 90%;
+      font-size: 1.4rem;
+    }
+    // 약관동의
+    #agree {
+      width: 90%;
+      .label {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}

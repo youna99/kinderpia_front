@@ -1,0 +1,36 @@
+/* 제주 돌담체 */
+@font-face {
+  font-family: 'EF_jejudoldam';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-EF@1.0/EF_jejudoldam.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* G마켓 산스 */
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 태나다체 */
+@font-face {
+  font-family: 'Tenada';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 유틸리티 클래스 */
+.font-jeju {
+  font-family: 'EF_jejudoldam', sans-serif;
+}
+
+.font-gmarket {
+  font-family: 'GmarketSansMedium', sans-serif;
+}
+
+.font-tenada {
+  font-family: 'Tenada', sans-serif;
+}

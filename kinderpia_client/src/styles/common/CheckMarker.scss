@@ -1,0 +1,8 @@
+@import './reset';
+@import './variables';
+@import './utils';
+
+.check{
+  color: green;
+  font-size: $footnote;
+}

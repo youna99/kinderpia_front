@@ -1,0 +1,96 @@
+@import '../common/variables';
+@import '../common/utils';
+
+.review-item{
+  &-container{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    font-size: $body;
+    hr{
+      height: 1px;
+      background-color: #000;
+      border: none;
+      width: 100%;
+      margin: 0px auto;
+    }
+  }
+  &-header{
+    display: flex;
+    flex-direction: row;
+
+    &-profile{
+      background-color: #ffffff;
+    }
+    
+    &-info{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      &-wrapper{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        &-item{
+          display: flex;
+          flex-direction: row;
+          gap: $caption;
+          &-star{
+            font-size: $title1;
+            .xi-star{
+              color: $status-color;
+            }
+            .xi-star-o{
+              color: #000;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  &-content{
+    margin-left: $caption;
+    overflow: fasd;
+    margin-bottom: $caption;
+    word-break: break-all;   // 추가: 모든 가능한 위치에서 줄바꿈
+    white-space: pre-wrap;   // 추가: 공백과 줄바꿈 유지하면서 자동 줄바꿈
+    overflow-wrap: break-word; // 추가: 단어 중간에서도 줄바꿈 허용
+  }
+
+  &-action{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    &-btn{
+      background-color: $btn-color;
+      border-radius: 5px;
+      color: #ffffff;
+      width: 30%;
+      text-align: center;
+      padding: 5px;
+    }
+    &-like{
+      font-size: $body;
+      color: #414141;
+    }
+    margin-bottom: $caption;
+  }
+}
+.review-item-header-info-wrapper-report {
+  cursor: pointer;
+  color: #666;
+  font-size: 14px;
+  
+  &:hover {
+    color: #ff0000; 
+    text-decoration: underline;
+  }
+  
+  &:focus {
+    outline: none;
+    color: #ff0000;
+    text-decoration: underline;
+  }
+}

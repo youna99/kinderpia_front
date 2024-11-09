@@ -1,0 +1,22 @@
+@import '../../common/variables';
+@import '../../common/reset';
+@import '../../common/utils';
+
+.meeting-create-page {
+  padding: 2rem 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  padding: $caption;
+
+  &-form{
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  &-notice {
+    font-size: $footnote;
+    color: #ff0044;
+  }
+}

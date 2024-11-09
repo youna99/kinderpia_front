@@ -3,6 +3,41 @@
 @import './utils';
 
 footer {
-  height: 8rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   background: #000;
+  border-top: 1px solid #e8e8e8;
+  text-align: center;
+  padding: 0.5rem 0;
+  box-sizing: border-box;
+  height: 4rem;
+  z-index: 1;
+  .inner {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 2rem;
+  }
+  P {
+    color: #fff;
+    font-size: 1.4rem;
+    font-family: 'EF_jejudoldam';
+  }
+  .footer-info {
+    font-size: 2rem;
+    a {
+      color: #fff;
+      .xi-github-alt {
+        vertical-align: middle;
+      }
+      .footer-infotxt {
+        display: inline-block;
+        font-weight: 400;
+        margin-left: 0.5rem;
+        font-size: $caption;
+      }
+    }
+  }
 }

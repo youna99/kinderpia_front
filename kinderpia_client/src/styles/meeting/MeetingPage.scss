@@ -1,0 +1,98 @@
+@import '../common/variables';
+
+.meeting {
+  &-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px auto;
+    padding: 2rem;
+    max-width: 600px;
+  }
+
+  &-search {
+    width: 100%;
+  }
+
+  &-list {
+    width: 100%;
+    margin-bottom: 10rem;
+
+    section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+
+    &-title {
+      font-weight: 600;
+      font-size: $body;
+    }
+
+    &-filter {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      .filter-checkbox {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        font-size: $caption;
+        color: #666;
+
+        input[type="checkbox"] {
+          width: 16px;
+          height: 16px;
+          cursor: pointer;
+        }
+
+        span {
+          user-select: none;
+        }
+      }
+    }
+  }
+
+  &-error {
+    width: 100%;
+    text-align: center;
+    padding: 2rem;
+    color: #ff6b6b;
+    font-size: $body;
+  }
+
+  &-404 {
+    width: 100%;
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    font-size: $body;
+  }
+}
+
+.loading-indicator {
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  color: #666;
+  font-size: $caption;
+}
+
+.page-banner-txt {
+  font-size: $caption;
+  font-weight: 600;
+  color: $main-color;
+  margin-bottom: 2rem;
+  text-align: center;
+}

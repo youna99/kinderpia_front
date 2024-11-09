@@ -3,30 +3,121 @@
 @import './utils';
 
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 8rem;
-  border-bottom: 1px solid $main-color;
+  border-bottom: 1px solid $border-color;
+  z-index: 1000;
+  background-color: #fff;
+  .inner {
+    display: flex;
+    justify-content: center;
+  }
   h1 {
-    font-family: 'EF_jejudoldam';
-    color: $main-color;
-    font-size: $title1;
+    a {
+      font-family: 'EF_jejudoldam';
+      color: $main-color;
+      font-size: $title1;
+      line-height: 8rem;
+    }
+  }
+  .nav-icon {
+    font-size: 3rem;
+    position: absolute;
+    right: 2%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1001;
+  }
+  .menu {
+    overflow: hidden;
+    min-width: 30rem;
+    padding: 2rem;
+    box-sizing: border-box;
+    position: absolute;
+    right: -100%;
+    top: 0s;
+    background-color: #fff;
+    z-index: 1000;
+    border-radius: 2rem 0 0 2rem;
+    box-shadow: rgba(0, 0, 0, 0.15) -2.4px 2.4px 3.2px;
+    transition: right 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    strong {
+      font-size: $title3;
+    }
+    &.open {
+      right: 0;
+      opacity: 1;
+    }
+    .header-nav {
+      margin-top: 3rem;
+      margin-bottom: 5rem;
+      .header-list {
+        width: 80%;
+        margin: auto;
+        text-align: center;
+        &:hover:nth-child(1) {
+          background: $bg-color;
+        }
+        &:hover:nth-child(2) {
+          background: $bg-color;
+        }
+        a {
+          display: block;
+          font-size: $body;
+          padding: 1rem 2rem;
+        }
+        .search-icon {
+          font-size: 2rem;
+          margin-right: 1rem;
+          vertical-align: middle;
+        }
+        .logout-btn {
+          display: block;
+          font-size: $body;
+          padding: 1rem 2rem;
+          margin: 2rem auto;
+          background: #000;
+          color: #fff;
+          border-radius: 0.5rem;
+          cursor: pointer;
+        }
+        .login-btn {
+          margin-top: 2rem;
+          background: #000;
+          color: #fff;
+          border-radius: 0.5rem;
+        }
+        .register-btn {
+          font-size: $caption;
+          opacity: 0.8;
+        }
+      }
+    }
   }
 }
-.inner {
-  display: flex;
-  justify-content: space-between;
-  line-height: 8rem;
 
-  .header-nav {
-    display: flex;
-    gap: 3rem;
-    margin-right: 1rem;
-    .header-list {
-      font-size: $body;
-      .header-icon {
-        display: inline-block;
-        margin-right: 1rem;
-        font-size: 2rem;
-      }
+.project-info {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  display: flex;
+  align-itemss: center;
+  gap: 1rem;
+  width: 100%;
+  background: #000;
+  color: #fff;
+  padding: 0.5rem 0;
+  font-size: 1.1rem;
+  a {
+    color: #fff;
+    .xi-github-alt {
+      font-size: 1.2rem;
+      vertical-align: middle;
     }
   }
 }

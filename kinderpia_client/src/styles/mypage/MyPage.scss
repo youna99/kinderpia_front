@@ -1,0 +1,19 @@
+@import '../common/variables';
+@import '../common/utils';
+
+#mypage {
+  padding: 2rem 0;
+  .title-wrap {
+    display: flex;
+    justify-content: space-between;
+    .title {
+      font-size: $headline;
+    }
+  }
+}
+
+@media (max-width: $lg) {
+  #mypage {
+    padding: 2rem;
+  }
+}

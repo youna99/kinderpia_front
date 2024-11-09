@@ -1,0 +1,102 @@
+@import '../../common/variables';
+@import '../../common/utils';
+
+.meeting-info-detail {
+  &-container {    
+    width: 100%;
+    height: 30vh;
+    position: relative;
+    z-index: 1;
+    display: flex;           
+    justify-content: center; 
+    align-items: flex-end;  
+  }
+
+  &-category {
+    position: absolute;    
+    top: 10px;            
+    left: 10px;           
+    font-family: inherit;
+    font-size: $caption;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px $footnote;
+    z-index: 5;
+  }
+
+  &-coverImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0.5;
+    width: 100%;
+    height: 90%;
+    object-fit: cover;  // 비율 유지하며 영역 채우기
+    // object-fit: contain;  // 비율 유지하며 영역 내부에 맞추기
+    object-position: top;  // 이미지 위치 조정
+  }
+
+  &-wrapper {
+    position: relative;     
+    background-color: $active-color;
+    width: 70%;
+    border-radius: 20px;
+    padding: $title2;
+    z-index: 5;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    &-title{
+      font-weight: 700;
+      font-size: $title3;
+    }
+
+    &-human {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: $footnote 0;  // 상하 여백 추가
+
+      &-writer {
+        display: flex;      // 추가
+        align-items: center; // 추가
+        gap: 8px;          // 프로필 이미지와 이름 사이 간격
+
+        &-profileImage {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background-color: #ffffff;
+        }
+
+        &-name {
+          font-size: $body  ;
+          color: #333;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 80%;
+        }
+      }
+      &-participants{
+        font-size: $body;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        &-icon{
+          background-color: #ffffff;
+          border-radius: 50%;
+          font-size: $body;
+          margin-left: 0.5rem;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+
+    &-hash{
+      .hash-tag{
+        color: #616161;
+        margin-right: $footnote;
+      }
+    }
+  }
+}

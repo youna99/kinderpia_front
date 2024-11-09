@@ -1,0 +1,52 @@
+@import '../common/variables';
+
+.chat-form {
+    position: sticky;
+    max-width: 1024px;
+    width: 100%;
+    margin: auto;
+    bottom: 0;
+    background-color: $active-color;
+    box-sizing: border-box;
+    padding : .8rem 1rem;
+    display: flex;
+    align-items: center;
+    .chat-form__column {
+        width: 100%;
+        position: relative;
+        #chatMessage {
+            padding : 0 1.2rem;
+            box-sizing: border-box;
+            height: 3rem;
+            width: 90%;
+            border : 1px solid $main-color;
+            border-radius: 2rem;
+            font-size: 1.6rem;
+        }
+        .chatsend-btn {
+            position: absolute;
+            background-color: $btn-color;
+            border: none;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            right: 1rem;
+            top: 3px;
+            i {
+                color: #fff;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
+}
+
+
+@media (max-width: $md) {
+    .chat-form {
+        position: fixed;
+        bottom: 8.2rem;
+    }
+  }

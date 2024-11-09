@@ -1,0 +1,22 @@
+@import '../common/variables';
+
+.region-map{
+  background-color: #ffffff;
+  border-radius: 10%;
+}
+.map-toggle {
+  display: flex;
+  gap: 0.5rem; // gap-2
+  margin-bottom: 1rem; // mb-4
+
+  button {
+    padding: 0.5rem 1rem; // px-4 py-2
+    border-radius: 0.25rem; // rounded
+    background-color: #e5e7eb; // bg-gray-200
+    
+    &.active {
+      background-color: $main-color; // bg-blue-500
+      color: white;
+    }
+  }
+}

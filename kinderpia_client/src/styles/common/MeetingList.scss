@@ -1,0 +1,150 @@
+@import '../common/variables';
+
+.meeting-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: $active-color;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
+  margin: 0.8rem 0;
+  position: relative;
+
+  &:hover {
+    opacity: 0.6;
+    cursor: pointer;
+  }
+
+  .meetingInfo-container {
+    margin: 1rem;
+    .category {
+      background-color: white;
+      border-radius: 1rem;
+      font-size: 1.3rem;
+      padding: 0 0.5rem;
+      display: inline-block;
+      box-sizing: border-box;
+    }
+
+    .meeting-title {
+      font-size: $title3;
+      margin-top: 0.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      display: block;
+      max-width: 20ch;
+    }
+
+    .meetingInfo {
+      display: flex;
+      align-items: center;
+      font-size: 1.3rem;
+      gap: 1.5rem;
+      color: #7c7c7c;
+      margin: 0.5rem 0;
+
+      .meetLocation {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 20ch;
+      }
+    }
+
+    .meeting-writer-participants {
+      color: #7c7c7c;
+      display: flex;
+      align-items: center;
+      font-size: 1.2rem;
+      .leader-img {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+        margin-right: 0.5rem;
+        background-color: #ffffff;
+      }
+
+      .meetWriter {
+        margin-right: 3rem;
+      }
+
+      .meeting-icon {
+        font-size: 1.6rem;
+      }
+
+      .meetParticipants {
+        font-size: 1.2rem;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  .meetingStatus-container {
+    .meetStatus {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: $caption;
+      padding: 0.5rem;
+      border-radius: 50%;
+      min-width: 5.5rem;
+      height: 5.5rem;
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+
+      &.recruiting {
+        background-color: #ffdd77;
+      }
+
+      &.closed {
+        background-color: #edb4d8;
+      }
+
+      &.ended {
+        background-color: #b5b5b5;
+      }
+    }
+  }
+}
+
+@media (max-width: 460px) {
+  .meeting-container {
+    .meetingInfo-container {
+      .category {
+        font-size: 1.2rem;
+      }
+      .meetingInfo {
+        flex-direction: column;
+        align-items: start;
+        gap: 0;
+      }
+
+      .meeting-writer-participants {
+        .leader-img {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+
+        .meetWriter {
+          margin-right: 2rem;
+        }
+
+        .meeting-icon {
+          font-size: 1.8rem;
+        }
+
+        .meetParticipants {
+          font-size: 1.2rem;
+          margin-left: 0.5rem;
+        }
+      }
+    }
+  }
+}
