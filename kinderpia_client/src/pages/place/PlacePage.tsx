@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import SearchInput from '../../components/common/SearchInput';
 import PlaceList from '../../components/common/PlaceList';
-import SeoulMap from '../../assets/seoulMap';
+import SeoulMap from '../../assets/SeoulMap';
 import { PlaceListInfo } from '../../types/placelist';
 import { dummyPlaceList } from '../../data/tempPlaceListdata';
 import '../../styles/place/PlacePage.scss';
@@ -137,7 +137,7 @@ const PlacePage: React.FC = () => {
   return (
     <div className="place-page">
       <strong className="page-banner-txt">
-        서울 이곳저곳의 핫플레이스를 찾아보세요!
+        이곳저곳의 핫플레이스를 찾아보세요!
       </strong>
       <div className="place-map-container">
         <SeoulMap
