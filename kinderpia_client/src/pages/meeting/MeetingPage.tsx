@@ -3,8 +3,7 @@ import SearchInput from '../../components/common/SearchInput';
 import MeetingList from '../../components/common/MeetingList';
 import { MettingListInfo } from '../../types/meetinglist';
 import {
-  // getMeetingList,
-  getMeetingListOpen,
+  getMeetingList,
   getMeetingListSearch,
 } from '../../api/meetinglist';
 import { formatDetailDate } from '../../utils/formatDate';
@@ -48,7 +47,7 @@ const MeetingPage: React.FC = () => {
   const fetchMeetings = async (pageNum: number, isInitial: boolean = false) => {
     try {
       setIsLoading(true);
-      const response = await getMeetingListOpen({
+      const response = await getMeetingList({
         page: pageNum,
         size: 10,
         keyword: currentSearchTerm.current,
