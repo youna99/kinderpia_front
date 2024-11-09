@@ -85,7 +85,7 @@ export default function LoginPage() {
       const response = await postUserLogin(data);
       if (response.status === 200) {
         console.log('로그인 완료:', response);
-        await simpleAlert('success', '로그인 성공!');
+        await simpleAlert('success', '환영합니다. 더미 유저데이터를 생성하여 로그인하였습니다.','center');
         navigate('/');
       }
     } catch (error) {

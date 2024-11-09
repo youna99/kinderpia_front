@@ -169,7 +169,7 @@ export default function RegisterPage() {
       <h2 className="title">회원가입</h2>
       <p>킨더피아 멤버가 되어보세요.</p>
       <FakerComponent
-        text={`더미 회원가입 해버리기~  LoginId : test${dummyNumber}, password : test1234`}
+        text={`더미 데이터로 회원가입하기 LoginId : test${dummyNumber}, password : test1234`}
         onClick={fakeSignIn}
       />
       <form action="#" id="register-form" onSubmit={handleSubmit(onSubmit)}>

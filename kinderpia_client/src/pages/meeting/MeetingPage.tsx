@@ -3,13 +3,13 @@ import SearchInput from '../../components/common/SearchInput';
 import MeetingList from '../../components/common/MeetingList';
 import { MettingListInfo } from '../../types/meetinglist';
 import {
-  getMeetingList,
+  // getMeetingList,
   getMeetingListOpen,
   getMeetingListSearch,
 } from '../../api/meetinglist';
 import { formatDetailDate } from '../../utils/formatDate';
 import '../../styles/meeting/MeetingPage.scss';
-import SeoulMap from '../../assets/seoulMap';
+import RegionMap from '../../components/common/RegionMap';
 
 const MeetingPage: React.FC = () => {
   const [meetings, setMeetings] = useState<MettingListInfo[]>([]);
@@ -191,8 +191,8 @@ const MeetingPage: React.FC = () => {
       <strong className="page-banner-txt">
         "함께하는 즐거움", 모임을 찾아보세요!
       </strong>
-      <div className="place-map-container">
-        <SeoulMap
+      <div className="meeting-map-container">
+        <RegionMap
           onDistrictClick={handleDistrictClick}
           selectedDistrict={selectedDistrict}
         />
@@ -213,11 +213,7 @@ const MeetingPage: React.FC = () => {
               checked={filter}
               onChange={handleFilterChange}
             />
-            {filter ? (
-              <span>모집중인 모임만 보기</span>
-            ) : (
-              <span>모든 모임 보기</span>
-            )}
+            <span>모집중인 모임만 보기</span>
           </label>
         </div>
       </div>

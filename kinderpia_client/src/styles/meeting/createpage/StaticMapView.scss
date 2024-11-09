@@ -1,7 +1,13 @@
 @import '../../common/variables';
 
-.static-map-container{
+.static-map{
+  &-container{
   display: flex;
   margin: $caption auto;
   width: 90%;
+  height: 45%;
+  }
+  &-spinner{
+    margin: 0 auto;
+  }
 }

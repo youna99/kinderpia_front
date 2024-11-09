@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import SearchInput from '../../components/common/SearchInput';
 import PlaceList from '../../components/common/PlaceList';
-import SeoulMap from '../../assets/seoulMap';
 import { PlaceListInfo } from '../../types/placelist';
 import { dummyPlaceList } from '../../data/tempPlaceListdata';
 import '../../styles/place/PlacePage.scss';
 import { getDefaultPlaceList, getSearchPlaceList } from '../../api/placelist';
 import { defaultPostReq } from '../../types/place';
+import RegionMap from '../../components/common/RegionMap';
 
 type SortType = 'star' | 'default' | undefined;
 
@@ -137,10 +137,10 @@ const PlacePage: React.FC = () => {
   return (
     <div className="place-page">
       <strong className="page-banner-txt">
-        서울 이곳저곳의 핫플레이스를 찾아보세요!
+        이곳저곳의 핫플레이스를 찾아보세요!
       </strong>
       <div className="place-map-container">
-        <SeoulMap
+        <RegionMap
           onDistrictClick={handleDistrictClick}
           selectedDistrict={selectedDistrict}
         />

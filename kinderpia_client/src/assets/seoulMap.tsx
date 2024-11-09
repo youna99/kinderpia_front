@@ -22,9 +22,9 @@ const SeoulMap: React.FC<SeoulMapProps> = ({
       return '#59a4d6'; // 선택된 구역 색상
     }
     if (hoveredDistrict === districtName) {
-      return '#c4dFdF'; // 호버 시 색상
+      return '#85bce4'; // 호버 시 색상
     }
-    return '#e3f4f4'; // 기본 색상
+    return '#b7ddf6'; // 기본 색상
   };
 
   return (
