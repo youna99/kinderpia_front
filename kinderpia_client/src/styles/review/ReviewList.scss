@@ -7,8 +7,9 @@
     flex-direction: column;
     gap: $caption;
     width: 100%;
-    max-width: 53rem;
-    margin-bottom: 10rem;
+    max-width: 53rem; 
+    margin: 0px auto;
+    margin-bottom: 3rem;
 
     hr {
       height: 1px;
