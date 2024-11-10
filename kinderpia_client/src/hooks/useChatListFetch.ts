@@ -19,10 +19,10 @@ export const useChatListFetch = (currentPage: number) => {
   const { isEmpty } = useSelector((state: RootState) => state.chatRooms);
 
   useEffect(() => {
-    tempChatList()
-    // const jwt = getJwtFromCookies();
-    // if (!jwt) return;
-    // fetchChatList(currentPage);
+    // tempChatList()
+    const jwt = getJwtFromCookies();
+    if (!jwt) return;
+    fetchChatList(currentPage);
     return () => {};
   }, [dispatch, isEmpty]);
 

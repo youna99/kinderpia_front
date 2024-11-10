@@ -56,5 +56,54 @@ export const tempChatListdata : ChatRoomListInfo [] = [
       capacity: 9,
       lastMessageCreatedAt: '2024-11-10T01:59:23.222'
     },
+    {
+      chatroomId: 6,
+      meetingId: 1,
+      meetingTitle: "함께 에버랜드 갈 사람",
+      meetingHeader : 1,
+      lastMessage: "hello",
+      active : true,
+      meetingCategoryName: "오락 및 여가",
+      capacity: 9,
+      lastMessageCreatedAt: '2024-11-10T01:59:23.222'
+    },
+    {
+      chatroomId: 7,
+      meetingId: 1,
+      meetingTitle: "함께 에버랜드 갈 사람",
+      meetingHeader : 1,
+      lastMessage: "hello",
+      active : true,
+      meetingCategoryName: "오락 및 여가",
+      capacity: 9,
+      lastMessageCreatedAt: '2024-11-10T01:59:23.222'
+    },
+    {
+      chatroomId: 8,
+      meetingId: 1,
+      meetingTitle: "함께 에버랜드 갈 사람",
+      meetingHeader : 1,
+      lastMessage: "hello",
+      active : true,
+      meetingCategoryName: "오락 및 여가",
+      capacity: 9,
+      lastMessageCreatedAt: '2024-11-10T01:59:23.222'
+    },
     
   ];
+
+
+  export const tempChatRoomInfo = {
+    chatroomId: 1,
+    meetingId: 1,
+    meetingTitle: "함께 에버랜드 갈 사람",
+    meetingHeader : 1,
+    lastMessage: "hello",
+    active : true,
+    meetingCategoryName: "오락 및 여가",
+    capacity: 9,
+    lastMessageCreatedAt: '2024-11-10T01:59:23.222',
+    users : [
+      {userId : 1, nickname : '슈퍼노바', profileImg:''}
+    ]
+  }

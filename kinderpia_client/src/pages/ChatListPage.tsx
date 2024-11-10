@@ -75,7 +75,7 @@ export default function ChatlistPage() {
   }, [isSelected, rooms, participatePeopleCounts])
   
   return (
-    <section className="chatlist">
+    <section className={isSelected? `chatlist selected`: `chatlist`}>
       {isEmpty ? (
         <NoChatRoom />
       ) : (

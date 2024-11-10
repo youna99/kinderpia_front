@@ -81,10 +81,9 @@ export default function ChatRoom({ room, onClick }: ChatRoomProp) {
           {formatTime(room.lastMessageCreatedAt)}
         </div>
         <div>
-          {/* {unreadCount > 0 && (
+          {unreadCount > 0 && (
             <div className="unread-badge">{" " + unreadCount}</div>
-          )} */}
-          <div className="unread-badge">333</div>
+          )}
         </div>
       </div>
     </li>
