@@ -50,9 +50,13 @@ function App() {
                   element={<PrivateRoute element={<EditUserPage />} />}
                 />
                 {/* 채팅방 목록 */}
-                <Route
+                {/* <Route
                   path="chatroom/list"
                   element={<PrivateRoute element={<ChatlistPage />} />}
+                /> */}
+                <Route
+                  path="chatroom/list"
+                  element={<ChatlistPage />}
                 />
                 {/* 모임 관련 라우트 */}
                 <Route path="meeting">
