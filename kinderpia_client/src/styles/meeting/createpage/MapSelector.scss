@@ -81,4 +81,27 @@
     text-align: center;
     color: #666;
   }
+  &-search-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 8px;
+  
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+  
+  &-search-input-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  &-spinner{
+    text-align: center  ;
+    margin: o auto;
+    font-size: $headline;
+  }
 }

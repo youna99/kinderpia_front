@@ -40,7 +40,12 @@ const StaticMapView: React.FC<MapViewProps> = ({
   }, [location]);
 
   if (isLoading) {
-    return <div>지도를 불러오는 중...</div>;
+
+    return (
+      <div className="static-map-container">
+        <i className='xi-spinner-1 static-map-spinner'></i>
+      </div>
+    );
   }
 
   return (
