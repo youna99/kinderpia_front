@@ -186,7 +186,7 @@ const MeetingPage: React.FC = () => {
   };
 
   return (
-    <div className="meeting-page">
+    <section className="meeting-page">
       <strong className="page-banner-txt">
         "함께하는 즐거움", 모임을 찾아보세요!
       </strong>
@@ -255,7 +255,7 @@ const MeetingPage: React.FC = () => {
           )}
         </div>
       )}
-    </div>
+    </section>
   );
 };
 
