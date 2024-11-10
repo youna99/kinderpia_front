@@ -140,7 +140,7 @@ const MeetingCreatePage = () => {
   };
 
   return (
-    <div className="meeting-create-page">
+    <section className="meeting-create-page">
       <span className="meeting-create-page-notice">
         <i className="xi-check"></i> 표시는 필수 입력사항 입니다.
       </span>
@@ -205,7 +205,7 @@ const MeetingCreatePage = () => {
           preventDefault={true}
         />
       </form>
-    </div>
+    </section>
   );
 };
 

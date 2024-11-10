@@ -69,7 +69,7 @@ const PlaceDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="place-detail-page">
+    <section className="place-detail-page">
       <div className="place-detail-info">
         {placeDetail && ratingAndCategorys ? (
           <PlaceInfoDetail
@@ -87,7 +87,7 @@ const PlaceDetailPage: React.FC = () => {
         onDelete={handleReviewDelete}
         reviewdelete={reviewdelete}
       />
-    </div>
+    </section>
   );
 };
 
