@@ -67,20 +67,22 @@ const ScheduleCalender: React.FC = () => {
     <div id="calender">
       <h3>내 모임 일정</h3>
       <div className="my-calender">
-        <Calendar
-          locale="ko"
-          onChange={onDateClick}
-          value={value}
-          tileContent={tileContent}
-          formatDay={(locale, date) =>
-            date.toLocaleString('en', { day: 'numeric' })
-          }
-          showNeighboringMonth={false}
-          calendarType="hebrew"
-          minDetail="year"
-          prev2Label={null}
-          next2Label={null}
-        />
+        <div className="calender-box">
+          <Calendar
+            locale="ko"
+            onChange={onDateClick}
+            value={value}
+            tileContent={tileContent}
+            formatDay={(locale, date) =>
+              date.toLocaleString('en', { day: 'numeric' })
+            }
+            showNeighboringMonth={false}
+            calendarType="hebrew"
+            minDetail="year"
+            prev2Label={null}
+            next2Label={null}
+          />
+        </div>
         <div className="meeting-list">
           <h4 className="today-title">
             <i className="xi-calendar-check"></i>
