@@ -9,12 +9,14 @@
 }
 
 .placelist-container {
+  padding: 0 1rem;
   // margin-bottom: 3rem;
   .headline-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 1.5rem 0.5rem 1rem;
+    // margin: 0 1.5rem 0.5rem 1rem;
+    margin-bottom: 0.5rem;
 
     .title-container {
       display: flex;
@@ -30,18 +32,20 @@
     }
   }
   .swiper {
-    margin: 0.2rem 0.8rem;
+    // margin: 0.2rem 0.8rem;
     height: 30rem;
   }
 }
 
 .meetinglist-container {
   margin-bottom: 1rem;
+  padding: 0 1rem;
   .headline-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 1.5rem 0.5rem 1rem;
+    // margin: 0 1.5rem 0.5rem 1rem;
+    margin-bottom: 0.5rem;
     .title-container {
       display: flex;
       align-items: center;
@@ -66,6 +70,7 @@
 
 @media (min-width: $sm) {
   .placelist-container {
+    padding: 0 2rem;
     .headline-container {
       .title-container {
         .add {
@@ -76,6 +81,7 @@
   }
 
   .meetinglist-container {
+    padding: 0 2rem;
     .headline-container {
       .title-container {
         .add {
