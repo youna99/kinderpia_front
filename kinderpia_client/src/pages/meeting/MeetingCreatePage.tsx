@@ -135,7 +135,10 @@ const MeetingCreatePage = () => {
     }
 
     const result = await postMeeting(data);
-
+    if(!result){
+      simpleAlert('error','모임 생성에 실패하셨어요!! ', 'center')
+      return;
+    }
     navigate(`/meeting/${result.data}`);
   };
 
