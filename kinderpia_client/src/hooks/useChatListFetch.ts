@@ -12,12 +12,14 @@ import {
   setPages,
 } from "../store/chatRoomsSlice";
 import { getJwtFromCookies } from "../utils/extractUserIdFromCookie";
+import { tempChatListdata } from "../data/tempChatRoomList";
 
 export const useChatListFetch = (currentPage: number) => {
   const dispatch = useDispatch();
   const { isEmpty } = useSelector((state: RootState) => state.chatRooms);
 
   useEffect(() => {
+    // tempChatList()
     const jwt = getJwtFromCookies();
     if (!jwt) return;
     fetchChatList(currentPage);
@@ -46,6 +48,14 @@ export const useChatListFetch = (currentPage: number) => {
       throw error;
     }
   };
+
+  const tempChatList = () => {
+    dispatch(setChatRooms(tempChatListdata))
+    dispatch(setPages({page : 1, totalElements :5, totalPages :1}));
+    dispatch(setEmpty(false));
+    dispatch(setError(false));
+    dispatch(setLoading(false));
+  }
 
   return { fetchChatList };
 };
