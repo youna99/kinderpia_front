@@ -1,27 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { MeetingUserData } from '../../../types/meeting';
+import { MeetingData, MeetingUserData } from '../../../types/meeting';
 import ReportBox from '../../common/ReportBox';
 
 import '../../../styles/meeting/detailpage/MeetingInfoDesc.scss';
 import { postReportBadContent } from '../../../api/report';
-import { simpleAlert } from '../../../utils/alert';
+import { confirmAlert, simpleAlert } from '../../../utils/alert';
+import { putCompleteMeeting, putDeleteMeeting } from '../../../api/meeting';
+import { useNavigate } from 'react-router-dom';
 
 interface MeetingInfoDescProps {
   meetingId?: number;
-  createdAt?: string;
-  description?: string;
+  data? : MeetingData;
   user?: MeetingUserData;
 }
 
 const MeetingInfoDesc: React.FC<MeetingInfoDescProps> = ({
   meetingId,
-  createdAt = ' 미정 ',
-  description,
+  data,
   user,
 }) => {
   const [showReportModal, setShowReportModal] = useState(false);
   const [reportToggle, setReportToggle] = useState(false);
   const [meetingDate, setMeetingData] = useState('');
+  const [amIWriter , setAmIWriter] =useState(false);
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    if (!user) return;
+    if (!data) return;
+    if (user.userId === data.userId) {
+      setAmIWriter(true);
+    }
+  }, [amIWriter]);
 
   useEffect(() => {
     if (!user?.reported) {
@@ -42,8 +52,60 @@ const MeetingInfoDesc: React.FC<MeetingInfoDescProps> = ({
 
       return `${year}-${month}-${day} ${hours}:${minutes}`;
     };
-    setMeetingData(formatDate(createdAt));
-  }, [createdAt]);
+    setMeetingData(formatDate( data?.createdAt || '') );
+  }, [data?.createdAt]);
+
+  const deleteMeeting = async (): Promise<void> => {
+    try {
+      const confirmed = await confirmAlert(
+        "question",
+        "정말로 모임을 삭제하시겠습니까?",
+        "모임에 모인 사람들이 흩어지게 될거에요"
+      );
+      if (confirmed) {
+        const result = await putDeleteMeeting(Number(meetingId));
+        if (result) {
+          simpleAlert("success", "모임을 삭제했습니다! 다음에 봐요", "center");
+          navigate(`/meeting`);
+        }
+      }
+    } catch (error) {
+      console.error("모임 삭제 중 오류 발생:", error);
+    }
+  };
+
+  const editMeeting = async (): Promise<void> => {
+    try {
+      const confirmed = await confirmAlert(
+        "question",
+        "모임 게시글 수정페이지로 이동하시시겠습니까?",
+      )
+      if(confirmed){
+        navigate(`/meeting/${meetingId}/edit`);
+      }
+    } catch (error) {
+      console.error("모임 수정 중 오류 발생:", error);
+    }
+  };
+
+  const endMeeting = async (): Promise<void> => {
+    try {
+      const confirmed = await confirmAlert(
+        "question",
+        "정말로 모임을 마감 하시겠습니까?",
+        "더이상 사람들이 참여할 수 없게 됩니다."
+      );
+      if (confirmed) {
+        const result = await putCompleteMeeting(Number(meetingId));
+        if (result) {
+          simpleAlert("success", "모임을 종료했습니다! 다음에 봐요", "center");
+          navigate(`/meeting`);
+        }
+      }
+    } catch (error) {
+      console.error("모임 종료 중 오류 발생:", error);
+    }
+  };
 
   const handleReport = async (
     reportReasonId: number,
@@ -78,32 +140,43 @@ const MeetingInfoDesc: React.FC<MeetingInfoDescProps> = ({
   const handleReportClick = () => {
     setShowReportModal(true);
   };
+  if(!data){
+    return null;
+  }
 
   return (
     <div className="meeting-info-desc-container">
       <div className="meeting-info-desc-header">
         <label className="meeting-info-desc-header-title">모임 내용</label>
         <div className="meeting-info-desc-header-report">
-          {reportToggle ? (
-            <div className="reported-text">신고된 게시물입니다.</div>
-          ) : (
-            <div
-              className="report-button"
-              onClick={handleReportClick}
-              role="button"
-              tabIndex={0}
-            >
-              🚨 신고하기
+          {amIWriter ? (
+            <div className='meeting-info-desc-header-report-btngroup'>
+              <button onClick={editMeeting}>모임 수정</button>
+              <button onClick={deleteMeeting}>모임 삭제</button>
+              <button onClick={endMeeting}>모임 종료</button>
             </div>
+          ) : (
+            reportToggle ? (
+              <div className="reported-text">신고된 게시물입니다.</div>
+            ) : (
+              <div
+                className="report-button"
+                onClick={handleReportClick}
+                role="button"
+                tabIndex={0}
+              >
+                🚨 신고하기
+              </div>
+            )
           )}
         </div>
       </div>
       <hr />
       <div className="meeting-info-desc-body">
-        <div className="meeting-info-desc-body-createdAt">{meetingDate}</div>
-        <div className="meeting-info-desc-body-content">{description}</div>
+        <div className="meeting-info-desc-body-createdAt">{meetingDate}
+        </div>
+        <div className="meeting-info-desc-body-content">{data.meetingContent}</div>
       </div>
-
       {showReportModal && (
         <ReportBox
           onClose={() => setShowReportModal(false)}
