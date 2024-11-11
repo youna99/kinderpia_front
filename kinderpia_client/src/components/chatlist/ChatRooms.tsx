@@ -14,6 +14,8 @@ import { getJwtFromCookies } from "../../utils/extractUserIdFromCookie";
 import { setSelected } from "../../store/chatRoomsSlice";
 import { ChatRoomInfo } from "../../types/chat";
 import { useChatListFetch } from "../../hooks/useChatListFetch";
+import { tempChatListdata, tempChatRoomInfo } from "../../data/tempChatRoomList";
+import { tempMsgData } from "../../data/tempChatMessage";
 
 interface ChatRoomsProps {
   // fetchChatList: (token: string, page: number) => Promise<void>;
@@ -38,9 +40,6 @@ export default function ChatRooms({
   const scrollRef = useRef<HTMLUListElement>(null);
   const observerRef = useRef<HTMLDivElement>(null);
 
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
 
   const { fetchChatList } = useChatListFetch(currentPage);
 
@@ -106,7 +105,7 @@ export default function ChatRooms({
       }
     },
     [dispatch]
-  );
+  );  
 
   const chatRoomItems = useMemo(() => {
     return rooms?.map((room) => (
@@ -118,41 +117,22 @@ export default function ChatRooms({
     ));
   }, [rooms, enterChatroom]);
 
-  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
-    const clientX = "touches" in e ? e.touches[0].clientX : e.pageX;
-    setIsDragging(true);
-    setStartX(clientX - (scrollRef.current?.offsetLeft || 0));
-    setScrollLeft(scrollRef.current?.scrollLeft || 0);
-  };
+  // const tempEnterChatroom = (chatroomId:number) => {
+  //   const chatInfo = tempChatRoomInfo
+  //   dispatch(setChatInfo(chatInfo));
 
-  const handleDragEnd = () => {
-    setIsDragging(false);
-  };
+  //   const chatMsgList = tempMsgData;
 
-  const handleDragMove = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!isDragging) return;
-
-    const clientX = "touches" in e ? e.touches[0].clientX : e.pageX;
-    const x = clientX - (scrollRef.current?.offsetLeft || 0);
-    const walk = (x - startX) * 1;
-    if (scrollRef.current) {
-      scrollRef.current.scrollLeft = scrollLeft - walk;
-    }
-  };
+  //   dispatch(setMessages(chatMsgList));
+  //   dispatch(setSelected(true));
+  //   dispatch(markMessagesAsRead(chatroomId));
+  //   dispatch(setOpen(false));
+  // }
 
   return (
     <section className="chatroom-wrapper">
       <h2>Chats</h2>
-      <ul
-        ref={scrollRef}
-        onMouseDown={handleDragStart}
-        onMouseLeave={handleDragEnd}
-        onMouseUp={handleDragStart}
-        onMouseMove={handleDragMove}
-        onTouchStart={handleDragStart}
-        onTouchMove={handleDragMove}
-        onTouchEnd={handleDragEnd}
-      >
+      <ul ref={scrollRef}>
         {rooms && rooms.length > 0 && chatRoomItems}
       </ul>
       {chatPages.totalPages > 1 && currentPage < chatPages.totalPages && (

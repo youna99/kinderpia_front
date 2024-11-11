@@ -35,6 +35,7 @@
   &-text{
     display: flex;
     flex-direction: column;
+    padding: 1rem;
     &-content{
       font-family: inherit;
       font-size: $body;

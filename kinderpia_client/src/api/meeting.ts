@@ -13,34 +13,49 @@ import { requestHeader } from './requestHeader';
 
 export const getMeeting = async ( 
   meetingId: number
-): Promise<MeetingDetailData> => {
-  const response = await requestHeader.get(
-    `/api/meeting/${meetingId}`
-  );
-  return response.data.data;
+)=> {
+  try{
+    const response = await requestHeader.get(
+      `/api/meeting/${meetingId}`
+    );
+    return response.data.data;  
+  }catch(err){
+    console.log(err);
+    return ;
+  }
 };
 
 export const getMeetingUser = async( 
   data : MeetingUserStatusData
-): Promise<MeetingUserResponse>=>{
-  const response = await requestHeader.post(
-    `/api/user/meeting/status`,
-    data
-  );
+)=>{
+  try{
+    const response = await requestHeader.post(
+      `/api/user/meeting/status`,
+      data
+    );
 
-  return response.data;
+    return response.data;  
+  }catch(err){
+    console.log(err);
+    return;
+  }
 }
 
 export const postMeeting = async (
   data: CreateMeetingFormData
 ) => {
-  const response = await requestHeader.post(
-    '/api/meeting',
-    data,
-    { withCredentials: true }
-  );
-  return response.data;
+    try{  const response = await requestHeader.post(
+      '/api/meeting',
+      data,
+      { withCredentials: true }
+    );
+    return response.data;
+  }catch(err){
+    console.error(err);
+    return;
+  }
 };
+
 
 export const getCategory = async (): Promise<String[]> => {
   const response = await requestHeader.get<CategoryResponse>(
@@ -50,14 +65,25 @@ export const getCategory = async (): Promise<String[]> => {
   return response.data.categories;
 };
 
+/**
+ * 
+ * @param meetingid  : number
+ * @param data : UpdataMeetingFormData 
+ * @returns 
+ */
 export const putMeeting = async (
   meetingid: number,
   data: UpdateMeetingFormData
 ) => {
-  const response = await requestHeader.put(`/api/meeting/${meetingid}`, data, {
-    withCredentials: true,
-  });
-  return response.data;
+  try {
+    const response = await requestHeader.put(`/api/meeting/${meetingid}`, data, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return;
+  }
 };
 
 // 모임 떠나기

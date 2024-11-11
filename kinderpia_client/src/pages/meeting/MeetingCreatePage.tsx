@@ -25,6 +25,8 @@ import '../../styles/meeting/createpage/MeetingCreatePage.scss';
 import { extractUserIdFromCookie } from '../../utils/extractUserIdFromCookie';
 import { postMeeting } from '../../api/meeting';
 import FakerComponent from '../../components/common/FakerComponent';
+import createFakeMeeting from '../../utils/createDummyMeeting';
+import { simpleAlert } from '../../utils/alert';
 
 const MeetingCreatePage = () => {
   const navigate = useNavigate();
@@ -41,10 +43,6 @@ const MeetingCreatePage = () => {
     detailAddress: '',
     authType: false,
   });
-
-  const [fakeNumber, setFakeNumber] = useState<number>(
-    generateFourDigitNumber()
-  );
 
   useEffect(() => {
     const setUserId = async () => {
@@ -129,37 +127,28 @@ const MeetingCreatePage = () => {
   };
 
   const fakeCreateMeeting = async () => {
-    const userId = await extractUserIdFromCookie();
-    if (!userId) {
+    const data = await createFakeMeeting();
+
+    if(!data){
+      simpleAlert('error','더미 모임을 생성하려면 로그인 하셔야 해요!', 'center')
       return;
     }
-    const data = {
-      authType: false,
-      detailAddress:
-        '서울특별시 영등포구 문래동6가 57 106동 청년취업사관학교 영등포캠퍼스',
-      district: '영등포구',
-      isLimited: true,
-      meetingCategoryId: 2,
-      meetingContent:
-        '안녕하세요! 더미 모임입니다. 더미 모임입니다. 더미 모임입니다. 더미 모임입니다. 더미 모임입니다.',
-      meetingLocation: '청년취업사관학교 영등포캠퍼스',
-      meetingTime: '2024-11-18 12:00:00',
-      meetingTitle: `더미 모임입니다 ${fakeNumber}`,
-      totalCapacity: 10,
-      userId: Number(userId),
-    };
-    const result = await postMeeting(data);
 
+    const result = await postMeeting(data);
+    if(!result){
+      simpleAlert('error','모임 생성에 실패하셨어요!! ', 'center')
+      return;
+    }
     navigate(`/meeting/${result.data}`);
   };
 
   return (
-    <div className="meeting-create-page">
+    <section className="meeting-create-page">
       <span className="meeting-create-page-notice">
         <i className="xi-check"></i> 표시는 필수 입력사항 입니다.
       </span>
       <FakerComponent
-        text={`더미 모임 만들어버리기~ `}
+        text={`무작위 데이터 모임 생성하기`}
         onClick={fakeCreateMeeting}
       />
       <form className="meeting-create-page-form">
@@ -219,7 +208,7 @@ const MeetingCreatePage = () => {
           preventDefault={true}
         />
       </form>
-    </div>
+    </section>
   );
 };
 

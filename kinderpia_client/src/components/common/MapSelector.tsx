@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-// import DynamicMapView from './DynamicMapView';
+import React, { useState, KeyboardEvent } from 'react';
 import { searchLocation } from '../../api/map';
 import CheckMarker from '../common/CheckMarker';
-
-import '../../styles/meeting/createpage/MapSelector.scss';
 import StaticMapView from './StaticMapView';
+import '../../styles/meeting/createpage/MapSelector.scss';
 
 interface MapSelectorProps {
   location: string;
@@ -41,6 +39,7 @@ const MapSelector: React.FC<MapSelectorProps> = ({
     longitude: 126.9779451,
   });
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
 
   const handleSearchSubmit = async () => {
     if (!searchInput.trim()) {
@@ -48,21 +47,24 @@ const MapSelector: React.FC<MapSelectorProps> = ({
       setIsDropdownOpen(false);
       return;
     }
+    
+    setIsSearching(true);
+    setIsDropdownOpen(true);
+    
     try {
       const results = await searchLocation(searchInput);
-      console.log(results);
-      
-      // 응답 데이터를 SearchResult[] 형식으로 변환
       const extractDistrict = (address: string | null | undefined): string => {
-        // 주소가 없거나 빈 문자열인 경우 처리
         if (!address) return '';
-
-        // "구" 패턴 찾기 (서울특별시/경기도 등의 구)
-        const districtMatch = address.match(/\s([^\s]+구)\s/);
-
-        // 매치된 결과가 있으면 구 이름 반환, 없으면 빈 문자열 반환
-        return districtMatch ? districtMatch[1] : '';
+      
+        const tokens = address.split(' ');
+        
+        if (tokens[0] === '서울특별시') {
+          const districtMatch = address.match(/\s([^\s]+구)\s/);
+          return districtMatch ? districtMatch[1] : '';
+        }
+        return tokens[0] || '';
       };
+
       const formattedResults: SearchResult[] = results.map((item) => ({
         address: item.name,
         district: extractDistrict(item.address),
@@ -70,10 +72,13 @@ const MapSelector: React.FC<MapSelectorProps> = ({
         latitude: item.coordinates.lat,
         longitude: item.coordinates.lng,
       }));
+
       setSearchResults(formattedResults);
-      setIsDropdownOpen(true);
     } catch (error) {
       console.error('장소 검색 중 오류:', error);
+      setSearchResults([]);
+    } finally {
+      setIsSearching(false);
     }
   };
 
@@ -81,14 +86,13 @@ const MapSelector: React.FC<MapSelectorProps> = ({
     setSearchInput(e.target.value);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       handleSearchSubmit();
     }
   };
 
-  // handleLocationSelect 함수 추가
   const handleLocationSelect = (result: SearchResult) => {
     setSelectedLocation(result);
     setSearchInput(result.address);
@@ -116,29 +120,37 @@ const MapSelector: React.FC<MapSelectorProps> = ({
               value={searchInput}
               onChange={handleInputChange}
               onKeyPress={handleKeyPress}
-              // onBlur={handleSearchSubmit}
             />
           </div>
 
-          {isDropdownOpen && searchResults.length > 0 && (
+          {isDropdownOpen && (
             <div className="map-selector-results-dropdown">
-              {searchResults.map((result, index) => (
-                <div
-                  key={index}
-                  className="map-selector-result-item"
-                  onClick={() => handleLocationSelect(result)}
-                >
-                  {result.address}
+              {isSearching ? (
+                <div className="map-selector-loading">
+                  <div className="spinner"></div>
+                  <i className='xi-spinner-1 map-selector-spinner'></i>
                 </div>
-              ))}
+              ) : searchResults.length > 0 ? (
+                searchResults.map((result, index) => (
+                  <div
+                    key={index}
+                    className="map-selector-result-item"
+                    onClick={() => handleLocationSelect(result)}
+                  >
+                    {result.address}
+                  </div>
+                ))
+              ) : (
+                <div className="map-selector-no-results">
+                  검색 결과가 없습니다
+                </div>
+              )}
             </div>
           )}
         </div>
 
         <div className="map-selector-view-container">
-          <StaticMapView
-            location={selectedLocation.detailAddress}
-          />
+          <StaticMapView location={selectedLocation.detailAddress} />
         </div>
       </div>
     </div>

@@ -32,13 +32,15 @@
     opacity: 0.5;
     width: 100%;
     height: 90%;
-    background-image: url('../../../assets/images/tempImage1.jpg');
+    object-fit: cover;  // 비율 유지하며 영역 채우기
+    // object-fit: contain;  // 비율 유지하며 영역 내부에 맞추기
+    object-position: top;  // 이미지 위치 조정
   }
 
   &-wrapper {
     position: relative;     
     background-color: $active-color;
-    width: 60%;
+    width: 70%;
     border-radius: 20px;
     padding: $title2;
     z-index: 5;
@@ -53,7 +55,6 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      align-items: center;  // 세로 중앙 정렬 추가
       margin: $footnote 0;  // 상하 여백 추가
 
       &-writer {
@@ -65,21 +66,28 @@
           width: 24px;
           height: 24px;
           border-radius: 50%;
-          background-image: url('../../../assets/images/tempIcon1.png');
-          background-size: cover;     // 이미지가 영역에 맞게 조절
-          background-position: center; // 이미지 중앙 정렬
-          background-repeat: no-repeat;
+          background-color: #ffffff;
         }
 
         &-name {
-          font-size: $caption;
+          font-size: $body  ;
           color: #333;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 80%;
         }
       }
       &-participants{
-        font-size: $caption;
+        font-size: $body;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         &-icon{
-          margin-right: $caption;
+          background-color: #ffffff;
+          border-radius: 50%;
+          font-size: $body;
+          margin-left: 0.5rem;
+          margin-right: 0.5rem;
         }
       }
     }
