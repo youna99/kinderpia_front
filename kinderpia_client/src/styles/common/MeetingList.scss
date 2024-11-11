@@ -114,7 +114,7 @@
   }
 }
 
-@media (max-width: 460px) {
+@media (max-width: $md) {
   .meeting-container {
     .meetingInfo-container {
       .category {
