@@ -14,6 +14,7 @@ import { simpleAlert } from "../utils/alert";
 const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
   const { messages } = useSelector((state: RootState) => state.chat);
   const subscriptionsRef = useRef<Map<number, any>>(new Map());
+  const notificationRef = useRef<any>(null);
   const clientRef = useRef<Client | null>(null);
   const dispatch = useDispatch();
 
@@ -41,6 +42,8 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
             const subscription = clientRef.current?.subscribe(
               chatTopic,
               (message) => {
+                console.log(JSON.parse(message.body));
+                
                 const chatMessage = JSON.parse(message.body).body.data;
                 console.log(chatMessage);
                 
@@ -67,6 +70,19 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
             subscriptionsRef.current.set(chatroomId, subscription);
           }
 
+          // 알림 전용 구독
+          if(!notificationRef.current){
+            const notificationTopic = `/topic/chatroom/notification`
+            notificationRef.current = clientRef.current?.subscribe(notificationTopic, (message) => {
+              console.log(message);
+              const notificationMessage = JSON.parse(message.body)
+              // 그 후에 알림에 대한 로직 밑에서 처리할 것 
+              
+            })
+          }
+
+
+          // 구독 해제
           subscriptionsRef.current.forEach((subscription, id) => {
             if (!chatroomIds.includes(id)) {
               subscription.unsubscribe();
