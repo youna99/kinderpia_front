@@ -55,6 +55,7 @@
     margin-top: $footnote;
     display: flex;          // 추가
     flex-direction: column; // 추가
+    padding: 1rem;
 
     &-createdAt {
       align-self: flex-end; // 추가
