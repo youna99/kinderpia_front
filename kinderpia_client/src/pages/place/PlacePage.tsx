@@ -7,6 +7,7 @@ import '../../styles/place/PlacePage.scss';
 import { getDefaultPlaceList, getSearchPlaceList } from '../../api/placelist';
 import { defaultPostReq } from '../../types/place';
 import RegionMap from '../../components/common/RegionMap';
+import UpBtn from '../../components/common/UpBtn';
 
 type SortType = 'star' | 'default' | undefined;
 
@@ -212,6 +213,7 @@ const PlacePage: React.FC = () => {
             : '검색 결과가 없습니다.'}
         </div>
       )}
+      <UpBtn />
     </div>
   );
 };

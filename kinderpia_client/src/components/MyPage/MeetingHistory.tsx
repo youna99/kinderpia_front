@@ -4,6 +4,7 @@ import '../../styles/mypage/MeetingHistory.scss';
 import { formatDetailDate } from '../../utils/formatDate';
 import { MyInfoProps } from '../../types/user';
 import { getUserLeaderMeetingList, getUserMeetingList } from '../../api/user';
+import UpBtn from '../common/UpBtn';
 
 export interface MettingListInfo {
   capacity: number;
@@ -174,6 +175,7 @@ const MeetingHistory: React.FC<MyInfoProps> = ({ userInfo }) => {
       </div>
       {loading && <div className="loading">로딩 중...</div>}{' '}
       {/* 로딩 메시지 추가 */}
+      <UpBtn />
     </section>
   );
 };

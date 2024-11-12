@@ -4,12 +4,13 @@ body {
 }
 
 main {
-  // margin-bottom: 10rem;
   height: auto;
+  margin-bottom: 10rem;
 }
 
 .inner {
   max-width: $lg;
+  height: auto;
   margin: auto;
   box-sizing: border-box;
 }
