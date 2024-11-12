@@ -89,13 +89,13 @@
 
   .place-list-item {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding-top: 2rem;
 
     .place-list-item-page {
       background-color: #fff;
-      max-width: 250px;
+      max-width: 190px;
       border-radius: 8px;
       transition: transform 0.3s ease;
 
@@ -106,7 +106,7 @@
   }
 }
 
-@media (max-width: $sm) {
+@media (max-width: $md) {
   .place-page {
     .page-banner-txt {
       font-size: 2rem;
