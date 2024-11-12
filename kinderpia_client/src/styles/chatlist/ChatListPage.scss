@@ -8,6 +8,7 @@
   margin: auto;
   box-sizing: border-box;
   background-color: #fff;
+  overflow-x: hidden;
   .empty-room {
     width: 100px;
     margin: auto;
@@ -47,6 +48,9 @@
     left: 0;
     z-index: 1001;
     transition: left .3s;
+    &.empty {
+      width : 100%
+    }
     &.selected {
       left: -100%;
       top: 0;

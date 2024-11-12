@@ -34,9 +34,8 @@ export default function ChatlistPage() {
 
   const chatroomIds = rooms?.map((room) => room.chatroomId);
   const { fetchChatList } = useChatListFetch(currentPage);
-  const {sendMessage} = useWebSocketContext();
-  const participatePeopleCounts = rooms?.map(room => room.capacity)
-  
+  const { sendMessage } = useWebSocketContext();
+  const participatePeopleCounts = rooms?.map((room) => room.capacity);
 
   useEffect(() => {
     const upBtn = document.querySelector(".up-btn") as HTMLButtonElement | null;
@@ -51,6 +50,7 @@ export default function ChatlistPage() {
     // 페이지 언마운트 시 스크롤 풀기, 위로가기 버튼 살리기
     return () => {
       document.body.style.overflow = "unset";
+      document.body.style.overflowX = "hidden";
       if (upBtn) {
         upBtn.classList.remove("hidden");
         upBtn.style.display = "flex";
@@ -67,15 +67,19 @@ export default function ChatlistPage() {
   }, []);
 
   useEffect(() => {
-    
-  
-    return () => {
-      
-    }
-  }, [isSelected, rooms, participatePeopleCounts])
-  
+    return () => {};
+  }, [isSelected, rooms, participatePeopleCounts]);
+
   return (
-    <section className={isSelected? `chatlist selected`: `chatlist`}>
+    <section
+      className={
+        isEmpty
+          ? `chatlist empty`
+          : isSelected
+          ? `chatlist selected`
+          : `chatlist`
+      }
+    >
       {isEmpty ? (
         <NoChatRoom />
       ) : (
@@ -85,7 +89,11 @@ export default function ChatlistPage() {
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
           />
-          {isSelected ? <SelectedChatRoom sendMessage={sendMessage}/> : <UnSelectedChatRoom />}
+          {isSelected ? (
+            <SelectedChatRoom sendMessage={sendMessage} />
+          ) : (
+            <UnSelectedChatRoom />
+          )}
         </div>
       )}
     </section>

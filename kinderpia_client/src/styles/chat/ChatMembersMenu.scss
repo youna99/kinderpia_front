@@ -59,3 +59,9 @@
     }
   }
 }
+
+@media (max-width: $lg) {
+  .chatmenu-container {
+    height: 100vh;
+  }
+}
