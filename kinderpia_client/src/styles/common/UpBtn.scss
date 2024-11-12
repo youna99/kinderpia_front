@@ -5,48 +5,28 @@
 .up-btn {
   position: fixed;
   z-index: 10002;
-  right: 5%;
+  right: 4rem;
   bottom: 12%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem 1.6rem;
+  padding: 1rem;
   font-family: 'GmarketSansMedium';
   cursor: pointer;
   .up-icon {
-    font-size: 4rem;
-  }
-  .up-txt {
-    font-size: 1.4rem;
+    font-size: 3rem;
   }
 }
 
-@media (max-width: $lg) {
+@media (max-width: $xl) {
   .up-btn {
     right: 0;
-    bottom: 8rem;
-    padding: 1rem 1.6rem;
+    bottom: 7rem;
     font-family: 'GmarketSansMedium';
     cursor: pointer;
-    .up-icon {
-      font-size: 4rem;
-    }
-    .up-txt {
-      font-size: 1.4rem;
-    }
   }
 }
 
 @media (max-width: $md) {
   .up-btn {
-    padding: 1rem 1rem;
     cursor: pointer;
-    .up-icon {
-      font-size: 3rem;
-    }
-    .up-txt {
-      font-size: 1.2rem;
-    }
     &.hidden {
       display: none;
     }

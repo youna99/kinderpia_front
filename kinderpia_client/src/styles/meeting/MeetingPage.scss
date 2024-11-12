@@ -16,8 +16,6 @@
 
   &-list {
     width: 100%;
-    margin-bottom: 10rem;
-
     section {
       width: 100%;
       display: flex;
@@ -51,7 +49,7 @@
         font-size: $caption;
         color: #666;
 
-        input[type="checkbox"] {
+        input[type='checkbox'] {
           width: 16px;
           height: 16px;
           cursor: pointer;

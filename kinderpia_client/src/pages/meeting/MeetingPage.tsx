@@ -2,13 +2,11 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import SearchInput from '../../components/common/SearchInput';
 import MeetingList from '../../components/common/MeetingList';
 import { MettingListInfo } from '../../types/meetinglist';
-import {
-  getMeetingList,
-  getMeetingListSearch,
-} from '../../api/meetinglist';
+import { getMeetingList, getMeetingListSearch } from '../../api/meetinglist';
 import { formatDetailDate } from '../../utils/formatDate';
 import '../../styles/meeting/MeetingPage.scss';
 import RegionMap from '../../components/common/RegionMap';
+import UpBtn from '../../components/common/UpBtn';
 
 const MeetingPage: React.FC = () => {
   const [meetings, setMeetings] = useState<MettingListInfo[]>([]);
@@ -255,6 +253,7 @@ const MeetingPage: React.FC = () => {
           )}
         </div>
       )}
+      <UpBtn />
     </section>
   );
 };

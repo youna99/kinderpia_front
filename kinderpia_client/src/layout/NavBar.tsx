@@ -2,8 +2,7 @@ import '../styles/common/NavBar.scss';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
-import { useEffect, useState } from 'react';
-import { getJwtFromCookies } from '../utils/extractUserIdFromCookie';
+import { useEffect } from 'react';
 import { setBadge } from '../store/chatRoomsSlice';
 
 export default function NavBar() {
@@ -23,33 +22,35 @@ export default function NavBar() {
 
   return (
     <nav className="navigation">
-      <ul className="nav-lists">
-        <li className="nav-list">
-          <Link to={'/'}>
-            <i className="xi-home nav-icon"></i>
-            <span>홈</span>
-          </Link>
-        </li>
-        <li className="nav-list">
-          <Link to={'/meeting/create'}>
-            <i className="xi-users-plus nav-icon"></i>
-            <span>모임 생성</span>
-          </Link>
-        </li>
-        <li className="nav-list">
-          <Link to={'/chatroom/list'}>
-            <i className="xi-message-o nav-icon"></i>
-            {badge ? <span className="chat-badge"></span> : null}
-            <span>채팅</span>
-          </Link>
-        </li>
-        <li className="nav-list">
-          <Link to={'/mypage'}>
-            <i className="xi-profile nav-icon"></i>
-            <span>마이페이지</span>
-          </Link>
-        </li>
-      </ul>
+      <div className="inner">
+        <ul className="nav-lists">
+          <li className="nav-list">
+            <Link to={'/'}>
+              <i className="xi-home nav-icon"></i>
+              <span>홈</span>
+            </Link>
+          </li>
+          <li className="nav-list">
+            <Link to={'/meeting/create'}>
+              <i className="xi-users-plus nav-icon"></i>
+              <span>모임 생성</span>
+            </Link>
+          </li>
+          <li className="nav-list">
+            <Link to={'/chatroom/list'}>
+              <i className="xi-message-o nav-icon"></i>
+              {badge ? <span className="chat-badge"></span> : null}
+              <span>채팅</span>
+            </Link>
+          </li>
+          <li className="nav-list">
+            <Link to={'/mypage'}>
+              <i className="xi-profile nav-icon"></i>
+              <span>마이페이지</span>
+            </Link>
+          </li>
+        </ul>
+      </div>
     </nav>
   );
 }

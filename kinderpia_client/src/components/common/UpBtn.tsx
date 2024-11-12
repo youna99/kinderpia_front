@@ -30,8 +30,7 @@ export default function UpBtn() {
     <>
       {isVisible && (
         <button className="up-btn" onClick={scrollToTop}>
-          <i className="xi-caret-up up-icon"></i>
-          <span className="up-txt">위로 가기</span>
+          <i className="xi-caret-up up-icon" title="위로가기"></i>
         </button>
       )}
     </>
