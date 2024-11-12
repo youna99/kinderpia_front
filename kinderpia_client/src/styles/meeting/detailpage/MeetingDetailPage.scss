@@ -1,15 +1,14 @@
 @import '../../common/variables';
 
 .meeting-detail-page{
-  padding: 2rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: $caption;
+  padding: 0 $caption;
     
   hr {
-    height: 1px;
     max-width: 600px;
+    height: 1px;
     background-color: #000;
     border: none;
     width: 100%;
