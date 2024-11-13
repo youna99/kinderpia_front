@@ -1,13 +1,9 @@
-
-import { response } from 'express';
 import {
   CreateMeetingFormData,
   CategoryResponse,
   UpdateMeetingFormData,
   MeetingJoinData,
-  MeetingDetailData,
   MeetingUserStatusData,
-  MeetingUserResponse,
 } from '../types/meeting';
 import { requestHeader } from './requestHeader';
 
