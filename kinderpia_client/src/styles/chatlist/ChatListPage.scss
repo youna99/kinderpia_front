@@ -1,4 +1,7 @@
 @import "../common/variables";
+body {
+  min-height: 100vh;
+}
 
 .chatlist {
   padding: 0 1.6rem;
@@ -9,6 +12,7 @@
   box-sizing: border-box;
   background-color: #fff;
   overflow-x: hidden;
+  height: 100%;
   .empty-room {
     width: 100px;
     margin: auto;
@@ -46,7 +50,6 @@
     width: 200vw;
     top: 8rem;
     left: 0;
-    z-index: 1001;
     transition: left .3s;
     &.empty {
       width : 100%
@@ -55,6 +58,7 @@
       left: -100%;
       top: 0;
       height: 100vh;
+      z-index: 1001;
     }
     .chatlist-wrapper {
       width: 100%;

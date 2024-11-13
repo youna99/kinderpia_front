@@ -35,9 +35,9 @@ header {
     box-sizing: border-box;
     position: absolute;
     right: -100%;
-    top: 0s;
+    top: 0;
     background-color: #fff;
-    z-index: 1000;
+    z-index: 1010;
     border-radius: 2rem 0 0 2rem;
     box-shadow: rgba(0, 0, 0, 0.15) -2.4px 2.4px 3.2px;
     transition: right 0.3s ease, opacity 0.3s ease, transform 0.3s ease;

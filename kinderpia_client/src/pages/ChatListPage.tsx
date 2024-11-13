@@ -38,23 +38,13 @@ export default function ChatlistPage() {
   const participatePeopleCounts = rooms?.map((room) => room.capacity);
 
   useEffect(() => {
-    const upBtn = document.querySelector(".up-btn") as HTMLButtonElement | null;
     // 페이지 마운트 시 스크롤 방지, 위로가기 버튼 없애기
     document.body.style.overflow = "hidden";
-
-    if (upBtn) {
-      upBtn.classList.add("hidden");
-      upBtn.style.display = "none";
-    }
 
     // 페이지 언마운트 시 스크롤 풀기, 위로가기 버튼 살리기
     return () => {
       document.body.style.overflow = "unset";
       document.body.style.overflowX = "hidden";
-      if (upBtn) {
-        upBtn.classList.remove("hidden");
-        upBtn.style.display = "flex";
-      }
     };
   }, []);
 
