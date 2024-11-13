@@ -4,7 +4,7 @@ import MeetingList from '../components/common/MeetingList';
 import { PlaceListInfo } from '../types/placelist';
 import { MettingListInfo } from '../types/meetinglist';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Link } from 'react-router-dom';
@@ -13,10 +13,36 @@ import { getMeetingListOpen } from '../api/meetinglist';
 import '../styles/MainPage.scss';
 import { MainBanner } from '../components/MainBanner';
 import { formatDetailDate } from '../utils/formatDate';
+import Joyride, { Step } from 'react-joyride';
 
 function MainPage() {
   const [placeList, setPlaceList] = useState<PlaceListInfo[]>([]); // 장소 목록 관리
   const [meetingList, setMeetingList] = useState<MettingListInfo[]>([]); // 모임 목록 관리
+  const [run, setRun] = useState(false); // Joyride 상태 관리
+
+  const steps: Step[] = [
+    {
+      target: '#help-info', // help-info 버튼
+      content: '여기를 클릭하여 도움말을 확인하세요!',
+    },
+    {
+      target: '.nav-icon',
+      content:
+        '여기는 메뉴탭입니다. 모임검색, 장소검색, 로그인, 로그아웃을 포함하고 있습니다.',
+    },
+    {
+      target: '.nav-list', // NavBar의 nav-list를 타겟으로 설정
+      content: '여기는 내비게이션 바의 목록입니다. 원하는 페이지로 이동하세요.',
+    },
+    {
+      target: '.placelist-container', // 인기 장소 섹션
+      content: '여기는 인기 장소 목록입니다.',
+    },
+    {
+      target: '.meetinglist-container', // 신규 모임 섹션
+      content: '여기는 신규 모임 목록입니다.',
+    },
+  ];
 
   // GET) 장소목록데이터 가져오기
   const getPlaceList = async () => {
@@ -57,7 +83,29 @@ function MainPage() {
 
   return (
     <section id="main">
-      <MainBanner />
+      <div>
+        <Joyride
+          steps={steps}
+          run={run}
+          continuous={true}
+          showSkipButton={true}
+          callback={(data) => {
+            const { status } = data;
+            if (status === 'finished' || status === 'skipped') {
+              setRun(false);
+            }
+          }}
+        />
+        <button
+          type="button"
+          id="help-info"
+          title="도움말"
+          onClick={() => setRun(true)} // 버튼 클릭 시 튜토리얼 시작
+        >
+          <i className="xi-info-o help-info-icon"></i>
+        </button>
+        <MainBanner />
+      </div>
       <section className="placelist-container">
         <div className="headline-container">
           <div className="title-container">
