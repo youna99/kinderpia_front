@@ -10,3 +10,7 @@ React와 Spring Boot 기반의 어린이 자년를 둔 부모를 위한 커뮤�
 
 ### 검색, 필터링 기능
 ![장소검색 움짤](https://github.com/user-attachments/assets/5f3b6bfb-2e76-4dec-93b9-1ec8572f0ebd)
+
+### 리뷰 작성, 삭제, 신고 기능
+
+![리뷰 작성, 삭제, 도움이 돼요, 신고 움짤](https://github.com/user-attachments/assets/4dc0a5dc-45b8-4f11-9f6a-acaee1aa27b3)
