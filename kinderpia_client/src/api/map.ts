@@ -9,7 +9,7 @@ const API_BASE_URL = process.env.NODE_ENV === 'development'
 
 export const searchLocation = async (query: string): Promise<SearchResultItem[]> => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/map/api/search`, {
+    const response = await axios.get(`${API_BASE_URL}/api/search`, {
       params: { query },
       // CORS 인증 정보 포함
       withCredentials: true
@@ -24,7 +24,7 @@ export const searchLocation = async (query: string): Promise<SearchResultItem[]>
 
 export const getCoordinate = async(query: string): Promise<LocationData> => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/map/api/coordinate`, {
+    const response = await axios.get(`${API_BASE_URL}/api/coordinate`, {
       params: { query },
       // CORS 인증 정보 포함
       withCredentials: true
