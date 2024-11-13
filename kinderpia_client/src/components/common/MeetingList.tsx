@@ -88,6 +88,7 @@ const MeetingList: React.FC<MettingListInfo> = ({
             {mtStatus === 'ONGOING' && '모집중'}
             {mtStatus === 'COMPLETED' && '모집완료'}
             {mtStatus === 'END' && '모임종료'}
+            {mtStatus === 'DELETED' && '삭제됨'}
           </span>
         </div>
       </div>
