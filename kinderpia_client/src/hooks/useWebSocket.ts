@@ -64,8 +64,8 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
 
                 // 들어 있는 방 확인
                 if (
-                  chatMessage.chatroomId === currentChatroomId &&
-                  chatMessage.senderId !== userId
+                  chatMessage.chatroomId === currentChatroomId 
+                  // && chatMessage.senderId !== userId
                 ) {
                   dispatch(setMessages([...messages, chatMessage]));
                 } else if (chatMessage.senderId !== userId) {
@@ -118,11 +118,6 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
     const senderId = Number(extractUserIdFromCookie());
     const now = new Date();
 
-    const offset = now.getTimezoneOffset() * 60000;
-    const today = new Date(Date.now() - offset);
-
-    const koreaTimeString = today.toISOString();
-
     const nowTime = now.getTime();
     if (lastMessageTime && nowTime - lastMessageTime < 2000) {
       simpleAlert("warning", "메시지를 너무 빨리 보낼 수 없습니다.");
@@ -136,7 +131,6 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
       chatroomId,
       senderId,
       chatmsgContent: message,
-      createdAt: koreaTimeString,
       messageType: "CHAT",
     };
 
@@ -149,18 +143,6 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
         },
         body: JSON.stringify(messageObj),
       });
-
-      const lastMessage = messages[messages.length - 1];
-      if (lastMessage?.chatmsgContent !== messageObj.chatmsgContent) {
-        dispatch(setMessages([...messages, messageObj]));
-        dispatch(
-          updateLastmessage({
-            chatroomId,
-            lastMessage: message,
-            lastMessageCreatedAt: koreaTimeString,
-          })
-        );
-      }
     }
   };
   return { sendMessage };
