@@ -41,8 +41,19 @@
   }
 }
 
+@media (max-width: $lg) {
+  .chat-header {
+      position: fixed;
+      top: 8.1rem;
+      width: 50%;
+  }
+}
+
+
 @media (max-width: $md) {
   .chat-header {
+    width: 100%;
+    top: 0;
     .chat-header__container {
       padding: 1.2rem 0;
       .chat-header__column {
