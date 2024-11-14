@@ -45,17 +45,15 @@ export default function LoginPage() {
     switch (id) {
       case 1:
         data = {
-          loginId: 'test1234',
+          loginId: 'test6363',
           userPw: 'test1234',
         };
         break;
-      case 2:
-        data = {
-          loginId: 'test2345',
-          userPw: 'test2345',
-        };
-        break;
       default:
+        data={
+          loginId: 'test6363',
+          userPw: 'test1234',
+        }
         break;
     }
 
@@ -76,6 +74,11 @@ export default function LoginPage() {
       return null;
     }
   };
+  
+  const sendToAdminPage=()=>{
+    window.location.href = `${process.env.REACT_APP_API_URL}/admin/`;
+  }
+
 
   // 해당 필드를 빈 문자열로 설정
   const clearInput = (field: 'loginId' | 'userPw') => {
@@ -153,31 +156,22 @@ export default function LoginPage() {
           >
             회원가입
           </Link>
-          <a
-            href={`${process.env.REACT_APP_API_URL}/admin/`}
-            aria-label="관리자 로그인"
+          <button
+            onClick={() => {
+              sendToAdminPage();
+            }}
           >
-            <i className="xi-crown admin-icon"></i>
-            관리자 로그인
-          </a>
+            <span>
+              관리자 계정으로 로그인 
+            </span>
+          </button>
           <button
             onClick={() => {
               simpleDummyLogin(1);
             }}
           >
-            <i className="xi-emoticon-smiley-o test-icon"></i>
             <span>
-              테스트 계정 1 <br />- 모임 생성자
-            </span>
-          </button>
-          <button
-            onClick={() => {
-              simpleDummyLogin(2);
-            }}
-          >
-            <i className="xi-emoticon-smiley-o test-icon"></i>
-            <span>
-              테스트 계정 2 <br />- 모임 가입자
+              테스트 유저 계정으로 로그인 
             </span>
           </button>
         </div>
