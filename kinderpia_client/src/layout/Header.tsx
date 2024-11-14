@@ -113,7 +113,7 @@ export default function Header() {
                 )}
               </ul>
             )}
-            <div className="project-info inner">
+            <div className="project-info">
               <div className="footer-info">
                 <a
                   href="https://github.com/SeSAC-3rd-Kinderpia"
