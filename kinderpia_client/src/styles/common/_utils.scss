@@ -39,7 +39,9 @@ main {
   $text-color: #000,
   $hover-text-color: #fff
 ) {
-  width: $width;
+  width: 100%;
+  padding: 0.2rem;
+  max-width: 300px;
   margin: auto;
   font-size: 1.6rem;
   border: 1px solid $bg-color;
@@ -49,6 +51,7 @@ main {
   position: relative;
   overflow: hidden;
   background: transparent;
+
   &::before {
     content: '';
     position: absolute;
@@ -60,7 +63,10 @@ main {
     transition: left 0.3s;
     z-index: 0;
   }
-  &:hover span {
+  &:hover span{
+    color: $hover-text-color;
+  }
+  &:hover a{
     color: $hover-text-color;
   }
   &:hover::before {

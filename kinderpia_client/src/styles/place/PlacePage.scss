@@ -12,8 +12,13 @@
   padding: 2rem;
 
   .place-search {
+    background-color: #fff;
     margin: 0px auto;
     width: 100%;
+  }
+  .place-map-container{
+    background-color: #fff;
+    margin: $caption;
   }
 
   .place-header {
@@ -92,6 +97,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding-top: 2rem;
+    background-color: #fff;
 
     .place-list-item-page {
       background-color: #fff;

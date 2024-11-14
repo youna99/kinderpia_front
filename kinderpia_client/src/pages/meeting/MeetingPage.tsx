@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import Joyride, { Step } from 'react-joyride';
+
 import SearchInput from '../../components/common/SearchInput';
 import MeetingList from '../../components/common/MeetingList';
 import { MettingListInfo } from '../../types/meetinglist';
@@ -21,7 +23,7 @@ const MeetingPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
-
+  const [run, setRun] = useState(false); // Joyride 상태 관리
   const currentSearchTerm = useRef('');
 
   const observer = useRef<IntersectionObserver>();
@@ -188,13 +190,13 @@ const MeetingPage: React.FC = () => {
       <strong className="page-banner-txt">
         "함께하는 즐거움", 모임을 찾아보세요!
       </strong>
-      <div className="meeting-map-container">
+      <div className="meeting-map-container tutorial-map-container">
         <RegionMap
           onDistrictClick={handleDistrictClick}
           selectedDistrict={selectedDistrict}
         />
       </div>
-      <div className="meeting-search">
+      <div className="meeting-search tutorial-search">
         <SearchInput
           placeholder="모임 검색하기"
           onSearch={handleSearch}
@@ -219,7 +221,7 @@ const MeetingPage: React.FC = () => {
       {error ? (
         <div className="meeting-error">{error}</div>
       ) : (
-        <div className="meeting-list">
+        <div className="meeting-list tutorial-list">
           {filteredMeetings.map((meeting, index) => (
             <div
               key={meeting.meetingId}

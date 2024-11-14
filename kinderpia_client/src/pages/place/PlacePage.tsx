@@ -150,13 +150,13 @@ const PlacePage: React.FC = () => {
       <strong className="page-banner-txt">
         이곳저곳의 핫플레이스를 찾아보세요!
       </strong>
-      <div className="place-map-container">
+      <div className="place-map-container tutorial-map-container">
         <RegionMap
           onDistrictClick={handleDistrictClick}
           selectedDistrict={selectedDistrict}
         />
       </div>
-      <div className="place-search">
+      <div className="place-search tutorial-search">
         <SearchInput
           placeholder="장소 검색하기"
           onSearch={(searchTerm) => handleSearch(searchTerm, 'title', sortBy)}
@@ -198,7 +198,7 @@ const PlacePage: React.FC = () => {
       {isSearching ? (
         <div className="place-search-status">검색 중...</div>
       ) : places.length > 0 ? (
-        <div className="place-list-item">
+        <div className="place-list-item tutorial-list">
           {places.map((place, index) => (
             <div
               className="place-list-item-page"

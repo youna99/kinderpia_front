@@ -15,10 +15,15 @@
 
   &-search {
     width: 100%;
+    background-color: #fff;
   }
-
+  &-map-container{
+    background-color: #fff;
+    margin: $caption;
+  }
   &-list {
     width: 100%;
+    background-color: #fff;
     section {
       width: 100%;
       display: flex;
