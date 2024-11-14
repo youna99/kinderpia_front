@@ -3,6 +3,7 @@
 .meeting-info-desc {
   &-container {
     margin-top: $caption;
+    background-color: #fff;
     
     hr {
       height: 1px;
@@ -23,6 +24,7 @@
     &-report {
       display: flex;
       align-items: center;
+      background-color: #fff;
       &-btngroup{
         display: flex;
         flex-direction: row;

@@ -13,14 +13,12 @@ import MeetingAction from '../../components/meeting/detailpage/MeetingAction';
 // 타입 호출
 import {
   MeetingData,
-  MeetingDetailData,
   MeetingUserData,
 } from '../../types/meeting';
 import { getMeeting, getMeetingUser } from '../../api/meeting';
 import { extractUserIdFromCookie } from '../../utils/extractUserIdFromCookie';
 
 function MeetingDetailPage() {
-  const navigate = useNavigate();
   const { meetingId } = useParams<{ meetingId: string }>();
 
   // 초기 상태를 null로 설정하여 데이터 로딩 상태를 명확히 함

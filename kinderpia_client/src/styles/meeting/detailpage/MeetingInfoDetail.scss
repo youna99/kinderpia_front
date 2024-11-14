@@ -2,7 +2,9 @@
 @import '../../common/utils';
 
 .meeting-info-detail {
-  &-container {    
+  &-container {
+    box-sizing: border-box;
+    background-color: #fff;
     width: 100%;
     height: 30vh;
     position: relative;
@@ -11,17 +13,32 @@
     justify-content: center; 
     align-items: flex-end;  
   }
-
-  &-category {
-    position: absolute;    
-    top: 10px;            
-    left: 10px;           
-    font-family: inherit;
-    font-size: $caption;
-    background-color: white;
-    border-radius: 5px;
-    padding: 5px $footnote;
-    z-index: 5;
+  &-top{
+    #help-info {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 100;
+      background: #fff;
+      border-radius: 0.5rem;
+      border: 1px solid $main-color;
+      cursor: pointer;
+      .help-info-icon {
+        font-size: 3rem;
+        color: $main-color;
+      }
+    }
+    &-category {
+      position: absolute;    
+      top: 10px;            
+      right: 10px;           
+      font-family: inherit;
+      font-size: $caption;
+      background-color: white;
+      border-radius: 5px;
+      padding: 5px $footnote;
+      z-index: 5;
+    }
   }
 
   &-coverImage {
@@ -98,5 +115,16 @@
         margin-right: $footnote;
       }
     }
+  }
+}
+
+.joyride-content {
+  .joyride-content-title {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  font-size: 1.4rem;
+  .accent {
+    color: blue;
   }
 }
