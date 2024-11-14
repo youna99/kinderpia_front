@@ -25,7 +25,7 @@ export default function SelectedChatRoom({sendMessage}:ChatRoomProps) {
   };
 
   return (
-    <section className="chatroom">
+    <section className="select-chatroom">
       <ChatHeader />
       {chatroomId ? (
         <>

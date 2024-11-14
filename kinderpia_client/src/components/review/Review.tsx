@@ -158,7 +158,7 @@ const Review: React.FC<ReviewItemProps> = ({
           {isLiked ? (
             <p className="like">
               <i className="xi-check"></i>
-              <span>도움됨</span>
+              도움됨
             </p>
           ) : (
             <p className="nolike">도움이 돼요</p>

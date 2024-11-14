@@ -50,7 +50,6 @@ const MeetingWh: React.FC<MeetingWhProps> = ({
           {formatDateTime}
         </p>
       </div>
-      <hr className="hr2" />
     </div>
   );
 };

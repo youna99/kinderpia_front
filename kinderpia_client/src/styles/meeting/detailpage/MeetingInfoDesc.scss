@@ -21,6 +21,18 @@
       font-size: $headline;
     }
     &-report {
+      display: flex;
+      align-items: center;
+      &-btngroup{
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 0.5rem;
+        button:hover{
+          color: $main-color;
+          cursor: pointer;
+        }
+      }
       .reported-text {
         color: #ff6b6b;
         font-size: 14px;
@@ -55,6 +67,7 @@
     margin-top: $footnote;
     display: flex;          // 추가
     flex-direction: column; // 추가
+    padding: 0 1rem;
 
     &-createdAt {
       align-self: flex-end; // 추가

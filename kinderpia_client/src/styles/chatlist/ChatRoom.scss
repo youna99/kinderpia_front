@@ -1,143 +1,6 @@
 @import '../common/variables';
 @import '../common/utils';
 
-// .chatroom-list {
-//   display: flex;
-//   border-bottom: 1px solid #e9e9e9;
-//   padding: 1.2rem 0;
-//   font-size: $body;
-//   background-color: transparent;
-//   .chatroom-icon {
-//     margin-right: 2rem;
-//     width: 7rem;
-//     height: 7rem;
-//     svg {
-//       width: 100%;
-//       height: auto;
-//     }
-//   }
-//   .chatroom-info {
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: space-evenly;
-//     width: 75%;
-//     @include ellipsisText;
-//     .chatroom-bx {
-//       display: flex;
-//       align-items: center;
-//       gap: 0 1rem;
-//       .chatroom-title {
-//         font-size: $title2;
-//         padding-bottom: 0.8rem;
-//         width: 100%;
-//         display: flex;
-//         align-items: center;
-//         @include ellipsisText;
-//         svg {
-//           width: auto;
-//           height: auto;
-//         }
-//       }
-//       .chatroom-capacity {
-//         display: flex;
-//         color: #888;
-//         font-size: 1.2rem;
-
-//         span {
-//           display: block;
-//         }
-//         span {
-//           &:first-child {
-//             margin-right: 0.3rem;
-//           }
-//         }
-//       }
-//     }
-//     .chatroom-lastmsg {
-//       font-size: 1.4rem;
-//       color: #555;
-//       width: 100%;
-//       display: flex;
-//       justify-content: space-between;
-//       align-items: center;
-//       @include ellipsisText;
-//       .lastmsg-info {
-//         display: flex;
-//         span {
-//           display: block;
-//         }
-//         .unread-badge {
-//           background-color: rgba(250, 96, 36, 0.918);
-//           color : #fff;
-//           width: 1.8rem;
-//           height: 1.8rem;
-//           line-height: 1.8rem;
-//           border-radius: 50%;
-//           text-align: center;
-//           font-size: 1.2rem;
-//           margin-right: .5rem;
-//         }
-//       }
-//     }
-//   }
-//   &:hover {
-//     background-color: $bg-color;
-//     cursor: pointer;
-//   }
-// }
-
-// @media (max-width: $lg) {
-//   .chatroom-list {
-//     .chatroom-icon {
-//       margin-right: 0.5rem;
-//       width: 6rem;
-//       height: 6rem;
-//     }
-//     .chatroom-info {
-//       .chatroom-bx {
-//         gap: 0;
-//         .chatroom-title {
-//           font-size: $body;
-//           padding-bottom: 0.4rem;
-//         }
-//       }
-//     }
-//   }
-// }
-
-// @media (max-width: $md) {
-//   .chatroom-list {
-//     padding: 1rem 0;
-//     .chatroom-info {
-//       .chatroom-bx {
-//         .chatroom-title {
-//           font-size: 1.4rem;
-//         }
-//       }
-//     }
-//     .chatroom-lastmsg {
-//       display: none;
-//     }
-//   }
-// }
-
-// @media (max-width: $sm) {
-//   .chatroom-list {
-//     .chatroom-icon {
-//       width: 4rem;
-//       height: 4rem;
-//     }
-//     .chatroom-info {
-//       .chatroom-bx {
-//         .chatroom-title {
-//           padding-bottom: 0.4rem;
-//         }
-//       }
-//     }
-
-//   }
-// }
-
 .chatroom-list {
   display: flex;
   justify-content: space-between;
@@ -194,7 +57,10 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
+      justify-content: space-between;
       margin-right: 1rem;
+      height: 100%;
+      gap: 1.2rem 0;
       .unread-badge {
         background-color: tomato;
         width: 2.2rem;
@@ -211,32 +77,12 @@
 
 @media (max-width: $lg) {
   .chatroom-list {
-    flex-direction: column;
-    .chatroom-icon {
-      display: none;
-    }
-
     .chatlist-column {
       &:first-child {
         .chatroom-info {
-          .chatroom-title {
-            .room-title {
-              width: 15rem;
-            }
-          }
           .chatroom-lastmsg {
-            width: 10rem;
+            width: 20rem;
           }
-        }
-      }
-      &:last-child {
-        align-items: flex-start;
-        flex-direction: row;
-        .unread-badge {
-          font-size: 1.2rem;
-          width: 1.6rem;
-          height: 1.6rem;
-          margin-left: 1rem;
         }
       }
     }
@@ -245,27 +91,53 @@
 
 @media (max-width: $md) {
   .chatroom-list {
-    flex-direction: row;
-    padding: 0;
     .chatlist-column {
       &:first-child {
         .chatroom-info {
           .chatroom-title {
-            font-size: 1.4rem;
-            height: 3rem;
-            .capacity {
-              width: 3.6rem;
+            font-size: 1.6rem;
+            .room-title {
+              width: 40rem;
             }
           }
           .chatroom-lastmsg {
-            margin-top: 0rem;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            width: 45rem;
           }
         }
       }
       &:last-child {
-        display: none;
+
       }
     }
+  }
+}
+
+@media (max-width: $sm) {
+  .chatroom-list {
+    .chatlist-column {
+      &:first-child {
+        .chatroom-icon {
+          width: 5rem;
+          height: 5rem;
+        }
+        .chatroom-info {
+          .chatroom-title {
+            font-size: 1.4rem;
+            .room-title {
+              width: 18rem;
+            }
+          }
+          .chatroom-lastmsg {
+            font-size: 1.2rem;
+            width: 20rem;
+          }
+        }
+      }
+      &:last-child {
+    
+      }
+    }
+    
   }
 }

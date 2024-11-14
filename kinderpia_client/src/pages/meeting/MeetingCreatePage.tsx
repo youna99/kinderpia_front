@@ -135,12 +135,15 @@ const MeetingCreatePage = () => {
     }
 
     const result = await postMeeting(data);
-
+    if(!result){
+      simpleAlert('error','모임 생성에 실패하셨어요!! ', 'center')
+      return;
+    }
     navigate(`/meeting/${result.data}`);
   };
 
   return (
-    <div className="meeting-create-page">
+    <section className="meeting-create-page">
       <span className="meeting-create-page-notice">
         <i className="xi-check"></i> 표시는 필수 입력사항 입니다.
       </span>
@@ -205,7 +208,7 @@ const MeetingCreatePage = () => {
           preventDefault={true}
         />
       </form>
-    </div>
+    </section>
   );
 };
 

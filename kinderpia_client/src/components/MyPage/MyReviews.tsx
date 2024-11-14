@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { getPlace } from '../../api/placelist';
 import { requestHeader } from '../../api/requestHeader';
 import { MyInfoProps, ReviewProps } from '../../types/user';
+import UpBtn from '../common/UpBtn';
 
 const MyReviews: React.FC<MyInfoProps> = ({ userInfo }) => {
   const [reviews, setReviews] = useState<ReviewProps[]>([]);
@@ -119,6 +120,7 @@ const MyReviews: React.FC<MyInfoProps> = ({ userInfo }) => {
       {!hasMore && !noReviews && (
         <p className="has-more">더 이상 리뷰가 없습니다.</p>
       )}
+      <UpBtn />
     </section>
   );
 };

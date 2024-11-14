@@ -8,6 +8,9 @@
     margin: 0px auto;
     padding: 2rem;
     max-width: 600px;
+    hr{
+      width: 100%;
+    }
   }
 
   &-search {
@@ -16,8 +19,6 @@
 
   &-list {
     width: 100%;
-    margin-bottom: 10rem;
-
     section {
       width: 100%;
       display: flex;
@@ -51,7 +52,7 @@
         font-size: $caption;
         color: #666;
 
-        input[type="checkbox"] {
+        input[type='checkbox'] {
           width: 16px;
           height: 16px;
           cursor: pointer;
@@ -65,6 +66,7 @@
   }
 
   &-error {
+    box-sizing: border-box;
     width: 100%;
     text-align: center;
     padding: 2rem;
@@ -73,6 +75,7 @@
   }
 
   &-404 {
+    box-sizing: border-box;
     width: 100%;
     text-align: center;
     padding: 2rem;

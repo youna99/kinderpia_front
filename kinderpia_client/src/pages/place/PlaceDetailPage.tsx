@@ -9,6 +9,7 @@ import PlaceInfoDetail from '../../components/place/PlaceInfoDetail';
 import { getPlace } from '../../api/placelist';
 
 import '../../styles/place/PlaceDetailPage.scss';
+import UpBtn from '../../components/common/UpBtn';
 
 const PlaceDetailPage: React.FC = () => {
   const { placeId } = useParams<{ placeId: string }>();
@@ -18,7 +19,6 @@ const PlaceDetailPage: React.FC = () => {
     useState<ratingAndCategory>();
   const [reviewcreate, setReviewcreate] = useState<boolean>(false); // 리뷰작성완료상태
   const [reviewdelete, setReviewdelete] = useState<boolean>(false); // 리뷰삭제완료상태
-
 
   const handleReviewSubmit = () => {
     setReviewcreate((prev) => !prev); // 리뷰가 제출되면 상태를 변경
@@ -36,7 +36,7 @@ const PlaceDetailPage: React.FC = () => {
         console.log(data);
         return;
       }
-      
+
       setPlaceDetail(data.data);
       setRatingAndCategorys(data.data);
     } catch (error) {
@@ -69,7 +69,7 @@ const PlaceDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="place-detail-page">
+    <section className="place-detail-page">
       <div className="place-detail-info">
         {placeDetail && ratingAndCategorys ? (
           <PlaceInfoDetail
@@ -87,7 +87,8 @@ const PlaceDetailPage: React.FC = () => {
         onDelete={handleReviewDelete}
         reviewdelete={reviewdelete}
       />
-    </div>
+      <UpBtn />
+    </section>
   );
 };
 

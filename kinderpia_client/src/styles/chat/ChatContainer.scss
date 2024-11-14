@@ -3,13 +3,29 @@
 .chat-container {
     box-sizing: border-box;
     padding : 0 3rem;
-    margin-top: 2rem;
-    min-height: calc(100vh - 28rem);
+    // min-height: calc(100vh - 20.5rem);
+    overflow-y: scroll;
+    height: calc(100vh - 18.5rem);
+    .chat-msgloading {
+        text-align: center;
+        font-size: 1.4rem;
+    }
 }
 
 
+@media (max-width: $xl) {
+    .chat-container {
+        height: calc(100vh - 25.5rem);
+    }
+}
+@media (max-width: $lg) {
+    .chat-container {
+        position: relative;
+        top: 6.4rem;
+    }
+}
 @media (max-width: $md) {
     .chat-container {
-        padding : 0 1rem 3rem 1rem;
+        height: calc(100vh - 10.5rem);
     }
 }

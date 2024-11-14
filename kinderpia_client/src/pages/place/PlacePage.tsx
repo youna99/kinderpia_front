@@ -7,6 +7,7 @@ import '../../styles/place/PlacePage.scss';
 import { getDefaultPlaceList, getSearchPlaceList } from '../../api/placelist';
 import { defaultPostReq } from '../../types/place';
 import RegionMap from '../../components/common/RegionMap';
+import UpBtn from '../../components/common/UpBtn';
 
 type SortType = 'star' | 'default' | undefined;
 
@@ -59,9 +60,15 @@ const PlacePage: React.FC = () => {
             keyword: searchTerm,
             category: searchCategory,
             sort: sortType,
+            page: pageNum - 1,
           };
+
+          console.log('Search request data:', reqData);
+
           const response = await getSearchPlaceList(reqData);
           const newPlaces = response.data.content;
+
+          console.log('newPlace >>', newPlaces);
 
           setPlaces((prev) =>
             isNewSearch ? newPlaces : [...prev, ...newPlaces]
@@ -70,6 +77,8 @@ const PlacePage: React.FC = () => {
         } else {
           const result = await getDefaultPlaceList(pageNum - 1, 6);
           const newPlaces = result.data.content;
+
+          console.log('newPlace >>>', newPlaces);
 
           setPlaces((prev) =>
             isNewSearch ? newPlaces : [...prev, ...newPlaces]
@@ -110,6 +119,8 @@ const PlacePage: React.FC = () => {
     setCurrentSearchTerm(searchTerm);
     setCategory(searchCategory);
     setSortBy(sortType);
+    setPage(1); // 검색 시 페이지 초기화를 먼저 하고
+    setPlaces([]); // 기존 검색 결과도 초기화
 
     await fetchPlaces(searchTerm, searchCategory, sortType, 1, true);
     setPage(1);
@@ -126,7 +137,7 @@ const PlacePage: React.FC = () => {
 
   const handleDistrictClick = (district: string) => {
     setSelectedDistrict(district);
-    handleSearch(district, 'address', sortBy);
+    handleSearch(district === '서울' ? 'seoul' : district, 'address', sortBy);
   };
 
   const handleSort = (type: SortType) => {
@@ -157,7 +168,8 @@ const PlacePage: React.FC = () => {
           장소 검색
           {currentSearchTerm && (
             <span className="place-header-result">
-              '{currentSearchTerm}' 에 대한 검색 결과
+              '{currentSearchTerm === 'seoul' ? '서울' : currentSearchTerm}' 에
+              대한 검색 결과
             </span>
           )}
         </div>
@@ -190,7 +202,8 @@ const PlacePage: React.FC = () => {
           {places.map((place, index) => (
             <div
               className="place-list-item-page"
-              key={place.placeId}
+              // key={place.placeId}
+              key={place.placeId + '-' + index}
               ref={index === places.length - 1 ? lastPlaceRef : null}
             >
               <PlaceList
@@ -212,6 +225,7 @@ const PlacePage: React.FC = () => {
             : '검색 결과가 없습니다.'}
         </div>
       )}
+      <UpBtn />
     </div>
   );
 };

@@ -1,4 +1,7 @@
 @import "../common/variables";
+body {
+  min-height: 100vh;
+}
 
 .chatlist {
   padding: 0 1.6rem;
@@ -6,6 +9,10 @@
   top: 8rem;
   width: $lg;
   margin: auto;
+  box-sizing: border-box;
+  background-color: #fff;
+  overflow-x: hidden;
+  height: 100%;
   .empty-room {
     width: 100px;
     margin: auto;
@@ -16,8 +23,9 @@
     > section {
       width: 50%;
       position: relative;
-      overflow-y: auto;
-      height: calc(100vh - 16rem);
+      overflow-y: scroll;
+      height: calc(100vh - 6rem);
+
       overflow-x: hidden;
     }
     .chatroom-wrapper {
@@ -30,54 +38,65 @@
   }
 }
 
-@media (max-width: $lg) {
+@media (max-width: $xl) {
   .chatlist {
-    padding: 0;
-    width: 100%;
     .chatlist-wrapper {
       > section {
-        &:first-child {
-          width: 30%;
-        }
-        &:last-child {
-          width: 70%;
-        }
+        width: 50%;
+        position: relative;
+        overflow-y: scroll;
+        height: calc(100vh - 14.5rem);
+
+        overflow-x: hidden;
       }
     }
+  }
+}
+
+@media (max-width: $lg) {
+  .chatlist {
+    padding: 0 1rem;
+    width: 100%;
   }
 }
 
 @media (max-width: $md) {
   .chatlist {
     height: calc(100vh - 16rem);
+    width: 200vw;
     top: 8rem;
+    left: 0;
+    transition: left 0.3s;
+    &.empty {
+      width: 100%;
+    }
+    &.selected {
+      left: -100%;
+      top: 0;
+      height: 100vh;
+      z-index: 1001;
+    }
     .chatlist-wrapper {
       width: 100%;
       height: 100%;
-      flex-direction: column;
       > section {
         &:first-child {
           width: 100%;
-          height: 5rem;
         }
         &:last-child {
           width: 100%;
+          height: 100vh;
         }
       }
       .chatroom-wrapper {
-        border-bottom: 1px solid #ccc;
-        overflow-y: hidden;
-        display: flex;
-        h2 {
-          display: none;
-        }
-        ul {
-          display: flex;
-          gap: 0 3rem;
-          overflow-x: hidden;
-          overflow-y: hidden;
-          user-select: none;
-        }
+        height: 100%;
+      }
+      h2 {
+        padding: 1rem 0;
+        font-size: 1.6rem;
+      }
+      ul {
+        user-select: none;
       }
     }
   }

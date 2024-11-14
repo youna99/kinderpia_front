@@ -2,14 +2,11 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import SearchInput from '../../components/common/SearchInput';
 import MeetingList from '../../components/common/MeetingList';
 import { MettingListInfo } from '../../types/meetinglist';
-import {
-  // getMeetingList,
-  getMeetingListOpen,
-  getMeetingListSearch,
-} from '../../api/meetinglist';
+import { getMeetingList, getMeetingListSearch } from '../../api/meetinglist';
 import { formatDetailDate } from '../../utils/formatDate';
 import '../../styles/meeting/MeetingPage.scss';
 import RegionMap from '../../components/common/RegionMap';
+import UpBtn from '../../components/common/UpBtn';
 
 const MeetingPage: React.FC = () => {
   const [meetings, setMeetings] = useState<MettingListInfo[]>([]);
@@ -48,7 +45,7 @@ const MeetingPage: React.FC = () => {
   const fetchMeetings = async (pageNum: number, isInitial: boolean = false) => {
     try {
       setIsLoading(true);
-      const response = await getMeetingListOpen({
+      const response = await getMeetingList({
         page: pageNum,
         size: 10,
         keyword: currentSearchTerm.current,
@@ -187,7 +184,7 @@ const MeetingPage: React.FC = () => {
   };
 
   return (
-    <div className="meeting-page">
+    <section className="meeting-page">
       <strong className="page-banner-txt">
         "함께하는 즐거움", 모임을 찾아보세요!
       </strong>
@@ -256,7 +253,8 @@ const MeetingPage: React.FC = () => {
           )}
         </div>
       )}
-    </div>
+      <UpBtn />
+    </section>
   );
 };
 

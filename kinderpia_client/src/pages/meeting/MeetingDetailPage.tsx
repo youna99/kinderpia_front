@@ -135,7 +135,7 @@ function MeetingDetailPage() {
   }
 
   return (
-    <div className="meeting-detail-page">
+    <section className="meeting-detail-page">
       <MeetingInfo
         user={userData}
         data={meetingData}
@@ -149,7 +149,7 @@ function MeetingDetailPage() {
         onActionComplete={refreshUserData}
         observer={participateObserver}
       />
-    </div>
+    </section>
   );
 }
 

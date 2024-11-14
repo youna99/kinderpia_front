@@ -4,11 +4,9 @@
 #my-reviews {
   width: 100%;
   margin-top: 2rem;
-  margin-bottom: 10rem;
   h2 {
     font-size: $body;
     padding-bottom: 1rem;
-    border-bottom: 1px solid $border-color;
   }
   .report-btn {
     display: none;
@@ -31,6 +29,9 @@
   }
   .review-wrap {
     padding: 0 0 1rem 0;
+    &:first-child {
+      border-top: 1px solid $border-color;
+    }
 
     h3 {
       padding: 1rem 0;

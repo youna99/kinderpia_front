@@ -8,6 +8,7 @@
   flex-direction: column;
   align-items: center;
   margin: 0px auto;
+  box-sizing: border-box;
   padding: 2rem;
 
   .place-search {
@@ -17,7 +18,7 @@
 
   .place-header {
     margin-top: $headline;
-    margin: $caption;
+    // margin: $caption;
     width: 90%;
     display: flex;
     align-items: center;
@@ -88,13 +89,13 @@
 
   .place-list-item {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    padding: 20px;
+    padding-top: 2rem;
 
     .place-list-item-page {
       background-color: #fff;
-      max-width: 280px;
+      max-width: 190px;
       border-radius: 8px;
       transition: transform 0.3s ease;
 
@@ -104,13 +105,19 @@
     }
   }
 }
+
 @media (max-width: $md) {
   .place-page {
     .page-banner-txt {
       font-size: 2rem;
     }
+
     .place-list-item {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
+
+      .place-list-item-page {
+        max-width: 150px;
+      }
     }
 
     .place-header {

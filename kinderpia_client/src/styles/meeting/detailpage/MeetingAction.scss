@@ -3,6 +3,8 @@
 
 .meeting-action {
   &-container {
+    box-sizing: border-box;
+    margin: 2rem 2rem 100px 2rem;
     padding: 2rem auto;
     width: 100%;
     display: flex;

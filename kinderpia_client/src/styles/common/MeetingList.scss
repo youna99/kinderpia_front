@@ -10,7 +10,7 @@
   box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
   margin: 0.8rem 0;
   position: relative;
-
+  box-sizing: border-box;
   &:hover {
     opacity: 0.6;
     cursor: pointer;
@@ -114,7 +114,7 @@
   }
 }
 
-@media (max-width: 460px) {
+@media (max-width: $md) {
   .meeting-container {
     .meetingInfo-container {
       .category {

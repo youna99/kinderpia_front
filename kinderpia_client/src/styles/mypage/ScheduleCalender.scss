@@ -27,7 +27,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.5rem;
+      padding: 0.5rem;
       &:hover {
         background: $bg-color;
       }
@@ -91,7 +91,7 @@
 
 .react-calendar__navigation__arrow,
 .react-calendar__navigation__next-button {
-  font-size: 5rem;
+  font-size: 4.5rem;
 }
 
 // 클릭한 날짜
@@ -149,6 +149,10 @@ abbr[title] {
     .my-calender {
       flex-direction: column;
       align-items: center;
+      .calender-box {
+        background: $bg-color;
+        padding: 2rem;
+      }
       .today-meeting {
         .today-mettingtime {
           display: flex;
@@ -163,9 +167,10 @@ abbr[title] {
       }
     }
   }
-
   .react-calendar {
-    width: 100%;
-    min-width: 33rem;
+    width: 60%;
+    min-width: 30rem;
+    margin: auto;
+    border-radius: 2rem;
   }
 }
