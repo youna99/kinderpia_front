@@ -22,25 +22,67 @@ function MainPage() {
 
   const steps: Step[] = [
     {
-      target: '#help-info', // help-info 버튼
-      content: '여기를 클릭하여 도움말을 확인하세요!',
+      target: '#help-info',
+      placement: 'left',
+      content: (
+        <div className="joyride-content">
+          <p className="joyride-content-title">
+            해당 페이지의 <span className="accent">사용법</span>을 소개합니다.
+          </p>
+          <p>
+            건너뛰시려면 왼쪽 하단의
+            <br />"<span className="accent">Skip</span>"을 눌러주세요!
+          </p>
+        </div>
+      ),
+      disableBeacon: true,
     },
     {
       target: '.nav-icon',
-      content:
-        '여기는 메뉴탭입니다. 모임검색, 장소검색, 로그인, 로그아웃을 포함하고 있습니다.',
+      placement: 'left',
+      content: (
+        <div className="joyride-content">
+          <p>여기는 메뉴탭입니다.</p>
+          <p>
+            누르시면 모임검색, 장소검색, 회원가입, 로그인, 로그아웃 등을
+            이용할수 있습니다.
+          </p>
+          <p>모임검색 : 다양한 모임을 검색하고 확인할수 있습니다.</p>
+          <p>장소검색 : 아이와 함께 즐길 장소를 검색하고 확인할 수 있습니다.</p>
+        </div>
+      ),
+      spotlightClicks: true,
     },
     {
-      target: '.nav-list', // NavBar의 nav-list를 타겟으로 설정
-      content: '여기는 내비게이션 바의 목록입니다. 원하는 페이지로 이동하세요.',
+      target: '.nav-list',
+      placement: 'left',
+      content: (
+        <div className="joyride-content">
+          <p>'여기는 내비게이션 바의 목록입니다.</p>
+          <p>원하는 페이지로 이동하세요.'</p>
+        </div>
+      ),
+      disableBeacon: true,
     },
     {
       target: '.placelist-container', // 인기 장소 섹션
-      content: '여기는 인기 장소 목록입니다.',
+      content: (
+        <div className="joyride-content">
+          <p>'여기는 인기 장소 목록입니다.</p>
+          <p>더보기를 누르면 더 많은 장소를 둘러볼수있습니다.'</p>
+        </div>
+      ),
+      disableBeacon: true,
     },
     {
       target: '.meetinglist-container', // 신규 모임 섹션
-      content: '여기는 신규 모임 목록입니다.',
+      content: (
+        <div className="joyride-content">
+          <p>'여기는 신규 모임 목록입니다.</p>
+          <p>더보기를 눌러 다양한 모임들을 확인해보세요 '</p>
+        </div>
+      ),
+      disableBeacon: true,
     },
   ];
 
@@ -89,6 +131,15 @@ function MainPage() {
           run={run}
           continuous={true}
           showSkipButton={true}
+          styles={{
+            options: {
+              backgroundColor: '#fff', // 배경색
+              primaryColor: '#59a4d6', // 주요 색상
+              textColor: '#333', // 텍스트 색상
+              arrowColor: '#fff', // 화살표 색상
+              width: '300px', // 너비 조정
+            },
+          }}
           callback={(data) => {
             const { status } = data;
             if (status === 'finished' || status === 'skipped') {
