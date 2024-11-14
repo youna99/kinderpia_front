@@ -49,9 +49,6 @@ export default function ChatMessage({ messageInfo }: MessageInfoProps) {
     return () => clearTimeout(timer);
   };
 
-  console.log(createdAt);
-  
-
   const formatTime = (datestring: string): string | undefined => {
     if (!datestring) return;
 

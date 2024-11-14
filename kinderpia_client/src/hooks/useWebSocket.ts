@@ -34,7 +34,7 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
         // Authorization: `Bearer ${jwt}`,
       },
       debug: (str) => {
-        console.log(str);
+        //console.log(str);
       },
       onConnect: () => {
         // 알림 전용 구독
@@ -59,14 +59,13 @@ const useWebSocket = (chatroomIds: number[], currentChatroomId?: number) => {
               (message) => {
                 console.log(JSON.parse(message.body));
 
-                const chatMessage = JSON.parse(message.body).body.data;
+                const chatMessage = JSON.parse(message.body).headers
+                  ? JSON.parse(message.body).body.data
+                  : JSON.parse(message.body);
                 console.log(chatMessage);
 
                 // 들어 있는 방 확인
-                if (
-                  chatMessage.chatroomId === currentChatroomId 
-                  // && chatMessage.senderId !== userId
-                ) {
+                if (chatMessage.chatroomId === currentChatroomId) {
                   dispatch(setMessages([...messages, chatMessage]));
                 } else if (chatMessage.senderId !== userId) {
                   // 안들어가있는 방 메시지 쌓인당
