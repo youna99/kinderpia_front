@@ -65,6 +65,7 @@ export default function Header() {
             <Link to={'/'}>KINDERPIA</Link>
           </h1>
           <i
+            id="nav-icon"
             className={`nav-icon ${isMenuOpen ? 'xi-close' : 'xi-bars'}`}
             onClick={toggleMenu}
           ></i>
@@ -112,7 +113,7 @@ export default function Header() {
                 )}
               </ul>
             )}
-            <div className="project-info inner">
+            <div className="project-info">
               <div className="footer-info">
                 <a
                   href="https://github.com/SeSAC-3rd-Kinderpia"
