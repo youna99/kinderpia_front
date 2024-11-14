@@ -160,7 +160,7 @@ export default function RegisterPage() {
       await simpleAlert('success', '로그인 성공!', 'center');
       navigate('/');
     } else {
-      await simpleAlert('error', '무작위 계정 생성에 실패했습니다.', 'center');
+      await simpleAlert('error', '무작위 계정 생성에 실패했습니다. 새로고침 후 다시 시도해주세요', 'center');
     }
   };
 
