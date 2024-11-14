@@ -13,21 +13,34 @@ import { getMeetingListOpen } from '../api/meetinglist';
 import '../styles/MainPage.scss';
 import { MainBanner } from '../components/MainBanner';
 import { formatDetailDate } from '../utils/formatDate';
-import Joyride, { Step } from 'react-joyride';
+import Joyride, { CallBackProps, STATUS, Step } from 'react-joyride';
 
 function MainPage() {
   const [placeList, setPlaceList] = useState<PlaceListInfo[]>([]); // 장소 목록 관리
   const [meetingList, setMeetingList] = useState<MettingListInfo[]>([]); // 모임 목록 관리
   const [run, setRun] = useState(false); // Joyride 상태 관리
 
+  // 화면 너비에 따라 placement 결정
+  const getPlacement = () => {
+    if (window.innerWidth < 1280) {
+      return 'top';
+    }
+    return 'left'; // 큰 화면에서 왼쪽
+  };
+
   const steps: Step[] = [
     {
+      title: '도움말',
       target: '#help-info',
       placement: 'left',
+      disableBeacon: true,
       content: (
         <div className="joyride-content">
           <p className="joyride-content-title">
-            해당 페이지의 <span className="accent">사용법</span>을 소개합니다.
+            <p>
+              해당 도움말은 킨더피아의 <br /> 이용방법을 알려드리는
+            </p>
+            <span className="accent">튜토리얼</span>입니다.
           </p>
           <p>
             건너뛰시려면 왼쪽 하단의
@@ -35,56 +48,140 @@ function MainPage() {
           </p>
         </div>
       ),
-      disableBeacon: true,
     },
     {
-      target: '.nav-icon',
+      target: '#nav-icon',
       placement: 'left',
+      spotlightClicks: true,
+      disableBeacon: true,
       content: (
         <div className="joyride-content">
-          <p>여기는 메뉴탭입니다.</p>
-          <p>
-            누르시면 모임검색, 장소검색, 회원가입, 로그인, 로그아웃 등을
-            이용할수 있습니다.
+          <p className="joyride-content-title">
+            <span className="accent">메뉴 탭</span>입니다.
           </p>
-          <p>모임검색 : 다양한 모임을 검색하고 확인할수 있습니다.</p>
-          <p>장소검색 : 아이와 함께 즐길 장소를 검색하고 확인할 수 있습니다.</p>
+          <p>
+            누르시면 모임검색, 장소검색,
+            <br /> 회원가입, 로그인, 로그아웃을
+            <br /> 이용할수 있습니다.
+          </p>
         </div>
       ),
-      spotlightClicks: true,
     },
     {
       target: '.nav-list',
-      placement: 'left',
+      placement: getPlacement(),
+      disableBeacon: true,
       content: (
         <div className="joyride-content">
-          <p>'여기는 내비게이션 바의 목록입니다.</p>
-          <p>원하는 페이지로 이동하세요.'</p>
+          <p className="joyride-content-title">
+            <span className="accent">홈</span> 버튼입니다.
+          </p>
+          <p>
+            홈버튼을 누르면
+            <br /> 메인페이지로 이동합니다.
+          </p>
         </div>
       ),
-      disableBeacon: true,
     },
     {
-      target: '.placelist-container', // 인기 장소 섹션
+      target: '.go-meeting-create',
+      placement: getPlacement(),
+      disableBeacon: true,
       content: (
         <div className="joyride-content">
-          <p>'여기는 인기 장소 목록입니다.</p>
-          <p>더보기를 누르면 더 많은 장소를 둘러볼수있습니다.'</p>
+          <p className="joyride-content-title">
+            <span className="accent">모임</span>을 만듭니다.
+          </p>
+          <p>
+            모임 생성 페이지로 이동하여 <br />
+            모임을 직접 만들 수 있습니다.
+            <br /> 함께할 친구를 모집해보세요!
+          </p>
         </div>
       ),
-      disableBeacon: true,
     },
     {
-      target: '.meetinglist-container', // 신규 모임 섹션
+      target: '.go-chatingroom',
+      placement: getPlacement(),
+      disableBeacon: true,
       content: (
         <div className="joyride-content">
-          <p>'여기는 신규 모임 목록입니다.</p>
-          <p>더보기를 눌러 다양한 모임들을 확인해보세요 '</p>
+          <p className="joyride-content-title">
+            <span className="accent">채팅목록</span>으로 이동합니다.
+          </p>
+          <p>참여모임 목록을 확인할수 있어요!</p>
         </div>
       ),
+    },
+    {
+      target: '.go-mypage',
+      placement: 'right',
       disableBeacon: true,
+      content: (
+        <div className="joyride-content">
+          <p className="joyride-content-title">
+            <span className="accent">마이페이지</span>로 이동합니다.
+          </p>
+          <p>
+            프로필, 닉네임 등 내 정보를 <br />
+            확인하고 변경할수 있습니다.
+          </p>
+        </div>
+      ),
+    },
+    {
+      target: '.placelist-container',
+      disableBeacon: true,
+      content: (
+        <div className="joyride-content">
+          <p className="joyride-content-title">
+            <span className="accent">인기 장소</span> 목록 입니다.
+          </p>
+          <p>
+            더보기를 누르면 <br />더 많은 장소를 볼 수 있습니다.
+          </p>
+        </div>
+      ),
+    },
+    {
+      target: '.meetinglist-container',
+      disableBeacon: true,
+      content: (
+        <div className="joyride-content">
+          <p className="joyride-content-title">
+            <span className="accent">신규 모임</span> 목록입니다.
+          </p>
+          <p>
+            더보기를 눌러 <br />
+            다양한 모임들을 확인해보세요.
+          </p>
+        </div>
+      ),
+    },
+    {
+      target: 'body',
+      placement: 'center',
+      disableBeacon: true,
+      content: (
+        <div className="joyride-content">
+          <p className="joyride-content-title">
+            <span className="accent">튜토리얼이 끝났습니다.</span>
+          </p>
+          <p>
+            킨더피아에서 <br />
+            새로운 경험을 해보세요!
+          </p>
+        </div>
+      ),
     },
   ];
+
+  const handleJoyrideCallback = (data: CallBackProps) => {
+    const { status } = data;
+    if (status === STATUS.FINISHED || status === STATUS.SKIPPED) {
+      setRun(false);
+    }
+  };
 
   // GET) 장소목록데이터 가져오기
   const getPlaceList = async () => {
@@ -133,25 +230,20 @@ function MainPage() {
           showSkipButton={true}
           styles={{
             options: {
-              backgroundColor: '#fff', // 배경색
-              primaryColor: '#59a4d6', // 주요 색상
-              textColor: '#333', // 텍스트 색상
-              arrowColor: '#fff', // 화살표 색상
-              width: '300px', // 너비 조정
+              backgroundColor: '#fff',
+              primaryColor: '#59a4d6',
+              textColor: '#333',
+              arrowColor: '#fff',
+              width: '250px',
             },
           }}
-          callback={(data) => {
-            const { status } = data;
-            if (status === 'finished' || status === 'skipped') {
-              setRun(false);
-            }
-          }}
+          callback={handleJoyrideCallback}
         />
         <button
           type="button"
           id="help-info"
           title="도움말"
-          onClick={() => setRun(true)} // 버튼 클릭 시 튜토리얼 시작
+          onClick={() => setRun(true)}
         >
           <i className="xi-info-o help-info-icon"></i>
         </button>

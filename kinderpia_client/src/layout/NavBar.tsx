@@ -37,14 +37,14 @@ export default function NavBar() {
             </Link>
           </li>
           <li className="nav-list">
-            <Link to={'/chatroom/list'}>
+            <Link to={'/chatroom/list'} className="go-chatingroom">
               <i className="xi-message-o nav-icon"></i>
               {badge ? <span className="chat-badge"></span> : null}
               <span>채팅</span>
             </Link>
           </li>
           <li className="nav-list">
-            <Link to={'/mypage'}>
+            <Link to={'/mypage'} className="go-mypage">
               <i className="xi-profile nav-icon"></i>
               <span>마이페이지</span>
             </Link>

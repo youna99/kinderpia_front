@@ -65,6 +65,7 @@ export default function Header() {
             <Link to={'/'}>KINDERPIA</Link>
           </h1>
           <i
+            id="nav-icon"
             className={`nav-icon ${isMenuOpen ? 'xi-close' : 'xi-bars'}`}
             onClick={toggleMenu}
           ></i>
