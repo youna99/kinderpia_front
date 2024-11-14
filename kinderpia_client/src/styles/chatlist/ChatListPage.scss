@@ -6,7 +6,7 @@ body {
 .chatlist {
   padding: 0 1.6rem;
   position: fixed;
-  top: 8rem;
+  top: 8.1rem;
   width: $lg;
   margin: auto;
   box-sizing: border-box;
@@ -64,7 +64,6 @@ body {
   .chatlist {
     height: calc(100vh - 16rem);
     width: 200vw;
-    top: 8rem;
     left: 0;
     transition: left 0.3s;
     &.empty {
