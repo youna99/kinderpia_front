@@ -24,7 +24,8 @@ body {
       width: 50%;
       position: relative;
       overflow-y: scroll;
-      height: calc(100vh - 16rem);
+      height: calc(100vh - 6rem);
+
       overflow-x: hidden;
     }
     .chatroom-wrapper {
@@ -32,6 +33,21 @@ body {
       h2 {
         font-size: $headline;
         padding: 2rem 0;
+      }
+    }
+  }
+}
+
+@media (max-width: $xl) {
+  .chatlist {
+    .chatlist-wrapper {
+      > section {
+        width: 50%;
+        position: relative;
+        overflow-y: scroll;
+        height: calc(100vh - 14.5rem);
+
+        overflow-x: hidden;
       }
     }
   }
@@ -50,9 +66,9 @@ body {
     width: 200vw;
     top: 8rem;
     left: 0;
-    transition: left .3s;
+    transition: left 0.3s;
     &.empty {
-      width : 100%
+      width: 100%;
     }
     &.selected {
       left: -100%;
@@ -74,9 +90,9 @@ body {
       }
       .chatroom-wrapper {
         height: 100%;
-      }      
+      }
       h2 {
-        padding : 1rem 0;
+        padding: 1rem 0;
         font-size: 1.6rem;
       }
       ul {
