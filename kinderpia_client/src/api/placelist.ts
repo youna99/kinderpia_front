@@ -34,7 +34,8 @@ export const getSearchPlaceList = async (data: defaultPostReq) => {
         category: data.category,
         keyword: data.keyword,
         page: data.page,
-        size: data.size,
+        // size: data.size,
+        size: 6,
         sort: data.sort,
       },
     }
