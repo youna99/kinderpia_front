@@ -14,17 +14,13 @@ import { getJwtFromCookies } from "../../utils/extractUserIdFromCookie";
 import { setSelected } from "../../store/chatRoomsSlice";
 import { ChatRoomInfo } from "../../types/chat";
 import { useChatListFetch } from "../../hooks/useChatListFetch";
-import { tempChatListdata, tempChatRoomInfo } from "../../data/tempChatRoomList";
-import { tempMsgData } from "../../data/tempChatMessage";
 
 interface ChatRoomsProps {
-  // fetchChatList: (token: string, page: number) => Promise<void>;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   currentPage: number;
 }
 
 export default function ChatRooms({
-  // fetchChatList,
   setCurrentPage,
   currentPage,
 }: ChatRoomsProps) {
