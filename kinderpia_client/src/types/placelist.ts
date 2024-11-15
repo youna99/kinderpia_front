@@ -6,4 +6,5 @@ export interface PlaceListInfo {
   averageStar?: number;
   paid: string;
   placeImg: string;
+  totalReviewCount?: number;
 }

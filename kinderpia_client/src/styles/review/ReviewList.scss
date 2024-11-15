@@ -11,6 +11,11 @@
     margin: 0px auto;
     margin-bottom: 3rem;
 
+    .totalReview {
+      font-size: $body;
+      border-bottom: 1px solid black;
+    }
+
     hr {
       height: 1px;
       background-color: #000;

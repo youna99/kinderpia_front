@@ -25,6 +25,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver>();
   const isInitialMount = useRef(true);
+  const [totalReview, setTotalReview] = useState<number>();
 
   const fetchReviews = useCallback(async () => {
     if (!hasMore) return;
@@ -39,6 +40,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
         size: 4,
       });
       const reviewData = response.data;
+      setTotalReview(reviewData.totalReviewCount);
       console.log('reviewData >>>', reviewData);
 
       if (reviewData.reviews.length > 0) {
@@ -105,6 +107,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
   return (
     <div className="review-list-container">
       <hr />
+      <div className="totalReview">리뷰 {totalReview}</div>
       {reviews.map((reviewData, index) => (
         <div
           className="review-item"

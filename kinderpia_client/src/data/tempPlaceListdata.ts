@@ -8,6 +8,7 @@ export const dummyPlaceList: PlaceListInfo[] = [
     averageStar: 4.5,
     paid: '유료',
     placeImg: '/assets/images/tempImage1',
+    totalReviewCount: 1,
   },
   {
     placeId: 2,
@@ -16,6 +17,7 @@ export const dummyPlaceList: PlaceListInfo[] = [
     averageStar: 4.3,
     paid: '유료',
     placeImg: 'url',
+    totalReviewCount: 1,
   },
   {
     placeId: 3,
@@ -24,6 +26,7 @@ export const dummyPlaceList: PlaceListInfo[] = [
     averageStar: 4.7,
     paid: '무료',
     placeImg: 'url',
+    totalReviewCount: 1,
   },
   {
     placeId: 4,
@@ -32,6 +35,7 @@ export const dummyPlaceList: PlaceListInfo[] = [
     averageStar: 4.2,
     paid: '유료',
     placeImg: 'url',
+    totalReviewCount: 1,
   },
   {
     placeId: 5,
@@ -40,6 +44,7 @@ export const dummyPlaceList: PlaceListInfo[] = [
     averageStar: 4.6,
     paid: '무료',
     placeImg: 'url',
+    totalReviewCount: 1,
   },
   {
     placeId: 6,
@@ -48,5 +53,6 @@ export const dummyPlaceList: PlaceListInfo[] = [
     averageStar: 5,
     paid: '무료',
     placeImg: 'url',
+    totalReviewCount: 1,
   },
 ];

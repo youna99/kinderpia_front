@@ -26,6 +26,7 @@ export interface ReviewData {
   blacklist: boolean;
   writer: string;
   likedByUser: boolean;
+  totalReviewCount: number;
 }
 
 // API 응답 구조
