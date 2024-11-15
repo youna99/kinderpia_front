@@ -122,7 +122,7 @@ const PLACES = [
     ]
   },
   {
-    district: '강원특별자치도',
+    district: '강원도',
     locations: [
       {
         name: '남이섬',
