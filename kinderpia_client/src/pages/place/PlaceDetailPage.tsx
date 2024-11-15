@@ -37,6 +37,8 @@ const PlaceDetailPage: React.FC = () => {
         return;
       }
 
+      console.log('place data >>>', data);
+
       setPlaceDetail(data.data);
       setRatingAndCategorys(data.data);
     } catch (error) {

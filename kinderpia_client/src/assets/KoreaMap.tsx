@@ -11,9 +11,8 @@ interface KoreaMapProps {
 const KoreaMap: React.FC<KoreaMapProps> = ({
   onRegionClick,
   selectedRegion,
-  setMapToggle
+  setMapToggle,
 }) => {
-  
   const [hoveredRegion, setHoveredRegion] = useState<string | null>(null);
 
   const handleRegionClick = (regionName: string) => {
@@ -50,12 +49,12 @@ const KoreaMap: React.FC<KoreaMapProps> = ({
         <path
           d="M 102.59775,8.7866972 100.14916,34.860487 71.603516,33.759574 60.990729,9.8316367 Z"
           style={{
-            fill: getRegionColor('강원특별자치도'),
+            fill: getRegionColor('강원도'),
             cursor: 'pointer',
             transition: 'fill 0.2s ease',
           }}
-          onClick={() => onRegionClick?.('강원특별자치도')}
-          onMouseEnter={() => handleRegionHover('강원특별자치도')}
+          onClick={() => onRegionClick?.('강원도')}
+          onMouseEnter={() => handleRegionHover('강원도')}
           onMouseLeave={() => handleRegionHover(null)}
         />
         {/* 경기도 */}
@@ -251,8 +250,18 @@ const KoreaMap: React.FC<KoreaMapProps> = ({
           transform="matrix(0.83673468,0,0,0.74600409,1.2938096,2.7351382)"
         >
           <path d="m 106.93404,45.705737 -7.5029,9.744625 -15.177885,-0.77618 5.174361,21.300509 -6.898693,1.20749 -1.207472,6.597022 15.177724,5.923768 -1.379791,-12.003336 14.315046,-0.948607 2.06969,15.842693 6.72691,1.007801 -0.34495,-6.933224 11.70601,-0.431185 -10.24029,-38.979392 z" />
-          <rect width="9.2687654" height="5.6100426" x="141.5316" y="42.014339" />
-          <rect width="1.9513191" height="1.097617" x="152.81267" y="48.965916" />
+          <rect
+            width="9.2687654"
+            height="5.6100426"
+            x="141.5316"
+            y="42.014339"
+          />
+          <rect
+            width="1.9513191"
+            height="1.097617"
+            x="152.81267"
+            y="48.965916"
+          />
         </g>
 
         {/* 지역 이름 표시 */}
