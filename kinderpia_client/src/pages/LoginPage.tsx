@@ -45,8 +45,8 @@ export default function LoginPage() {
     switch (id) {
       case 1:
         data = {
-          loginId: 'test6363',
-          userPw: 'test1234',
+          loginId: 'user10',
+          userPw: 'user1111',
         };
         break;
       default:
