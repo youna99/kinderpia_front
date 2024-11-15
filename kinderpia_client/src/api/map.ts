@@ -10,7 +10,7 @@ let requrl :string;
 if(API_BASE_URL === 'http://localhost:4000'){
   requrl = 'http://localhost:4000'+'/map';
 }else{
-  requrl = API_BASE_URL;
+  requrl = API_BASE_URL+'/map';
 }
 console.log(requrl);
 
