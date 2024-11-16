@@ -239,6 +239,7 @@ function MainPage() {
           }}
           callback={handleJoyrideCallback}
         />
+        <span className="tooltip-animation">도움말</span>
         <button
           type="button"
           id="help-info"

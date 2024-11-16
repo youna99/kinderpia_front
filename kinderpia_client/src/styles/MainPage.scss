@@ -6,6 +6,43 @@
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  .tooltip-animation {
+    position: absolute;
+    top: 1.5rem;
+    right: 8rem;
+    z-index: 100;
+    background-color: #f0f0f0;
+    border-radius: 1rem;
+    padding: 0.8rem;
+    transform: translateX(10px);
+    opacity: 0;
+    animation: moveAndFade 2s infinite;
+  }
+  .tooltip-animation::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -1rem;
+    transform: translateY(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent transparent #f0f0f0;
+  }
+
+  @keyframes moveAndFade {
+    0% {
+      transform: translateX(10px);
+      opacity: 0;
+    }
+    50% {
+      transform: translateX(0);
+      opacity: 1; /* 보이기 */
+    }
+    100% {
+      transform: translateX(10px);
+      opacity: 0; /* 사라지기 */
+    }
+  }
   #help-info {
     position: absolute;
     top: 1rem;
