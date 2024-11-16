@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import Joyride, { Step } from 'react-joyride';
 
 import KoreaMap from '../../assets/KoreaMap';
@@ -11,12 +11,12 @@ interface RegionMapProps {
   selectedDistrict?: string | null;
 }
 
-const RegionMap:React.FC<RegionMapProps> = ({
+const RegionMap: React.FC<RegionMapProps> = ({
   onDistrictClick,
   selectedDistrict,
-}) => { 
+}) => {
   const [hoveredDistrict, setHoveredDistrict] = useState<string | null>(null);
-  const [mapToggle, setMapToggle]=useState(true);
+  const [mapToggle, setMapToggle] = useState(true);
   const [run, setRun] = useState(false); // Joyride 상태 관리
 
   const steps: Step[] = [
@@ -43,7 +43,8 @@ const RegionMap:React.FC<RegionMapProps> = ({
         <div className="joyride-content">
           <p>지도의 구역을 클릭해보세요! </p>
           <p>
-            해당하는 지역에 속한 데이터를 검색할 수 있어요
+            해당하는 지역에 속한 데이터를
+            <br /> 검색할 수 있어요
           </p>
         </div>
       ),
@@ -56,7 +57,8 @@ const RegionMap:React.FC<RegionMapProps> = ({
         <div className="joyride-content">
           <p>키워드로 검색해보세요! </p>
           <p>
-            이름이나 지역에 키워드가 포함되어있는 검색결과를 보여줄거에요
+            이름이나 지역에 키워드가 포함되어있는
+            <br /> 검색결과를 보여줄거에요
           </p>
         </div>
       ),
@@ -69,18 +71,18 @@ const RegionMap:React.FC<RegionMapProps> = ({
         <div className="joyride-content">
           <p>검색 결과입니다! </p>
           <p>
-            이전의 두가지 방법중 하나를 선택한 검색 결과입니다.
+            이전의 두가지 방법중 하나를 선택한
+            <br />
+            검색 결과입니다.
           </p>
         </div>
       ),
       spotlightClicks: true,
     },
-
   ];
 
   return (
-    <div className='region-map'>
-      
+    <div className="region-map">
       <Joyride
         steps={steps}
         run={run}
@@ -103,22 +105,23 @@ const RegionMap:React.FC<RegionMapProps> = ({
         }}
       />
       <div className="map-toggle">
+        <span className="tooltip-animation">도움말</span>
         <button
           type="button"
           id="help-info"
           title="도움말"
           onClick={() => setRun(true)} // 버튼 클릭 시 튜토리얼 시작
-        >          
+        >
           <i className="xi-info-o help-info-icon"></i>
         </button>
         <section className="map-btn-group">
-          <button 
+          <button
             className={mapToggle ? 'active' : ''}
             onClick={() => setMapToggle(true)}
           >
             전국 지도
           </button>
-          <button 
+          <button
             className={!mapToggle ? 'active' : ''}
             onClick={() => setMapToggle(false)}
           >
@@ -126,22 +129,21 @@ const RegionMap:React.FC<RegionMapProps> = ({
           </button>
         </section>
       </div>
-      <hr/>
-      {mapToggle
-        ?
-          <KoreaMap
-            onRegionClick={onDistrictClick}
-            selectedRegion={selectedDistrict}
-            setMapToggle={setMapToggle} // 추가
-          />
-        :
-          <SeoulMap
-            onDistrictClick={onDistrictClick}
-            selectedDistrict={selectedDistrict}
-          />
-        }
+      <hr />
+      {mapToggle ? (
+        <KoreaMap
+          onRegionClick={onDistrictClick}
+          selectedRegion={selectedDistrict}
+          setMapToggle={setMapToggle} // 추가
+        />
+      ) : (
+        <SeoulMap
+          onDistrictClick={onDistrictClick}
+          selectedDistrict={selectedDistrict}
+        />
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default RegionMap
+export default RegionMap;

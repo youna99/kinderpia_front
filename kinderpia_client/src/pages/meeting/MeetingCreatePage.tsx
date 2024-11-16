@@ -24,7 +24,7 @@ import { postMeeting } from '../../api/meeting';
 // style 호출
 import '../../styles/meeting/createpage/MeetingCreatePage.scss';
 
-// utils 호출 
+// utils 호출
 import { extractUserIdFromCookie } from '../../utils/extractUserIdFromCookie';
 import createFakeMeeting from '../../utils/createDummyMeeting';
 import { simpleAlert } from '../../utils/alert';
@@ -107,7 +107,9 @@ const MeetingCreatePage = () => {
         <div className="joyride-content">
           <p>생성할 모임의 종류를 고를 수 있습니다.</p>
           <p>
-            이 모임이 어떤 테마를 가지고 있는지 간략하게 소개하는 항목입니다.
+            이 모임이 어떤 테마를 가지고 있는지
+            <br />
+            간략하게 소개하는 항목입니다.
           </p>
         </div>
       ),
@@ -120,7 +122,8 @@ const MeetingCreatePage = () => {
         <div className="joyride-content">
           <p>생성할 모임의 제목을 정할 수 있습니다.</p>
           <p>
-            이 모임이 어떤 이름을 가질지 정해주세요.
+            해당 모임이 <br />
+            어떤 이름을 가질지 정해주세요.
           </p>
         </div>
       ),
@@ -133,7 +136,10 @@ const MeetingCreatePage = () => {
         <div className="joyride-content">
           <p>모임의 참여 인원을 정할 수 있습니다.</p>
           <p>제한을 두고싶지 않다면 왼쪽</p>
-          <p>제한을 두고싶으면 오른쪽에서 숫자를 입력해주세요</p>
+          <p>
+            제한을 두고싶으면 오른쪽에서
+            <br /> 숫자를 입력해주세요
+          </p>
         </div>
       ),
       disableBeacon: true,
@@ -143,9 +149,15 @@ const MeetingCreatePage = () => {
       placement: 'top',
       content: (
         <div className="joyride-content">
-          <p>모임이 어디서 이루어지는지 정할 수 있습니다.</p>
+          <p>
+            모임이 어디서 이루어지는지 <br />
+            정할 수 있습니다.
+          </p>
           <p>검색을 통해 모임 장소를 찾아주세요</p>
-          <p>모임 장소는 간략한 지도에서도 확인할 수 있습니다.</p>
+          <p>
+            모임 장소는 간략한 지도에서도 <br />
+            확인할 수 있습니다.
+          </p>
         </div>
       ),
       disableBeacon: true,
@@ -155,31 +167,48 @@ const MeetingCreatePage = () => {
       placement: 'bottom',
       content: (
         <div className="joyride-content">
-        <p>모임이 언제 이루어지는지 정할 수 있습니다.</p>
-        <p>날짜는 달력을 통해 정해주세요</p>
-        <p>시간은 오전/오후, 시간을 정해주세요</p>
+          <p>
+            모임이 언제 이루어지는지 <br />
+            정할 수 있습니다.
+          </p>
+          <p>날짜는 달력을 통해 정해주세요</p>
+          <p>시간은 오전/오후, 시간을 정해주세요</p>
         </div>
       ),
       disableBeacon: true,
-    },    
+    },
     {
       target: '.meeting-create-page-form-desc', // 신규 모임 섹션
       placement: 'bottom',
       content: (
         <div className="joyride-content">
-          <p>모임에 대해서 설명하는 글을 작성할 수 있습니다.</p>
-          <p>다른 분들에게 모임이 어떤 모임인지 소개하는 글을 작성해주세요</p>
+          <p>
+            모임에 대해서 설명하는 글을 <br />
+            작성할 수 있습니다.
+          </p>
+          <p>
+            다른 분들에게 모임이 어떤 모임인지 <br />
+            소개하는 글을 작성해주세요
+          </p>
         </div>
       ),
       disableBeacon: true,
-    },    
+    },
     {
       target: '.meeting-create-page-form-joinmethod', // 신규 모임 섹션
       placement: 'bottom',
       content: (
         <div className="joyride-content">
-          <p>모임에 참여하려면 승인이 필요한지 여부를 정할 수 있습니다.</p>
-          <p> 모임에 참여하려면 자유롭게 참가할 수있는지 당신의 허락이 필요한지 정해주세요</p>
+          <p>
+            모임에 참여하려면 승인이 필요한지 <br />
+            여부를 정할 수 있습니다.
+          </p>
+          <p>
+            {' '}
+            모임에 참여하려면 <br />
+            자유롭게 참가할 수있는지 <br />
+            당신의 허락이 필요한지 정해주세요
+          </p>
         </div>
       ),
       disableBeacon: true,
@@ -190,7 +219,10 @@ const MeetingCreatePage = () => {
       content: (
         <div className="joyride-content">
           <p>드디어 제출 버튼입니다.</p>
-          <p>이 버튼을 누르면 모임이 생성되고, 다른 사람들이 참여할 수 있게 됩니다.</p>
+          <p>
+            이 버튼을 누르면 모임이 생성되고, <br />
+            다른 사람들이 참여할 수 있게 됩니다.
+          </p>
         </div>
       ),
       disableBeacon: true,
@@ -245,14 +277,18 @@ const MeetingCreatePage = () => {
   const fakeCreateMeeting = async () => {
     const data = await createFakeMeeting();
 
-    if(!data){
-      simpleAlert('error','더미 모임을 생성하려면 로그인 하셔야 해요!', 'center')
+    if (!data) {
+      simpleAlert(
+        'error',
+        '더미 모임을 생성하려면 로그인 하셔야 해요!',
+        'center'
+      );
       return;
     }
 
     const result = await postMeeting(data);
-    if(!result){
-      simpleAlert('error','모임 생성에 실패하셨어요!! ', 'center')
+    if (!result) {
+      simpleAlert('error', '모임 생성에 실패하셨어요!! ', 'center');
       return;
     }
     navigate(`/meeting/${result.data}`);
@@ -282,15 +318,16 @@ const MeetingCreatePage = () => {
         }}
       />
       <section className="meeting-create-page-notice">
+        <span className="tooltip-animation">도움말</span>
         <button
           type="button"
           id="help-info"
           title="도움말"
           onClick={() => setRun(true)} // 버튼 클릭 시 튜토리얼 시작
-        >          
+        >
           <i className="xi-info-o help-info-icon"></i>
         </button>
-        <div className='meeting-create-page-notice-content'>
+        <div className="meeting-create-page-notice-content">
           <i className="xi-check"></i> 표시는 필수 입력사항 입니다.
         </div>
       </section>
