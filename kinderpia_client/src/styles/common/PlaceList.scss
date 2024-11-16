@@ -3,7 +3,7 @@
 .place-section {
   width: 100%;
   margin: 0 auto;
-  
+
   .place-container {
     display: flex;
     flex-direction: column;
@@ -56,6 +56,12 @@
       }
       .rating {
         font-size: 1.3rem;
+
+        .totalReviewCount {
+          padding-left: 0.8rem;
+          color: $status-color3;
+          font-size: 1.2rem;
+        }
       }
       .price-type {
         font-size: 1.2rem;

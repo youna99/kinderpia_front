@@ -213,6 +213,7 @@ const PlacePage: React.FC = () => {
                 averageStar={place.averageStar}
                 paid={place.paid}
                 placeImg={place.placeImg}
+                totalReviewCount={place.totalReviewCount}
               />
             </div>
           ))}

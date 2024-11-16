@@ -281,6 +281,7 @@ function MainPage() {
                 averageStar={place.averageStar}
                 paid={place.paid}
                 placeImg={place.placeImg}
+                totalReviewCount={place.totalReviewCount}
               />
             </SwiperSlide>
           ))}

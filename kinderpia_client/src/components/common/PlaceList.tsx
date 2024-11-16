@@ -11,6 +11,7 @@ const PlaceList: React.FC<PlaceListInfo> = ({
   averageStar,
   paid,
   placeImg,
+  totalReviewCount,
 }) => {
   const navigate = useNavigate();
 
@@ -40,8 +41,8 @@ const PlaceList: React.FC<PlaceListInfo> = ({
         <div className="place-content">
           <h3 className="title">{placeName}</h3>
           <div className="rating">
-            {/* <span className="star">⭐</span> {rating} */}
             <span className="star">⭐</span> {averageStar}
+            <span className="totalReviewCount">리뷰 {totalReviewCount}</span>
           </div>
           <p className="price-type">{paid ? '유료' : '무료'}</p>
         </div>
