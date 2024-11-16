@@ -63,10 +63,10 @@ main {
     transition: left 0.3s;
     z-index: 0;
   }
-  &:hover span{
+  &:hover span {
     color: $hover-text-color;
   }
-  &:hover a{
+  &:hover a {
     color: $hover-text-color;
   }
   &:hover::before {
@@ -83,4 +83,31 @@ main {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+@mixin moveAndFadeAnimation {
+  .tooltip-animation {
+    position: absolute;
+    z-index: 100;
+    background-color: #f0f0f0;
+    border-radius: 1rem;
+    padding: 0.8rem;
+    transform: translateX(10px);
+    opacity: 0;
+    animation: moveAndFade 2s infinite;
+  }
+  @keyframes moveAndFade {
+    0% {
+      transform: translateX(10px);
+      opacity: 0;
+    }
+    50% {
+      transform: translateX(0);
+      opacity: 1; /* 보이기 */
+    }
+    100% {
+      transform: translateX(10px);
+      opacity: 0; /* 사라지기 */
+    }
+  }
 }

@@ -109,7 +109,10 @@ function MainPage() {
           <p className="joyride-content-title">
             <span className="accent">채팅목록</span>으로 이동합니다.
           </p>
-          <p>참여모임 목록을 확인할수 있어요!</p>
+          <p>
+            참여모임 목록을 <br />
+            확인할수 있어요!
+          </p>
         </div>
       ),
     },

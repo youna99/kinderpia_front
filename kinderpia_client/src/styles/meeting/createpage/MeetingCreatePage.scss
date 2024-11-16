@@ -11,7 +11,7 @@
   max-width: 600px;
   padding: $caption;
 
-  &-form{
+  &-form {
     width: 100%;
     background-color: #fff;
     margin-bottom: 1rem;
@@ -20,10 +20,10 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-
+    position: relative;
     font-size: $body;
     color: #ff0044;
-    button{
+    button {
       z-index: 100;
       background: #fff;
       cursor: pointer;
@@ -33,6 +33,24 @@
       }
     }
   }
+}
+
+@include moveAndFadeAnimation;
+.tooltip-animation {
+  top: 3px;
+  left: 5rem;
+  font-size: 1rem;
+  color: #000;
+}
+.tooltip-animation::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -1rem;
+  transform: translateY(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent #f0f0f0 transparent transparent;
 }
 
 .joyride-content {
