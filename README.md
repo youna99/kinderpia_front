@@ -64,7 +64,9 @@
 |관리자 메인|회원 통계|
 |---|---|
 |![adminmain](https://github.com/user-attachments/assets/dc4c2712-e497-4abb-a3bd-1aa77238b3aa)|![adminuser](https://github.com/user-attachments/assets/c435a81e-e2ff-4ac1-9e1d-f018fd98fdd5)|
+
 |모임 통계|신고 조회|
+|---|---|
 |![adminmeeting](https://github.com/user-attachments/assets/92aa4380-6008-48b4-a4ab-a231b4baf005)|![adminreport](https://github.com/user-attachments/assets/a4def0d7-5ea3-4a62-b011-de689511273c)|
 
 
