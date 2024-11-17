@@ -4,7 +4,7 @@ import Joyride, { Step } from 'react-joyride';
 import SearchInput from '../../components/common/SearchInput';
 import MeetingList from '../../components/common/MeetingList';
 import { MettingListInfo } from '../../types/meetinglist';
-import { getMeetingList, getMeetingListSearch } from '../../api/meetinglist';
+import { getMeetingList, getMeetingListNotDeleted, getMeetingListSearch } from '../../api/meetinglist';
 import { formatDetailDate } from '../../utils/formatDate';
 import '../../styles/meeting/MeetingPage.scss';
 import RegionMap from '../../components/common/RegionMap';
@@ -47,7 +47,7 @@ const MeetingPage: React.FC = () => {
   const fetchMeetings = async (pageNum: number, isInitial: boolean = false) => {
     try {
       setIsLoading(true);
-      const response = await getMeetingList({
+      const response = await getMeetingListNotDeleted({
         page: pageNum,
         size: 10,
         keyword: currentSearchTerm.current,
