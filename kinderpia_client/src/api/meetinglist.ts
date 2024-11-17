@@ -37,6 +37,25 @@ export const getMeetingList = async (params: {
   }
 };
 
+export const getMeetingListNotDeleted = async (params: {
+  sort?: string;
+  page?: number;
+  size?: number;
+  category?: string;
+  keyword?: string;
+}) => {
+  try{
+    const response = await requestHeader.get('/api/meeting/list/notDeleted', {
+      params,
+      withCredentials: true,
+    });
+    return response.data;
+  }catch (error) {
+    // console.log(error);
+    return;
+  }
+};
+
 // api/meeting.ts
 export const getMeetingListSearch = async (params: {
   keyword?: string;
