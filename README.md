@@ -39,26 +39,26 @@
 ### 0) 메인 페이지
 |시작 화면|온보딩 튜토리얼|
 |---|---|
-|![home](https://github.com/user-attachments/assets/3332690a-2a31-413f-9a6c-6606b412eb72)|![onboarding](https://github.com/user-attachments/assets/c110df9e-f7c5-43fe-95f7-8d53225f6b1f)|
+|<img src="https://github.com/user-attachments/assets/3332690a-2a31-413f-9a6c-6606b412eb72" width="243" height="auto" alt="메인페이지 시작화면">|<img src="https://github.com/user-attachments/assets/c110df9e-f7c5-43fe-95f7-8d53225f6b1f" width="243" height="auto" alt="메인페이지 온보딩 튜토리얼">|
 
 ### 1) 회원기능
 |회원가입 페이지|로그인 페이지|마이페이지|
 |---|---|---|
-|![register](https://github.com/user-attachments/assets/4c0734b2-19c6-45fa-b7fe-0073d38a0d9d)|![signin](https://github.com/user-attachments/assets/646bd240-8742-4e46-a917-997d7ce949f4)|![mypage](https://github.com/user-attachments/assets/2c91a558-3ec1-4ab7-b906-c4e1f2db4764)|
+|<img src="https://github.com/user-attachments/assets/4c0734b2-19c6-45fa-b7fe-0073d38a0d9d" width="243" height="auto" alt="회원가입 페이지">|<img src="https://github.com/user-attachments/assets/646bd240-8742-4e46-a917-997d7ce949f4" width="243" height="auto" alt="로그인 페이지">|<img src="https://github.com/user-attachments/assets/2c91a558-3ec1-4ab7-b906-c4e1f2db4764" width="243" height="auto" alt="마이페이지">|
 
 ### 2) 장소기능
 |장소 검색|장소 상세조회|리뷰 작성/관리|
 |---|---|---|
-|![placesearch](https://github.com/user-attachments/assets/695a0e93-0dca-4084-8dba-0c37771e13e8)|![placedetail](https://github.com/user-attachments/assets/d623c84b-39bc-4f5a-98ae-7cdff044d1db)|![placereview](https://github.com/user-attachments/assets/57b711b9-45a0-4f35-a0f2-0717c9162b61)|
+|<img src="https://github.com/user-attachments/assets/695a0e93-0dca-4084-8dba-0c37771e13e8"  width="243" height="auto" alt="장소 검색">|<img src="https://github.com/user-attachments/assets/d623c84b-39bc-4f5a-98ae-7cdff044d1db"  width="243" height="auto" alt="장소 상세조회">|<img src="https://github.com/user-attachments/assets/57b711b9-45a0-4f35-a0f2-0717c9162b61"  width="243" height="auto" alt="리뷰작성관리">|
 
 ### 3) 모임기능
 |모임 검색|모임 생성|모임 참여|
 |---|---|---|
-|![meetingsearch](https://github.com/user-attachments/assets/d2c0adb0-dfdf-4fad-93e6-e9be9e252770)|![meetingcreate](https://github.com/user-attachments/assets/4d29f7df-13ef-4c6b-85d1-e539535e29f5)|![meetingjoin](https://github.com/user-attachments/assets/94873c45-a95a-440f-abba-fca146317e69)|
+|<img src="https://github.com/user-attachments/assets/d2c0adb0-dfdf-4fad-93e6-e9be9e252770"  width="243" height="auto" alt="리뷰작성관리">|<img src="https://github.com/user-attachments/assets/4d29f7df-13ef-4c6b-85d1-e539535e29f5"  width="243" height="auto" alt="리뷰작성관리">|<img src="https://github.com/user-attachments/assets/94873c45-a95a-440f-abba-fca146317e69"  width="243" height="auto" alt="리뷰작성관리">|
 
-|모임 관리|채팅||
-|---|---|---|
-|![meetingmanage](https://github.com/user-attachments/assets/befd81e7-e986-4708-a297-cca1c5ea76e5)|![meetingchat](https://github.com/user-attachments/assets/addd56ea-f22b-4273-8250-7246e3eb811f)|
+|모임 수정/관리|채팅|
+|---|---|
+|<img src="https://github.com/user-attachments/assets/befd81e7-e986-4708-a297-cca1c5ea76e5"  width="243" height="auto" alt="리뷰작성관리">|<img src="https://github.com/user-attachments/assets/addd56ea-f22b-4273-8250-7246e3eb811f"  width="243" height="auto" alt="리뷰작성관리">|
 
 ### 3) 관리자 기능
 |관리자 메인|회원 통계|
