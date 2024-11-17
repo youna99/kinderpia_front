@@ -1,5 +1,7 @@
 # Kinderpia_front [ 2024.10.21 (월) ~ 11.08 (금) ]
 
+![image](https://github.com/user-attachments/assets/268aa27c-f1da-4a2c-8eca-ebb656a43084)
+
 ## 기술 스택
 
 - 클라이언트 앱
