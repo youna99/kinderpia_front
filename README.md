@@ -7,6 +7,29 @@
 <div align="center">
   <strong>👨‍👩‍👧‍👦 부모와 아이들이 함께할 공간을 소개하며,<br> 🗨 모임을 만들어 함께 할 수 있는 웹 사이트</strong>
 </div>
+<br>
+<div align="center">
+
+![React](https://img.shields.io/badge/React-18.3.1-blue.svg)
+![Redux Toolkit](https://img.shields.io/badge/Redux%20Toolkit-2.3.0-purple.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-4.9.5-blue.svg)
+![Axios](https://img.shields.io/badge/Axios-1.7.7-brightgreen.svg)
+![React Router](https://img.shields.io/badge/React%20Router-6.27.0-blue.svg)
+![Sass](https://img.shields.io/badge/Sass-1.80.4-pink.svg)
+
+</div>
+
+<br>
+
+❣ 테스트 계정을 통해 로그인하거나, 로그인화면에서 [테스트 유저 계정으로 로그인] 버튼을 누르면
+해당 서비스를 빠르게 이용할수 있습니다.❣
+
+```
+ID: test3859
+Password: test1234
+```
+
+[👉 킨더피아 배포링크 바로가기](http://ec2-3-38-150-41.ap-northeast-2.compute.amazonaws.com/)
 
 <br>
 
@@ -78,6 +101,8 @@
 
   프레임워크 : Express.js
 
+<br>
+
 ## 📂 5. 프로젝트 폴더 구조
 
 ```
@@ -116,11 +141,15 @@ app.tsx              # React-Route모음
 
 ```
 
+<br>
+
 ## 😀 6. Use Case(유스케이스)
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/14bda5ae-c54c-4891-96c9-c145ef7b9054" width="500" height="auto" alt="유스케이스 다이어그램">
 </p>
+
+<br>
 
 ## 🏷️ 7. 기능 소개
 
