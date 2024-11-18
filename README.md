@@ -122,7 +122,7 @@ app.tsx              # React-Route모음
   <img src="https://github.com/user-attachments/assets/14bda5ae-c54c-4891-96c9-c145ef7b9054" width="500" height="auto" alt="유스케이스 다이어그램">
 </p>
 
-## 🏷️ 기능 소개
+## 🏷️ 7. 기능 소개
 
 ### 0) 메인 페이지
 
