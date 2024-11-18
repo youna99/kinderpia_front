@@ -1,0 +1,255 @@
+@import '../common/variables';
+@import '../common/utils';
+
+#edit-user {
+  text-align: center;
+  .title {
+    text-align: center;
+    font-size: $headline;
+    background: $bg-color;
+    padding: 1rem;
+  }
+  .profile {
+    text-align: left;
+    position: relative;
+    padding: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    figure {
+      width: 15rem;
+      height: 15rem;
+      min-width: 10rem;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      .profile-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        background: #fff;
+      }
+    }
+    .profile-details {
+      font-size: $body;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: right;
+      label {
+        display: inline-block;
+        width: 5rem;
+        margin-right: 1rem;
+        text-align-last: left;
+      }
+      input {
+        text-indent: 1rem;
+        padding: 0.5rem;
+      }
+      .createat {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: $caption;
+        padding: 0.5rem;
+        color: gray;
+      }
+      .noti-txt {
+        font-size: $caption;
+      }
+    }
+  }
+}
+
+#edit-user-form {
+  padding-top: 5rem;
+  font-size: $body;
+}
+.input-box {
+  text-align: left;
+  width: 50%;
+  margin: auto;
+  // 인풋 컴포넌트
+  .input-wrap {
+    position: relative;
+    margin: 0 auto 5.5rem;
+    .label {
+      position: absolute;
+      top: -1.5rem;
+      left: 0;
+      transform: translateY(-50%);
+      .required-icon {
+        display: none;
+      }
+    }
+    input {
+      width: 100%;
+      height: 5rem;
+      padding: 2rem;
+      box-sizing: border-box;
+      // background: $bg-color;
+      // border: none;
+      border: 2px solid $border-color;
+
+      &:focus {
+        border: 2px solid $main-color;
+      }
+    }
+    // input type number 화살표 제거하기
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type='number'] {
+      -moz-appearance: textfield;
+    }
+    // 눈, x 아이콘
+    .eraser-icon {
+      position: absolute;
+      right: 0.5rem;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      color: gray;
+      cursor: pointer;
+    }
+    .eye-icon {
+      position: absolute;
+      right: 3.5rem;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.2rem;
+      color: gray;
+      cursor: pointer;
+    }
+    // 에러메세지
+    .errmsg-box {
+      position: absolute;
+      text-align: left;
+      font-size: 1.2rem;
+      text-indent: 0.5rem;
+      .err-msg {
+        margin-top: 0.3rem;
+        display: block;
+        color: red;
+      }
+    }
+  }
+}
+.edit-submit-btn {
+  width: 50%;
+  height: 3.5rem;
+  font-size: $body;
+  border-radius: 2rem;
+  background-color: $btn-color;
+  color: #fff;
+  cursor: pointer;
+}
+.resign-btn {
+  margin-top: 2rem;
+  color: gray;
+  cursor: pointer;
+  margin-bottom: 10rem;
+}
+
+// 반응형
+@media (max-width: $md) {
+  #edit-user {
+    .title {
+      font-size: $title2;
+    }
+    .profile {
+      padding: 1rem 0;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      figure {
+        width: 13rem;
+        height: 13rem;
+        min-width: 10rem;
+        border: 1px solid transparent;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      .profile-details {
+        font-size: $caption;
+        input {
+          text-indent: 0.5rem;
+        }
+        .createat {
+          font-size: 1.2rem;
+        }
+        .noti-txt {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+
+  #edit-user-form {
+    padding-top: 4rem;
+    font-size: $body;
+  }
+  .input-box {
+    width: 70%;
+    // 인풋 컴포넌트
+    .input-wrap {
+      margin: 0 auto 5.5rem;
+      .label {
+        top: -1.3rem;
+      }
+      input {
+        height: 4rem;
+        padding: 1rem;
+        box-sizing: border-box;
+      }
+      // 눈, x 아이콘
+      .eraser-icon {
+        font-size: 1.5rem;
+      }
+      .eye-icon {
+        right: 2.5rem;
+        font-size: 1.7rem;
+      }
+      // 에러메세지
+      .errmsg-box {
+        font-size: 1.1rem;
+      }
+    }
+  }
+  .edit-submit-btn {
+    font-size: $caption;
+  }
+}
+
+@media (max-width: $sm) {
+  #edit-user {
+    .profile {
+      padding-top: 2.5rem;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      figure {
+        width: 10rem;
+        height: 10rem;
+      }
+      .profile-details {
+        font-size: $caption;
+      }
+    }
+  }
+
+  #edit-user-form {
+    padding-top: 4rem;
+    font-size: $caption;
+  }
+  .input-box {
+    width: 80%;
+  }
+  .edit-submit-btn {
+    font-size: $caption;
+  }
+}

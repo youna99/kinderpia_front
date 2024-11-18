@@ -1,0 +1,15 @@
+@import "../common/variables";
+
+.chat-container {
+    box-sizing: border-box;
+    padding : 0 3rem;
+    margin-top: 2rem;
+    min-height: calc(100vh - 28rem);
+}
+
+
+@media (max-width: $md) {
+    .chat-container {
+        padding : 0 1rem 3rem 1rem;
+    }
+}

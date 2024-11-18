@@ -1,0 +1,16 @@
+@import '../common/variables';
+
+.common-btn {
+  width: 100%;
+  background-color: $main-color;
+  margin: 1rem auto;
+  height: $title1 + $title1;
+  border-radius: 5px;
+  font-size: $button;
+  color: #ffffff;
+  margin-top: 1rem;
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+}

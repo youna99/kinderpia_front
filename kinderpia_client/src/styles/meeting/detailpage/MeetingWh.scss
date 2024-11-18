@@ -1,0 +1,46 @@
+@import '../../common/variables';
+@import '../../common/utils';
+
+.meeting-wh{
+  &-container {
+    margin-top: $caption;
+    
+    hr {
+      height: 1px;
+      background-color: #000;
+      border: none;
+      width: 100%;
+      margin: 0px auto;
+    }
+    .hr1{
+
+    }
+    .hr2{
+      margin: $headline 0px;
+    }
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    
+    &-title {
+      font-size: $headline;
+    }
+    &-report {
+      font-size: $button;
+    }
+  }
+
+  &-text{
+    display: flex;
+    flex-direction: column;
+    &-content{
+      font-family: inherit;
+      font-size: $body;
+      span{
+        font-size: $button;
+      }
+    }
+  }
+}

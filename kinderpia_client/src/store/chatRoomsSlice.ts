@@ -1,26 +1,49 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ChatRoomInfo } from "../types/chatlist";
+import { ChatPageInfo, ChatRoomListInfo } from "../types/chat";
 
 interface ChatRoomsState {
-  rooms: ChatRoomInfo[];
+  rooms: ChatRoomListInfo[];
+  chatPages: ChatPageInfo;
   error: boolean;
   loading: boolean;
-  isEmpty : boolean;
+  isEmpty: boolean;
+  isSelected: boolean;
+  badge : boolean;
 }
 
 const initialState: ChatRoomsState = {
   rooms: [],
+  chatPages: {
+    page: 1,
+    totalElements: 1,
+    totalPages: 1,
+  },
   error: false,
   loading: true,
-  isEmpty : true,
+  isEmpty: true,
+  isSelected: false,
+  badge : false,
 };
 
 const chatRoomSlice = createSlice({
   name: "chatRooms",
   initialState,
   reducers: {
-    setChatRooms: (state, action: PayloadAction<ChatRoomInfo[]>) => {
+    setChatRooms: (state, action: PayloadAction<ChatRoomListInfo[]>) => {
       state.rooms = action.payload;
+    },
+    addChatRooms: (state, action: PayloadAction<ChatRoomListInfo[]>) => {
+      state.rooms.push(...action.payload);
+    },
+    updateLastmessage:(state, action: PayloadAction<{chatroomId: number; lastMessage: string, lastMessageCreatedAt: string}>) => {
+      const room = state.rooms.find(room => room.chatroomId === action.payload.chatroomId);
+      if(room){
+        room.lastMessage = action.payload.lastMessage;
+        room.lastMessageCreatedAt = action.payload.lastMessageCreatedAt
+      }
+    },
+    setPages: (state, action: PayloadAction<ChatPageInfo>) => {
+      state.chatPages = action.payload;
     },
     setError: (state, action: PayloadAction<boolean>) => {
       state.error = action.payload;
@@ -29,10 +52,26 @@ const chatRoomSlice = createSlice({
       state.loading = action.payload;
     },
     setEmpty: (state, action: PayloadAction<boolean>) => {
-      state.isEmpty = action.payload;  
+      state.isEmpty = action.payload;
+    },
+    setSelected: (state, action: PayloadAction<boolean>) => {
+      state.isSelected = action.payload;
+    },
+    setBadge: (state, action:PayloadAction<boolean>) => {
+      state.badge = action.payload;
     }
   },
 });
 
-export const { setChatRooms, setError, setLoading, setEmpty } = chatRoomSlice.actions;
+export const {
+  setChatRooms,
+  addChatRooms,
+  setError,
+  setLoading,
+  setEmpty,
+  setSelected,
+  setPages,
+  updateLastmessage,
+  setBadge
+} = chatRoomSlice.actions;
 export default chatRoomSlice.reducer;

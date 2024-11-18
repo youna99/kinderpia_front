@@ -1,24 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+
+import AdminLayout from './layout/AdminLayout';
+import Dashboard from './pages/Dashboard';
+import Members from './pages/Members';
+import Reports from './pages/Reports';
+import BadPersons from './pages/BadPersons';
+import Meetings from './pages/Meetings';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter basename="/admin">  {/* basename 추가 */}
+        <Routes>
+          <Route path="/" element={<AdminLayout />}>  {/* /admin 대신 / 사용 */}
+            <Route index element={<Dashboard />} />
+            <Route path="members" element={<Members />} />
+            <Route path="meetings" element={<Meetings />} />
+            <Route path="reports" element={<Reports />} />
+            <Route path="blacklist" element={<BadPersons />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

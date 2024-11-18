@@ -1,0 +1,14 @@
+@import '../common/variables';
+
+.place-detail-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // margin-bottom: 100vh;
+
+  .place-detail-info {
+    padding: 1rem 0;
+    width: 100%;
+    max-width: 600px;
+  }
+}

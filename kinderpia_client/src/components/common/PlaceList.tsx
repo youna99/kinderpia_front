@@ -1,24 +1,49 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PlaceListInfo } from '../../types/placelist';
+import '../../styles/common/PlaceList.scss';
+import { getIcon } from '../../utils/getIcon';
 
 const PlaceList: React.FC<PlaceListInfo> = ({
-  title,
-  category,
-  rating,
-  priceType,
+  placeId,
+  placeName,
+  placeCtgName,
+  averageStar,
+  paid,
+  placeImg,
 }) => {
+  const navigate = useNavigate();
+
+  const buttonCanSendYouThere = (id: number) => {
+    navigate(`/place/${id}`);
+  };
+
+  // 카테고리별 아이콘이미지 가져오기
+  const categoryIconImg = placeCtgName ? getIcon(placeCtgName) : null;
+
   return (
-    <section>
+    <section
+      className="place-section"
+      onClick={() => {
+        buttonCanSendYouThere(placeId);
+      }}
+    >
       <div className="place-container">
         <div className="place-image">
-          <span className="place-category">{category}</span>
+          {categoryIconImg ? (
+            <figure className="place-icon">{categoryIconImg}</figure>
+          ) : (
+            <img src={placeImg} alt={placeName} />
+          )}
+          <span className="place-category">{placeCtgName}</span>
         </div>
         <div className="place-content">
-          <h3 className="title">{title}</h3>
+          <h3 className="title">{placeName}</h3>
           <div className="rating">
-            <span className="star">⭐</span> {rating}
+            {/* <span className="star">⭐</span> {rating} */}
+            <span className="star">⭐</span> {averageStar}
           </div>
-          <p className="price-type">{priceType}</p>
+          <p className="price-type">{paid ? '유료' : '무료'}</p>
         </div>
       </div>
     </section>

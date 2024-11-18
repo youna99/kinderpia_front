@@ -1,0 +1,17 @@
+@import '../common/variables';
+
+.tab {
+  display: flex;
+  gap: 4rem;
+  button {
+    font-size: $title3;
+    margin-top: 2rem;
+    padding: 0;
+    color: gray;
+    border-bottom: 2px solid transparent;
+    &.active {
+      color: #000;
+      border-bottom: 2px solid #000;
+    }
+  }
+}

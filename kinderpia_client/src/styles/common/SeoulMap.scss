@@ -1,0 +1,11 @@
+@import '../common/variables';
+
+svg {
+  width: 100%;
+  height: 90%;
+}
+
+.district-name {
+  font-family: 'Tenada';
+  pointer-events: none;
+}

@@ -1,0 +1,61 @@
+@import '../common/variables';
+
+.chatmenu-container {
+  width: 0;
+  position: absolute;
+  right: -2rem;
+  top: 0;
+  height: calc(100vh - 16rem);
+  z-index: 25;
+  background-color: $bg-color;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: width .2s;
+  &.open {
+    right: 0;
+    width: 70%;
+    padding: 0 1rem 0 2.5rem;
+    opacity: 1;
+  }
+  .chatmenu-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 0;
+    .chatmenu-info {
+      display: flex;
+      align-items: center;
+      span {
+        display: block;
+        font-size: 1.2rem;
+        color: #888;
+        &:first-child {
+          font-size: 1.6rem;
+          margin-right: 1rem;
+          color: #333;
+        }
+      }
+    }
+    .chatmenu-headerbtn {
+      button {
+        cursor: pointer;
+        font-size: 1.6rem;
+      }
+    }
+  }
+  .chatmenu-memberlists {
+    overflow-y: scroll;
+    height: calc(100% - 10.7rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem 0;
+  }
+  .chatmenu-footer {
+    position: absolute;
+    bottom: 0;
+    right: 2%;
+    padding: 1rem 0;
+    button {
+      cursor: pointer;
+    }
+  }
+}
