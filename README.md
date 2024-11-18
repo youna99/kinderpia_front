@@ -76,31 +76,11 @@ Password: test1234
 
 ## ⚙️ 4. 기술 스택
 
-- 클라이언트 앱
+![기술 스택](https://github.com/user-attachments/assets/d662a5e7-8354-4e81-b05d-b4286a82e1c6)
 
-  언어 : TypeScript
+### 📌공통적으로 사용한 주요기술 3
 
-  프레임워크 : React.js
-
-  스타일 : Sass
-
-  라이브러리 : sweetalert2, react-calendar, sockjs-client, react-joyride, react-redux
-
-- 관리자 앱
-
-  언어 : TypeScript
-
-  프레임워크 : React.js
-
-  스타일 : tailwindcss, sass
-
-  라이브러리 : react-chartjs-2
-
-- Naver API 통신용 Express.js 서버
-
-  언어 : TypeScript
-
-  프레임워크 : Express.js
+![공통적으로 사용한 주요기술 3](https://github.com/user-attachments/assets/d39c6536-436e-45c9-a159-8b3f18095079)
 
 <br>
 
