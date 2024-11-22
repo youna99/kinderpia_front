@@ -4,9 +4,21 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Autoplay } from 'swiper/modules';
-import { Link } from 'react-router-dom';
+import { Link, To, useNavigate } from 'react-router-dom';
+import { getJwtFromCookies } from '../utils/extractUserIdFromCookie';
 
 export const MainBanner = () => {
+  const navigate = useNavigate();
+
+  const handleBannerClick = (path: To) => {
+    const jwt = getJwtFromCookies();
+    if (jwt) {
+      navigate('/');
+    } else {
+      navigate(path);
+    }
+  };
+
   return (
     <section className="introduce">
       <Swiper
@@ -14,7 +26,6 @@ export const MainBanner = () => {
           clickable: true,
           type: 'fraction',
         }}
-        // navigation={true}
         loop={true}
         autoplay={{
           delay: 3000,
@@ -23,10 +34,8 @@ export const MainBanner = () => {
         modules={[Pagination, Autoplay]}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <Link to={'/user/login'}>
-            <img src="/images/banner1.png" alt="" className="banner-img" />
-          </Link>
+        <SwiperSlide onClick={() => handleBannerClick('/user/login')}>
+          <img src="/images/banner1.png" alt="" className="banner-img" />
         </SwiperSlide>
         <SwiperSlide>
           <Link to={'/place'}>
@@ -43,10 +52,8 @@ export const MainBanner = () => {
             <img src="/images/banner4.png" alt="" className="banner-img" />
           </Link>
         </SwiperSlide>
-        <SwiperSlide>
-          <Link to={'/user/login'}>
-            <img src="/images/banner5.png" alt="" className="banner-img" />
-          </Link>
+        <SwiperSlide onClick={() => handleBannerClick('/user/login')}>
+          <img src="/images/banner5.png" alt="" className="banner-img" />
         </SwiperSlide>
       </Swiper>
     </section>
