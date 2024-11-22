@@ -31,80 +31,32 @@
 
 ## 📢 1. 서비스 소개
 
-킨더피아는 '킨더(Kinder)'와 '유토피아(Utopia)'의 합성어로,
+킨더피아는 '킨더(Kindergarten)'와 '유토피아(Utopia)'의 합성어로,
 부모와 아이가 함께하는 이상적인 문화생활 플랫폼입니다.
 
 현대 사회에서 바쁜 부모들이 자녀와 질 높은 시간을 보내기 어려운 점에 착안하여 기획되었습니다. 다양한 놀이시설, 박물관, 키즈카페 등의 정보를 제공하고, 같은 관심사를 가진 가족들이 모임을 만들 수 있는 기회를 제공합니다.
 
 <br>
 
-## 🙋 2. 담당 역할
+## 🙋 2. Front-End Developers
 
-### 프로젝트 아키텍처 설계
+#### 강예나 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/yenaf)
 
-| 일반 사용자 메인                                                                              |          관리자 메인                                                                         |
-| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/e6226a0c-04be-4b4b-9242-51b57d130bbf" width="auto" height="400px" alt="사용자 메인">| <img src="https://github.com/user-attachments/assets/dc4c2712-e497-4abb-a3bd-1aa77238b3aa" width="auto" height="400px" alt="관리자메인"> |
+- 회원 관리 기능(회원가입, 로그인, 프로필 관리 등), 튜토리얼 기능
 
-이 프로젝트에서는 관리자 / 클라이언트 앱을 구분해서 개발했습니다.
+#### 이다인 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/DAIN302)
 
-- 보안성 강화 - 관리자 기능에 대한 접근 경로 분리
-         클라이언트 앱의 코드에서 관리자 기능 노출 방지가 가능합니다. 
-- 사용자 경험 최적화 
-         사용자 그룹에게 필요한 기능만 제공 - 각 앱의 로딩 시간 최적화할 수 있습니다. 
-         독립적인 기능 확장  - 각 앱의 특성에 맞는 라이브러리 선택이 가능합니다.
-- 책임 분리 - 각 앱의 장애가 다른  앱에게 영향을 끼치지 않기 위함입니다.
+- 웹 소켓을 이용한 실시간 채팅
 
-| 모임 생성 | 모임 상세 | 장소 상세 |
-| ----| ---- | ---- |
-| <img src="https://github.com/user-attachments/assets/672980e1-7145-4bdc-82e5-a8b2b12115ec"  width="243" height="auto" alt="리뷰작성관리"> | <img src="https://github.com/user-attachments/assets/9113af24-1005-49ed-8968-7b39cb1ad262"  width="243" height="auto" alt="리뷰작성관리"> | <img src="https://github.com/user-attachments/assets/2659bf98-ee16-4391-b85a-857896a247c5"  width="243" height="auto" alt="리뷰작성관리"> |
+#### 양태완 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/behindy3359)
 
-* 모임을 개설할 때, 각 정보 페이지에서 지도에 표시하기 위해서, 서버에서는 좌표가 아닌 주소를 저장합니다.
-* 주소를 좌표로 변환하기 위해 네이버의 Geocoding 과 검색 API를 활용합니다.
-* 모임 개설시 키워드 검색 -> 검색 API -> Geocoding 도로명 주소를 좌표로 변환 -> 지도에 표시, 도로명 주소는 서버에 전달하여 저장
-* 정보 페이지  DB에 저장된 도로명 주소 -> Geocoding 도로명 주소를 좌표로 변환 -> 지도에 표시
- 
-적용 이유 : 서버에서 지도에 표시하기 위한 일련의 과정을 한개의 엔드 포인트로 처리하면 네이
-버 API 와 통신하기 위한 소요 시간이 증가하고, 네트워크 상태에 따른 지연이 발생했습니다
+- 모임 기능, 지도 기능, 관리자 페이지
 
-* 클라이언트 앱에서 페이지를 렌더링 하는데 소요되는 시간이 증가했습니다.
-* 외부 API의 오류 또는 이상에 서비스가 영향 받지 않기 위함입니다.
+#### 이유나 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/youna99)
 
-구현 방식 : 해당하는 기능들을 Express.js로 별도로 구현된 서버에 엔드포인트를 구현해 클라이언트 앱과 통신하게 하고 외부 API 통신을 분리하여 메인 서버의 부하를 줄였습니다
+- 장소 조회/검색, 리뷰 작성/삭제/신고
 
-* 적절한 UX 제공을 위해서 텍스트 데이터들은 먼저 전송한 후에 이미지는 별도의 API를 구현하여 순차적으로 렌더링 될 수 있도록 구현했습니다.
-
-Express.js 서버를 활용한 이유
-* 상대적으로 가벼워 단순히 네이버 API 와의 통신만을 위한 서버 구현에 적합합니다.
-* 외부 API 통신 로직을 독립적으로 관리하여 유지보수성이 향상됩니다.  
-* 리소스 최적화 - 필요한 기능만 포함된 경량화된 서버 구성이 가능합니다.
-
-### 프론트 엔드
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/14bda5ae-c54c-4891-96c9-c145ef7b9054" width="500" height="auto" alt="유스케이스 다이어그램">
-</p>
-
-#### 모임기능
-
-| 모임 검색                                                                                                                                 | 모임 생성                                                                                                                                 | 모임 참여                                                                                                                                 |
-| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/d2c0adb0-dfdf-4fad-93e6-e9be9e252770"  width="243" height="auto" alt="리뷰작성관리"> | <img src="https://github.com/user-attachments/assets/4d29f7df-13ef-4c6b-85d1-e539535e29f5"  width="243" height="auto" alt="리뷰작성관리"> | <img src="https://github.com/user-attachments/assets/94873c45-a95a-440f-abba-fca146317e69"  width="243" height="auto" alt="리뷰작성관리"> |
-
-| 모임 수정/관리                                                                                                                            |
-| ----------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/befd81e7-e986-4708-a297-cca1c5ea76e5"  width="243" height="auto" alt="리뷰작성관리"> |
-
-#### 관리자 기능
-
-| 관리자 메인                                                                                   | 회원 통계                                                                                     |
-| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| ![adminmain](https://github.com/user-attachments/assets/dc4c2712-e497-4abb-a3bd-1aa77238b3aa) | ![adminuser](https://github.com/user-attachments/assets/c435a81e-e2ff-4ac1-9e1d-f018fd98fdd5) |
-
-| 모임 통계                                                                                        | 신고 조회                                                                                       |
-| ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
-| ![adminmeeting](https://github.com/user-attachments/assets/92aa4380-6008-48b4-a4ab-a231b4baf005) | ![adminreport](https://github.com/user-attachments/assets/a4def0d7-5ea3-4a62-b011-de689511273c) |
-
+<br>
 
 ## 📅 3. 개발일정
 
@@ -167,7 +119,15 @@ app.tsx              # React-Route모음
 
 <br>
 
-## 🏷️ 6. 전체 기능 소개
+## 😀 6. Use Case(유스케이스)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/14bda5ae-c54c-4891-96c9-c145ef7b9054" width="500" height="auto" alt="유스케이스 다이어그램">
+</p>
+
+<br>
+
+## 🏷️ 7. 기능 소개
 
 ### 0) 메인 페이지
 
