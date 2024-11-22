@@ -33,11 +33,8 @@ const PlaceDetailPage: React.FC = () => {
     try {
       const data = await getPlace(placeId);
       if (!data) {
-        console.log(data);
         return;
       }
-
-      console.log('place data >>>', data);
 
       setPlaceDetail(data.data);
       setRatingAndCategorys(data.data);

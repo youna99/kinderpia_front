@@ -22,7 +22,6 @@ const ScheduleCalender: React.FC = () => {
   const fetchMeetings = async () => {
     try {
       const response = await getUserMeetingScheduleList();
-      console.log('사용자 모임 일정 목록 조회', response);
       const fetchedMeetings: Meeting[] = response.data.data;
       setMeetings(fetchedMeetings);
       const today = new Date();

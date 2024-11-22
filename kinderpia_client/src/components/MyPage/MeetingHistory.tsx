@@ -111,7 +111,6 @@ const MeetingHistory: React.FC<MyInfoProps> = ({ userInfo }) => {
   // 모집 중인 모임 데이터 가져오기
   const fetchOngoingMeetings = async (page: number) => {
     const response = await getUserMeetingList(page);
-    console.log(response);
 
     // dataList가 존재할 경우에만 필터링
     const filteredDataList = response.data.data.dataList

@@ -21,7 +21,6 @@ const MyReviews: React.FC<MyInfoProps> = ({ userInfo }) => {
           const response = await requestHeader.get(
             `/api/user/review/list?page=${pageNumber}&size=10`
           );
-          console.log('사용자리뷰목록', response);
           if (response.data.status === 200) {
             const newReviews: ReviewProps[] = response.data.data.dataList;
             const totalPages = response.data.data.pageInfo.totalPages; // totalPages 가져오기

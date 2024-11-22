@@ -17,10 +17,6 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ data }) => {
     message: string
   ): Promise<void> => {
     try {
-      console.log('신고 사유:', reason);
-      console.log('상세 내용:', message);
-      console.log('리뷰 ID:', review.reviewId);
-
       setShowReportModal(false);
     } catch (error) {
       console.error('신고 처리 중 오류 발생:', error);
@@ -37,10 +33,6 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ data }) => {
       </div>
     );
   };
-
-  useEffect(() => {
-    console.log('Review Data:', data);
-  }, [data]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);

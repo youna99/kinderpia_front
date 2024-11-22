@@ -25,7 +25,6 @@ const MyPage: React.FC = () => {
   const fetchUserInfo = async () => {
     try {
       const response = await getUser();
-      // console.log('사용자조회', response);
       setUserInfo(response.data.data); // 응답 데이터를 상태로 설정
     } catch (error) {
       console.error('유저 정보를 불러오는 중 오류 발생:', error);

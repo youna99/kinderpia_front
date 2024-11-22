@@ -70,7 +70,6 @@ const ReviewInput: React.FC<ReviewInputProps> = ({
 
       const result = await postReview(reviewData);
 
-      console.log('result>>>', result);
       onReviewSubmit();
       setStar(0);
       setContent('');
