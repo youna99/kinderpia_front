@@ -41,7 +41,6 @@ const ReviewList: React.FC<ReviewListProps> = ({
       });
       const reviewData = response.data;
       setTotalReview(reviewData.totalReviewCount);
-      console.log('reviewData >>>', reviewData);
 
       if (reviewData.reviews.length > 0) {
         setReviews((prevReviews) => {

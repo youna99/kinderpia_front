@@ -133,8 +133,6 @@ export default function RegisterPage() {
     }
 
     try {
-      console.log(data);
-
       await axios.post(
         `${process.env.REACT_APP_API_URL}/api/user/register`,
         data,

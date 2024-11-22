@@ -68,7 +68,6 @@ const Review: React.FC<ReviewItemProps> = ({
   const handleLike = async () => {
     try {
       const data = await postLike(reviewId);
-      console.log('like data>>>', data);
 
       // 상태 업데이트
       setIsLiked((prev) => !prev);
@@ -94,8 +93,6 @@ const Review: React.FC<ReviewItemProps> = ({
     reportReasonId: number,
     reportMessageContent: string
   ) => {
-    console.log('reportReasonId >>>>', reportReasonId);
-    console.log('reportMessageContent >>>', reportMessageContent);
 
     try {
       const response = await postReportBadContent({
@@ -103,7 +100,6 @@ const Review: React.FC<ReviewItemProps> = ({
         reportReasonId,
         reportMessageContent,
       });
-      console.log('response >>>', response?.data);
       if (response?.data.status === 201) {
         simpleAlert('success', '리뷰가 신고되었습니다.');
         setShowReportModal(false);

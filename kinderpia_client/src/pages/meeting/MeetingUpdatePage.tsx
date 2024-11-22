@@ -120,7 +120,6 @@ function MeetingUpdatePage() {
       const data: UpdateMeetingFormData = {
         ...updateFormData,
       };
-      console.log(data);
 
       const result = await putMeeting(Number(meetingId), data);
       if (result) {

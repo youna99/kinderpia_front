@@ -194,7 +194,6 @@ function MainPage() {
         page: 0,
         size: 8,
       });
-      console.log(`place data>>>>`, data.data.content);
 
       setPlaceList(data.data.content);
     } catch (error) {
@@ -210,7 +209,6 @@ function MainPage() {
         // page: 1,
         // size: 3,
       });
-      console.log('meetingdata >>>>', data.data.dataList);
 
       setMeetingList(data.data.dataList);
     } catch (error) {

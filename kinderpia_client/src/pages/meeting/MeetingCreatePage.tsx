@@ -263,8 +263,6 @@ const MeetingCreatePage = () => {
       const data: CreateMeetingFormData = {
         ...CreateMeetingFormData,
       };
-      console.log(data);
-
       const result = await postMeeting(data);
 
       navigate(`/meeting/${result.data}`);

@@ -125,8 +125,6 @@ const MeetingInfoDesc: React.FC<MeetingInfoDescProps> = ({
         reportMessageContent,
       });
 
-      console.log(result);
-
       setShowReportModal(false);
       // 신고 처리 후 reportToggle 상태 업데이트
       setReportToggle(true);

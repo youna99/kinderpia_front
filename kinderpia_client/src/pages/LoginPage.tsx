@@ -86,12 +86,10 @@ export default function LoginPage() {
   };
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
-    console.log(data);
 
     try {
       const response = await postUserLogin(data);
       if (response.status === 200) {
-        console.log('로그인 완료:', response);
         await simpleAlert('success', '로그인 완료');
         navigate('/');
       }

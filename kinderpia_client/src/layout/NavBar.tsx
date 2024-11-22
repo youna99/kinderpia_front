@@ -18,8 +18,6 @@ export default function NavBar() {
     dispatch(setBadge(hasUnreadMessages));
   }, [unreadCounts, rooms]);
 
-  console.log('dotdot', badge);
-
   return (
     <nav className="navigation">
       <div className="inner">

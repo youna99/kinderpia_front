@@ -12,7 +12,6 @@ if(API_BASE_URL === 'http://localhost:4000'){
 }else{
   requrl = API_BASE_URL+'/map';
 }
-console.log(requrl);
 
 export const searchLocation = async (query: string): Promise<SearchResultItem[]> => {
   try {
@@ -20,7 +19,6 @@ export const searchLocation = async (query: string): Promise<SearchResultItem[]>
       params: { query },
       withCredentials: true
     });
-    console.log(response.data.places);
     return response.data.places;
   } catch (error) {
     console.error('위치 검색 오류:', error);
@@ -32,7 +30,6 @@ export const getCoordinate = async(query: string): Promise<LocationData> => {
   try {
     const response = await axios.get(`${requrl}/api/coordinate`, {
       params: { query },
-      // CORS 인증 정보 포함
       withCredentials: true
     });
     

@@ -3,7 +3,6 @@ import { requestHeader } from './requestHeader';
 export const fetchMeetingByCategory = async () => {
   try{
     const response = await requestHeader.get('/api/manager/meetingCnt/category');
-    console.log('>>>>>', response.data.data );
     
     return response.data.data;
   } catch (error) {
@@ -14,7 +13,6 @@ export const fetchMeetingByCategory = async () => {
 export const fetchDailyMeetingUser = async () => {
   try{
     const response = await requestHeader.get('/api/manager/acceptedUserCnt/daily');
-    console.log('>>>>>', response.data.data );
     
     return response.data.data;
   } catch (error) {

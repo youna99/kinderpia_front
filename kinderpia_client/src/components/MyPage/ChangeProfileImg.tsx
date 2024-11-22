@@ -62,7 +62,7 @@ export const ChangeProfileImg: React.FC<ChangeProfileImgProps> = ({
                 withCredentials: true,
               }
             );
-            console.log('이미지 업로드 성공:', response.data);
+            console.log('이미지 업로드 성공');
             simpleAlert('success', '프로필을 수정했습니다.');
           } catch (error) {
             console.error('이미지 업로드 실패:', error);
